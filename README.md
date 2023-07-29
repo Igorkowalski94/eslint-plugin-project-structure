@@ -1,6 +1,6 @@
 # eslint-plugin-project-structure
 
-![image](https://github.com/Igorkowalski94/eslint-plugin-project-structure/assets/49439801/ed5ce039-3b62-4d4e-a0ad-883bd65fef1c)
+![plot](./images/mainImage.png)
 
 Eslint plugin that allows you to enforce rules on project structure to keep your repository consistent even in large teams.
 

@@ -40,7 +40,7 @@
   "name": "eslint-plugin-project-structure",
   "repository": {
     "type": "git",
-    "url": "git:https://github.com/Igorkowalski94/eslint-plugin-project-structure.git"
+    "url": "git+https://github.com/Igorkowalski94/eslint-plugin-project-structure.git"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
