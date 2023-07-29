@@ -155,7 +155,8 @@ $ npm i --dev eslint-plugin-project-structure
       "name": {
         "case": "PascalCase"
       },
-      // It will be ParentName/components/ChildComponent.tsx or ParentName/components/ChildComponent/ChildComponent.tsx ... (recursion).
+      // It will be ParentName/components/ChildComponent.tsx or
+      // ParentName/components/ChildComponent/ChildComponent.tsx ... (recursion).
       "children": [
         {
           "name": "components",
@@ -170,7 +171,8 @@ $ npm i --dev eslint-plugin-project-structure
           ]
         },
         {
-          // With 'inheritParentName' it will be ParentName.test.tsx or ParentName.context.tsx or ParentName.test.js or ParentName.context.js
+          // With 'inheritParentName' it will be ParentName.test.tsx or
+          // ParentName.context.tsx or ParentName.test.js or ParentName.context.js
           "name": {
             "inheritParentName": "firstLetterUppercase",
             "regex": "/^.*\\.(context|test)$/"
