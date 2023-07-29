@@ -13,7 +13,7 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 - Inheriting the parent's name (the child inherits the name of the folder in which it is located)
 - Folder recursion
 
-# API:
+### API:
 
 ```jsonc
 {
@@ -84,7 +84,7 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 }
 ```
 
-# Installation
+### Installation
 
 ```bsh
 $ yarn add -D eslint-plugin-project-structure
@@ -96,7 +96,7 @@ or
 $ npm i --dev eslint-plugin-project-structure
 ```
 
-# Getting started
+### Getting started
 
 1. Add the following lines to .eslintrc
 
@@ -114,7 +114,7 @@ $ npm i --dev eslint-plugin-project-structure
 
 2. Create a `.projectStructurerc` file in the root of your project.
 
-## Example json:
+#### Example json:
 
 ```json
 {
@@ -200,7 +200,7 @@ $ npm i --dev eslint-plugin-project-structure
 }
 ```
 
-## Example yaml:
+#### Example yaml:
 
 ```yaml
 ---
