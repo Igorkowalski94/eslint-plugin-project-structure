@@ -1,0 +1,159 @@
+{
+    "$ref": "#/definitions/ProjectStructureConfig",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Case": {
+            "enum": [
+                "PascalCase",
+                "camelCase",
+                "snake_case",
+                "kebab-case",
+                "dash-case"
+            ],
+            "type": "string"
+        },
+        "Extension": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            ]
+        },
+        "FileRule": {
+            "additionalProperties": false,
+            "properties": {
+                "extension": {
+                    "$ref": "#/definitions/Extension"
+                },
+                "name": {
+                    "$ref": "#/definitions/Name"
+                },
+                "type": {
+                    "const": "file",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "FolderRule": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/Rule"
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "$ref": "#/definitions/Name"
+                },
+                "type": {
+                    "const": "folder",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children"
+            ],
+            "type": "object"
+        },
+        "Id": {
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "type": "object"
+        },
+        "InheritParentName": {
+            "enum": [
+                "firstLetterUppercase",
+                "firstLetterLowercase"
+            ],
+            "type": "string"
+        },
+        "Name": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/NameRegex"
+                },
+                {
+                    "$ref": "#/definitions/NameCase"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "NameCase": {
+            "additionalProperties": false,
+            "properties": {
+                "case": {
+                    "$ref": "#/definitions/Case"
+                }
+            },
+            "type": "object"
+        },
+        "NameRegex": {
+            "additionalProperties": false,
+            "properties": {
+                "inheritParentName": {
+                    "$ref": "#/definitions/InheritParentName"
+                },
+                "regex": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ProjectStructureConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "ignorePatterns": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "rules": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Rule"
+                    },
+                    "type": "object"
+                },
+                "structure": {
+                    "$ref": "#/definitions/Rule"
+                }
+            },
+            "required": [
+                "ignorePatterns",
+                "structure",
+                "rules"
+            ],
+            "type": "object"
+        },
+        "Rule": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/FolderRule"
+                },
+                {
+                    "$ref": "#/definitions/FileRule"
+                },
+                {
+                    "$ref": "#/definitions/Id"
+                }
+            ]
+        }
+    }
+}
