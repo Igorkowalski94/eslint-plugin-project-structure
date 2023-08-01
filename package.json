@@ -51,7 +51,7 @@
         "types:check": "tsc",
         "format": "prettier --write --config \"./.prettierrc.json\" .",
         "format:check": "prettier --check --config \"./.prettierrc.json\" .",
-        "lint": "eslint src --fix --max-warnings 0",
+        "lint": "eslint src --max-warnings 0",
         "lint:check": "eslint src --max-warnings 0",
         "clean": "del -rf dist",
         "test": "jest --coverage --watch",
