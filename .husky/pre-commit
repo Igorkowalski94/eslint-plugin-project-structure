@@ -1,0 +1,24 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '🕵️‍♂️ Checking your crappy code 🕵️‍♂️'
+
+echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ lint:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
+yarn lint || echo '🤢🤮🤢 lint:check failed 🤢🤮🤢'
+echo '✅✅✅ lint ✅✅✅'
+
+echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ types:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
+yarn types || echo '🤢🤮🤢 types:check failed 🤢🤮🤢'
+echo '✅✅✅ types ✅✅✅'
+
+echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ format:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
+yarn format || echo '🤢🤮🤢 format:check failed 🤢🤮🤢'
+echo '✅✅✅ format ✅✅✅'
+
+echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ test:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
+yarn test:husky || echo '🤢🤮🤢 test:check failed 🤢🤮🤢'
+echo '✅✅✅ test:check ✅✅✅'
+
+echo '🤔🤔🤔 Alright... code looks fine to me... trying to build now. 🤔🤔🤔'
+yarn build || echo '🤢🤮🤢 build failed 🤢🤮🤢'
+echo '✅✅✅ You win this time... I am committing this now. ✅✅✅'

@@ -1,20 +1,19 @@
+import { getExtensionInvalidError } from "./helpers/getExtensionInvalidError";
 import { Rule } from "../../types";
-import { throwExtensionInvalid } from "../../validators/validateExtension/helpers/throwExtensionInvalid";
 
-export const validateExtension = (nodeName: string, { extension }: Rule) => {
-  const isFile = nodeName.includes(".");
+export const validateExtension = (
+    fileName: string,
+    { extension }: Rule,
+): void => {
+    if (!extension) return;
 
-  if (!isFile || !extension) return;
+    if (typeof extension === "string") {
+        if (!fileName.endsWith(extension))
+            throw getExtensionInvalidError(fileName, extension);
 
-  if (typeof extension === "string") {
-    if (!nodeName.endsWith(extension))
-      throwExtensionInvalid(nodeName, extension);
+        return;
+    }
 
-    return;
-  }
-
-  if (!extension.some((ext) => nodeName.endsWith(ext)))
-    throwExtensionInvalid(nodeName, extension);
-
-  return;
+    if (!extension.some((ext) => fileName.endsWith(ext)))
+        throw getExtensionInvalidError(fileName, extension);
 };

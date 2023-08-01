@@ -63,15 +63,15 @@
             ],
             "type": "object"
         },
-        "Id": {
+        "RuleId": {
             "additionalProperties": false,
             "properties": {
-                "id": {
+                "ruleId": {
                     "type": "string"
                 }
             },
             "required": [
-                "id"
+                "ruleId"
             ],
             "type": "object"
         },
@@ -136,9 +136,7 @@
                 }
             },
             "required": [
-                "ignorePatterns",
-                "structure",
-                "rules"
+                "structure"
             ],
             "type": "object"
         },
@@ -151,7 +149,7 @@
                     "$ref": "#/definitions/FileRule"
                 },
                 {
-                    "$ref": "#/definitions/Id"
+                    "$ref": "#/definitions/RuleId"
                 }
             ]
         }

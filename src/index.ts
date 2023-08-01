@@ -1,7 +1,7 @@
 import { fileStructure } from "./rules/fileStructure";
 
 export const rules = {
-  "file-structure": fileStructure,
+    "file-structure": fileStructure,
 };
 
 export * from "./types";

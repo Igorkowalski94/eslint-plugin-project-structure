@@ -1,38 +1,15 @@
-import { Rule } from "../../types";
-import { throwNameInvalid } from "../../validators/validateName/helpers/throwNameInvalid";
-import { validateRegexPattern } from "../../validators/validateName/helpers/validateNamePattern";
-import { isRegex } from "./helpers/isRegex";
-import { validateInheritParentName } from "./helpers/validateInheritParentName";
+import { getNameError } from "../../helpers/getNameError";
+import { validateRegexPattern } from "../../helpers/validateRegexPattern/validateRegexPattern";
+import { Name } from "../../types";
 
-export const validateName = (
-  nodeName: string,
-  parentName: string,
-  rule: Rule
-) => {
-  const nodeType = nodeName.includes(".") ? "file" : "folder";
+export const validateName = (nodeName: string, ruleName: Name): void => {
+    if (typeof ruleName === "string") {
+        if (ruleName === nodeName) return;
 
-  if (!rule?.name) return;
+        throw getNameError(nodeName, ruleName);
+    }
 
-  const { name: ruleName } = rule;
+    const { regex } = ruleName;
 
-  if (typeof ruleName === "string") {
-    if (ruleName === nodeName) return;
-
-    return throwNameInvalid(nodeName, ruleName, nodeType);
-  }
-
-  if (typeof ruleName !== "object") return;
-
-  const { inheritParentName, regex } = ruleName;
-
-  if (inheritParentName)
-    return validateInheritParentName(
-      nodeName,
-      parentName,
-      inheritParentName,
-      regex,
-      nodeType
-    );
-
-  if (isRegex(regex)) return validateRegexPattern(nodeName, regex, nodeType);
+    if (regex) validateRegexPattern(nodeName, regex);
 };

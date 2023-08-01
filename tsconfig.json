@@ -1,12 +1,14 @@
 {
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "target": "ES2016",
-    "module": "commonjs",
-    "moduleResolution": "Node",
-    "removeComments": true,
-
-    "declaration": true,
-  },
-  "include": ["src", "src/projectStructurerc.schema.json"]
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "target": "ES6",
+        "module": "commonjs",
+        "moduleResolution": "Node",
+        "removeComments": true,
+        "strict": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
+        "noEmit": true
+    },
+    "include": ["src/**/*"]
 }

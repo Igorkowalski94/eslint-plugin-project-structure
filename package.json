@@ -1,53 +1,63 @@
 {
-  "author": "Igor Kowalski (Igorkowalski94)",
-  "bugs": {
-    "email": "jamnik999@gmail.com",
-    "url": "https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues"
-  },
-  "dependencies": {
-    "@typescript-eslint/utils": "^5.57.0"
-  },
-  "description": "Eslint plugin that allows you to enforce rules on project structure. Folder and file naming, folder structure, file extensions all under your control to keep your repo consistent even in large teams.",
-  "devDependencies": {
-    "@types/eslint": "^8.21.3",
-    "@types/node": "^20.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@typescript-eslint/parser": "^5.57.0",
-    "eslint": "^8.37.0",
-    "jest": "^28.1.3",
-    "ts-jest": "^28.0.8",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.2"
-  },
-  "engines": {
-    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
-  },
-  "homepage": "https://github.com/Igorkowalski94/eslint-plugin-project-structure#readme",
-  "keywords": [
-    "eslint",
-    "eslint-plugin",
-    "eslint plugin",
-    "project structure",
-    "repo structure",
-    "folder structure",
-    "project architecture",
-    "file name validation",
-    "folder name validation",
-    "extension validation"
-  ],
-  "license": "MIT",
-  "main": "dist/index.js",
-  "name": "eslint-plugin-project-structure",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Igorkowalski94/eslint-plugin-project-structure.git"
-  },
-  "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist",
-    "lint": "eslint . --ext .ts",
-    "test": "jest",
-    "test:watch": "jest --watch"
-  },
-  "version": "0.0.1"
+    "author": "Igor Kowalski (Igorkowalski94)",
+    "bugs": {
+        "email": "jamnik999@gmail.com",
+        "url": "https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues"
+    },
+    "dependencies": {},
+    "description": "Eslint plugin that allows you to enforce rules on project structure. Folder and file naming, folder structure, file extensions all under your control to keep your repo consistent even in large teams.",
+    "devDependencies": {
+        "@types/eslint": "^8.21.3",
+        "@types/jest": "^29.5.3",
+        "@types/js-yaml": "^4.0.5",
+        "@types/node": "^20.4.4",
+        "@typescript-eslint/eslint-plugin": "^5.57.0",
+        "@typescript-eslint/parser": "^5.57.0",
+        "@typescript-eslint/utils": "^5.57.0",
+        "eslint": "^8.37.0",
+        "eslint-plugin-import": "^2.28.0",
+        "husky": "^8.0.3",
+        "jest": "^29.6.2",
+        "prettier": "^3.0.0",
+        "ts-jest": "^29.1.1",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.2"
+    },
+    "engines": {
+        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+    },
+    "homepage": "https://github.com/Igorkowalski94/eslint-plugin-project-structure#readme",
+    "keywords": [
+        "eslint",
+        "eslint-plugin",
+        "eslint plugin",
+        "project structure",
+        "repo structure",
+        "folder structure",
+        "project architecture",
+        "file name validation",
+        "folder name validation",
+        "extension validation"
+    ],
+    "license": "MIT",
+    "main": "dist/index.js",
+    "name": "eslint-plugin-project-structure",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Igorkowalski94/eslint-plugin-project-structure"
+    },
+    "scripts": {
+        "build": "tsc -p tsconfig.build.json",
+        "types:check": "tsc",
+        "format": "prettier --write --config \"./.prettierrc.json\" .",
+        "format:check": "prettier --check --config \"./.prettierrc.json\" .",
+        "lint": "eslint src --fix --max-warnings 0",
+        "lint:check": "eslint src --max-warnings 0",
+        "clean": "del -rf dist",
+        "test": "jest --coverage --watch",
+        "test:check": "jest --coverage --watchAll=false --bail",
+        "test:current": "jest --coverage --changedSince=origin/main",
+        "husky:prepare": "husky install"
+    },
+    "version": "1.0.0"
 }

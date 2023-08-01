@@ -1,40 +1,37 @@
-import { sep } from "path";
-
-import { filterRulesByType } from "../../validators/validatePath/helpers/filterRulesByType";
-import { isIdRule } from "../../helpers/isIdRule";
-
-import { validateRulesList } from "../../validators/validateRulesList";
+import { getNodeName } from "./helpers/getNodeName";
+import { getNodeRule } from "../../helpers/getNodeRule/getNodeRule";
 import { Rule, ProjectStructureConfig } from "../../types";
-import { validateCase } from "../../validators/validateCase/validateCase";
-import { validateExtension } from "../../validators/validateExtension/validateExtension";
-import { validateName } from "../../validators/validateName/validateName";
+import { validateCase } from "../validateCase/validateCase";
+import { validateChildren } from "../validateChildren/validateChildren";
+import { validateExtension } from "../validateExtension/validateExtension";
+import { validateInheritParentName } from "../validateInheritParentName/validateInheritParentName";
+import { validateName } from "../validateName/validateName";
 
 export const validatePath = (
-  filePath: string,
-  parentName: string,
-  rule: Rule,
-  config: ProjectStructureConfig
-) => {
-  const configRule = isIdRule(rule) ? config.rules[rule.id] : rule;
+    pathname: string,
+    parentName: string,
+    rule: Rule,
+    config: ProjectStructureConfig,
+): void => {
+    const { nodeName, fileNameWithExtension } = getNodeName(pathname);
+    const nodeRule = getNodeRule(rule, config);
 
-  if (!configRule) return;
+    const { name } = nodeRule;
 
-  const isFile = !filePath.includes(sep);
-  const nodeNames = filePath.split(sep);
-  const currentNodeName = isFile
-    ? filePath.replace(/\.[a-z]+$/, "")
-    : (nodeNames[0] as string);
+    if (name) {
+        if (typeof name === "object" && name.inheritParentName) {
+            validateInheritParentName(nodeName, parentName, name);
+        } else {
+            validateName(nodeName, name);
+        }
+    }
 
-  validateName(currentNodeName, parentName, configRule);
-  validateCase(currentNodeName, configRule);
-  validateExtension(nodeNames[0] as string, configRule);
+    if (typeof name === "object" && name.case)
+        validateCase(nodeName, name.case);
 
-  const nextPath = filePath.replace(`${currentNodeName}${sep}`, "");
-  const childrenByFileType = (configRule.children || []).filter((node) =>
-    filterRulesByType(nextPath, node, config)
-  );
+    if (fileNameWithExtension)
+        validateExtension(fileNameWithExtension, nodeRule);
 
-  if (childrenByFileType.length !== 0) {
-    validateRulesList(childrenByFileType, nextPath, config, currentNodeName);
-  }
+    if (nodeRule.children)
+        validateChildren(pathname, nodeName, nodeRule, config);
 };
