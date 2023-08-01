@@ -54,7 +54,7 @@ $ npm i --dev eslint-plugin-project-structure
 
 ```jsonc
 {
-    "$schema": "node_modules/eslint-plugin-project-structure/dist/projectStructurerc.schema.json",
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructurerc.schema.json",
     "ignorePatterns": ["src/legacy/*"],
     "structure": {
         "name": "src",
@@ -169,7 +169,7 @@ rules:
 {
     // Type checking for your .projectStructurerc
     // Optional.
-    "$schema": "node_modules/eslint-plugin-project-structure/dist/projectStructurerc.schema.json",
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructurerc.schema.json",
 
     // string[]
     // Optional.

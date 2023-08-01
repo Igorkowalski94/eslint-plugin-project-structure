@@ -1,0 +1,12 @@
+src/**
+tests/**
+jest.config.ts
+images/**
+.husky/**
+jestCache/**
+.eslintrc.js
+.github
+tsconfig.json
+coverage/**
+.prettierrc.json
+tsconfig.build.json
