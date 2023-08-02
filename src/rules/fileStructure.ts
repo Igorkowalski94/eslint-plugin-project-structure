@@ -39,7 +39,7 @@ export const fileStructure = ESLintUtils.RuleCreator(
                     "",
                 );
                 const filePathUnifySep = filePath?.includes("\\")
-                    ? filePath.replace(/"\\"/g, "/")
+                    ? filePath.replace(/\\/g, "/")
                     : filePath;
 
                 try {
