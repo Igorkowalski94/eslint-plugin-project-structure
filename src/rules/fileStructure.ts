@@ -38,9 +38,12 @@ export const fileStructure = ESLintUtils.RuleCreator(
                     `${context.getCwd?.()}${sep}`,
                     "",
                 );
+                const filePathUnifySep = filePath?.includes("\\")
+                    ? filePath.replace(/"\\"/g, "/")
+                    : filePath;
 
                 try {
-                    validateFileStructure(configPath, filePath);
+                    validateFileStructure(configPath, filePathUnifySep);
                 } catch (error) {
                     if (!finalErrorGuard(error)) return;
 

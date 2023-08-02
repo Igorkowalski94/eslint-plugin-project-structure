@@ -28,13 +28,24 @@
         "FileRule": {
             "additionalProperties": false,
             "properties": {
+                "ruleId": {
+                    "default": "Remember, you can only use 'ruleId' when the rule object has no other keys",
+                    "type": "null"
+                },
+                "children": {
+                    "default": "Remember, you can only use 'children' when 'type' is a folder/not set",
+                    "type": "null"
+                },
                 "extension": {
+                    "default": "",
                     "$ref": "#/definitions/Extension"
                 },
                 "name": {
+                    "default": "",
                     "$ref": "#/definitions/Name"
                 },
                 "type": {
+                    "enum": ["file", "folder"],
                     "const": "file",
                     "type": "string"
                 }
@@ -44,16 +55,31 @@
         "FolderRule": {
             "additionalProperties": false,
             "properties": {
+                "ruleId": {
+                    "default": "🔥 You can only use 'ruleId' when the rule object has no other keys 🔥",
+                    "type": "null"
+                },
+                "extension": {
+                    "default": "🔥 You can only use 'extension' when 'type' is a file 🔥",
+                    "type": "null"
+                },
                 "children": {
+                    "default": [
+                        {
+                            "type": "folder"
+                        }
+                    ],
                     "items": {
                         "$ref": "#/definitions/Rule"
                     },
                     "type": "array"
                 },
                 "name": {
+                    "default": "",
                     "$ref": "#/definitions/Name"
                 },
                 "type": {
+                    "enum": ["file", "folder"],
                     "const": "folder",
                     "type": "string"
                 }
@@ -65,7 +91,24 @@
             "additionalProperties": false,
             "properties": {
                 "ruleId": {
+                    "default": "",
                     "type": "string"
+                },
+                "children": {
+                    "default": "🔥 Cannot use 'children' together with 'ruleId' 🔥",
+                    "type": "null"
+                },
+                "extension": {
+                    "default": "🔥 Cannot use 'type' together with 'ruleId' 🔥",
+                    "type": "null"
+                },
+                "name": {
+                    "default": "🔥 Cannot use 'name' together with 'ruleId' 🔥",
+                    "type": "null"
+                },
+                "type": {
+                    "default": "🔥 Cannot use 'type' together with 'ruleId' 🔥",
+                    "type": "null"
                 }
             },
             "required": ["ruleId"],
@@ -92,6 +135,7 @@
                     "$ref": "#/definitions/InheritParentName"
                 },
                 "regex": {
+                    "default": "/^ $/",
                     "type": "string"
                 },
                 "case": {
