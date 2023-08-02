@@ -13,19 +13,13 @@ export type Extension<T extends Type = "file"> = T extends "folder"
     ? never
     : string | string[];
 
-export interface NameCase {
-    regex?: never;
-    case?: CaseType;
-    inheritParentName?: never;
-}
-
 export interface NameBase {
     regex?: string;
-    case?: never;
+    case?: CaseType;
     inheritParentName?: InheritParentName;
 }
 
-export type Name = NameBase | NameCase | string;
+export type Name = NameBase | string;
 
 export interface BaseRule<T extends Type> {
     ruleId?: never;

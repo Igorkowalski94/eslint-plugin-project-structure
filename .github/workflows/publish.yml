@@ -1,0 +1,49 @@
+name: Publish new version
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Choose version to bump"
+                required: true
+                default: "patch"
+                type: choice
+                options:
+                    - "patch"
+                    - "minor"
+                    - "major"
+
+jobs:
+    publish:
+        name: publish
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Setup node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "14.x"
+                  registry-url: "https://registry.npmjs.org"
+
+            - name: Config git
+              run: |
+                  git config user.name github-actions
+                  git config user.email github-actions@github.com
+                  git config --global push.followTags true
+
+            - name: Install dependencies
+              run: yarn --non-interactive --frozen-lockfile --ignore-scripts
+
+            - name: Build lib
+              run: yarn build
+
+            - name: Publish new version
+              run: |
+                  npm version ${{ github.event.inputs.version }}
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Push to main
+              run: git push

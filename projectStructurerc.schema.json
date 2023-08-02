@@ -58,9 +58,7 @@
                     "type": "string"
                 }
             },
-            "required": [
-                "children"
-            ],
+            "required": ["children"],
             "type": "object"
         },
         "RuleId": {
@@ -70,41 +68,24 @@
                     "type": "string"
                 }
             },
-            "required": [
-                "ruleId"
-            ],
+            "required": ["ruleId"],
             "type": "object"
         },
         "InheritParentName": {
-            "enum": [
-                "firstLetterUppercase",
-                "firstLetterLowercase"
-            ],
+            "enum": ["firstLetterUppercase", "firstLetterLowercase"],
             "type": "string"
         },
         "Name": {
             "anyOf": [
                 {
-                    "$ref": "#/definitions/NameRegex"
-                },
-                {
-                    "$ref": "#/definitions/NameCase"
+                    "$ref": "#/definitions/NameType"
                 },
                 {
                     "type": "string"
                 }
             ]
         },
-        "NameCase": {
-            "additionalProperties": false,
-            "properties": {
-                "case": {
-                    "$ref": "#/definitions/Case"
-                }
-            },
-            "type": "object"
-        },
-        "NameRegex": {
+        "NameType": {
             "additionalProperties": false,
             "properties": {
                 "inheritParentName": {
@@ -112,6 +93,9 @@
                 },
                 "regex": {
                     "type": "string"
+                },
+                "case": {
+                    "$ref": "#/definitions/Case"
                 }
             },
             "type": "object"
@@ -135,9 +119,7 @@
                     "$ref": "#/definitions/Rule"
                 }
             },
-            "required": [
-                "structure"
-            ],
+            "required": ["structure"],
             "type": "object"
         },
         "Rule": {

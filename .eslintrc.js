@@ -10,15 +10,17 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: "module",
     },
-    plugins: ["@typescript-eslint", "import"],
+    plugins: ["@typescript-eslint", "import", "prettier"],
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:import/typescript",
         "plugin:import/warnings",
+        "prettier",
     ],
     ignorePatterns: ["dist/**/*"],
     rules: {
+        "prettier/prettier": ["error"],
         "no-console": "warn",
         "object-shorthand": ["error", "always"],
         "no-extra-boolean-cast": "error",

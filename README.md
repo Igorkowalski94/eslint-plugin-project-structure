@@ -6,6 +6,7 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 
 ### Features
 
+-   ✅ Validation of project structure
 -   ✅ Validation of folder and file names
 -   ✅ Name case validation
 -   ✅ Name regex validation
@@ -16,11 +17,21 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 ### Go to:
 
 -   [Installation](#installation)
--   [JSON example](#example-json)
--   [YAML exemple](#example-yaml)
--   [API details](#api)
+-   [JSON example](#json-example)
+-   [YAML example](#yaml-example)
+-   [API](#api)
+    -   [$schema](#schema-string--undefined)
+    -   [ignorePatterns](#ignorepatterns-string--undefined)
+    -   [name](#name-name--string--undefined)
+    -   [type](#type-file--folder--undefined)
+    -   [extension](#extension-string--string--undefined)
+    -   [children](#children-rule--undefined)
+    -   [structure](#structure-rule)
+    -   [rules](#rules-recordstring-rule--undefined)
+    -   [ruleId](#ruleid-string--undefined)
+-   [Folder recursion](#folder-recursion)
 
-### Installation
+## Installation
 
 ```bsh
 $ yarn add -D eslint-plugin-project-structure
@@ -32,9 +43,9 @@ or
 $ npm i --dev eslint-plugin-project-structure
 ```
 
-### Getting started
+## Getting started
 
-1. Add the following lines to .eslintrc
+Add the following lines to .eslintrc
 
 ```jsonc
 {
@@ -48,9 +59,13 @@ $ npm i --dev eslint-plugin-project-structure
 }
 ```
 
-2. Create a `.projectStructurerc` file in the root of your project.
+Create a `.projectStructurerc` file in the root of your project.
 
-#### Example json:
+#### JSON example for the structure below:
+
+<p align="center">
+<img width="300px" src="./images/example.jpg"/>
+</p>
 
 ```jsonc
 {
@@ -78,7 +93,7 @@ $ npm i --dev eslint-plugin-project-structure
             },
             "type": "folder",
             "children": [
-                // ParentName/components/ChildComponent/ChildComponent/components/... (recursion).
+                // ParentComponent/components/ChildComponent3/components/... (recursion).
                 {
                     "name": "components",
                     "type": "folder",
@@ -88,9 +103,6 @@ $ npm i --dev eslint-plugin-project-structure
                         }
                     ]
                 },
-
-                // With 'inheritParentName' it will be ParentName.context.tsx or ParentName.context.ts
-                // ParentName.test.tsx or ParentName.test.ts
                 {
                     "name": {
                         "inheritParentName": "firstLetterUppercase",
@@ -99,20 +111,17 @@ $ npm i --dev eslint-plugin-project-structure
                     "type": "file",
                     "extension": [".tsx", "ts"]
                 },
-
-                // For example componentName.types.ts or ComponentName.api.ts,
                 {
                     "name": {
+                        "inheritParentName": "firstLetterLowercase",
                         "regex": "/^.*\\.(types|api)$/"
                     },
                     "type": "file",
                     "extension": ".ts"
                 },
-
-                // For example ComponentName.tsx
                 {
                     "name": {
-                        "case": "PascalCase"
+                        "inheritParentName": "firstLetterUppercase"
                     },
                     "type": "file",
                     "extension": ".tsx"
@@ -123,7 +132,7 @@ $ npm i --dev eslint-plugin-project-structure
 }
 ```
 
-#### Example yaml:
+#### YAML Example
 
 ```yaml
 ignorePatterns:
@@ -154,87 +163,162 @@ rules:
                   - ".tsx"
                   - ts
             - name:
+                  inheritParentName: firstLetterLowercase
                   regex: "/^.*\\.(types|api)$/"
               type: file
               extension: ".ts"
             - name:
-                  case: PascalCase
+                  inheritParentName: firstLetterUppercase
               type: file
               extension: ".tsx"
 ```
 
-### API:
+## API:
+
+#### **`"$schema"`**: `<string | undefined>`
+
+Type checking for your `.projectStructurerc`. It helps to fill configuration correctly.
 
 ```jsonc
 {
-    // Type checking for your .projectStructurerc
-    // Optional.
-    "$schema": "node_modules/eslint-plugin-project-structure/projectStructurerc.schema.json",
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructurerc.schema.json"
+}
+```
 
-    // string[]
-    // Optional.
-    "ignorePatterns": ["src/legacy/*"],
+#### **`"ignorePatterns"`**: `<string[] | undefined>`
 
-    // Structure of your project.
-    // Required.
+Here you can set the paths you want to ignore.
+
+```jsonc
+{
+    "ignorePatterns": ["src/legacy/*"]
+}
+```
+
+#### **`"name"`**: `<Name | string | undefined>`
+
+Fixed or dynamic file/folder name.
+
+-   **`"regex"`**: `<string | undefined>` Name regex. Must start and end with `/`.
+-   **`"case"`**: `<"PascalCase" | "camelCase" | "snake_case" | "kebab-case" | "dash-case" | undefined>` Name case validation.
+-   **`"inheritParentName"`**: `<firstLetterUppercase | firstLetterLowercase | undefined>` The child inherits the name of the folder in which it is
+    located and sets its first letter to lowercase or uppercase. When used with a regex, the parent name will be pasted after the first `^` character.
+
+> **Warning**
+> When using **`"case"`** together with **`"regex"`** and **`"inheritParentName"`** be aware that they may overlap.
+
+```jsonc
+{
+    "name": "FixedName"
+}
+```
+
+```jsonc
+{
+    "name": {
+        "regex": "/^\\.(types|api)$/",
+        "case": "PascalCase",
+        "inheritParentName": "firstLetterUppercase"
+    }
+}
+```
+
+#### **`"type"`**: `<"file" | "folder" | undefined>`
+
+Type of your rule.
+
+```jsonc
+{
+    "type": "file"
+}
+```
+
+#### **`"extension"`**: `<string | string[] | undefined>`
+
+Extension of your file. Not available when **`"type"`** is `"folder"`.
+
+```jsonc
+{
+    "extension": [".ts", ".tsx", ".js", ".jsx", "..."]
+}
+```
+
+#### **`"children"`**: `<Rule[] | undefined>`
+
+Folder children rules.
+Not available when **`"type"`** is `"file"`.
+Required when **`"type"`** is `"folder"`.
+
+```jsonc
+{
+    "children": [
+        {
+            "name": "Child",
+            "type": "file"
+        }
+    ]
+}
+```
+
+#### **`"structure"`**: `<Rule>`
+
+The structure of your project and its rules.
+
+```jsonc
+{
     "structure": {
-        // Fixed name or name object.
-        // Optional.
         "name": "src",
-
-        // folder or file.
-        // Optional.
         "type": "folder",
-
-        // Children of your folder.
-        // Optional.
-        // Only available when 'type' is folder/not set.
-        // Required when 'type' is folder.
         "children": [
-            {
-                // Fixed name or name object.
-                // Optional.
-                "name": {
-                    // Name regex.
-                    // Only available when 'case' not used. Must start and end with /
-                    // Optional.
-                    "regex": "/^\\.(types|api)$/",
-
-                    // "PascalCase" or "camelCase" or "snake_case" or "kebab-case" or "dash-case".
-                    // Only available when 'regex' and 'inheritParentName' not used.
-                    // Optional.
-                    "case": "PascalCase",
-
-                    // firstLetterUppercase or firstLetterLowercase.
-                    // The child inherits the name of the folder in which it is located and sets its first letter to lowercase or uppercase.
-                    // When used with a regex, the parent name will be pasted after the ^ character.
-                    // Only available when 'case' not used.
-                    // Optional.
-                    "inheritParentName": "firstLetterUppercase"
-                },
-
-                // folder or file.
-                // Optional.
-                "type": "file",
-
-                // string or string[]
-                // Optional.
-                "extension": [".ts", ".tsx", ".js", ".jsx", "..."]
-            },
-
-            // A reference to your custom rule.
-            // Only available when other keys are not used in object.
-            // Optional.
-            { "ruleId": "myCustomRule" }
+            // ...
         ]
-    },
-    // Our custom reusable rules.
-    // Optional.
+    }
+}
+```
+
+#### **`"rules"`**: `<Record<string, Rule> | undefined>`
+
+A place where you can add your custom rules.
+The key in the object will correspond to **`"ruleId"`**, which you can then use in many places.
+
+```jsonc
+{
     "rules": {
-        // Your custom rule.
-        // Optional.
+        "yourCustomRule": {
+            "name": "ComponentName",
+            "type": "folder",
+            "children": [
+                // ...
+            ]
+        }
+    }
+}
+```
+
+#### **`"ruleId"`**: `<string | undefined>`
+
+A reference to your custom rule. Only available when other keys are not used in object.
+
+```jsonc
+{
+    "ruleId": "yourCustomRule"
+}
+```
+
+## Folder recursion
+
+You can easily create recursions when you refer to the same **`"ruleId"`** that your rule has.
+
+```jsonc
+{
+    "rules": {
         "myCustomRule": {
-            //...
+            "type": "folder",
+            "children": [
+                {
+                    "ruleId": "myCustomRule"
+                }
+            ]
         }
     }
 }
