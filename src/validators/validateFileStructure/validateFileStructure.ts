@@ -1,19 +1,26 @@
-import { getInvalidConfigError } from "./helpers/getInvalidConfigError";
-import { isIgnoredFile } from "./helpers/isIgnoredFile";
+import { getInvalidConfigFileError } from "./helpers/getInvalidConfigFileError";
+import { getInvalidStructureError } from "./helpers/getInvalidStructureError";
+import { isIgnoredPath } from "./helpers/isIgnoredPath";
 import { readConfigFile } from "./helpers/readConfigFile";
 import { validatePath } from "../../validators/validatePath/validatePath";
 
 export const validateFileStructure = (
     configPath: string,
-    filePath?: string,
+    pathName?: string,
 ): void => {
-    if (!filePath) return;
+    if (!pathName) return;
 
     const config = readConfigFile(configPath);
 
-    if (!config || !config.structure) throw getInvalidConfigError(configPath);
+    if (!config || typeof config !== "object" || Array.isArray(config))
+        throw getInvalidConfigFileError(configPath);
 
-    if (isIgnoredFile(filePath, config)) return;
+    const { structure, ignorePatterns } = config;
 
-    validatePath(filePath, "structure", config.structure, config);
+    if (typeof structure !== "object" || !structure || Array.isArray(structure))
+        throw getInvalidStructureError(structure);
+
+    if (isIgnoredPath(pathName, ignorePatterns)) return;
+
+    validatePath(pathName, "structure", structure, config);
 };

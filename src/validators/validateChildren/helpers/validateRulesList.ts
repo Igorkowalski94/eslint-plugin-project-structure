@@ -19,6 +19,11 @@ export const validateRulesList = (
     let errorMessage = `\n\n 🔥🔥🔥 ${nodeType} '${nodeName}' is invalid:\n\n It should `;
     let countAddedMessages = 0;
 
+    if (nodesList.length === 0) {
+        if (nodeType === "folder") errorMessage += "be a file.";
+        if (nodeType === "file") errorMessage += "be a folder.";
+    }
+
     for (const childNode of nodesList) {
         try {
             validatePath(pathname, parentName, childNode, config);

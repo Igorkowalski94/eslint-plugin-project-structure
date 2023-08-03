@@ -1,15 +1,19 @@
-import { getNameError } from "../../helpers/getNameError";
-import { validateRegexPattern } from "../../helpers/validateRegexPattern/validateRegexPattern";
-import { Name } from "../../types";
+import { getInvalidNameError } from "./helpers/getInvalidNameError";
+import { getIsRegex } from "./helpers/getIsRegex";
+import { getNameError } from "./helpers/getNameError";
+import { validateRegexPattern } from "./helpers/validateRegexPattern/validateRegexPattern";
 
-export const validateName = (nodeName: string, ruleName: Name): void => {
-    if (typeof ruleName === "string") {
-        if (ruleName === nodeName) return;
+export const validateName = (
+    nodeName: string,
+    ruleName: string,
+    parentName: string,
+): void => {
+    if (typeof ruleName !== "string") throw getInvalidNameError(ruleName);
 
-        throw getNameError(nodeName, ruleName);
-    }
+    if (getIsRegex(ruleName))
+        return validateRegexPattern(nodeName, parentName, ruleName);
 
-    const { regex } = ruleName;
+    if (ruleName === nodeName) return;
 
-    if (regex) validateRegexPattern(nodeName, regex);
+    throw getNameError(nodeName, ruleName);
 };

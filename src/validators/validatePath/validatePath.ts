@@ -1,10 +1,11 @@
+import { getFolderTypeWithExtensionError } from "./helpers/getFolderTypeWithExtensionError";
+import { getInvalidTypeError } from "./helpers/getInvalidTypeError";
 import { getNodeName } from "./helpers/getNodeName";
+import { getRuleIdWithOtherKeysError } from "./helpers/getRuleIdWithOtherKeysError";
 import { getNodeRule } from "../../helpers/getNodeRule/getNodeRule";
-import { Rule, ProjectStructureConfig } from "../../types";
-import { validateCase } from "../validateCase/validateCase";
+import { Rule, ProjectStructureConfig, RuleId } from "../../types";
 import { validateChildren } from "../validateChildren/validateChildren";
 import { validateExtension } from "../validateExtension/validateExtension";
-import { validateInheritParentName } from "../validateInheritParentName/validateInheritParentName";
 import { validateName } from "../validateName/validateName";
 
 export const validatePath = (
@@ -13,25 +14,25 @@ export const validatePath = (
     rule: Rule,
     config: ProjectStructureConfig,
 ): void => {
+    if (
+        rule.ruleId &&
+        (rule.type || rule.name || rule.children || rule.extension)
+    )
+        throw getRuleIdWithOtherKeysError((rule as RuleId).ruleId);
+
     const { nodeName, fileNameWithExtension } = getNodeName(pathname);
-    const nodeRule = getNodeRule(rule, config);
+    const { name, children, extension, type } = getNodeRule(rule, config);
 
-    const { name } = nodeRule;
+    if (type !== undefined && type !== "file" && type !== "folder")
+        throw getInvalidTypeError(type);
 
-    if (name) {
-        if (typeof name === "object" && name.inheritParentName) {
-            validateInheritParentName(nodeName, parentName, name);
-        } else {
-            validateName(nodeName, name);
-        }
-    }
+    if (type === "folder" && extension)
+        throw getFolderTypeWithExtensionError(extension);
 
-    if (typeof name === "object" && name.case)
-        validateCase(nodeName, name.case);
+    if (name) validateName(nodeName, name, parentName);
 
-    if (fileNameWithExtension)
-        validateExtension(fileNameWithExtension, nodeRule);
+    if (extension && fileNameWithExtension)
+        validateExtension(fileNameWithExtension, extension);
 
-    if (nodeRule.children)
-        validateChildren(pathname, nodeName, nodeRule, config);
+    if (children) validateChildren(pathname, nodeName, children, config);
 };

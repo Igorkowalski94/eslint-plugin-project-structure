@@ -20,7 +20,12 @@ module.exports = {
     ],
     ignorePatterns: ["dist/**/*"],
     rules: {
-        "prettier/prettier": ["error"],
+        "prettier/prettier": [
+            "error",
+            {
+                endOfLine: "auto",
+            },
+        ],
         "no-console": "warn",
         "object-shorthand": ["error", "always"],
         "no-extra-boolean-cast": "error",

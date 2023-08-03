@@ -13,17 +13,9 @@ export type Extension<T extends Type = "file"> = T extends "folder"
     ? never
     : string | string[];
 
-export interface NameBase {
-    regex?: string;
-    case?: CaseType;
-    inheritParentName?: InheritParentName;
-}
-
-export type Name = NameBase | string;
-
 export interface BaseRule<T extends Type> {
     ruleId?: never;
-    name?: Name;
+    name?: string;
     children?: Rule[];
     extension?: Extension<T>;
     type?: T;

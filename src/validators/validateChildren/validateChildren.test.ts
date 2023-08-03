@@ -1,11 +1,27 @@
+import { getInvalidChildrenError } from "./helpers/getInvalidChildrenError";
 import { validateRulesList } from "./helpers/validateRulesList";
 import { validateChildren } from "./validateChildren";
+import { Rule } from "../../types";
 
 jest.mock("./helpers/validateRulesList", () => ({
     validateRulesList: jest.fn(),
 }));
 
 describe("validateChildren", () => {
+    it.each([0, 1, {}, null, undefined, "test", ""])(
+        "should throw error when children are invalid, children =  %s",
+        (children) => {
+            expect(() =>
+                validateChildren(
+                    "src/features/ComponentName.tsx",
+                    "src/features",
+                    children as Rule[],
+                    { structure: {} },
+                ),
+            ).toThrow(getInvalidChildrenError(children));
+        },
+    );
+
     it("should call validateChildren when children are not empty", () => {
         const validateRulesListMock = jest.fn();
 
@@ -16,13 +32,15 @@ describe("validateChildren", () => {
         validateChildren(
             "src/features/ComponentName.tsx",
             "src/features",
-            {
-                children: [
-                    {
-                        name: "componentName",
-                    },
-                ],
-            },
+            [
+                {
+                    children: [
+                        {
+                            name: "componentName",
+                        },
+                    ],
+                },
+            ],
             { structure: {} },
         );
 
@@ -36,14 +54,9 @@ describe("validateChildren", () => {
             validateRulesListMock,
         );
 
-        validateChildren(
-            "src/features/ComponentName.tsx",
-            "src/features",
-            {
-                children: [],
-            },
-            { structure: {} },
-        );
+        validateChildren("src/features/ComponentName.tsx", "src/features", [], {
+            structure: {},
+        });
 
         expect(validateRulesListMock).not.toBeCalled();
     });
