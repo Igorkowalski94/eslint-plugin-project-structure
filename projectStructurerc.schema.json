@@ -42,7 +42,7 @@
                 },
                 "name": {
                     "default": "",
-                    "$ref": "#/definitions/Name"
+                    "type": "string"
                 },
                 "type": {
                     "enum": ["file", "folder"],
@@ -76,7 +76,7 @@
                 },
                 "name": {
                     "default": "",
-                    "$ref": "#/definitions/Name"
+                    "type": "string"
                 },
                 "type": {
                     "enum": ["file", "folder"],
@@ -112,36 +112,6 @@
                 }
             },
             "required": ["ruleId"],
-            "type": "object"
-        },
-        "InheritParentName": {
-            "enum": ["firstLetterUppercase", "firstLetterLowercase"],
-            "type": "string"
-        },
-        "Name": {
-            "anyOf": [
-                {
-                    "$ref": "#/definitions/NameType"
-                },
-                {
-                    "type": "string"
-                }
-            ]
-        },
-        "NameType": {
-            "additionalProperties": false,
-            "properties": {
-                "inheritParentName": {
-                    "$ref": "#/definitions/InheritParentName"
-                },
-                "regex": {
-                    "default": "/^ $/",
-                    "type": "string"
-                },
-                "case": {
-                    "$ref": "#/definitions/Case"
-                }
-            },
             "type": "object"
         },
         "ProjectStructureConfig": {

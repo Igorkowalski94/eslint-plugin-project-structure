@@ -1,21 +1,14 @@
+import { getFolderTypeWithExtensionError } from "./helpers/getFolderTypeWithExtensionError";
+import { getInvalidTypeError } from "./helpers/getInvalidTypeError";
+import { getRuleIdWithOtherKeysError } from "./helpers/getRuleIdWithOtherKeysError";
 import { validatePath } from "./validatePath";
-import { Name } from "../../types";
-import { validateCase } from "../validateCase/validateCase";
+import { Extension, Rule, Type } from "../../types";
 import { validateChildren } from "../validateChildren/validateChildren";
 import { validateExtension } from "../validateExtension/validateExtension";
-import { validateInheritParentName } from "../validateInheritParentName/validateInheritParentName";
 import { validateName } from "../validateName/validateName";
-
-jest.mock("../validateInheritParentName/validateInheritParentName", () => ({
-    validateInheritParentName: jest.fn(),
-}));
 
 jest.mock("../validateName/validateName", () => ({
     validateName: jest.fn(),
-}));
-
-jest.mock("../validateCase/validateCase", () => ({
-    validateCase: jest.fn(),
 }));
 
 jest.mock("../validateExtension/validateExtension", () => ({
@@ -27,52 +20,87 @@ jest.mock("../validateChildren/validateChildren", () => ({
 }));
 
 describe("validatePath", () => {
-    it.each<[Name]>([
-        [{ inheritParentName: "firstLetterLowercase" }],
-        [{ regex: "//", inheritParentName: "firstLetterUppercase" }],
-    ])("should call validateInheritParentName when name =  %s", (name) => {
-        const validateInheritParentNameMock = jest.fn();
-        (validateInheritParentName as jest.Mock).mockImplementation(
-            validateInheritParentNameMock,
-        );
+    it.each<Rule>([
+        { children: [] },
+        { type: "folder", children: [] },
+        { type: "file" },
+        { extension: ".tsx" },
+        { extension: [".tsx"] },
+        { name: "test" },
+    ])(
+        "should throw error when ruleId is used with other keys, rule =  %s",
+        (rule) => {
+            expect(() =>
+                validatePath(
+                    "ComponentName.tsx",
+                    "parentName",
+                    {
+                        ruleId: "test",
+                        ...rule,
+                    } as Rule,
+                    {
+                        structure: {},
+                    },
+                ),
+            ).toThrow(getRuleIdWithOtherKeysError("test"));
+        },
+    );
 
-        validatePath(
-            "ComponentName.tsx",
-            "componentName",
-            {
-                name,
-            },
-            {
-                structure: {},
-            },
-        );
+    it.each([0, 1, {}, [], [1], null, "test", ""])(
+        "should throw error when type is invalid, type =  %s",
+        (type) => {
+            expect(() =>
+                validatePath(
+                    "ComponentName.tsx",
+                    "parentName",
+                    {
+                        type: type as unknown as undefined,
+                    },
+                    {
+                        structure: {},
+                    },
+                ),
+            ).toThrow(getInvalidTypeError(type));
+        },
+    );
 
-        expect(validateInheritParentNameMock).toBeCalled();
-    });
+    it.each<Extension>([".tsx", [".ts", ".js"]])(
+        "should throw error when extension is used with type folder, extension =  %s",
+        (extension) => {
+            expect(() =>
+                validatePath(
+                    "ComponentName.tsx",
+                    "parentName",
+                    {
+                        type: "folder",
+                        extension,
+                        children: [],
+                    } as unknown as Rule,
+                    {
+                        structure: {},
+                    },
+                ),
+            ).toThrow(getFolderTypeWithExtensionError(extension));
+        },
+    );
 
-    it.each<[Name]>([
-        [{ case: "PascalCase" }],
-        [{ regex: "//" }],
-        ["componentName"],
-    ])("should not call validateInheritParentName when name =  %s", (name) => {
-        const validateInheritParentNameMock = jest.fn();
-        (validateInheritParentName as jest.Mock).mockImplementation(
-            validateInheritParentNameMock,
-        );
-
-        validatePath(
-            "ComponentName.tsx",
-            "componentName",
-            {
-                name,
-            },
-            {
-                structure: {},
-            },
-        );
-
-        expect(validateInheritParentNameMock).not.toBeCalled();
-    });
+    it.each<Type | undefined>(["file", "folder", undefined])(
+        "should not throw error when type is valid, type =  %s",
+        (type) => {
+            expect(() =>
+                validatePath(
+                    "ComponentName.tsx",
+                    "parentName",
+                    {
+                        type: type as undefined,
+                    },
+                    {
+                        structure: {},
+                    },
+                ),
+            ).not.toThrow();
+        },
+    );
 
     it("should call validateName when name is string", () => {
         const validateNameMock = jest.fn();
@@ -80,7 +108,7 @@ describe("validatePath", () => {
 
         validatePath(
             "ComponentName.tsx",
-            "componentName",
+            "parentName",
             {
                 name: "test",
             },
@@ -92,18 +120,15 @@ describe("validatePath", () => {
         expect(validateNameMock).toBeCalled();
     });
 
-    it.each<[Name]>([
-        [{ inheritParentName: "firstLetterLowercase" }],
-        [{ regex: "//", inheritParentName: "firstLetterLowercase" }],
-    ])("should not call validateName when name =  %s", (name) => {
+    it("should not call validateName when name undefined", () => {
         const validateNameMock = jest.fn();
         (validateName as jest.Mock).mockImplementation(validateNameMock);
 
         validatePath(
             "ComponentName.tsx",
-            "componentName",
+            "parentName",
             {
-                name,
+                name: undefined,
             },
             {
                 structure: {},
@@ -113,82 +138,57 @@ describe("validatePath", () => {
         expect(validateNameMock).not.toBeCalled();
     });
 
-    it("should call validateCase when name is object and case is passed", () => {
-        const validateCaseMock = jest.fn();
-        (validateCase as jest.Mock).mockImplementation(validateCaseMock);
+    it.each<[string, Extension | undefined]>([
+        ["ComponentName.tsx", [".tsx", ".ts"]],
+        ["ComponentName.tsx", ".tsx"],
+    ])(
+        "should call validateExtension when pathname = %s, extension = %s",
+        (pathname, extension) => {
+            const validateExtensionMock = jest.fn();
+            (validateExtension as jest.Mock).mockImplementation(
+                validateExtensionMock,
+            );
 
-        validatePath(
-            "ComponentName.tsx",
-            "componentName",
-            {
-                name: { case: "PascalCase" },
-            },
-            {
-                structure: {},
-            },
-        );
+            validatePath(
+                pathname,
+                "parentName",
+                {
+                    extension,
+                },
+                {
+                    structure: {},
+                },
+            );
 
-        expect(validateCaseMock).toBeCalled();
-    });
+            expect(validateExtensionMock).toBeCalled();
+        },
+    );
 
-    it.each<[Name]>([
-        [{ inheritParentName: "firstLetterLowercase" }],
-        [{ regex: "//" }],
-        [{ regex: "//", inheritParentName: "firstLetterUppercase" }],
-        ["componentName"],
-    ])("should not call validateCase when name =  %s", (name) => {
-        const validateCaseMock = jest.fn();
-        (validateCase as jest.Mock).mockImplementation(validateCaseMock);
+    it.each<[string, Extension | undefined]>([
+        ["ComponentName.tsx", undefined],
+        ["ComponentName/ComponentName.tsx", ".tsx"],
+    ])(
+        "should not call validateExtension when pathname = %s, extension = %s",
+        (pathname, extension) => {
+            const validateExtensionMock = jest.fn();
+            (validateExtension as jest.Mock).mockImplementation(
+                validateExtensionMock,
+            );
 
-        validatePath(
-            "ComponentName.tsx",
-            "componentName",
-            {
-                name,
-            },
-            {
-                structure: {},
-            },
-        );
+            validatePath(
+                pathname,
+                "parentName",
+                {
+                    extension,
+                },
+                {
+                    structure: {},
+                },
+            );
 
-        expect(validateCaseMock).not.toBeCalled();
-    });
-
-    it("should call validateExtension when fileName has extension", () => {
-        const validateExtensionMock = jest.fn();
-        (validateExtension as jest.Mock).mockImplementation(
-            validateExtensionMock,
-        );
-
-        validatePath(
-            "ComponentName.tsx",
-            "componentName",
-            {},
-            {
-                structure: {},
-            },
-        );
-
-        expect(validateExtensionMock).toBeCalled();
-    });
-
-    it("should not call validateExtension when fileName do not include extension", () => {
-        const validateExtensionMock = jest.fn();
-        (validateExtension as jest.Mock).mockImplementation(
-            validateExtensionMock,
-        );
-
-        validatePath(
-            "src/ComponentName",
-            "src",
-            {},
-            {
-                structure: {},
-            },
-        );
-
-        expect(validateExtensionMock).not.toBeCalled();
-    });
+            expect(validateExtensionMock).not.toBeCalled();
+        },
+    );
 
     it("should call validateChildren when nodeRule includes children", () => {
         const validateChildrenMock = jest.fn();
@@ -198,7 +198,7 @@ describe("validatePath", () => {
 
         validatePath(
             "src/ComponentName",
-            "src",
+            "parentName",
             {
                 children: [{ name: "elo" }],
             },
@@ -218,7 +218,7 @@ describe("validatePath", () => {
 
         validatePath(
             "ComponentName.tsx",
-            "componentName",
+            "parentName",
             {},
             {
                 structure: {},

@@ -1,11 +1,12 @@
-import { getInvalidConfigError } from "./helpers/getInvalidConfigError";
-import { isIgnoredFile } from "./helpers/isIgnoredFile";
+import { getInvalidConfigFileError } from "./helpers/getInvalidConfigFileError";
+import { getInvalidStructureError } from "./helpers/getInvalidStructureError";
+import { isIgnoredPath } from "./helpers/isIgnoredPath";
 import { readConfigFile } from "./helpers/readConfigFile";
 import { validateFileStructure } from "./validateFileStructure";
 import { validatePath } from "../../validators/validatePath/validatePath";
 
-jest.mock("./helpers/isIgnoredFile", () => ({
-    isIgnoredFile: jest.fn(),
+jest.mock("./helpers/isIgnoredPath", () => ({
+    isIgnoredPath: jest.fn(),
 }));
 
 jest.mock("../../validators/validatePath/validatePath", () => ({
@@ -23,28 +24,38 @@ describe("validateFileStructure", () => {
         );
     });
 
-    it("should throw error when config is undefined", () => {
-        expect(() =>
-            validateFileStructure(
-                ".projectStructurerc",
-                "src/features/ComponentName.tsx",
-            ),
-        ).toThrow(getInvalidConfigError(".projectStructurerc"));
-    });
+    it.each([0, 1, "", "1", [], [1], null, undefined])(
+        "should throw error when config is invalid config = %s",
+        (config) => {
+            (readConfigFile as jest.Mock).mockReturnValue(config);
 
-    it("should throw error when config do not have structure", () => {
-        (readConfigFile as jest.Mock).mockReturnValue({});
+            expect(() =>
+                validateFileStructure(
+                    ".projectStructurerc",
+                    "ComponentName.tsx",
+                ),
+            ).toThrow(getInvalidConfigFileError(".projectStructurerc"));
+        },
+    );
 
-        expect(() =>
-            validateFileStructure(
-                ".projectStructurerc",
-                "src/features/ComponentName.tsx",
-            ),
-        ).toThrow(getInvalidConfigError(".projectStructurerc"));
-    });
+    it.each([0, 1, "", "1", [], [1], null, undefined])(
+        "should throw error when structure is invalid structure = %s",
+        (structure) => {
+            (readConfigFile as jest.Mock).mockReturnValue({
+                structure,
+            });
+
+            expect(() =>
+                validateFileStructure(
+                    ".projectStructurerc",
+                    "ComponentName.tsx",
+                ),
+            ).toThrow(getInvalidStructureError(structure));
+        },
+    );
 
     it("should return undefined when filePath is in ignorePatterns", () => {
-        (isIgnoredFile as jest.Mock).mockReturnValue(true);
+        (isIgnoredPath as jest.Mock).mockReturnValue(true);
         (readConfigFile as jest.Mock).mockReturnValue({ structure: {} });
 
         expect(
@@ -55,10 +66,10 @@ describe("validateFileStructure", () => {
         ).toEqual(undefined);
     });
 
-    it("should call undefined when filePath is in ignorePatterns", () => {
+    it("should call validatePath", () => {
         const validatePathMock = jest.fn();
 
-        (isIgnoredFile as jest.Mock).mockReturnValue(false);
+        (isIgnoredPath as jest.Mock).mockReturnValue(false);
         (validatePath as jest.Mock).mockImplementation(validatePathMock);
         (readConfigFile as jest.Mock).mockReturnValue({ structure: {} });
 

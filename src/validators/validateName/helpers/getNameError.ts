@@ -1,5 +1,5 @@
-import { getNodeType } from "./getNodeType";
-import { RuleError } from "../errors/RuleError/RuleError";
+import { RuleError } from "../../../errors/RuleError/RuleError";
+import { getNodeType } from "../../../helpers/getNodeType";
 
 export const getNameError = (nodeName: string, ruleName: string): RuleError => {
     const nodeType = getNodeType(nodeName);

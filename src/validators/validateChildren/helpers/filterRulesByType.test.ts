@@ -1,4 +1,5 @@
 import { filterRulesByType } from "./filterRulesByType";
+import { getInvalidRuleError } from "./getInvalidRuleError";
 import { RuleId, ProjectStructureConfig, Rule } from "../../../types";
 
 describe("filterRulesByType", () => {
@@ -54,6 +55,17 @@ describe("filterRulesByType", () => {
     const idFolder: RuleId = { ruleId: "folder" };
     const idEmpty = { ruleId: "idEmpty" };
     const idExtension = { ruleId: "idExtension" };
+
+    it.each([0, 1, [], [1], null, "test", ""])(
+        "should throw error when rule in children is invalid, rule =  %s",
+        (rule) => {
+            expect(() =>
+                filterRulesByType("componentName", rule as Rule, {
+                    structure: {},
+                }),
+            ).toThrow(getInvalidRuleError(rule));
+        },
+    );
 
     it.each<[boolean, string, Rule]>([
         [false, "src/componentName", fileRule],

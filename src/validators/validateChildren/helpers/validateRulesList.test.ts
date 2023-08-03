@@ -1,7 +1,12 @@
+import { getInvalidChildrenError } from "./getInvalidChildrenError";
 import { validateRulesList } from "./validateRulesList";
-import { getIncorrectIdRuleError } from "../../../helpers/getIdRule/helpers/getIncorrectIdRuleError";
-import { getIncorrectRegexError } from "../../../helpers/validateRegexPattern/helpers/getRegexError";
-import { ProjectStructureConfig, Rule } from "../../../types";
+import { getIdRuleError } from "../../../helpers/getIdRule/helpers/getIdRuleError";
+import { getInvalidRuleIdError } from "../../../helpers/getIdRule/helpers/getInvalidRuleIdError";
+import { getInvalidRulesError } from "../../../helpers/getIdRule/helpers/getInvalidRulesError";
+import { Extension, ProjectStructureConfig, Rule } from "../../../types";
+import { getInvalidExtensionError } from "../../validateExtension/helpers/getInvalidExtensionError";
+import { getInvalidNameError } from "../../validateName/helpers/getInvalidNameError";
+import { getInvalidTypeError } from "../../validatePath/helpers/getInvalidTypeError";
 
 jest.mock("path", () => ({
     sep: "/",
@@ -18,16 +23,11 @@ describe("validateRulesList", () => {
                     type: "folder",
                     children: [
                         {
-                            name: {
-                                case: "PascalCase",
-                            },
+                            name: "/^${{PascalCase}}$/",
                             type: "folder",
                             children: [
                                 {
-                                    name: {
-                                        inheritParentName:
-                                            "firstLetterUppercase",
-                                    },
+                                    name: "/^${{ParentName}}$/",
                                     type: "file",
                                     extension: ".tsx",
                                 },
@@ -37,43 +37,77 @@ describe("validateRulesList", () => {
                 },
             ],
         },
+        rules: {},
     };
 
     const nodesList: Rule[] = [
         {
-            name: {
-                inheritParentName: "firstLetterUppercase",
-                regex: "/^\\.(context|test|test.helpers)$/",
-            },
+            name: "/^${{ParentName}}(\\.(context|test|test.helpers))$/",
             type: "file",
             extension: ".tsx",
         },
         {
-            name: {
-                inheritParentName: "firstLetterLowercase",
-                regex: "/^\\.(api|types)$/",
-            },
+            name: "/^${{parentName}}(\\.(api|types))$/",
             type: "file",
             extension: ".ts",
         },
     ];
 
-    const nodesListIncorrectRegex: Rule[] = [
+    const nodesListInvalidName: Rule[] = [
         {
-            name: {
-                inheritParentName: "firstLetterUppercase",
-                regex: "$$$",
-            },
-            type: "file",
-            extension: ".tsx",
+            name: 2 as unknown as string,
         },
     ];
 
-    const nodesListIncorrectRuleId: Rule[] = [
+    const nodesListInvalidType: Rule[] = [
+        {
+            type: 2 as unknown as "file",
+        },
+    ];
+
+    const nodesListInvalidExtension: Rule[] = [
+        {
+            extension: 2 as unknown as Extension,
+        },
+    ];
+
+    const nodesListInvalidChildren: Rule[] = [
+        {
+            children: 2 as unknown as Rule[],
+        },
+    ];
+
+    const nodesListInvalidRuleId: Rule[] = [
+        {
+            ruleId: 2 as unknown as string,
+        },
+    ];
+    const nodesListRuleIdNotExist: Rule[] = [
         {
             ruleId: "test",
         },
     ];
+
+    it("should throw error when rule requires only folders", () => {
+        expect(() =>
+            validateRulesList(
+                "componentName.api.ts",
+                "ComponentName",
+                [],
+                config,
+            ),
+        ).toThrow(
+            "\n\n 🔥🔥🔥 file 'componentName.api.ts' is invalid:\n\n It should be a folder. \n\n 🔥🔥🔥",
+        );
+    });
+
+    it("should throw error when rule requires only files", () => {
+        expect(() =>
+            validateRulesList("componentName", "ComponentName", [], config),
+        ).toThrow(
+            "\n\n 🔥🔥🔥 folder 'componentName' is invalid:\n\n It should be a file. \n\n 🔥🔥🔥",
+        );
+    });
 
     it("should not throw error when all rules passed", () => {
         expect(() =>
@@ -95,19 +129,77 @@ describe("validateRulesList", () => {
                 config,
             ),
         ).toThrow(
-            "\n\n 🔥🔥🔥 file 'ComponentName.tsx' is invalid:\n\n It should match name pattern ^ComponentName\\.(context|test|test.helpers)$\n or match name pattern ^componentName\\.(api|types)$ \n\n 🔥🔥🔥",
+            "\n\n 🔥🔥🔥 file 'ComponentName.tsx' is invalid:\n\n It should match name pattern /^${{ParentName}}(\\.(context|test|test.helpers))$/\n or match name pattern /^${{parentName}}(\\.(api|types))$/ \n\n 🔥🔥🔥",
         );
     });
 
-    it("should throw final error when regex is incorrect", () => {
+    it("should throw final error when name is invalid", () => {
+        expect(() =>
+            validateRulesList(
+                "componentName.api.tsx",
+                "ComponentName",
+                nodesListInvalidName,
+                config,
+            ),
+        ).toThrow(getInvalidNameError(2));
+    });
+
+    it("should throw final error when type is invalid", () => {
+        expect(() =>
+            validateRulesList(
+                "componentName.api.tsx",
+                "ComponentName",
+                nodesListInvalidType,
+                config,
+            ),
+        ).toThrow(getInvalidTypeError(2));
+    });
+
+    it("should throw final error when extension is invalid", () => {
+        expect(() =>
+            validateRulesList(
+                "componentName.api.tsx",
+                "ComponentName",
+                nodesListInvalidExtension,
+                config,
+            ),
+        ).toThrow(getInvalidExtensionError(2));
+    });
+
+    it("should throw final error when children are invalid", () => {
+        expect(() =>
+            validateRulesList(
+                "componentName.api.tsx",
+                "ComponentName",
+                nodesListInvalidChildren,
+                config,
+            ),
+        ).toThrow(getInvalidChildrenError(2));
+    });
+
+    it("should throw final error when ruleId is invalid", () => {
+        expect(() =>
+            validateRulesList(
+                "componentName.api.tsx",
+                "ComponentName",
+                nodesListInvalidRuleId,
+                config,
+            ),
+        ).toThrow(getInvalidRuleIdError(2));
+    });
+
+    it("should throw final error when rules are invalid", () => {
         expect(() =>
             validateRulesList(
                 "componentName.api.ts",
                 "ComponentName",
-                nodesListIncorrectRegex,
-                config,
+                [{ ruleId: "test" }],
+                {
+                    structure: {},
+                    rules: 2 as unknown as ProjectStructureConfig["rules"],
+                },
             ),
-        ).toThrow(getIncorrectRegexError("$$$"));
+        ).toThrow(getInvalidRulesError(2));
     });
 
     it("should throw final error when ruleId do not exist in rules object", () => {
@@ -115,9 +207,9 @@ describe("validateRulesList", () => {
             validateRulesList(
                 "componentName.api.ts",
                 "ComponentName",
-                nodesListIncorrectRuleId,
+                nodesListRuleIdNotExist,
                 config,
             ),
-        ).toThrow(getIncorrectIdRuleError("test"));
+        ).toThrow(getIdRuleError("test"));
     });
 });

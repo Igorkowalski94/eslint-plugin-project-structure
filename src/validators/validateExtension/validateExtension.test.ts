@@ -1,11 +1,17 @@
-import { getExtensionInvalidError } from "./helpers/getExtensionInvalidError";
+import { getExtensionError } from "./helpers/getExtensionError";
+import { getInvalidExtensionError } from "./helpers/getInvalidExtensionError";
 import { validateExtension } from "./validateExtension";
 import { Extension } from "../../types";
 
 describe("validateExtension", () => {
-    it("should not throw error when extension is empty", () => {
-        expect(() => validateExtension("componentName.js", {})).not.toThrow();
-    });
+    it.each([0, 1, {}, undefined, null])(
+        "should throw error when extension is invalid extension = %s",
+        (extension) => {
+            expect(() =>
+                validateExtension("componentName.js", extension as Extension),
+            ).toThrow(getInvalidExtensionError(extension));
+        },
+    );
 
     it.each<[string, Extension]>([
         ["componentName.css", [".ts", ".js", ".tsx", ".jsx"]],
@@ -13,11 +19,9 @@ describe("validateExtension", () => {
     ])(
         "should throw error when file name is %s and extension is is: %s",
         (fileName, extension) => {
-            expect(() =>
-                validateExtension(fileName, {
-                    extension,
-                }),
-            ).toThrow(getExtensionInvalidError(fileName, extension).message);
+            expect(() => validateExtension(fileName, extension)).toThrow(
+                getExtensionError(fileName, extension).message,
+            );
         },
     );
 
@@ -27,11 +31,7 @@ describe("validateExtension", () => {
     ])(
         "should not throw error when file name is %s and extension is is: %s",
         (fileName, extension) => {
-            expect(() =>
-                validateExtension(fileName, {
-                    extension,
-                }),
-            ).not.toThrow();
+            expect(() => validateExtension(fileName, extension)).not.toThrow();
         },
     );
 });

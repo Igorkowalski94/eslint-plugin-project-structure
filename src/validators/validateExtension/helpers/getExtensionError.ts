@@ -1,7 +1,7 @@
 import { RuleError } from "../../../errors/RuleError/RuleError";
 import { Extension } from "../../../types";
 
-export const getExtensionInvalidError = (
+export const getExtensionError = (
     fileName: string,
     extension: Extension,
 ): RuleError =>

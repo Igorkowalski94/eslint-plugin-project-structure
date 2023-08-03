@@ -20,15 +20,19 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 -   [JSON example](#json-example-for-the-structure-below)
 -   [YAML example](#yaml-example)
 -   [API](#api)
-    -   [$schema](#schema-string--undefined)
-    -   [ignorePatterns](#ignorepatterns-string--undefined)
-    -   [name](#name-name--string--undefined)
-    -   [type](#type-file--folder--undefined)
-    -   [extension](#extension-string--string--undefined)
-    -   [children](#children-rule--undefined)
-    -   [structure](#structure-rule)
-    -   [rules](#rules-recordstring-rule--undefined)
-    -   [ruleId](#ruleid-string--undefined)
+    -   [$schema](#schema)
+    -   [ignorePatterns](#ignore-patterns)
+    -   [name](#name)
+        -   [Fixed name](#fixed-name)
+        -   [Regex](#regex)
+        -   [Regex parameters](#regex-parameters)
+        -   [Regex parameters mix example](#regex-parameters-mix-example)
+    -   [type](#type)
+    -   [extension](#extension)
+    -   [children](#children)
+    -   [structure](#structure)
+    -   [rules](#rules)
+    -   [ruleId](#ruleid)
 -   [Folder recursion](#folder-recursion)
 
 ## Installation
@@ -88,41 +92,30 @@ Create a `.projectStructurerc` file in the root of your project.
     },
     "rules": {
         "component_folder": {
-            "name": {
-                "case": "PascalCase"
-            },
+            "name": "/^${{PascalCase}}?$/",
             "type": "folder",
             "children": [
-                // ParentComponent/components/ChildComponent3/components/... (recursion).
                 {
                     "name": "components",
                     "type": "folder",
                     "children": [
                         {
-                            "ruleId": "component_folder" // This way you can create recursions
+                            "ruleId": "component_folder"
                         }
                     ]
                 },
                 {
-                    "name": {
-                        "inheritParentName": "firstLetterUppercase",
-                        "regex": "/^\\.(context|test)$/"
-                    },
+                    "name": "/^${{ParentName}}(?:\\.(context|test))?$/",
                     "type": "file",
                     "extension": [".tsx", "ts"]
                 },
                 {
-                    "name": {
-                        "inheritParentName": "firstLetterLowercase",
-                        "regex": "/^.*\\.(types|api)$/"
-                    },
+                    "name": "/^${{parentName}}(?:\\.(types|api))?$/",
                     "type": "file",
                     "extension": ".ts"
                 },
                 {
-                    "name": {
-                        "inheritParentName": "firstLetterUppercase"
-                    },
+                    "name": "/^${{ParentName}}$/",
                     "type": "file",
                     "extension": ".tsx"
                 }
@@ -147,35 +140,29 @@ structure:
               - ruleId: component_folder
 rules:
     component_folder:
-        name:
-            case: PascalCase
+        name: "/^${{PascalCase}}?$/"
         type: folder
         children:
             - name: components
               type: folder
               children:
                   - ruleId: component_folder
-            - name:
-                  inheritParentName: firstLetterUppercase
-                  regex: "/^\\.(context|test)$/"
+            - name: "/^${{ParentName}}(?:\\.(context|test))?$/"
               type: file
               extension:
                   - ".tsx"
                   - ts
-            - name:
-                  inheritParentName: firstLetterLowercase
-                  regex: "/^.*\\.(types|api)$/"
+            - name: "/^${{parentName}}(?:\\.(types|api))?$/"
               type: file
               extension: ".ts"
-            - name:
-                  inheritParentName: firstLetterUppercase
+            - name: "/^${{ParentName}}$/"
               type: file
               extension: ".tsx"
 ```
 
 ## API:
 
-#### **`"$schema"`**: `<string | undefined>`
+### **`"$schema"`**: `<string | undefined>` <a id="schema"></a>
 
 Type checking for your `.projectStructurerc`. It helps to fill configuration correctly.
 
@@ -185,7 +172,7 @@ Type checking for your `.projectStructurerc`. It helps to fill configuration cor
 }
 ```
 
-#### **`"ignorePatterns"`**: `<string[] | undefined>`
+### **`"ignorePatterns"`**: `<string[] | undefined>` <a id="ignore-patterns"></a>
 
 Here you can set the paths you want to ignore.
 
@@ -195,35 +182,122 @@ Here you can set the paths you want to ignore.
 }
 ```
 
-#### **`"name"`**: `<Name | string | undefined>`
+### **`"name"`**: `<string | undefined>` <a id="name"></a>
 
-Fixed or dynamic file/folder name.
+#### Fixed name <a id="fixed-name"></a>
 
--   **`"regex"`**: `<string | undefined>` Name regex. Must start and end with `/`.
--   **`"case"`**: `<"PascalCase" | "camelCase" | "snake_case" | "kebab-case" | "dash-case" | undefined>` Name case validation.
--   **`"inheritParentName"`**: `<firstLetterUppercase | firstLetterLowercase | undefined>` The child inherits the name of the folder in which it is
-    located and sets its first letter to lowercase or uppercase. When used with a regex, the parent name will be pasted after the first `^` character.
-
-> **Warning**
-> When using **`"case"`** together with **`"regex"`** and **`"inheritParentName"`** be aware that they may overlap.
+Fixed file/folder name.
 
 ```jsonc
 {
-    "name": "FixedName"
+    "name": "Fixed"
+}
+```
+
+#### Regex <a id="regex"></a>
+
+Dynamic file/folder name.
+Remember that the regular expression must start and end with a **`/`**.
+
+```jsonc
+{
+    "name": "/^(Your regex logic)$/"
+}
+```
+
+#### Regex parameters <a id="regex-parameters"></a>
+
+You can use built-in parameters for regex. You can freely mix them together see **[example](#regex-parameters-mix-example)**.
+
+**`${{parentName}}`** The child inherits the name of the folder in which it is
+located and sets its first letter to lowercase.
+
+```jsonc
+{
+    "name": "/^${{parentName}}$/"
+}
+```
+
+**`${{ParentName}}`** The child inherits the name of the folder in which it is
+located and sets its first letter to uppercase.
+
+```jsonc
+{
+    "name": "/^${{ParentName}}$/"
+}
+```
+
+**`${{PascalCase}}`** Add `PascalCase` validation to your regex.
+
+```jsonc
+{
+    "name": "/^${{PascalCase}}$/"
+}
+```
+
+**`${{camelCase}}`** Add `camelCase` validation to your regex.
+
+```jsonc
+{
+    "name": "/^${{camelCase}}$/"
+}
+```
+
+**`${{snake_case}}`** Add `snake_case` validation to your regex.
+
+```jsonc
+{
+    "name": "/^${{snake_case}}$/"
+}
+```
+
+**`${{kebab-case}}`** Add `kebab-case` validation to your regex.
+
+```jsonc
+{
+    "name": "/^${{kebab-case}}$/"
+}
+```
+
+**`${{snake_case}}`** Add `snake_case` validation to your regex.
+
+```jsonc
+{
+    "name": "/^${{snake_case}}$/"
+}
+```
+
+**`${{dash-case}}`** Add `dash-case` validation to your regex.
+
+```jsonc
+{
+    "name": "/^${{dash-case}}$/"
+}
+```
+
+#### Regex parameters mix example <a id="regex-parameters-mix-example"></a>
+
+Here are some examples of how easy it is to combine **[regex parameters](#regex-parameters)**.
+
+```jsonc
+{
+    // useNiceHook
+    // useNiceHook.api
+    // useNiceHook.test
+    "name": "/^(use)${{PascalCase}}(?:\\.(test|api))?$/"
 }
 ```
 
 ```jsonc
 {
-    "name": {
-        "regex": "/^\\.(types|api)$/",
-        "case": "PascalCase",
-        "inheritParentName": "firstLetterUppercase"
-    }
+    // YourParentName.hello_world
+    // YourParentName.hello_world.test
+    // YourParentName.hello_world.api
+    "name": "/^${{ParentName}}(.)${{snake_case}}(?:\\.(test|api))?$/"
 }
 ```
 
-#### **`"type"`**: `<"file" | "folder" | undefined>`
+### **`"type"`**: `<"file" | "folder" | undefined>` <a id="type"></a>
 
 Type of your rule.
 
@@ -233,7 +307,7 @@ Type of your rule.
 }
 ```
 
-#### **`"extension"`**: `<string | string[] | undefined>`
+### **`"extension"`**: `<string | string[] | undefined>` <a id="extension"></a>
 
 Extension of your file. Not available when **`"type"`** is `"folder"`.
 
@@ -243,7 +317,7 @@ Extension of your file. Not available when **`"type"`** is `"folder"`.
 }
 ```
 
-#### **`"children"`**: `<Rule[] | undefined>`
+### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 
 Folder children rules.
 Not available when **`"type"`** is `"file"`.
@@ -256,11 +330,12 @@ Required when **`"type"`** is `"folder"`.
             "name": "Child",
             "type": "file"
         }
+        // ...
     ]
 }
 ```
 
-#### **`"structure"`**: `<Rule>`
+### **`"structure"`**: `<Rule>` <a id="structure"></a>
 
 The structure of your project and its rules.
 
@@ -276,7 +351,7 @@ The structure of your project and its rules.
 }
 ```
 
-#### **`"rules"`**: `<Record<string, Rule> | undefined>`
+### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
 A place where you can add your custom rules.
 The key in the object will correspond to **`"ruleId"`**, which you can then use in many places.
@@ -295,7 +370,7 @@ The key in the object will correspond to **`"ruleId"`**, which you can then use 
 }
 ```
 
-#### **`"ruleId"`**: `<string | undefined>`
+### **`"ruleId"`**: `<string | undefined>` <a id="ruleid"></a>
 
 A reference to your custom rule. Only available when other keys are not used in object.
 
@@ -308,16 +383,45 @@ A reference to your custom rule. Only available when other keys are not used in 
 ## Folder recursion
 
 You can easily create recursions when you refer to the same **`"ruleId"`** that your rule has.
+Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`${{PascalCase}}`** and your next folder will be
+**`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:
+**`src/features/ComponentFolder/components/NextComponentFolder/components... (recursion)`**.
 
 ```jsonc
 {
     "rules": {
-        "myCustomRule": {
+        "structure": {
+            "name": "src",
             "type": "folder",
             "children": [
                 {
-                    "ruleId": "myCustomRule"
+                    "name": "features",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "ruleId": "myCustomRule"
+                        }
+                        // ...
+                    ]
                 }
+                // ...
+            ]
+        },
+        "myCustomRule": {
+            "type": "folder",
+            "name": "/^${{PascalCase}}?$/",
+            "children": [
+                {
+                    "type": "folder",
+                    "name": "components",
+                    "children": [
+                        {
+                            "ruleId": "myCustomRule"
+                        }
+                        // ...
+                    ]
+                }
+                // ...
             ]
         }
     }
