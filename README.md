@@ -169,9 +169,9 @@ Here you can set the paths you want to ignore.
 
 ### **`"name"`**: `<string | undefined>` <a id="name"></a>
 
-When used with **`children`** this will be the name of the `folder`.
-When used with **`extension`** this will be the name of the `file`.
-If used without **`extension`** and **`children`** this will be name of the `folder` and `file`.
+When used with [**`children`**](#children) this will be the name of the `folder`.
+When used with [**`extension`**](#extension)  this will be the name of the `file`.
+If used without [**`children`**](#children) and [**`extension`**](#extension) this will be name of the `folder` and `file`.
 
 #### Fixed name <a id="fixed-name"></a>
 
@@ -289,7 +289,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 ### **`"extension"`**: `<string | string[] | undefined>` <a id="extension"></a>
 
 Extension of your file.
-Not available when **`"children"`** are used.
+Not available when [**`children`**](#children) are used.
 
 ```jsonc
 {
@@ -300,7 +300,7 @@ Not available when **`"children"`** are used.
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 
 Folder children rules.
-Not available when **`"extension"`** is used.
+Not available when [**`extension`**](#extension) is used.
 
 ```jsonc
 {
@@ -331,7 +331,7 @@ The structure of your project and its rules.
 ### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
 A place where you can add your custom rules.
-The key in the object will correspond to **`"ruleId"`**, which you can then use in many places.
+The key in the object will correspond to [**`ruleId`**](#ruleid), which you can then use in many places.
 
 ```jsonc
 {
@@ -358,7 +358,7 @@ A reference to your custom rule. Only available when other keys are not used in 
 
 ## Folder recursion
 
-You can easily create recursions when you refer to the same **`"ruleId"`** that your rule has.
+You can easily create recursions when you refer to the same [**`ruleId`**](#ruleid) that your rule has.
 Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`${{PascalCase}}`** and your next folder will be
 **`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:
 **`src/features/ComponentFolder/components/NextComponentFolder/components... (recursion)`**.
