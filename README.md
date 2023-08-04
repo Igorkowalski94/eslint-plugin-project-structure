@@ -198,7 +198,7 @@ Remember that the regular expression must start and end with a **`/`**.
 
 You can use built-in parameters for regex. You can freely mix them together see **[example](#regex-parameters-mix-example)**.
 
-**`${{parentName}}`**<br> 
+**`${{parentName}}`**<br>
 The child inherits the name of the folder in which it is located and sets its first letter to lowercase.
 
 ```jsonc
@@ -207,7 +207,7 @@ The child inherits the name of the folder in which it is located and sets its fi
 }
 ```
 
-**`${{ParentName}}`**<br> 
+**`${{ParentName}}`**<br>
 The child inherits the name of the folder in which it is located and sets its first letter to uppercase.
 
 ```jsonc
@@ -216,8 +216,8 @@ The child inherits the name of the folder in which it is located and sets its fi
 }
 ```
 
-**`${{PascalCase}}`**<br> 
-Add `PascalCase` validation to your regex.<br> 
+**`${{PascalCase}}`**<br>
+Add `PascalCase` validation to your regex.<br>
 The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
 
 ```jsonc
@@ -226,7 +226,7 @@ The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
 }
 ```
 
-**`${{camelCase}}`**<br> 
+**`${{camelCase}}`**<br>
 Add `camelCase` validation to your regex.<br>
 The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
 
@@ -236,7 +236,7 @@ The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
 }
 ```
 
-**`${{snake_case}}`**<br> 
+**`${{snake_case}}`**<br>
 Add `snake_case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
@@ -246,7 +246,7 @@ The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 }
 ```
 
-**`${{kebab-case}}`**<br> 
+**`${{kebab-case}}`**<br>
 Add `kebab-case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
@@ -256,7 +256,7 @@ The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 }
 ```
 
-**`${{dash-case}}`**<br> 
+**`${{dash-case}}`**<br>
 Add `dash-case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
@@ -350,7 +350,7 @@ The key in the object will correspond to [**`ruleId`**](#ruleid), which you can 
 
 ### **`"ruleId"`**: `<string | undefined>` <a id="ruleid"></a>
 
-A reference to your custom rule.<br> 
+A reference to your custom rule.<br>
 Only available when other keys are not used in object.
 
 ```jsonc
