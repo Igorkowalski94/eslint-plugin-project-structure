@@ -170,7 +170,7 @@ Here you can set the paths you want to ignore.
 ### **`"name"`**: `<string | undefined>` <a id="name"></a>
 
 When used with [**`children`**](#children) this will be the name of the `folder`.
-When used with [**`extension`**](#extension)  this will be the name of the `file`.
+When used with [**`extension`**](#extension) this will be the name of the `file`.
 If used without [**`children`**](#children) and [**`extension`**](#extension) this will be name of the `folder` and `file`.
 
 #### Fixed name <a id="fixed-name"></a>
