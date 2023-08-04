@@ -376,7 +376,7 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
                 "name": "features",
                 "children": [
                     {
-                        "ruleId": "myCustomRule"
+                        "ruleId": "yourCustomRule"
                     }
                     // ...
                 ]
@@ -385,14 +385,14 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
         ]
     },
     "rules": {
-        "myCustomRule": {
+        "yourCustomRule": {
             "name": "/^${{PascalCase}}?$/",
             "children": [
                 {
                     "name": "components",
                     "children": [
                         {
-                            "ruleId": "myCustomRule"
+                            "ruleId": "yourCustomRule"
                         }
                         // ...
                     ]
