@@ -169,9 +169,9 @@ Here you can set the paths you want to ignore.
 
 ### **`"name"`**: `<string | undefined>` <a id="name"></a>
 
-When used with [**`children`**](#children) this will be the name of the `folder`.
-When used with [**`extension`**](#extension) this will be the name of the `file`.
-If used without [**`children`**](#children) and [**`extension`**](#extension) this will be name of the `folder` and `file`.
+When used with [**`children`**](#children) this will be the name of the `folder`.<br>
+When used with [**`extension`**](#extension) this will be the name of the `file`.<br>
+If used without [**`children`**](#children) and [**`extension`**](#extension) this will be name of the `folder` and `file`.<br>
 
 #### Fixed name <a id="fixed-name"></a>
 
@@ -216,7 +216,8 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{PascalCase}}`** Add `PascalCase` validation to your regex. The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
+**`${{PascalCase}}`** Add `PascalCase` validation to your regex.<br> 
+The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
 
 ```jsonc
 {
@@ -224,7 +225,8 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{camelCase}}`** Add `camelCase` validation to your regex. The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
+**`${{camelCase}}`** Add `camelCase` validation to your regex.<br>
+The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
 
 ```jsonc
 {
@@ -232,7 +234,8 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{snake_case}}`** Add `snake_case` validation to your regex. The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
+**`${{snake_case}}`** Add `snake_case` validation to your regex.<br>
+The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
 ```jsonc
 {
@@ -240,7 +243,8 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{kebab-case}}`** Add `kebab-case` validation to your regex. The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
+**`${{kebab-case}}`** Add `kebab-case` validation to your regex.<br>
+The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 ```jsonc
 {
@@ -248,7 +252,8 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{dash-case}}`** Add `dash-case` validation to your regex. The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
+**`${{dash-case}}`** Add `dash-case` validation to your regex.<br>
+The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 ```jsonc
 {
@@ -322,7 +327,7 @@ The structure of your project and its rules.
 
 ### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
-A place where you can add your custom rules.
+A place where you can add your custom rules.<br>
 The key in the object will correspond to [**`ruleId`**](#ruleid), which you can then use in many places.
 
 ```jsonc
@@ -340,7 +345,7 @@ The key in the object will correspond to [**`ruleId`**](#ruleid), which you can 
 
 ### **`"ruleId"`**: `<string | undefined>` <a id="ruleid"></a>
 
-A reference to your custom rule. Only available when other keys are not used in object.
+A reference to your custom rule.<br> Only available when other keys are not used in object.
 
 ```jsonc
 {
@@ -350,9 +355,9 @@ A reference to your custom rule. Only available when other keys are not used in 
 
 ## Folder recursion
 
-You can easily create recursions when you refer to the same [**`ruleId`**](#ruleid) that your rule has.
+You can easily create recursions when you refer to the same [**`ruleId`**](#ruleid) that your rule has.<br>
 Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`${{PascalCase}}`** and your next folder will be
-**`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:
+**`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:<br>
 **`src/features/ComponentFolder/components/NextComponentFolder/components... (recursion)`**.
 
 ```jsonc
