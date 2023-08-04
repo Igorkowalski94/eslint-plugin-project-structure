@@ -216,7 +216,7 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{PascalCase}}`** Add `PascalCase` validation to your regex.
+**`${{PascalCase}}`** Add `PascalCase` validation to your regex. The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
 
 ```jsonc
 {
@@ -224,7 +224,7 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{camelCase}}`** Add `camelCase` validation to your regex.
+**`${{camelCase}}`** Add `camelCase` validation to your regex. The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
 
 ```jsonc
 {
@@ -232,7 +232,7 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{snake_case}}`** Add `snake_case` validation to your regex.
+**`${{snake_case}}`** Add `snake_case` validation to your regex. The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
 ```jsonc
 {
@@ -240,7 +240,7 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{kebab-case}}`** Add `kebab-case` validation to your regex.
+**`${{kebab-case}}`** Add `kebab-case` validation to your regex. The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 ```jsonc
 {
@@ -248,15 +248,7 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{snake_case}}`** Add `snake_case` validation to your regex.
-
-```jsonc
-{
-    "name": "/^${{snake_case}}$/"
-}
-```
-
-**`${{dash-case}}`** Add `dash-case` validation to your regex.
+**`${{dash-case}}`** Add `dash-case` validation to your regex. The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 ```jsonc
 {
