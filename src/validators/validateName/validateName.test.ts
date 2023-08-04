@@ -40,9 +40,9 @@ describe("validateName", () => {
     });
 
     it("should not throw error when nodeName === roleName", () => {
-        expect(() =>
+        expect(
             validateName("componentName", "componentName", "parentName"),
-        ).not.toThrow();
+        ).toEqual(undefined);
     });
 
     it("should throw error when nodeName !== roleName", () => {

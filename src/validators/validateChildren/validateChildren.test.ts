@@ -16,7 +16,11 @@ describe("validateChildren", () => {
                     "src/features/ComponentName.tsx",
                     "src/features",
                     children as Rule[],
-                    { structure: {} },
+                    {
+                        structure: {
+                            name: "src",
+                        },
+                    },
                 ),
             ).toThrow(getInvalidChildrenError(children));
         },
@@ -41,7 +45,11 @@ describe("validateChildren", () => {
                     ],
                 },
             ],
-            { structure: {} },
+            {
+                structure: {
+                    name: "src",
+                },
+            },
         );
 
         expect(validateRulesListMock).toBeCalled();
@@ -55,7 +63,9 @@ describe("validateChildren", () => {
         );
 
         validateChildren("src/features/ComponentName.tsx", "src/features", [], {
-            structure: {},
+            structure: {
+                name: "src",
+            },
         });
 
         expect(validateRulesListMock).not.toBeCalled();

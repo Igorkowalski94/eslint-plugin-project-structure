@@ -27,7 +27,6 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
         -   [Regex](#regex)
         -   [Regex parameters](#regex-parameters)
         -   [Regex parameters mix example](#regex-parameters-mix-example)
-    -   [type](#type)
     -   [extension](#extension)
     -   [children](#children)
     -   [structure](#structure)
@@ -77,11 +76,9 @@ Create a `.projectStructurerc` file in the root of your project.
     "ignorePatterns": ["src/legacy/*"],
     "structure": {
         "name": "src",
-        "type": "folder",
         "children": [
             {
                 "name": "features",
-                "type": "folder",
                 "children": [
                     {
                         "ruleId": "component_folder"
@@ -93,11 +90,9 @@ Create a `.projectStructurerc` file in the root of your project.
     "rules": {
         "component_folder": {
             "name": "/^${{PascalCase}}?$/",
-            "type": "folder",
             "children": [
                 {
                     "name": "components",
-                    "type": "folder",
                     "children": [
                         {
                             "ruleId": "component_folder"
@@ -106,17 +101,14 @@ Create a `.projectStructurerc` file in the root of your project.
                 },
                 {
                     "name": "/^${{ParentName}}(?:\\.(context|test))?$/",
-                    "type": "file",
                     "extension": [".tsx", "ts"]
                 },
                 {
                     "name": "/^${{parentName}}(?:\\.(types|api))?$/",
-                    "type": "file",
                     "extension": ".ts"
                 },
                 {
                     "name": "/^${{ParentName}}$/",
-                    "type": "file",
                     "extension": ".tsx"
                 }
             ]
@@ -132,31 +124,24 @@ ignorePatterns:
     - src/legacy/*
 structure:
     name: src
-    type: folder
     children:
         - name: features
-          type: folder
           children:
               - ruleId: component_folder
 rules:
     component_folder:
         name: "/^${{PascalCase}}?$/"
-        type: folder
         children:
             - name: components
-              type: folder
               children:
                   - ruleId: component_folder
             - name: "/^${{ParentName}}(?:\\.(context|test))?$/"
-              type: file
               extension:
                   - ".tsx"
                   - ts
             - name: "/^${{parentName}}(?:\\.(types|api))?$/"
-              type: file
               extension: ".ts"
             - name: "/^${{ParentName}}$/"
-              type: file
               extension: ".tsx"
 ```
 
@@ -183,6 +168,10 @@ Here you can set the paths you want to ignore.
 ```
 
 ### **`"name"`**: `<string | undefined>` <a id="name"></a>
+
+When used with **`children`** this will be the name of the `folder`.
+When used with **`extension`** this will be the name of the `file`.
+If used without **`extension`** and **`children`** this will be name of the `folder` and `file`.
 
 #### Fixed name <a id="fixed-name"></a>
 
@@ -297,19 +286,10 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 }
 ```
 
-### **`"type"`**: `<"file" | "folder" | undefined>` <a id="type"></a>
-
-Type of your rule.
-
-```jsonc
-{
-    "type": "file"
-}
-```
-
 ### **`"extension"`**: `<string | string[] | undefined>` <a id="extension"></a>
 
-Extension of your file. Not available when **`"type"`** is `"folder"`.
+Extension of your file.
+Not available when **`"children"`** are used.
 
 ```jsonc
 {
@@ -320,15 +300,13 @@ Extension of your file. Not available when **`"type"`** is `"folder"`.
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 
 Folder children rules.
-Not available when **`"type"`** is `"file"`.
-Required when **`"type"`** is `"folder"`.
+Not available when **`"extension"`** is used.
 
 ```jsonc
 {
     "children": [
         {
-            "name": "Child",
-            "type": "file"
+            "name": "Child"
         }
         // ...
     ]
@@ -343,7 +321,6 @@ The structure of your project and its rules.
 {
     "structure": {
         "name": "src",
-        "type": "folder",
         "children": [
             // ...
         ]
@@ -361,7 +338,6 @@ The key in the object will correspond to **`"ruleId"`**, which you can then use 
     "rules": {
         "yourCustomRule": {
             "name": "ComponentName",
-            "type": "folder",
             "children": [
                 // ...
             ]
@@ -392,11 +368,9 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
     "rules": {
         "structure": {
             "name": "src",
-            "type": "folder",
             "children": [
                 {
                     "name": "features",
-                    "type": "folder",
                     "children": [
                         {
                             "ruleId": "myCustomRule"
@@ -408,11 +382,9 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
             ]
         },
         "myCustomRule": {
-            "type": "folder",
             "name": "/^${{PascalCase}}?$/",
             "children": [
                 {
-                    "type": "folder",
                     "name": "components",
                     "children": [
                         {

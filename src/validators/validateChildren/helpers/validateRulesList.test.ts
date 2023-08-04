@@ -16,19 +16,15 @@ describe("validateRulesList", () => {
     const config: ProjectStructureConfig = {
         structure: {
             name: "src",
-            type: "folder",
             children: [
                 {
                     name: "features",
-                    type: "folder",
                     children: [
                         {
                             name: "/^${{PascalCase}}$/",
-                            type: "folder",
                             children: [
                                 {
                                     name: "/^${{ParentName}}$/",
-                                    type: "file",
                                     extension: ".tsx",
                                 },
                             ],
@@ -43,12 +39,10 @@ describe("validateRulesList", () => {
     const nodesList: Rule[] = [
         {
             name: "/^${{ParentName}}(\\.(context|test|test.helpers))$/",
-            type: "file",
             extension: ".tsx",
         },
         {
             name: "/^${{parentName}}(\\.(api|types))$/",
-            type: "file",
             extension: ".ts",
         },
     ];
@@ -61,8 +55,9 @@ describe("validateRulesList", () => {
 
     const nodesListInvalidType: Rule[] = [
         {
-            type: 2 as unknown as "file",
-        },
+            extension: ".tsx",
+            children: [],
+        } as unknown as Rule,
     ];
 
     const nodesListInvalidExtension: Rule[] = [
@@ -97,7 +92,7 @@ describe("validateRulesList", () => {
                 config,
             ),
         ).toThrow(
-            "\n\n 🔥🔥🔥 file 'componentName.api.ts' is invalid:\n\n It should be a folder. \n\n 🔥🔥🔥",
+            "\n\n 🔥🔥🔥 File 'componentName.api.ts' is invalid:\n\n It should be a folder. \n\n 🔥🔥🔥",
         );
     });
 
@@ -105,7 +100,7 @@ describe("validateRulesList", () => {
         expect(() =>
             validateRulesList("componentName", "ComponentName", [], config),
         ).toThrow(
-            "\n\n 🔥🔥🔥 folder 'componentName' is invalid:\n\n It should be a file. \n\n 🔥🔥🔥",
+            "\n\n 🔥🔥🔥 Folder 'componentName' is invalid:\n\n It should be a file. \n\n 🔥🔥🔥",
         );
     });
 
@@ -129,7 +124,7 @@ describe("validateRulesList", () => {
                 config,
             ),
         ).toThrow(
-            "\n\n 🔥🔥🔥 file 'ComponentName.tsx' is invalid:\n\n It should match name pattern /^${{ParentName}}(\\.(context|test|test.helpers))$/\n or match name pattern /^${{parentName}}(\\.(api|types))$/ \n\n 🔥🔥🔥",
+            "\n\n 🔥🔥🔥 File 'ComponentName.tsx' is invalid:\n\n It should match name pattern /^${{ParentName}}(\\.(context|test|test.helpers))$/\n or match name pattern /^${{parentName}}(\\.(api|types))$/ \n\n 🔥🔥🔥",
         );
     });
 
@@ -152,7 +147,7 @@ describe("validateRulesList", () => {
                 nodesListInvalidType,
                 config,
             ),
-        ).toThrow(getInvalidTypeError(2));
+        ).toThrow(getInvalidTypeError());
     });
 
     it("should throw final error when extension is invalid", () => {
@@ -195,7 +190,9 @@ describe("validateRulesList", () => {
                 "ComponentName",
                 [{ ruleId: "test" }],
                 {
-                    structure: {},
+                    structure: {
+                        name: "src",
+                    },
                     rules: 2 as unknown as ProjectStructureConfig["rules"],
                 },
             ),

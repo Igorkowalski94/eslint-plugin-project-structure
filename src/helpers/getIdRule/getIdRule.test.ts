@@ -9,7 +9,9 @@ describe("getIdRule", () => {
     };
 
     const config: ProjectStructureConfig = {
-        structure: {},
+        structure: {
+            name: "src",
+        },
         rules: {
             test: testRule,
         },
@@ -31,7 +33,9 @@ describe("getIdRule", () => {
                 getIdRule(
                     { ruleId: "test" },
                     {
-                        structure: {},
+                        structure: {
+                            name: "src",
+                        },
                         rules: rules as unknown as ProjectStructureConfig["rules"],
                     },
                 ),
@@ -45,7 +49,15 @@ describe("getIdRule", () => {
 
     it("should throw error when rules object is empty", () => {
         expect(() =>
-            getIdRule({ ruleId: "test2" }, { structure: {} }),
+            getIdRule(
+                { ruleId: "test2" },
+                {
+                    structure: {
+                        name: "src",
+                    },
+                    rules: {},
+                },
+            ),
         ).toThrow();
     });
 

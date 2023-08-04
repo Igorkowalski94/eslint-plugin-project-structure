@@ -6,7 +6,9 @@ describe("getNodeRule", () => {
             getNodeRule(
                 { ruleId: "test" },
                 {
-                    structure: {},
+                    structure: {
+                        name: "src",
+                    },
                 },
             ),
         ).toThrow();
@@ -17,13 +19,17 @@ describe("getNodeRule", () => {
             getNodeRule(
                 { ruleId: "test" },
                 {
-                    structure: {},
+                    structure: {
+                        name: "src",
+                    },
                     rules: {
-                        test: {},
+                        test: {
+                            name: "test",
+                        },
                     },
                 },
             ),
-        ).toEqual({});
+        ).toEqual({ name: "test" });
     });
 
     it("should return rule when rule is not ruleId", () => {
@@ -31,7 +37,9 @@ describe("getNodeRule", () => {
             getNodeRule(
                 { name: "ComponentName" },
                 {
-                    structure: {},
+                    structure: {
+                        name: "src",
+                    },
                 },
             ),
         ).toEqual({ name: "ComponentName" });
