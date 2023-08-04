@@ -41,8 +41,8 @@ jobs:
 
             - name: Publish new version
               run: |
-                  yarn version ${{ github.event.inputs.version }}
-                  yarn publish
+                  npm version ${{ github.event.inputs.version }}
+                  npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
             - name: Push to main
