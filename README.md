@@ -198,8 +198,8 @@ Remember that the regular expression must start and end with a **`/`**.
 
 You can use built-in parameters for regex. You can freely mix them together see **[example](#regex-parameters-mix-example)**.
 
-**`${{parentName}}`** The child inherits the name of the folder in which it is
-located and sets its first letter to lowercase.
+**`${{parentName}}`**<br> 
+The child inherits the name of the folder in which it is located and sets its first letter to lowercase.
 
 ```jsonc
 {
@@ -207,8 +207,8 @@ located and sets its first letter to lowercase.
 }
 ```
 
-**`${{ParentName}}`** The child inherits the name of the folder in which it is
-located and sets its first letter to uppercase.
+**`${{ParentName}}`**<br> 
+The child inherits the name of the folder in which it is located and sets its first letter to uppercase.
 
 ```jsonc
 {
@@ -216,7 +216,8 @@ located and sets its first letter to uppercase.
 }
 ```
 
-**`${{PascalCase}}`** Add `PascalCase` validation to your regex.<br> 
+**`${{PascalCase}}`**<br> 
+Add `PascalCase` validation to your regex.<br> 
 The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
 
 ```jsonc
@@ -225,7 +226,8 @@ The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
 }
 ```
 
-**`${{camelCase}}`** Add `camelCase` validation to your regex.<br>
+**`${{camelCase}}`**<br> 
+Add `camelCase` validation to your regex.<br>
 The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
 
 ```jsonc
@@ -234,7 +236,8 @@ The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
 }
 ```
 
-**`${{snake_case}}`** Add `snake_case` validation to your regex.<br>
+**`${{snake_case}}`**<br> 
+Add `snake_case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
 ```jsonc
@@ -243,7 +246,8 @@ The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 }
 ```
 
-**`${{kebab-case}}`** Add `kebab-case` validation to your regex.<br>
+**`${{kebab-case}}`**<br> 
+Add `kebab-case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 ```jsonc
@@ -252,7 +256,8 @@ The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 }
 ```
 
-**`${{dash-case}}`** Add `dash-case` validation to your regex.<br>
+**`${{dash-case}}`**<br> 
+Add `dash-case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 ```jsonc
@@ -345,7 +350,8 @@ The key in the object will correspond to [**`ruleId`**](#ruleid), which you can 
 
 ### **`"ruleId"`**: `<string | undefined>` <a id="ruleid"></a>
 
-A reference to your custom rule.<br> Only available when other keys are not used in object.
+A reference to your custom rule.<br> 
+Only available when other keys are not used in object.
 
 ```jsonc
 {
