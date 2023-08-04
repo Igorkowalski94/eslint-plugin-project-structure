@@ -344,6 +344,7 @@ The key in the object will correspond to [**`ruleId`**](#ruleid), which you can 
                 // ...
             ]
         }
+        // ...
     }
 }
 ```
@@ -368,22 +369,22 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
 
 ```jsonc
 {
+    "structure": {
+        "name": "src",
+        "children": [
+            {
+                "name": "features",
+                "children": [
+                    {
+                        "ruleId": "myCustomRule"
+                    }
+                    // ...
+                ]
+            }
+            // ...
+        ]
+    },
     "rules": {
-        "structure": {
-            "name": "src",
-            "children": [
-                {
-                    "name": "features",
-                    "children": [
-                        {
-                            "ruleId": "myCustomRule"
-                        }
-                        // ...
-                    ]
-                }
-                // ...
-            ]
-        },
         "myCustomRule": {
             "name": "/^${{PascalCase}}?$/",
             "children": [
@@ -399,6 +400,7 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
                 // ...
             ]
         }
+        // ...
     }
 }
 ```
