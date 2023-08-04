@@ -63,5 +63,5 @@
         "test:current": "jest --coverage --changedSince=origin/main",
         "husky:prepare": "husky install"
     },
-    "version": "1.3.0"
+    "version": "1.3.1"
 }
