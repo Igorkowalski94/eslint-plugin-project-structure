@@ -3,20 +3,24 @@
 
 echo '🕵️‍♂️ Checking your crappy code 🕵️‍♂️'
 
+echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ dead-code:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
+yarn dead-code:check || echo '🤢🤮🤢 dead-code:check failed 🤢🤮🤢'
+echo '✅✅✅ dead-code:check ✅✅✅'
+
 echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ lint:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
-yarn lint || echo '🤢🤮🤢 lint:check failed 🤢🤮🤢'
-echo '✅✅✅ lint ✅✅✅'
+yarn lint:check || echo '🤢🤮🤢 lint:check failed 🤢🤮🤢'
+echo '✅✅✅ lint:check ✅✅✅'
 
 echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ types:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
-yarn types || echo '🤢🤮🤢 types:check failed 🤢🤮🤢'
-echo '✅✅✅ types ✅✅✅'
+yarn types:check || echo '🤢🤮🤢 types:check failed 🤢🤮🤢'
+echo '✅✅✅ types:check ✅✅✅'
 
 echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ format:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
-yarn format || echo '🤢🤮🤢 format:check failed 🤢🤮🤢'
-echo '✅✅✅ format ✅✅✅'
+yarn format:check || echo '🤢🤮🤢 format:check failed 🤢🤮🤢'
+echo '✅✅✅ format:check ✅✅✅'
 
 echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ test:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
-yarn test:husky || echo '🤢🤮🤢 test:check failed 🤢🤮🤢'
+yarn test:check || echo '🤢🤮🤢 test:check failed 🤢🤮🤢'
 echo '✅✅✅ test:check ✅✅✅'
 
 echo '🤔🤔🤔 Alright... code looks fine to me... trying to build now. 🤔🤔🤔'

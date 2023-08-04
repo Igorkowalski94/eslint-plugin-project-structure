@@ -14,8 +14,8 @@ export const filterRulesByType = (
     const nodeRule = getNodeRule(rule, config);
 
     const isFile = getIsFileFromPathname(pathName);
-    const isFolderNode = nodeRule.type === "folder";
-    const isFileNode = nodeRule.extension || nodeRule.type == "file";
+    const isFolderNode = !!nodeRule.children;
+    const isFileNode = !!nodeRule.extension;
 
     if (!isFileNode && !isFolderNode) return true;
     if (!isFile && isFolderNode) return true;

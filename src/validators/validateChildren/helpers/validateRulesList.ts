@@ -20,8 +20,8 @@ export const validateRulesList = (
     let countAddedMessages = 0;
 
     if (nodesList.length === 0) {
-        if (nodeType === "folder") errorMessage += "be a file.";
-        if (nodeType === "file") errorMessage += "be a folder.";
+        if (nodeType === "Folder") errorMessage += "be a file.";
+        if (nodeType === "File") errorMessage += "be a folder.";
     }
 
     for (const childNode of nodesList) {

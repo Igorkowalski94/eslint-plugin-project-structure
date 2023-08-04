@@ -2,16 +2,6 @@
     "$ref": "#/definitions/ProjectStructureConfig",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
-        "Case": {
-            "enum": [
-                "PascalCase",
-                "camelCase",
-                "snake_case",
-                "kebab-case",
-                "dash-case"
-            ],
-            "type": "string"
-        },
         "Extension": {
             "anyOf": [
                 {
@@ -25,15 +15,15 @@
                 }
             ]
         },
-        "FileRule": {
+        "NameRule": {
             "additionalProperties": false,
             "properties": {
                 "ruleId": {
-                    "default": "Remember, you can only use 'ruleId' when the rule object has no other keys",
+                    "default": "Info: Remember, you can only use 'ruleId' when the rule object has no other keys.",
                     "type": "null"
                 },
                 "children": {
-                    "default": "Remember, you can only use 'children' when 'type' is a folder/not set",
+                    "default": [],
                     "type": "null"
                 },
                 "extension": {
@@ -43,32 +33,47 @@
                 "name": {
                     "default": "",
                     "type": "string"
+                }
+            },
+            "required": ["name"],
+            "type": "object"
+        },
+        "FileRule": {
+            "additionalProperties": false,
+            "properties": {
+                "ruleId": {
+                    "default": "🔥 Type error: You can only use 'ruleId' when the rule object has no other keys. 🔥",
+                    "type": "null"
                 },
-                "type": {
-                    "enum": ["file", "folder"],
-                    "const": "file",
+                "children": {
+                    "default": "🔥 Type error: Cannot use 'children' together with 'extension'. 🔥",
+                    "type": "null"
+                },
+                "extension": {
+                    "default": "",
+                    "$ref": "#/definitions/Extension"
+                },
+                "name": {
+                    "default": "",
                     "type": "string"
                 }
             },
+            "required": ["extension"],
             "type": "object"
         },
         "FolderRule": {
             "additionalProperties": false,
             "properties": {
                 "ruleId": {
-                    "default": "🔥 You can only use 'ruleId' when the rule object has no other keys 🔥",
+                    "default": "🔥 Type error: You can only use 'ruleId' when the rule object has no other keys. 🔥",
                     "type": "null"
                 },
                 "extension": {
-                    "default": "🔥 You can only use 'extension' when 'type' is a file 🔥",
+                    "default": "🔥 Type error: Cannot use 'extension' together with 'children'. 🔥",
                     "type": "null"
                 },
                 "children": {
-                    "default": [
-                        {
-                            "type": "folder"
-                        }
-                    ],
+                    "default": [],
                     "items": {
                         "$ref": "#/definitions/Rule"
                     },
@@ -76,11 +81,6 @@
                 },
                 "name": {
                     "default": "",
-                    "type": "string"
-                },
-                "type": {
-                    "enum": ["file", "folder"],
-                    "const": "folder",
                     "type": "string"
                 }
             },
@@ -95,19 +95,15 @@
                     "type": "string"
                 },
                 "children": {
-                    "default": "🔥 Cannot use 'children' together with 'ruleId' 🔥",
+                    "default": "🔥 Type error: Cannot use 'children' together with 'ruleId'. 🔥",
                     "type": "null"
                 },
                 "extension": {
-                    "default": "🔥 Cannot use 'type' together with 'ruleId' 🔥",
+                    "default": "🔥 Type error: Cannot use 'extension' together with 'ruleId'. 🔥",
                     "type": "null"
                 },
                 "name": {
-                    "default": "🔥 Cannot use 'name' together with 'ruleId' 🔥",
-                    "type": "null"
-                },
-                "type": {
-                    "default": "🔥 Cannot use 'type' together with 'ruleId' 🔥",
+                    "default": "🔥 Type error: Cannot use 'name' together with 'ruleId'. 🔥",
                     "type": "null"
                 }
             },
@@ -138,6 +134,9 @@
         },
         "Rule": {
             "anyOf": [
+                {
+                    "$ref": "#/definitions/NameRule"
+                },
                 {
                     "$ref": "#/definitions/FolderRule"
                 },

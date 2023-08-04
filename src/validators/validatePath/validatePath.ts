@@ -1,4 +1,3 @@
-import { getFolderTypeWithExtensionError } from "./helpers/getFolderTypeWithExtensionError";
 import { getInvalidTypeError } from "./helpers/getInvalidTypeError";
 import { getNodeName } from "./helpers/getNodeName";
 import { getRuleIdWithOtherKeysError } from "./helpers/getRuleIdWithOtherKeysError";
@@ -14,20 +13,14 @@ export const validatePath = (
     rule: Rule,
     config: ProjectStructureConfig,
 ): void => {
-    if (
-        rule.ruleId &&
-        (rule.type || rule.name || rule.children || rule.extension)
-    )
+    if (rule.ruleId && (rule.name || rule.children || rule.extension))
         throw getRuleIdWithOtherKeysError((rule as RuleId).ruleId);
 
     const { nodeName, fileNameWithExtension } = getNodeName(pathname);
-    const { name, children, extension, type } = getNodeRule(rule, config);
+    const nodeRule = getNodeRule(rule, config);
+    const { name, children, extension } = nodeRule;
 
-    if (type !== undefined && type !== "file" && type !== "folder")
-        throw getInvalidTypeError(type);
-
-    if (type === "folder" && extension)
-        throw getFolderTypeWithExtensionError(extension);
+    if (extension && children) throw getInvalidTypeError();
 
     if (name) validateName(nodeName, name, parentName);
 

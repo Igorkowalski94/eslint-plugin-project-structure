@@ -3,65 +3,52 @@ import { getInvalidRuleError } from "./getInvalidRuleError";
 import { RuleId, ProjectStructureConfig, Rule } from "../../../types";
 
 describe("filterRulesByType", () => {
+    const emptyRule: Rule = {} as Rule;
+
     const fileRule: Rule = {
-        type: "file",
-    };
-
-    const emptyRule: Rule = {};
-
-    const fileRuleWithExtension: Rule = {
-        type: "file",
         extension: ".tsx",
     };
 
-    const extensionRule: Rule = {
-        extension: ".tsx",
+    const nameRule: Rule = {
+        name: "componentName",
     };
 
     const folderRole: Rule = {
-        type: "folder",
-        children: [
-            fileRule,
-            extensionRule,
-            emptyRule,
-            { type: "folder", children: [] },
-        ],
+        children: [fileRule, emptyRule, { children: [nameRule] }],
     };
 
     const projectStructureConfig: ProjectStructureConfig = {
         ignorePatterns: [],
         rules: {
             folder: {
-                type: "folder",
                 children: [],
             },
             file: {
-                type: "file",
-            },
-            fileWithExtension: {
-                type: "file",
                 extension: ".ts",
             },
-            idExtension: {
-                extension: ".ts",
+            name: {
+                name: "elo",
             },
-            idEmpty: {},
+            idEmpty: {} as Rule,
         },
-        structure: {},
+        structure: {
+            name: "src",
+        },
     };
 
     const idFile: RuleId = { ruleId: "file" };
-    const idFileWithExtension: RuleId = { ruleId: "fileWithExtension" };
     const idFolder: RuleId = { ruleId: "folder" };
     const idEmpty = { ruleId: "idEmpty" };
-    const idExtension = { ruleId: "idExtension" };
+    const idName = { ruleId: "name" };
 
     it.each([0, 1, [], [1], null, "test", ""])(
         "should throw error when rule in children is invalid, rule =  %s",
         (rule) => {
             expect(() =>
-                filterRulesByType("componentName", rule as Rule, {
-                    structure: {},
+                filterRulesByType("componentName", rule as unknown as Rule, {
+                    structure: {
+                        name: "src",
+                    },
                 }),
             ).toThrow(getInvalidRuleError(rule));
         },
@@ -69,34 +56,24 @@ describe("filterRulesByType", () => {
 
     it.each<[boolean, string, Rule]>([
         [false, "src/componentName", fileRule],
-        [false, "src/componentName", extensionRule],
-        [false, "src/componentName", idExtension],
-        [false, "src/componentName", fileRuleWithExtension],
-        [false, "src/componentName", idFileWithExtension],
         [false, "src/componentName", idFile],
 
         [true, "src/componentName", emptyRule],
         [true, "src/componentName", idEmpty],
         [true, "src/componentName", folderRole],
         [true, "src/componentName", idFolder],
+        [true, "src/componentName", idName],
 
         [false, "src\\componentName", fileRule],
-        [false, "src\\componentName", extensionRule],
-        [false, "src\\componentName", idExtension],
-        [false, "src\\componentName", fileRuleWithExtension],
-        [false, "src\\componentName", idFileWithExtension],
         [false, "src\\componentName", idFile],
 
         [true, "src\\componentName", emptyRule],
         [true, "src\\componentName", idEmpty],
         [true, "src\\componentName", folderRole],
         [true, "src\\componentName", idFolder],
+        [true, "src\\componentName", idName],
 
         [true, "componentName", fileRule],
-        [true, "componentName", extensionRule],
-        [true, "componentName", idExtension],
-        [true, "componentName", fileRuleWithExtension],
-        [true, "componentName", idFileWithExtension],
         [true, "componentName", idFile],
         [true, "componentName", emptyRule],
         [true, "componentName", idEmpty],
@@ -118,7 +95,9 @@ describe("filterRulesByType", () => {
                 "componentName",
                 { ruleId: "test" },
                 {
-                    structure: {},
+                    structure: {
+                        name: "src",
+                    },
                 },
             ),
         ).toThrow();
