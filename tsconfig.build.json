@@ -2,12 +2,11 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "rootDir": "./src",
-        "outDir": "./dist",
+        "outFile": "./dist/index.d.ts",
         "resolveJsonModule": true,
-
         "declaration": true,
-        "noEmit": false
+        "noEmit": false,
+        "emitDeclarationOnly": true
     },
-    "include": ["src/**/*", "src/projectStructurerc.schema.json"],
     "exclude": ["src/**/*.test.ts"]
 }

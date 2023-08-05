@@ -6,13 +6,14 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 
 ### Features
 
--   ✅ Validation of project structure
--   ✅ Validation of folder and file names
--   ✅ Name case validation
--   ✅ Name regex validation
--   ✅ File extension validation
--   ✅ Inheriting the parent's name (the child inherits the name of the folder in which it is located)
--   ✅ Folder recursion
+✅ Validation of project structure.<br>
+✅ Validation of folder and file names.<br>
+✅ Name case validation.<br>
+✅ Name regex validation.<br>
+✅ File extension validation.<br>
+✅ Inheriting the parent's name (the child inherits the name of the folder in which it is located).<br>
+✅ Folder recursion.<br>
+✅ Forcing a nested/flat structure.
 
 ### Go to:
 

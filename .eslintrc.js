@@ -1,4 +1,5 @@
 module.exports = {
+    ignorePatterns: ["dist/**/*", "esbuild.config.js"],
     env: {
         browser: true,
         es2021: true,
@@ -18,7 +19,6 @@ module.exports = {
         "plugin:import/warnings",
         "prettier",
     ],
-    ignorePatterns: ["dist/**/*"],
     rules: {
         "prettier/prettier": [
             "error",
