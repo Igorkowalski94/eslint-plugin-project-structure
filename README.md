@@ -296,9 +296,12 @@ Not available when [**`children`**](#children) are used.
 
 ```jsonc
 {
-    "extension": [".ts", ".tsx", ".js", ".jsx", "..."]
+    "extension": [".ts", ".tsx", "js", "jsx", "..."]
 }
 ```
+
+> **Note**
+> You don't need to add **`.`** it is optional.
 
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 
