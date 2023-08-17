@@ -1,12 +1,13 @@
 import { getExtensionError } from "./helpers/getExtensionError";
 import { getInvalidExtensionError } from "./helpers/getInvalidExtensionError";
+import { ALL_EXTENSIONS } from "./validateExtension.consts";
 import { Extension } from "../../types";
 
 export const validateExtension = (
     fileName: string,
     extension: Extension,
 ): void => {
-    if (extension === "*") return;
+    if (extension === ALL_EXTENSIONS) return;
 
     if (typeof extension !== "string" && !Array.isArray(extension))
         throw getInvalidExtensionError(extension);
@@ -18,6 +19,9 @@ export const validateExtension = (
         return;
     }
 
-    if (!extension.some((ext) => fileName.endsWith(ext)))
+    if (
+        !extension.includes(ALL_EXTENSIONS) &&
+        !extension.some((ext) => fileName.endsWith(ext))
+    )
         throw getExtensionError(fileName, extension);
 };

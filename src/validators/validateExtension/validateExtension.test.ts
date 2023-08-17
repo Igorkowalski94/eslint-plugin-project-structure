@@ -27,6 +27,7 @@ describe("validateExtension", () => {
 
     it.each<[string, Extension]>([
         ["componentName.xxx", "*"],
+        ["componentName.xxx", ["*"]],
         ["componentName.css", [".css", ".js", ".tsx", ".jsx", ".ts"]],
         ["componentName.ts", ".ts"],
     ])(
