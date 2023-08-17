@@ -28,6 +28,7 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
         -   [Regex](#regex)
         -   [Regex parameters](#regex-parameters)
         -   [Regex parameters mix example](#regex-parameters-mix-example)
+        -   [Fixed name and regex overlap](#fixed-name-regex-overlap)
     -   [extension](#extension)
     -   [children](#children)
     -   [structure](#structure)
@@ -188,7 +189,7 @@ Fixed file/folder name.
 
 ```jsonc
 {
-    "name": "Fixed"
+    "name": "FixedName"
     // ...
 }
 ```
@@ -296,6 +297,33 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
     // YourParentName.hello_world.test
     // YourParentName.hello_world.api
     "name": "/^${{ParentName}}(.)${{snake_case}}(?:\\.(test|api))?$/"
+}
+```
+
+#### Fixed name and regex overlap <a id="fixed-name-regex-overlap"></a>
+
+If your `folder` has `folders` that have rules for [fixed name](#fixed-name) and [regex](#regex) that overlap, e.g. both satisfy `PascalCase`,<br>
+make sure the rule with [fixed name](#fixed-name) comes before the [regex](#regex). Otherwise, the [fixed name](#fixed-name) rule will be ignored.
+
+```jsonc
+{
+    "children": [
+        // Fixed name first
+        {
+            "name": "FixedName",
+            "children": [
+                // ...
+            ]
+        },
+        // Regex second
+        {
+            "name": "/^${{PascalCase}}$/",
+            "children": [
+                // ...
+            ]
+        }
+    ]
+    // ...
 }
 ```
 
