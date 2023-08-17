@@ -179,6 +179,9 @@ If used without [**`children`**](#children) and [**`extension`**](#extension) th
 > **Note**
 > If you only care about the name of the `folder` without rules for its [**`children`**](#children), leave the [**`children`**](#children) as `[]`.
 
+> **Note**
+> If you only care about the name of the `file` without rules for its [**`extension`**](#extension), leave the [**`extension`**](#extension) as `*`.
+
 #### Fixed name <a id="fixed-name"></a>
 
 Fixed file/folder name.
