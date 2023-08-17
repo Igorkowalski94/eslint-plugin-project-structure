@@ -174,6 +174,9 @@ When used with [**`children`**](#children) this will be the name of `folder`.<br
 When used with [**`extension`**](#extension) this will be the name of `file`.<br>
 If used without [**`children`**](#children) and [**`extension`**](#extension) this will be name of `folder` and `file`.<br>
 
+> **Note**
+> If you only care about the name of the `folder` without rules for its [**`children`**](#children), leave the [**`children`**](#children) as `[]`.
+
 #### Fixed name <a id="fixed-name"></a>
 
 Fixed file/folder name.
@@ -296,12 +299,15 @@ Not available when [**`children`**](#children) are used.
 
 ```jsonc
 {
-    "extension": [".ts", ".tsx", "js", "jsx", "..."]
+    "extension": ["*", ".ts", ".tsx", "js", "jsx", "..."]
 }
 ```
 
 > **Note**
 > You don't need to add **`.`** it is optional.
+
+> **Note**
+> If you want to include all extensions use `*`.
 
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 

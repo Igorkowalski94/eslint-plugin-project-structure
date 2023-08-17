@@ -6,6 +6,8 @@ export const validateExtension = (
     fileName: string,
     extension: Extension,
 ): void => {
+    if (extension === "*") return;
+
     if (typeof extension !== "string" && !Array.isArray(extension))
         throw getInvalidExtensionError(extension);
 

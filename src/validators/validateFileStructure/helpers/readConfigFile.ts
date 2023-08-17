@@ -1,6 +1,6 @@
-import * as fs from "fs";
+import { readFileSync } from "fs";
 
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 
 import { ProjectStructureConfig } from "../../../types";
 
@@ -10,13 +10,13 @@ export const readConfigFile = (
     let config = null;
 
     try {
-        config = yaml.load(fs.readFileSync(configPath, "utf8"));
+        config = load(readFileSync(configPath, "utf8"));
     } catch (error) {
         return;
     }
 
     try {
-        config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+        config = JSON.parse(readFileSync(configPath, "utf-8"));
     } catch (error) {
         return;
     }
