@@ -155,6 +155,7 @@ Type checking for your `.projectStructurerc`. It helps to fill configuration cor
 ```jsonc
 {
     "$schema": "node_modules/eslint-plugin-project-structure/projectStructurerc.schema.json"
+    // ...
 }
 ```
 
@@ -165,6 +166,7 @@ Here you can set the paths you want to ignore.
 ```jsonc
 {
     "ignorePatterns": ["src/legacy/*"]
+    // ...
 }
 ```
 
@@ -184,6 +186,7 @@ Fixed file/folder name.
 ```jsonc
 {
     "name": "Fixed"
+    // ...
 }
 ```
 
@@ -195,6 +198,7 @@ Remember that the regular expression must start and end with a **`/`**.
 ```jsonc
 {
     "name": "/^(Your regex logic)$/"
+    // ...
 }
 ```
 
@@ -300,6 +304,7 @@ Not available when [**`children`**](#children) are used.
 ```jsonc
 {
     "extension": ["*", ".ts", ".tsx", "js", "jsx", "..."]
+    // ...
 }
 ```
 
@@ -319,9 +324,11 @@ Not available when [**`extension`**](#extension) is used.
     "children": [
         {
             "name": "Child"
+            // ...
         }
         // ...
     ]
+    // ...
 }
 ```
 
@@ -337,6 +344,7 @@ The structure of your project and its rules.
             // ...
         ]
     }
+    // ...
 }
 ```
 
@@ -356,6 +364,7 @@ The key in the object will correspond to [**`ruleId`**](#ruleid), which you can 
         }
         // ...
     }
+    // ...
 }
 ```
 
@@ -412,5 +421,6 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
         }
         // ...
     }
+    // ...
 }
 ```
