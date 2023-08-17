@@ -302,7 +302,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 
 #### Fixed name and regex overlap <a id="fixed-name-regex-overlap"></a>
 
-If your `folder` has `folders` that have rules for [fixed name](#fixed-name) and [regex](#regex) that overlap, e.g. both satisfy `PascalCase`,<br>
+If your `folder` contains `folders` that have rules for [fixed name](#fixed-name) and [regex](#regex) that overlap, e.g. both satisfy `PascalCase`,<br>
 make sure the rule with [fixed name](#fixed-name) comes before the [regex](#regex). Otherwise, the [fixed name](#fixed-name) rule will be ignored.
 
 ```jsonc
