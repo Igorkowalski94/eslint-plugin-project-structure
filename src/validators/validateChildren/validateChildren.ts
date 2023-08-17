@@ -1,6 +1,8 @@
+import { convertChildrenRuleIdToRule } from "./helpers/convertChildrenRuleIdToRule";
 import { filterRulesByType } from "./helpers/filterRulesByType";
 import { getInvalidChildrenError } from "./helpers/getInvalidChildrenError";
 import { getNextPath } from "./helpers/getNextPath";
+import { sortChildrenByNameType } from "./helpers/sortChildrenByNameType";
 import { validateRulesList } from "./helpers/validateRulesList";
 import { ProjectStructureConfig, Rule } from "../../types";
 
@@ -14,10 +16,13 @@ export const validateChildren = (
 
     const nextPath = getNextPath(pathname, nodeName);
 
-    const childrenByFileType = children.filter((node) =>
+    const convertedChildren = convertChildrenRuleIdToRule(children, config);
+    const sortedChildren = sortChildrenByNameType(convertedChildren);
+
+    const childrenByFileType = sortedChildren.filter((node) =>
         filterRulesByType(nextPath, node, config),
     );
 
-    if (children.length)
+    if (sortedChildren.length)
         validateRulesList(nextPath, nodeName, childrenByFileType, config);
 };
