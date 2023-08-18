@@ -50,7 +50,7 @@ $ npm i --dev eslint-plugin-project-structure
 
 ### Step 1 (optional)
 
-If you want to check [extensions](#extension) that are not supported by eslint like `.css`, `.sass`, `.less`, `.svg`, `.png`, `.jpg`, `.yml`, `.json`, read the step below, if not go to the next step.<br>
+If you want to check [extensions](#extension) that are not supported by eslint like `.css`, `.sass`, `.less`, `.svg`, `.png`, `.jpg`, `.yml`, `.json`, read the step below, if not go to the [next step](#step-2).<br>
 
 Add the following script to your `package.json`. You can extend the list of [extensions](#extension) in the script. After completing [`Step 2`](#step-2) and [`Step 3`](#step-3), use this script to check your structure.
 
