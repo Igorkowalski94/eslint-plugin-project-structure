@@ -1,5 +1,5 @@
 module.exports = {
-    ignorePatterns: ["dist/**/*", "esbuild.config.js"],
+    ignorePatterns: ["dist/**/*", "esbuild.config.js", "parser.js"],
     env: {
         browser: true,
         es2021: true,

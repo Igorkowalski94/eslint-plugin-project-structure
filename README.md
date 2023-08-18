@@ -47,7 +47,24 @@ $ npm i --dev eslint-plugin-project-structure
 
 ## Getting started
 
-Add the following lines to .eslintrc
+### Step 1 (optional)
+
+If you want to check [extensions](#extension) that are not supported by eslint like `.css`, `.sass`, `.less`, `.svg`, `.png`, `.jpg`, `.yml`, `.json`, read the step below, if not, go to the next step.<br>
+
+Add the following script to your `package.json`. You can extend the list of [extensions](#extension) in the script. After completing [`Step 2`](#step-2) and [`Step 3`](#step-3), use this script to check your structure.
+
+```json
+{
+    "scripts": {
+        "projectStructure:check": "eslint --parser ./node_modules/eslint-plugin-project-structure/dist/parser.js --rule project-structure/file-structure:error
+        --ext .js,.jsx,.ts,.tsx,.css,.sass,.less,.svg,.png,.jpg,.yml,.json ."
+    }
+}
+```
+
+### Step 2
+
+Add the following lines to `.eslintrc`
 
 ```jsonc
 {
@@ -60,6 +77,8 @@ Add the following lines to .eslintrc
     }
 }
 ```
+
+### Step 3
 
 Create a `.projectStructurerc` file in the root of your project.
 
@@ -308,6 +327,9 @@ Not available when [**`children`**](#children) are used.
     // ...
 }
 ```
+
+> **Warning**
+> If you want to check extensions that are not supported by eslint like `.css`, `.sass`, `.less`, `.svg`, `.png`, `.jpg`, `.yml`, `.json` go to [Step 1](#step-1-optional).
 
 > **Note**
 > You don't need to add **`.`** it is optional.
