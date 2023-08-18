@@ -46,7 +46,7 @@ describe("validateExtension", () => {
     ])(
         "should not throw error when file name is %s and extension is is: %s",
         (fileName, extension) => {
-            expect(validateExtension(fileName, extension)).toEqual(undefined);
+            expect(() => validateExtension(fileName, extension)).not.toThrow();
         },
     );
 });

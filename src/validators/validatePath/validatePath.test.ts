@@ -1,4 +1,5 @@
 import { getInvalidRuleError } from "./helpers/getInvalidRuleError";
+import { getInvalidTypeError } from "./helpers/getInvalidTypeError";
 import { validatePath } from "./validatePath";
 import { Extension, Rule } from "../../types";
 import { validateChildren } from "../validateChildren/validateChildren";
@@ -35,6 +36,21 @@ describe("validatePath", () => {
             ).toThrow(getInvalidRuleError(rule));
         },
     );
+
+    it("should throw final error when rule type is invalid", () => {
+        expect(() =>
+            validatePath(
+                "componentName",
+                "parentName",
+                { children: [], extension: [] } as unknown as Rule,
+                {
+                    structure: {
+                        name: "src",
+                    },
+                },
+            ),
+        ).toThrow(getInvalidTypeError({ children: [], extension: [] }));
+    });
 
     it("should call validateName when name is string", () => {
         const validateNameMock = jest.fn();

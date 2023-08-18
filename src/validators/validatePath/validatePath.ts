@@ -20,7 +20,7 @@ export const validatePath = (
     const nodeRule = getNodeRule(rule, config);
     const { name, children, extension } = nodeRule;
 
-    if (extension && children) throw getInvalidTypeError();
+    if (extension && children) throw getInvalidTypeError(nodeRule);
 
     if (name) validateName(nodeName, name, parentName);
 

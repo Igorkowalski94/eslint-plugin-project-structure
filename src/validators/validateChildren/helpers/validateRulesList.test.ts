@@ -139,7 +139,7 @@ describe("validateRulesList", () => {
         ).toThrow(getInvalidNameError(2));
     });
 
-    it("should throw final error when type is invalid", () => {
+    it("should throw final error when rule type is invalid", () => {
         expect(() =>
             validateRulesList(
                 "componentName.api.tsx",
@@ -147,7 +147,7 @@ describe("validateRulesList", () => {
                 nodesListInvalidType,
                 config,
             ),
-        ).toThrow(getInvalidTypeError());
+        ).toThrow(getInvalidTypeError(nodesListInvalidType[0]));
     });
 
     it("should throw final error when extension is invalid", () => {
