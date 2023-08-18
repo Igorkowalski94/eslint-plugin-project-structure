@@ -1,4 +1,5 @@
 import { getIdRule } from "../../../helpers/getIdRule/getIdRule";
+import { isIdRule } from "../../../helpers/getNodeRule/helpers/isIdRule";
 import { ProjectStructureConfig, Rule } from "../../../types";
 
 export const convertChildrenRuleIdToRule = (
@@ -6,7 +7,7 @@ export const convertChildrenRuleIdToRule = (
     config: ProjectStructureConfig,
 ): Rule[] =>
     children.map((rule) => {
-        if (!rule.ruleId) return rule;
+        if (!isIdRule(rule)) return rule;
 
         const idRule = getIdRule(rule, config);
         if (idRule) return idRule;

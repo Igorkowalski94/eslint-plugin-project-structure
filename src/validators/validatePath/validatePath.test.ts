@@ -1,6 +1,6 @@
-import { getRuleIdWithOtherKeysError } from "./helpers/getRuleIdWithOtherKeysError";
+import { getInvalidRuleError } from "./helpers/getInvalidRuleError";
 import { validatePath } from "./validatePath";
-import { Extension, Rule, RuleId } from "../../types";
+import { Extension, Rule } from "../../types";
 import { validateChildren } from "../validateChildren/validateChildren";
 import { validateExtension } from "../validateExtension/validateExtension";
 import { validateName } from "../validateName/validateName";
@@ -18,30 +18,21 @@ jest.mock("../validateChildren/validateChildren", () => ({
 }));
 
 describe("validatePath", () => {
-    it.each<Rule>([
-        { children: [] },
-        { children: [] },
-        { extension: ".tsx" },
-        { extension: [".tsx"] },
-        { name: "test" },
-    ])(
-        "should throw error when ruleId is used with other keys, rule =  %s",
+    it.each([0, 1, [], [1], null, undefined, "test", ""])(
+        "should throw error when rule is invalid, rule =  %s",
         (rule) => {
             expect(() =>
                 validatePath(
-                    "ComponentName.tsx",
+                    "componentName",
                     "parentName",
-                    {
-                        ruleId: "test",
-                        ...rule,
-                    } as RuleId,
+                    rule as unknown as Rule,
                     {
                         structure: {
                             name: "src",
                         },
                     },
                 ),
-            ).toThrow(getRuleIdWithOtherKeysError("test"));
+            ).toThrow(getInvalidRuleError(rule));
         },
     );
 

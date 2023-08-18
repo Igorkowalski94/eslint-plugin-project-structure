@@ -1,5 +1,4 @@
 import { filterRulesByType } from "./filterRulesByType";
-import { getInvalidRuleError } from "./getInvalidRuleError";
 import { RuleId, ProjectStructureConfig, Rule } from "../../../types";
 
 describe("filterRulesByType", () => {
@@ -13,7 +12,7 @@ describe("filterRulesByType", () => {
         name: "componentName",
     };
 
-    const folderRole: Rule = {
+    const folderRule: Rule = {
         children: [fileRule, emptyRule, { children: [nameRule] }],
     };
 
@@ -41,26 +40,13 @@ describe("filterRulesByType", () => {
     const idEmpty = { ruleId: "idEmpty" };
     const idName = { ruleId: "name" };
 
-    it.each([0, 1, [], [1], null, "test", ""])(
-        "should throw error when rule in children is invalid, rule =  %s",
-        (rule) => {
-            expect(() =>
-                filterRulesByType("componentName", rule as unknown as Rule, {
-                    structure: {
-                        name: "src",
-                    },
-                }),
-            ).toThrow(getInvalidRuleError(rule));
-        },
-    );
-
     it.each<[boolean, string, Rule]>([
         [false, "src/componentName", fileRule],
         [false, "src/componentName", idFile],
 
         [true, "src/componentName", emptyRule],
         [true, "src/componentName", idEmpty],
-        [true, "src/componentName", folderRole],
+        [true, "src/componentName", folderRule],
         [true, "src/componentName", idFolder],
         [true, "src/componentName", idName],
 
@@ -69,7 +55,7 @@ describe("filterRulesByType", () => {
 
         [true, "src\\componentName", emptyRule],
         [true, "src\\componentName", idEmpty],
-        [true, "src\\componentName", folderRole],
+        [true, "src\\componentName", folderRule],
         [true, "src\\componentName", idFolder],
         [true, "src\\componentName", idName],
 
@@ -78,7 +64,7 @@ describe("filterRulesByType", () => {
         [true, "componentName", emptyRule],
         [true, "componentName", idEmpty],
 
-        [false, "componentName", folderRole],
+        [false, "componentName", folderRule],
         [false, "componentName", idFolder],
     ])(
         "should return %s  when pathname is %s, rule is %s",

@@ -9,7 +9,11 @@ export const validateExtension = (
 ): void => {
     if (extension === ALL_EXTENSIONS) return;
 
-    if (typeof extension !== "string" && !Array.isArray(extension))
+    if (
+        (typeof extension !== "string" && !Array.isArray(extension)) ||
+        (Array.isArray(extension) &&
+            extension.some((ext) => !ext || typeof ext !== "string"))
+    )
         throw getInvalidExtensionError(extension);
 
     if (typeof extension === "string") {

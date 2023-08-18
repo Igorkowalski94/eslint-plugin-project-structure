@@ -196,7 +196,7 @@ describe("validateRulesList", () => {
                     rules: 2 as unknown as ProjectStructureConfig["rules"],
                 },
             ),
-        ).toThrow(getInvalidRulesError(2));
+        ).toThrow(getInvalidRulesError());
     });
 
     it("should throw final error when ruleId do not exist in rules object", () => {

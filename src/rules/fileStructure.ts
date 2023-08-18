@@ -1,7 +1,7 @@
 import { sep } from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint";
+import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint/Rule";
 
 import { finalErrorGuard } from "../errors/FinalError/helpers/finalErrorGuard";
 import { validateFileStructure } from "../validators/validateFileStructure/validateFileStructure";

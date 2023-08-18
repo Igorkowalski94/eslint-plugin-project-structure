@@ -12,7 +12,14 @@ export const validateChildren = (
     children: Rule[],
     config: ProjectStructureConfig,
 ): void => {
-    if (!Array.isArray(children)) throw getInvalidChildrenError(children);
+    if (
+        !Array.isArray(children) ||
+        children.some(
+            (child) =>
+                !child || typeof child !== "object" || Array.isArray(child),
+        )
+    )
+        throw getInvalidChildrenError(children);
 
     const nextPath = getNextPath(pathname, nodeName);
 

@@ -2,17 +2,10 @@ export type Extension = string | string[];
 
 export type NodeType = "File" | "Folder";
 interface BaseRule {
-    ruleId?: never;
+    ruleId?: string;
     name?: string;
     children?: Rule[];
     extension?: Extension;
-}
-
-export interface RuleId {
-    ruleId: string;
-    name?: never;
-    children?: never;
-    extension?: never;
 }
 
 interface NameRule extends BaseRule {
@@ -29,6 +22,26 @@ interface FileRule extends BaseRule {
     extension: Extension;
 }
 
+interface RuleIdAlone {
+    ruleId: string;
+    name?: never;
+    children?: never;
+    extension?: never;
+}
+
+interface RuleIdName extends NameRule {
+    ruleId: string;
+}
+
+interface RuleIdFile extends FileRule {
+    ruleId: string;
+}
+
+interface RuleIdFolder extends FolderRule {
+    ruleId: string;
+}
+
+export type RuleId = RuleIdAlone | RuleIdFolder | RuleIdFile | RuleIdName;
 export type Rule = FolderRule | FileRule | NameRule | RuleId;
 
 export interface ProjectStructureConfig {

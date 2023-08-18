@@ -39,12 +39,18 @@ describe("getIdRule", () => {
                         rules: rules as unknown as ProjectStructureConfig["rules"],
                     },
                 ),
-            ).toThrow(getInvalidRulesError(rules));
+            ).toThrow(getInvalidRulesError());
         },
     );
 
     it("should return rule when ruleId exist in rules object", () => {
         expect(getIdRule({ ruleId: "test" }, config)).toEqual(testRule);
+    });
+
+    it("should return idRule and add ruleId properties", () => {
+        expect(
+            getIdRule({ name: "FixedName", ruleId: "test" }, config),
+        ).toEqual({ ...testRule, name: "FixedName" });
     });
 
     it("should throw error when rules object is empty", () => {

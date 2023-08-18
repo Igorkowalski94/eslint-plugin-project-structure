@@ -18,7 +18,7 @@ export const validateFileStructure = (
     const { structure, ignorePatterns } = config;
 
     if (typeof structure !== "object" || !structure || Array.isArray(structure))
-        throw getInvalidStructureError(structure);
+        throw getInvalidStructureError();
 
     if (isIgnoredPath(pathName, ignorePatterns)) return;
 

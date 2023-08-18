@@ -41,8 +41,6 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 $ yarn add -D eslint-plugin-project-structure
 ```
 
-or
-
 ```bsh
 $ npm i --dev eslint-plugin-project-structure
 ```
@@ -373,12 +371,56 @@ The key in the object will correspond to [**`ruleId`**](#ruleid), which you can 
 
 ### **`"ruleId"`**: `<string | undefined>` <a id="ruleid"></a>
 
-A reference to your custom rule.<br>
-Only available when other keys are not used in object.
+A reference to your custom rule.
 
 ```jsonc
 {
     "ruleId": "yourCustomRule"
+    // ...
+}
+```
+
+You can use it with other keys like [**`name`**](#name), [**`extension`**](#extension) and [**`children`**](#children) but remember that they will override the keys from your custom rule.<br>
+This is useful if you want to get rid of a lot of repetition in your structure, for example, `folders` have different [**`name`**](#name), but the same [**`children`**](#children).
+
+```jsonc
+{
+    "structure": {
+        "name": "src",
+        "children": [
+            {
+                "name": "features",
+                "children": [
+                    {
+                        "name": "feature1",
+                        "ruleId": "yourCustomRule"
+                    },
+                    {
+                        "name": "feature2",
+                        "ruleId": "yourCustomRule"
+                    }
+                ]
+            }
+            // ...
+        ]
+    },
+    "rules": {
+        "yourCustomRule": {
+            "name": "/^${{camelCase}}$/", // will be overwritten
+            "children": [
+                {
+                    "name": "child1",
+                    "extension": ".ts"
+                },
+                {
+                    "name": "child2",
+                    "extension": ".tsx"
+                }
+            ]
+        }
+        // ...
+    }
+    // ...
 }
 ```
 
@@ -399,6 +441,7 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
                 "children": [
                     {
                         "ruleId": "yourCustomRule"
+                        // ...
                     }
                     // ...
                 ]
@@ -415,6 +458,7 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
                     "children": [
                         {
                             "ruleId": "yourCustomRule"
+                            // ...
                         }
                         // ...
                     ]

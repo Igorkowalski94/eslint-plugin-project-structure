@@ -50,7 +50,7 @@ describe("validateFileStructure", () => {
                     ".projectStructurerc",
                     "ComponentName.tsx",
                 ),
-            ).toThrow(getInvalidStructureError(structure));
+            ).toThrow(getInvalidStructureError());
         },
     );
 

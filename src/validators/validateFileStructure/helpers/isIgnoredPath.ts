@@ -6,7 +6,13 @@ export const isIgnoredPath = (
 ): boolean => {
     if (!ignorePatterns) return false;
 
-    if (!Array.isArray(ignorePatterns))
+    if (
+        !Array.isArray(ignorePatterns) ||
+        (Array.isArray(ignorePatterns) &&
+            ignorePatterns.some(
+                (pattern) => !pattern || typeof pattern !== "string",
+            ))
+    )
         throw getInvalidIgnorePatternsError(ignorePatterns);
 
     const filePathUnifySep = filePath.includes("\\")

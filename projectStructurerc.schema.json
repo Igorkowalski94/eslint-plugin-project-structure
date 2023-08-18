@@ -15,12 +15,12 @@
                 }
             ]
         },
-        "NameRule": {
+        "RuleIdAlone": {
             "additionalProperties": false,
             "properties": {
                 "ruleId": {
-                    "default": "Info: Remember, you can only use 'ruleId' when the rule object has no other keys.",
-                    "type": "null"
+                    "default": "",
+                    "type": "string"
                 },
                 "children": {
                     "default": [],
@@ -28,7 +28,102 @@
                 },
                 "extension": {
                     "default": "",
+                    "type": "null"
+                },
+                "name": {
+                    "default": "",
+                    "type": "null"
+                }
+            },
+            "required": ["ruleId"],
+            "type": "object"
+        },
+        "RuleIdName": {
+            "additionalProperties": false,
+            "properties": {
+                "ruleId": {
+                    "default": "",
+                    "type": "string"
+                },
+                "children": {
+                    "default": [],
+                    "type": "null"
+                },
+                "extension": {
+                    "default": "",
+                    "type": "null"
+                },
+                "name": {
+                    "default": "",
+                    "type": "string"
+                }
+            },
+            "required": ["ruleId", "name"],
+            "type": "object"
+        },
+        "RuleIdFile": {
+            "additionalProperties": false,
+            "properties": {
+                "ruleId": {
+                    "default": "",
+                    "type": "string"
+                },
+                "children": {
+                    "default": "🔥 Type error: Cannot use 'children' together with 'extension'. 🔥",
+                    "type": "null"
+                },
+                "extension": {
+                    "default": "",
                     "$ref": "#/definitions/Extension"
+                },
+                "name": {
+                    "default": "",
+                    "type": "string"
+                }
+            },
+            "required": ["ruleId", "extension"],
+            "type": "object"
+        },
+        "RuleIdFolder": {
+            "additionalProperties": false,
+            "properties": {
+                "ruleId": {
+                    "default": "",
+                    "type": "string"
+                },
+                "extension": {
+                    "default": "🔥 Type error: Cannot use 'extension' together with 'children'. 🔥",
+                    "type": "null"
+                },
+                "children": {
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/Rule"
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "default": "",
+                    "type": "string"
+                }
+            },
+            "required": ["ruleId", "children"],
+            "type": "object"
+        },
+        "NameRule": {
+            "additionalProperties": false,
+            "properties": {
+                "ruleId": {
+                    "default": "",
+                    "type": "string"
+                },
+                "children": {
+                    "default": [],
+                    "type": "null"
+                },
+                "extension": {
+                    "default": "",
+                    "type": "null"
                 },
                 "name": {
                     "default": "",
@@ -42,8 +137,8 @@
             "additionalProperties": false,
             "properties": {
                 "ruleId": {
-                    "default": "🔥 Type error: You can only use 'ruleId' when the rule object has no other keys. 🔥",
-                    "type": "null"
+                    "default": "",
+                    "type": "string"
                 },
                 "children": {
                     "default": "🔥 Type error: Cannot use 'children' together with 'extension'. 🔥",
@@ -65,8 +160,8 @@
             "additionalProperties": false,
             "properties": {
                 "ruleId": {
-                    "default": "🔥 Type error: You can only use 'ruleId' when the rule object has no other keys. 🔥",
-                    "type": "null"
+                    "default": "",
+                    "type": "string"
                 },
                 "extension": {
                     "default": "🔥 Type error: Cannot use 'extension' together with 'children'. 🔥",
@@ -85,29 +180,6 @@
                 }
             },
             "required": ["children"],
-            "type": "object"
-        },
-        "RuleId": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "children": {
-                    "default": "🔥 Type error: Cannot use 'children' together with 'ruleId'. 🔥",
-                    "type": "null"
-                },
-                "extension": {
-                    "default": "🔥 Type error: Cannot use 'extension' together with 'ruleId'. 🔥",
-                    "type": "null"
-                },
-                "name": {
-                    "default": "🔥 Type error: Cannot use 'name' together with 'ruleId'. 🔥",
-                    "type": "null"
-                }
-            },
-            "required": ["ruleId"],
             "type": "object"
         },
         "ProjectStructureConfig": {
@@ -144,7 +216,16 @@
                     "$ref": "#/definitions/FileRule"
                 },
                 {
-                    "$ref": "#/definitions/RuleId"
+                    "$ref": "#/definitions/RuleIdAlone"
+                },
+                {
+                    "$ref": "#/definitions/RuleIdName"
+                },
+                {
+                    "$ref": "#/definitions/RuleIdFile"
+                },
+                {
+                    "$ref": "#/definitions/RuleIdFolder"
                 }
             ]
         }

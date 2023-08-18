@@ -8,7 +8,22 @@ jest.mock("./helpers/validateRulesList", () => ({
 }));
 
 describe("validateChildren", () => {
-    it.each([0, 1, {}, null, undefined, "test", ""])(
+    it.each([
+        0,
+        1,
+        {},
+        null,
+        undefined,
+        "test",
+        "",
+
+        [0],
+        [1],
+        [null],
+        [undefined],
+        ["test"],
+        [""],
+    ])(
         "should throw error when children are invalid, children =  %s",
         (children) => {
             expect(() =>

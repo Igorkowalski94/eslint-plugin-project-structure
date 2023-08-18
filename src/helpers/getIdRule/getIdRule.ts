@@ -1,21 +1,23 @@
 import { getIdRuleError } from "./helpers/getIdRuleError";
 import { getInvalidRuleIdError } from "./helpers/getInvalidRuleIdError";
 import { getInvalidRulesError } from "./helpers/getInvalidRulesError";
-import { RuleId, ProjectStructureConfig, Rule } from "../../types";
+import { ProjectStructureConfig, Rule, RuleId } from "../../types";
 
 export const getIdRule = (
-    { ruleId }: RuleId,
+    rule: RuleId,
     { rules }: ProjectStructureConfig,
 ): Rule | void => {
+    const { ruleId, ...ruleWithoutRuleId } = rule;
+
     if (ruleId !== undefined && typeof ruleId !== "string")
         throw getInvalidRuleIdError(ruleId);
 
     if (!rules || typeof rules !== "object" || Array.isArray(rules))
-        throw getInvalidRulesError(rules);
+        throw getInvalidRulesError();
 
     const idRule = rules[ruleId];
 
-    if (idRule) return idRule;
+    if (idRule) return { ...idRule, ...ruleWithoutRuleId } as Rule;
 
     throw getIdRuleError(ruleId);
 };

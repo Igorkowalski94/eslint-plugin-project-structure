@@ -4,7 +4,20 @@ import { validateExtension } from "./validateExtension";
 import { Extension } from "../../types";
 
 describe("validateExtension", () => {
-    it.each([0, 1, {}, undefined, null])(
+    it.each([
+        0,
+        1,
+        {},
+        undefined,
+        null,
+        [""],
+        [0],
+        [1],
+        [{}],
+        [[]],
+        [undefined],
+        [null],
+    ])(
         "should throw error when extension is invalid extension = %s",
         (extension) => {
             expect(() =>

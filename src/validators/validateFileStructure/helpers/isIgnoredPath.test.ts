@@ -8,7 +8,7 @@ describe("isIgnoredPath", () => {
         ).toEqual(false);
     });
 
-    it.each([{}, 1, "1"])(
+    it.each([{}, 1, "1", [0], [1], [""], [undefined], [null], [{}], [[]]])(
         "should throw error when ignorePatterns are invalid ignorePatterns = %s",
         (filePath) => {
             expect(() =>
