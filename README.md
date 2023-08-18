@@ -18,6 +18,7 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 ### Go to:
 
 -   [Installation](#installation)
+-   [Getting started](#getting-started)
 -   [JSON example](#json-example-for-the-structure-below)
 -   [YAML example](#yaml-example)
 -   [API](#api)
@@ -53,11 +54,10 @@ If you want to check [extensions](#extension) that are not supported by eslint l
 
 Add the following script to your `package.json`. You can extend the list of [extensions](#extension) in the script. After completing [`Step 2`](#step-2) and [`Step 3`](#step-3), use this script to check your structure.
 
-```json
+```jsonc
 {
     "scripts": {
-        "projectStructure:check": "eslint --parser ./node_modules/eslint-plugin-project-structure/dist/parser.js --rule project-structure/file-structure:error
-        --ext .js,.jsx,.ts,.tsx,.css,.sass,.less,.svg,.png,.jpg,.yml,.json ."
+        "projectStructure:check": "eslint --parser ./node_modules/eslint-plugin-project-structure/dist/parser.js --rule project-structure/file-structure:error --ext .js,.jsx,.ts,.tsx,.css,.sass,.less,.svg,.png,.jpg,.yml,.json ."
     }
 }
 ```
