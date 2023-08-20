@@ -231,8 +231,8 @@ Remember that the regular expression must start and end with a **`/`**.
 ### **`"regexParameters"`**: `<Record<string, string> | undefined>` <a id="regex-parameters"></a>
 
 A place where you can add your own regex parameters.<br>
-You can freely mix regex parameters together see **[example](#regex-parameters-mix-example)**.<br>
-You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parentName)** and **[ParentName](#ParentName)** overwriting them will be ignored.
+You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parentName)** and **[ParentName](#ParentName)** overwriting them will be ignored.<br>
+You can freely mix regex parameters together see **[example](#regex-parameters-mix-example)**.
 
 ```jsonc
 {
