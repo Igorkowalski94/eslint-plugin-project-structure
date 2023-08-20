@@ -1,4 +1,5 @@
 import { getIdRule } from "./getIdRule";
+import { getIdRuleError } from "./helpers/getIdRuleError";
 import { getInvalidRuleIdError } from "./helpers/getInvalidRuleIdError";
 import { getInvalidRulesError } from "./helpers/getInvalidRulesError";
 import { ProjectStructureConfig, Rule } from "../../types";
@@ -53,21 +54,9 @@ describe("getIdRule", () => {
         ).toEqual({ ...testRule, name: "FixedName" });
     });
 
-    it("should throw error when rules object is empty", () => {
-        expect(() =>
-            getIdRule(
-                { ruleId: "test2" },
-                {
-                    structure: {
-                        name: "src",
-                    },
-                    rules: {},
-                },
-            ),
-        ).toThrow();
-    });
-
     it("should throw error when ruleId do not exist in rules object", () => {
-        expect(() => getIdRule({ ruleId: "test2" }, config)).toThrow();
+        expect(() => getIdRule({ ruleId: "test2" }, config)).toThrow(
+            getIdRuleError("test2"),
+        );
     });
 });

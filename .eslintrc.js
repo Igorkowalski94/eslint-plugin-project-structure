@@ -33,7 +33,7 @@ module.exports = {
         "arrow-body-style": ["error", "as-needed"],
         "no-nested-ternary": "error",
         "default-param-last": "error",
-        "max-params": ["error", 4],
+        "max-params": ["error", 2],
         complexity: ["error", 15],
 
         "@typescript-eslint/explicit-function-return-type": "error",

@@ -8,32 +8,32 @@ describe("validateName", () => {
         "should throw error when ruleName is invalid, ruleName =  %s",
         (ruleName) => {
             expect(() =>
-                validateName(
-                    "componentName.api",
-                    ruleName as unknown as string,
-                    "parentName",
-                ),
+                validateName({
+                    nodeName: "componentName.api",
+                    ruleName: ruleName as unknown as string,
+                    parentName: "parentName",
+                }),
             ).toThrow(getInvalidNameError(ruleName));
         },
     );
 
     it("should not throw error when nodeName match regex", () => {
         expect(() =>
-            validateName(
-                "componentName.api",
-                "/^.*\\.(types|api)$/",
-                "parentName",
-            ),
+            validateName({
+                nodeName: "componentName.api",
+                ruleName: "/^.*\\.(types|api)$/",
+                parentName: "parentName",
+            }),
         ).not.toThrow();
     });
 
     it("should throw error when nodeName not match regex", () => {
         expect(() =>
-            validateName(
-                "componentName.apxi",
-                "/^.*\\.(types|api)$/",
-                "parentName",
-            ),
+            validateName({
+                nodeName: "componentName.apxi",
+                ruleName: "/^.*\\.(types|api)$/",
+                parentName: "parentName",
+            }),
         ).toThrow(
             getNameRegexError("componentName.apxi", "/^.*\\.(types|api)$/"),
         );
@@ -41,12 +41,20 @@ describe("validateName", () => {
 
     it("should not throw error when nodeName === ruleName", () => {
         expect(() =>
-            validateName("componentName", "componentName", "parentName"),
+            validateName({
+                nodeName: "componentName",
+                ruleName: "componentName",
+                parentName: "parentName",
+            }),
         ).not.toThrow();
     });
     it("should throw error when nodeName !== ruleName", () => {
         expect(() =>
-            validateName("componentName", "XcomponentName", "parentName"),
+            validateName({
+                nodeName: "componentName",
+                ruleName: "XcomponentName",
+                parentName: "parentName",
+            }),
         ).toThrow(getNameError("componentName", "XcomponentName"));
     });
 });

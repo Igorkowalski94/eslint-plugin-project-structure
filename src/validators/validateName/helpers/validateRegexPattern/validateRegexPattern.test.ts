@@ -1,67 +1,165 @@
 import { getNameRegexError } from "./helpers/getNameRegexError";
-import { validateRegexPattern } from "./validateRegexPattern";
+import {
+    ValidateRegexPattern,
+    validateRegexPattern,
+} from "./validateRegexPattern";
 
 describe("validateRegexPattern", () => {
-    it.each<[string, string, string]>([
-        ["parentName", "ParentName", "/^${{parentName}}$/"],
-        ["ParentName", "ParentName", "/^${{ParentName}}$/"],
-        ["ComponentName", "ParentName", "/^${{PascalCase}}$/"],
-        ["componentName", "ParentName", "/^${{camelCase}}$/"],
-        ["component_name", "ParentName", "/^${{snake_case}}$/"],
-        ["component-name", "ParentName", "/^${{kebab-case}}$/"],
-        ["component-name", "ParentName", "/^${{dash-case}}$/"],
+    it.each<[ValidateRegexPattern]>([
         [
-            "useHook.test",
-            "parentName",
-            "/^(use)${{PascalCase}}(?:\\.(test|test.helpers))?$/",
+            {
+                nodeName: "parentName",
+                parentName: "ParentName",
+                regex: "/^${{parentName}}$/",
+            },
         ],
         [
-            "helper.test",
-            "parentName",
-            "/^${{camelCase}}(?:\\.(test|test.helpers))?$/",
+            {
+                nodeName: "ParentName",
+                parentName: "ParentName",
+                regex: "/^${{ParentName}}$/",
+            },
         ],
         [
-            "parentName.test",
-            "parentName",
-            "/^${{parentName}}(?:\\.(test|test.helpers))?$/",
+            {
+                nodeName: "ComponentName",
+                parentName: "ParentName",
+                regex: "/^${{PascalCase}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "componentName",
+                parentName: "ParentName",
+                regex: "/^${{camelCase}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "component_name",
+                parentName: "ParentName",
+                regex: "/^${{snake_case}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "component-name",
+                parentName: "ParentName",
+                regex: "/^${{kebab-case}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "component-name",
+                parentName: "ParentName",
+                regex: "/^${{dash-case}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "useHook.test",
+                parentName: "parentName",
+                regex: "/^(use)${{PascalCase}}(?:\\.(test|test.helpers))?$/",
+            },
+        ],
+        [
+            {
+                nodeName: "helper.test",
+                parentName: "parentName",
+                regex: "/^${{camelCase}}(?:\\.(test|test.helpers))?$/",
+            },
+        ],
+        [
+            {
+                nodeName: "parentName.test",
+
+                parentName: "parentName",
+                regex: "/^${{parentName}}(?:\\.(test|test.helpers))?$/",
+            },
         ],
     ])(
-        "should not throw error when nodeName match regex pattern for nodeName = %s, parentName = %s,  regex =  %s",
-        (nodeName, parentName, regex) => {
-            expect(() =>
-                validateRegexPattern(nodeName, parentName, regex),
-            ).not.toThrow();
+        "should not throw error when nodeName match regex pattern for args = %s",
+        (args) => {
+            expect(() => validateRegexPattern(args)).not.toThrow();
         },
     );
 
-    it.each<[string, string, string]>([
-        ["XparentName", "ParentName", "/^${{parentName}}$/"],
-        ["XParentName", "ParentName", "/^${{ParentName}}$/"],
-        ["xComponentName", "ParentName", "/^${{PascalCase}}$/"],
-        ["XcomponentName", "ParentName", "/^${{camelCase}}$/"],
-        ["Xcomponent_name", "ParentName", "/^${{snake_case}}$/"],
-        ["Xcomponent-name", "ParentName", "/^${{kebab-case}}$/"],
-        ["Xcomponent-name", "ParentName", "/^${{dash-case}}$/"],
+    it.each<[ValidateRegexPattern]>([
         [
-            "XuseHook.test",
-            "parentName",
-            "/^(use)${{PascalCase}}(?:\\.(test|test.helpers))?$/",
+            {
+                nodeName: "XparentName",
+                parentName: "ParentName",
+                regex: "/^${{parentName}}$/",
+            },
         ],
         [
-            "Xhelper.test",
-            "parentName",
-            "/^${{camelCase}}(?:\\.(test|test.helpers))?$/",
+            {
+                nodeName: "XParentName",
+                parentName: "ParentName",
+                regex: "/^${{ParentName}}$/",
+            },
         ],
         [
-            "XparentName.test",
-            "parentName",
-            "/^${{parentName}}(?:\\.(test|test.helpers))?$/",
+            {
+                nodeName: "xComponentName",
+                parentName: "ParentName",
+                regex: "/^${{PascalCase}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "XcomponentName",
+                parentName: "ParentName",
+                regex: "/^${{camelCase}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "Xcomponent_name",
+                parentName: "ParentName",
+                regex: "/^${{snake_case}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "Xcomponent-name",
+                parentName: "ParentName",
+                regex: "/^${{kebab-case}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "Xcomponent-name",
+                parentName: "ParentName",
+                regex: "/^${{dash-case}}$/",
+            },
+        ],
+        [
+            {
+                nodeName: "XuseHook.test",
+                parentName: "parentName",
+                regex: "/^(use)${{PascalCase}}(?:\\.(test|test.helpers))?$/",
+            },
+        ],
+        [
+            {
+                nodeName: "Xhelper.test",
+                parentName: "parentName",
+                regex: "/^${{camelCase}}(?:\\.(test|test.helpers))?$/",
+            },
+        ],
+        [
+            {
+                nodeName: "XparentName.test",
+                parentName: "parentName",
+                regex: "/^${{parentName}}(?:\\.(test|test.helpers))?$/",
+            },
         ],
     ])(
-        "should throw error when nodeName do not match regex pattern for nodeName = %s, parentName = %s,  regex =  %s",
-        (nodeName, parentName, regex) => {
+        "should throw error when nodeName do not match regex pattern for args = %s",
+        ({ nodeName, parentName, regex }) => {
             expect(() =>
-                validateRegexPattern(nodeName, parentName, regex),
+                validateRegexPattern({ nodeName, parentName, regex }),
             ).toThrow(getNameRegexError(nodeName, regex));
         },
     );

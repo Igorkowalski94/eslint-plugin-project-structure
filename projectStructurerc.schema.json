@@ -199,6 +199,9 @@
                 },
                 "structure": {
                     "$ref": "#/definitions/Rule"
+                },
+                "regexParameters": {
+                    "type": "object"
                 }
             },
             "required": ["structure"],

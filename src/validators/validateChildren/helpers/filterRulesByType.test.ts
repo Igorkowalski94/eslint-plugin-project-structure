@@ -1,4 +1,4 @@
-import { filterRulesByType } from "./filterRulesByType";
+import { FilterRulesByType, filterRulesByType } from "./filterRulesByType";
 import { RuleId, ProjectStructureConfig, Rule } from "../../../types";
 
 describe("filterRulesByType", () => {
@@ -16,7 +16,7 @@ describe("filterRulesByType", () => {
         children: [fileRule, emptyRule, { children: [nameRule] }],
     };
 
-    const projectStructureConfig: ProjectStructureConfig = {
+    const config: ProjectStructureConfig = {
         ignorePatterns: [],
         rules: {
             folder: {
@@ -40,52 +40,53 @@ describe("filterRulesByType", () => {
     const idEmpty = { ruleId: "idEmpty" };
     const idName = { ruleId: "name" };
 
-    it.each<[boolean, string, Rule]>([
-        [false, "src/componentName", fileRule],
-        [false, "src/componentName", idFile],
+    it.each<[boolean, Omit<FilterRulesByType, "config">]>([
+        [false, { pathname: "src/componentName", rule: fileRule }],
+        [false, { pathname: "src/componentName", rule: idFile }],
 
-        [true, "src/componentName", emptyRule],
-        [true, "src/componentName", idEmpty],
-        [true, "src/componentName", folderRule],
-        [true, "src/componentName", idFolder],
-        [true, "src/componentName", idName],
+        [true, { pathname: "src/componentName", rule: emptyRule }],
+        [true, { pathname: "src/componentName", rule: idEmpty }],
+        [true, { pathname: "src/componentName", rule: folderRule }],
+        [true, { pathname: "src/componentName", rule: idFolder }],
+        [true, { pathname: "src/componentName", rule: idName }],
 
-        [false, "src\\componentName", fileRule],
-        [false, "src\\componentName", idFile],
+        [false, { pathname: "src\\componentName", rule: fileRule }],
+        [false, { pathname: "src\\componentName", rule: idFile }],
 
-        [true, "src\\componentName", emptyRule],
-        [true, "src\\componentName", idEmpty],
-        [true, "src\\componentName", folderRule],
-        [true, "src\\componentName", idFolder],
-        [true, "src\\componentName", idName],
+        [true, { pathname: "src\\componentName", rule: emptyRule }],
+        [true, { pathname: "src\\componentName", rule: idEmpty }],
+        [true, { pathname: "src\\componentName", rule: folderRule }],
+        [true, { pathname: "src\\componentName", rule: idFolder }],
+        [true, { pathname: "src\\componentName", rule: idName }],
 
-        [true, "componentName", fileRule],
-        [true, "componentName", idFile],
-        [true, "componentName", emptyRule],
-        [true, "componentName", idEmpty],
+        [true, { pathname: "componentName", rule: fileRule }],
+        [true, { pathname: "componentName", rule: idFile }],
+        [true, { pathname: "componentName", rule: emptyRule }],
+        [true, { pathname: "componentName", rule: idEmpty }],
 
-        [false, "componentName", folderRule],
-        [false, "componentName", idFolder],
-    ])(
-        "should return %s  when pathname is %s, rule is %s",
-        (filter, pathname, rule) => {
-            expect(
-                filterRulesByType(pathname, rule, projectStructureConfig),
-            ).toEqual(filter);
-        },
-    );
+        [false, { pathname: "componentName", rule: folderRule }],
+        [false, { pathname: "componentName", rule: idFolder }],
+    ])("should return %s  when args = %s", (filter, { pathname, rule }) => {
+        expect(
+            filterRulesByType({
+                pathname,
+                rule,
+                config,
+            }),
+        ).toEqual(filter);
+    });
 
     it("should return true when !nodeRule", () => {
         expect(() =>
-            filterRulesByType(
-                "componentName",
-                { ruleId: "test" },
-                {
+            filterRulesByType({
+                pathname: "componentName",
+                rule: { ruleId: "test" },
+                config: {
                     structure: {
                         name: "src",
                     },
                 },
-            ),
+            }),
         ).toThrow();
     });
 });

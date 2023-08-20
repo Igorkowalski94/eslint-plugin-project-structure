@@ -1,32 +1,27 @@
-import { getLowerCaseFirstLetter } from "./helpers/getLowerCaseFirstLetter";
+import { applyRegexParameters } from "./helpers/applyRegexParameters";
 import { getNameRegexError } from "./helpers/getNameRegexError";
-import { getUpperCaseFirstLetter } from "./helpers/getUpperCaseFirstLetter";
-import {
-    CAMEL_CASE,
-    KEBAB_CASE,
-    PASCAL_CASE,
-    SNAKE_CASE,
-} from "./validateRegexPattern.consts";
+import { RegexParameters } from "../../../../types";
 
-export const validateRegexPattern = (
-    nodeName: string,
-    parentName: string,
-    regex: string,
-): void => {
+export interface ValidateRegexPattern {
+    nodeName: string;
+    parentName: string;
+    regex: string;
+    regexParameters?: RegexParameters;
+}
+
+export const validateRegexPattern = ({
+    nodeName,
+    parentName,
+    regex,
+    regexParameters,
+}: ValidateRegexPattern): void => {
     let currentRegex = regex;
-    currentRegex = currentRegex.replace(
-        "${{ParentName}}",
-        getUpperCaseFirstLetter(parentName),
-    );
-    currentRegex = currentRegex.replace(
-        "${{parentName}}",
-        getLowerCaseFirstLetter(parentName),
-    );
-    currentRegex = currentRegex.replace("${{PascalCase}}", `${PASCAL_CASE}`);
-    currentRegex = currentRegex.replace("${{camelCase}}", `${CAMEL_CASE}`);
-    currentRegex = currentRegex.replace("${{snake_case}}", `${SNAKE_CASE}`);
-    currentRegex = currentRegex.replace("${{kebab-case}}", `${KEBAB_CASE}`);
-    currentRegex = currentRegex.replace("${{dash-case}}", `${KEBAB_CASE}`);
+
+    currentRegex = applyRegexParameters({
+        regex: currentRegex,
+        parentName,
+        regexParameters,
+    });
 
     const cleanedRegex = (
         currentRegex.match(/^\/(.+)\/$/) as RegExpMatchArray

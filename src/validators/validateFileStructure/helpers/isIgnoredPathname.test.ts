@@ -1,10 +1,10 @@
 import { getInvalidIgnorePatternsError } from "./getInvalidIgnorePatternsError";
-import { isIgnoredPath } from "./isIgnoredPath";
+import { isIgnoredPathname } from "./isIgnoredPathname";
 
-describe("isIgnoredPath", () => {
+describe("isIgnoredPathname", () => {
     it("should return false when ignorePatterns === undefined", () => {
         expect(
-            isIgnoredPath("src/legacy/ComponentName.tsx", undefined),
+            isIgnoredPathname("src/legacy/ComponentName.tsx", undefined),
         ).toEqual(false);
     });
 
@@ -12,7 +12,7 @@ describe("isIgnoredPath", () => {
         "should throw error when ignorePatterns are invalid ignorePatterns = %s",
         (filePath) => {
             expect(() =>
-                isIgnoredPath("src/legacy", filePath as string[]),
+                isIgnoredPathname("src/legacy", filePath as string[]),
             ).toThrow(getInvalidIgnorePatternsError(filePath));
         },
     );
@@ -23,7 +23,7 @@ describe("isIgnoredPath", () => {
     ])(
         "should return true when pathname is in ignorePatterns filePath = %s",
         (filePath) => {
-            expect(isIgnoredPath(filePath, ["src/legacy"])).toEqual(true);
+            expect(isIgnoredPathname(filePath, ["src/legacy"])).toEqual(true);
         },
     );
 
@@ -33,7 +33,7 @@ describe("isIgnoredPath", () => {
     ])(
         "should return false when pathname is not in ignorePatterns filePath = %s",
         (filePath) => {
-            expect(isIgnoredPath(filePath, ["src/legacy"])).toEqual(false);
+            expect(isIgnoredPathname(filePath, ["src/legacy"])).toEqual(false);
         },
     );
 });

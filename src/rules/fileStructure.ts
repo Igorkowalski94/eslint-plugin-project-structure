@@ -33,14 +33,14 @@ export const fileStructure = ESLintUtils.RuleCreator(
                     context.settings["project-structure/config-path"]
                 }`;
 
-                const fileAbsolutePath = context.getPhysicalFilename?.();
-                const filePath = fileAbsolutePath?.replace(
+                const pathnameAbsolutePath = context.getPhysicalFilename?.();
+                const pathname = pathnameAbsolutePath?.replace(
                     `${context.getCwd?.()}${sep}`,
                     "",
                 );
 
                 try {
-                    validateFileStructure(configPath, filePath);
+                    validateFileStructure(configPath, pathname);
                 } catch (error) {
                     if (!finalErrorGuard(error)) return;
 

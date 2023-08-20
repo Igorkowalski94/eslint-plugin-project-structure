@@ -1,7 +1,7 @@
 import { getInvalidIgnorePatternsError } from "./getInvalidIgnorePatternsError";
 
-export const isIgnoredPath = (
-    filePath: string,
+export const isIgnoredPathname = (
+    pathname: string,
     ignorePatterns?: string[],
 ): boolean => {
     if (!ignorePatterns) return false;
@@ -15,11 +15,11 @@ export const isIgnoredPath = (
     )
         throw getInvalidIgnorePatternsError(ignorePatterns);
 
-    const filePathUnifySep = filePath.includes("\\")
-        ? filePath.replace(/\\/g, "/")
-        : filePath;
+    const pathnameUnifySep = pathname.includes("\\")
+        ? pathname.replace(/\\/g, "/")
+        : pathname;
 
     return ignorePatterns.some((pattern) =>
-        new RegExp(pattern).test(filePathUnifySep),
+        new RegExp(pattern).test(pathnameUnifySep),
     );
 };

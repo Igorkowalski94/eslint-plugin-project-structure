@@ -27,7 +27,8 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
     -   [name](#name)
         -   [Fixed name](#fixed-name)
         -   [Regex](#regex)
-        -   [Regex parameters](#regex-parameters)
+    -   [regexParameters](#regex-parameters)
+        -   [Built-in regex parameters](#built-in-regex-parameters)
         -   [Regex parameters mix example](#regex-parameters-mix-example)
     -   [extension](#extension)
     -   [children](#children)
@@ -122,7 +123,7 @@ Create a `.projectStructurerc` file in the root of your project.
                     "extension": [".tsx", "ts"]
                 },
                 {
-                    "name": "/^${{parentName}}(?:\\.(types|api))?$/",
+                    "name": "/^${{parentName}}${{yourCustomRegexParameter}}$/",
                     "extension": ".ts"
                 },
                 {
@@ -131,6 +132,9 @@ Create a `.projectStructurerc` file in the root of your project.
                 }
             ]
         }
+    },
+    "regexParameters": {
+        "yourCustomRegexParameter": "(?:\\.(types|api))?"
     }
 }
 ```
@@ -157,10 +161,12 @@ rules:
               extension:
                   - ".tsx"
                   - ts
-            - name: "/^${{parentName}}(?:\\.(types|api))?$/"
+            - name: "/^${{parentName}}${{yourCustomRegexParameter}}$/"
               extension: ".ts"
             - name: "/^${{ParentName}}$/"
               extension: ".tsx"
+regexParameters:
+    yourCustomRegexParameter: "(?:\\.(types|api))?"
 ```
 
 ## API:
@@ -222,11 +228,43 @@ Remember that the regular expression must start and end with a **`/`**.
 }
 ```
 
-#### Regex parameters <a id="regex-parameters"></a>
+### **`"regexParameters"`**: `<Record<string, string> | undefined>` <a id="regex-parameters"></a>
 
-You can use built-in parameters for regex. You can freely mix them together see **[example](#regex-parameters-mix-example)**.
+A place where you can add your own regex parameters.<br>
+You can freely mix regex parameters together see **[example](#regex-parameters-mix-example)**.<br>
+You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parentName)** and **[ParentName](#ParentName)** overwriting them will be ignored.
 
-**`${{parentName}}`**<br>
+```jsonc
+{
+    "regexParameters": {
+        "yourCustomRegexParameter": "/^(Your regex logic)$/",
+        "camelCase": "/^(Your regex logic)$/", // Override built-in camelCase.
+        "parentName": "/^(Your regex logic)$/", // Overwriting will be ignored.
+        "ParentName": "/^(Your regex logic)$/" // Overwriting will be ignored.
+        // ...
+    }
+    // ...
+}
+```
+
+Then you can use them in **[regex](#regex)** with the following notation `${{yourCustomRegexParameter}}`.
+
+```jsonc
+{
+    "name": "/^${{yourCustomRegexParameter}}$/"
+    // ...
+}
+```
+
+> **Note**
+> Remember that the regular expression must start and end with a **`/`**.
+
+> **Note**
+> If your parameter will only be part of the **[regex](#regex)**, I recommend wrapping it in parentheses and not adding `/^  $/`.
+
+#### Built-in regex parameters
+
+**`${{parentName}}`**<br> <a id="parentName"></a>
 The child inherits the name of the folder in which it is located and sets its first letter to lowercase.
 
 ```jsonc
@@ -235,7 +273,7 @@ The child inherits the name of the folder in which it is located and sets its fi
 }
 ```
 
-**`${{ParentName}}`**<br>
+**`${{ParentName}}`**<br> <a id="ParentName"></a>
 The child inherits the name of the folder in which it is located and sets its first letter to uppercase.
 
 ```jsonc
@@ -373,7 +411,7 @@ The structure of your project and its rules.
 
 ### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
-A place where you can add your custom rules.<br>
+A place where you can add your custom rules. This is useful when you want to avoid a lot of repetition in your **[structure](#structure)** or use **[folder recursion](#folder-recursion)** feature.<br>
 The key in the object will correspond to [**`ruleId`**](#ruleid), which you can then use in many places.
 
 ```jsonc

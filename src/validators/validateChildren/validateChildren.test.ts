@@ -27,16 +27,16 @@ describe("validateChildren", () => {
         "should throw error when children are invalid, children =  %s",
         (children) => {
             expect(() =>
-                validateChildren(
-                    "src/features/ComponentName.tsx",
-                    "src/features",
-                    children as Rule[],
-                    {
+                validateChildren({
+                    pathname: "src/features/ComponentName.tsx",
+                    nodeName: "src/features",
+                    children: children as Rule[],
+                    config: {
                         structure: {
                             name: "src",
                         },
                     },
-                ),
+                }),
             ).toThrow(getInvalidChildrenError(children));
         },
     );
@@ -48,10 +48,10 @@ describe("validateChildren", () => {
             validateRulesListMock,
         );
 
-        validateChildren(
-            "src/features/ComponentName.tsx",
-            "src/features",
-            [
+        validateChildren({
+            pathname: "src/features/ComponentName.tsx",
+            nodeName: "src/features",
+            children: [
                 {
                     children: [
                         {
@@ -60,12 +60,12 @@ describe("validateChildren", () => {
                     ],
                 },
             ],
-            {
+            config: {
                 structure: {
                     name: "src",
                 },
             },
-        );
+        });
 
         expect(validateRulesListMock).toBeCalled();
     });
@@ -77,9 +77,14 @@ describe("validateChildren", () => {
             validateRulesListMock,
         );
 
-        validateChildren("src/features/ComponentName.tsx", "src/features", [], {
-            structure: {
-                name: "src",
+        validateChildren({
+            pathname: "src/features/ComponentName.tsx",
+            nodeName: "src/features",
+            children: [],
+            config: {
+                structure: {
+                    name: "src",
+                },
             },
         });
 

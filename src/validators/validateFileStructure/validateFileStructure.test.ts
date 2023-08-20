@@ -1,12 +1,12 @@
 import { getInvalidConfigFileError } from "./helpers/getInvalidConfigFileError";
 import { getInvalidStructureError } from "./helpers/getInvalidStructureError";
-import { isIgnoredPath } from "./helpers/isIgnoredPath";
+import { isIgnoredPathname } from "./helpers/isIgnoredPathname";
 import { readConfigFile } from "./helpers/readConfigFile";
 import { validateFileStructure } from "./validateFileStructure";
 import { validatePath } from "../../validators/validatePath/validatePath";
 
-jest.mock("./helpers/isIgnoredPath", () => ({
-    isIgnoredPath: jest.fn(),
+jest.mock("./helpers/isIgnoredPathname", () => ({
+    isIgnoredPathname: jest.fn(),
 }));
 
 jest.mock("../../validators/validatePath/validatePath", () => ({
@@ -55,7 +55,7 @@ describe("validateFileStructure", () => {
     );
 
     it("should return undefined when filePath is in ignorePatterns", () => {
-        (isIgnoredPath as jest.Mock).mockReturnValue(true);
+        (isIgnoredPathname as jest.Mock).mockReturnValue(true);
         (readConfigFile as jest.Mock).mockReturnValue({ structure: {} });
 
         expect(
@@ -69,7 +69,7 @@ describe("validateFileStructure", () => {
     it("should call validatePath", () => {
         const validatePathMock = jest.fn();
 
-        (isIgnoredPath as jest.Mock).mockReturnValue(false);
+        (isIgnoredPathname as jest.Mock).mockReturnValue(false);
         (validatePath as jest.Mock).mockImplementation(validatePathMock);
         (readConfigFile as jest.Mock).mockReturnValue({ structure: {} });
 
@@ -78,11 +78,11 @@ describe("validateFileStructure", () => {
             "src/features/ComponentName.tsx",
         );
 
-        expect(validatePathMock).toBeCalledWith(
-            "src/features/ComponentName.tsx",
-            "structure",
-            {},
-            { structure: {} },
-        );
+        expect(validatePathMock).toBeCalledWith({
+            pathname: "src/features/ComponentName.tsx",
+            parentName: "structure",
+            rule: {},
+            config: { structure: {} },
+        });
     });
 });

@@ -7,12 +7,19 @@ import { getNodeType } from "../../../helpers/getNodeType";
 import { Rule, ProjectStructureConfig } from "../../../types";
 import { validatePath } from "../../validatePath/validatePath";
 
-export const validateRulesList = (
-    pathname: string,
-    parentName: string,
-    nodesList: Rule[],
-    config: ProjectStructureConfig,
-): void => {
+interface ValidateRulesList {
+    pathname: string;
+    parentName: string;
+    nodesList: Rule[];
+    config: ProjectStructureConfig;
+}
+
+export const validateRulesList = ({
+    pathname,
+    parentName,
+    nodesList,
+    config,
+}: ValidateRulesList): void => {
     const nodeName = pathname.split(sep)[0];
     const nodeType = getNodeType(nodeName);
 
@@ -26,7 +33,7 @@ export const validateRulesList = (
 
     for (const childNode of nodesList) {
         try {
-            validatePath(pathname, parentName, childNode, config);
+            validatePath({ pathname, parentName, rule: childNode, config });
             return;
         } catch (error) {
             if (finalErrorGuard(error) && error.type === "final")

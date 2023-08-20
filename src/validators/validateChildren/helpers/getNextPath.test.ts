@@ -1,4 +1,4 @@
-import { getNextPath } from "./getNextPath";
+import { getNextPathname } from "./getNextPath";
 
 jest.mock("path", () => ({
     sep: "/",
@@ -7,7 +7,7 @@ jest.mock("path", () => ({
 describe("getNextPath", () => {
     it("should return correct next path", () => {
         expect(
-            getNextPath("src/features/ComponentName.tsx", "src/features"),
+            getNextPathname("src/features/ComponentName.tsx", "src/features"),
         ).toEqual("ComponentName.tsx");
     });
 });

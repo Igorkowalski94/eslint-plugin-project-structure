@@ -7,12 +7,19 @@ import { validateChildren } from "../validateChildren/validateChildren";
 import { validateExtension } from "../validateExtension/validateExtension";
 import { validateName } from "../validateName/validateName";
 
-export const validatePath = (
-    pathname: string,
-    parentName: string,
-    rule: Rule,
-    config: ProjectStructureConfig,
-): void => {
+interface ValidatePath {
+    pathname: string;
+    parentName: string;
+    rule: Rule;
+    config: ProjectStructureConfig;
+}
+
+export const validatePath = ({
+    pathname,
+    parentName,
+    rule,
+    config,
+}: ValidatePath): void => {
     if (!rule || typeof rule !== "object" || Array.isArray(rule))
         throw getInvalidRuleError(rule);
 
@@ -22,10 +29,16 @@ export const validatePath = (
 
     if (extension && children) throw getInvalidTypeError(nodeRule);
 
-    if (name) validateName(nodeName, name, parentName);
+    if (name)
+        validateName({
+            nodeName,
+            ruleName: name,
+            parentName,
+            regexParameters: config.regexParameters,
+        });
 
     if (extension && fileNameWithExtension)
         validateExtension(fileNameWithExtension, extension);
 
-    if (children) validateChildren(pathname, nodeName, children, config);
+    if (children) validateChildren({ pathname, nodeName, children, config });
 };

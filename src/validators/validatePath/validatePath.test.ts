@@ -23,32 +23,32 @@ describe("validatePath", () => {
         "should throw error when rule is invalid, rule =  %s",
         (rule) => {
             expect(() =>
-                validatePath(
-                    "componentName",
-                    "parentName",
-                    rule as unknown as Rule,
-                    {
+                validatePath({
+                    pathname: "componentName",
+                    parentName: "parentName",
+                    rule: rule as unknown as Rule,
+                    config: {
                         structure: {
                             name: "src",
                         },
                     },
-                ),
+                }),
             ).toThrow(getInvalidRuleError(rule));
         },
     );
 
     it("should throw final error when rule type is invalid", () => {
         expect(() =>
-            validatePath(
-                "componentName",
-                "parentName",
-                { children: [], extension: [] } as unknown as Rule,
-                {
+            validatePath({
+                pathname: "componentName",
+                parentName: "parentName",
+                rule: { children: [], extension: [] } as unknown as Rule,
+                config: {
                     structure: {
                         name: "src",
                     },
                 },
-            ),
+            }),
         ).toThrow(getInvalidTypeError({ children: [], extension: [] }));
     });
 
@@ -56,18 +56,18 @@ describe("validatePath", () => {
         const validateNameMock = jest.fn();
         (validateName as jest.Mock).mockImplementation(validateNameMock);
 
-        validatePath(
-            "ComponentName.tsx",
-            "parentName",
-            {
+        validatePath({
+            pathname: "ComponentName.tsx",
+            parentName: "parentName",
+            rule: {
                 name: "test",
             },
-            {
+            config: {
                 structure: {
                     name: "src",
                 },
             },
-        );
+        });
 
         expect(validateNameMock).toBeCalled();
     });
@@ -76,18 +76,18 @@ describe("validatePath", () => {
         const validateNameMock = jest.fn();
         (validateName as jest.Mock).mockImplementation(validateNameMock);
 
-        validatePath(
-            "ComponentName.tsx",
-            "parentName",
-            {
+        validatePath({
+            pathname: "ComponentName.tsx",
+            parentName: "parentName",
+            rule: {
                 name: undefined,
             } as Rule,
-            {
+            config: {
                 structure: {
                     name: "src",
                 },
             },
-        );
+        });
 
         expect(validateNameMock).not.toBeCalled();
     });
@@ -103,18 +103,18 @@ describe("validatePath", () => {
                 validateExtensionMock,
             );
 
-            validatePath(
+            validatePath({
                 pathname,
-                "parentName",
-                {
+                parentName: "parentName",
+                rule: {
                     extension,
                 } as Rule,
-                {
+                config: {
                     structure: {
                         name: "src",
                     },
                 },
-            );
+            });
 
             expect(validateExtensionMock).toBeCalled();
         },
@@ -131,18 +131,18 @@ describe("validatePath", () => {
                 validateExtensionMock,
             );
 
-            validatePath(
+            validatePath({
                 pathname,
-                "parentName",
-                {
+                parentName: "parentName",
+                rule: {
                     extension,
                 } as Rule,
-                {
+                config: {
                     structure: {
                         name: "src",
                     },
                 },
-            );
+            });
 
             expect(validateExtensionMock).not.toBeCalled();
         },
@@ -154,18 +154,18 @@ describe("validatePath", () => {
             validateChildrenMock,
         );
 
-        validatePath(
-            "src/ComponentName",
-            "parentName",
-            {
+        validatePath({
+            pathname: "src/ComponentName",
+            parentName: "parentName",
+            rule: {
                 children: [{ name: "componentName" }],
             },
-            {
+            config: {
                 structure: {
                     name: "src",
                 },
             },
-        );
+        });
 
         expect(validateChildrenMock).toBeCalled();
     });
@@ -176,18 +176,18 @@ describe("validatePath", () => {
             validateChildrenMock,
         );
 
-        validatePath(
-            "ComponentName.tsx",
-            "parentName",
-            {
+        validatePath({
+            pathname: "ComponentName.tsx",
+            parentName: "parentName",
+            rule: {
                 name: "ComponentName",
             },
-            {
+            config: {
                 structure: {
                     name: "src",
                 },
             },
-        );
+        });
 
         expect(validateChildrenMock).not.toBeCalled();
     });

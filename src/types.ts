@@ -43,9 +43,11 @@ interface RuleIdFolder extends FolderRule {
 
 export type RuleId = RuleIdAlone | RuleIdFolder | RuleIdFile | RuleIdName;
 export type Rule = FolderRule | FileRule | NameRule | RuleId;
+export type RegexParameters = Record<string, string>;
 
 export interface ProjectStructureConfig {
     ignorePatterns?: string[];
     structure: Rule;
     rules?: Record<string, Rule>;
+    regexParameters?: RegexParameters;
 }
