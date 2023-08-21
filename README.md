@@ -260,7 +260,7 @@ Then you can use them in **[regex](#regex)** with the following notation **`${{y
 > Remember that the regular expression must start and end with a **`/`**.
 
 > **Note**
-> If your parameter will only be part of the **[regex](#regex)**, I recommend wrapping it in parentheses and not adding **`/^  $/`**.
+> If your parameter will only be part of the **[regex](#regex)**, I recommend wrapping it in parentheses and not adding **`/^$/`**.
 
 #### Built-in regex parameters
 
