@@ -284,7 +284,7 @@ The child inherits the name of the folder in which it is located and sets its fi
 
 **`${{PascalCase}}`**<br>
 Add **`PascalCase`** validation to your regex.<br>
-The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
+The added regex is **`((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`**.
 
 ```jsonc
 {
@@ -294,7 +294,7 @@ The added regex is `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`.
 
 **`${{camelCase}}`**<br>
 Add **`camelCase`** validation to your regex.<br>
-The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
+The added regex is **`(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`**.
 
 ```jsonc
 {
@@ -304,7 +304,7 @@ The added regex is `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`.
 
 **`${{snake_case}}`**<br>
 Add **`snake_case`** validation to your regex.<br>
-The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
+The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
@@ -314,7 +314,7 @@ The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
 **`${{kebab-case}}`**<br>
 Add **`kebab-case`** validation to your regex.<br>
-The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
+The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
@@ -324,7 +324,7 @@ The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 **`${{dash-case}}`**<br>
 Add **`dash-case`** validation to your regex.<br>
-The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
+The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
