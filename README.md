@@ -231,7 +231,7 @@ Remember that the regular expression must start and end with a **`/`**.
 ### **`"regexParameters"`**: `<Record<string, string> | undefined>` <a id="regex-parameters"></a>
 
 A place where you can add your own regex parameters.<br>
-You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parentName)** and **[ParentName](#ParentName)** overwriting them will be ignored.<br>
+You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parent-name-lower)** and **[ParentName](#parent-name-upper)** overwriting them will be ignored.<br>
 You can freely mix regex parameters together see **[example](#regex-parameters-mix-example)**.
 
 ```jsonc
@@ -264,7 +264,7 @@ Then you can use them in **[regex](#regex)** with the following notation `${{you
 
 #### Built-in regex parameters
 
-**`${{parentName}}`**<a id="parentName"></a><br>
+**`${{parentName}}`**<a id="parent-name-lower"></a><br>
 The child inherits the name of the folder in which it is located and sets its first letter to lowercase.
 
 ```jsonc
@@ -273,7 +273,7 @@ The child inherits the name of the folder in which it is located and sets its fi
 }
 ```
 
-**`${{ParentName}}`**<a id="ParentName"></a><br>
+**`${{ParentName}}`**<a id="parent-name-upper"></a><br>
 The child inherits the name of the folder in which it is located and sets its first letter to uppercase.
 
 ```jsonc
