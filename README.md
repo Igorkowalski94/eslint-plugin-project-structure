@@ -264,7 +264,7 @@ Then you can use them in **[regex](#regex)** with the following notation `${{you
 
 #### Built-in regex parameters
 
-**`${{parentName}}`**<br> <a id="parentName"></a>
+**`${{parentName}}`**<a id="parentName"></a><br>
 The child inherits the name of the folder in which it is located and sets its first letter to lowercase.
 
 ```jsonc
@@ -273,7 +273,7 @@ The child inherits the name of the folder in which it is located and sets its fi
 }
 ```
 
-**`${{ParentName}}`**<br> <a id="ParentName"></a>
+**`${{ParentName}}`**<a id="ParentName"></a><br>
 The child inherits the name of the folder in which it is located and sets its first letter to uppercase.
 
 ```jsonc
