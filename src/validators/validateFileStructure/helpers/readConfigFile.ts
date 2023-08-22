@@ -18,7 +18,7 @@ export const readConfigFile = (
     try {
         config = JSON.parse(readFileSync(configPath, "utf-8"));
     } catch (error) {
-        return;
+        return config;
     }
 
     return config;
