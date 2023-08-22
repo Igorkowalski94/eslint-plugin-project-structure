@@ -74,14 +74,17 @@ Add the following lines to **`.eslintrc`**.
         "project-structure/file-structure": "error" // warn | error
     },
     "settings": {
-        "project-structure/config-path": ".projectStructurerc"
+        "project-structure/config-path": "projectStructure.json" // json | yaml
     }
 }
 ```
 
 ### Step 3
 
-Create a **`.projectStructurerc`** file in the root of your project.
+Create a **`projectStructure.json`** or **`projectStructure.yaml`** file in the root of your project.
+
+> **Note**
+> You can choose your own file name, just make sure it is the same as in **[step 2](#step-2)**.
 
 #### JSON example for the structure below:
 
@@ -91,7 +94,7 @@ Create a **`.projectStructurerc`** file in the root of your project.
 
 ```jsonc
 {
-    "$schema": "node_modules/eslint-plugin-project-structure/projectStructurerc.schema.json",
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
     "ignorePatterns": ["src/legacy/*"],
     "structure": {
         "name": "src",
@@ -173,11 +176,11 @@ regexParameters:
 
 ### **`"$schema"`**: `<string | undefined>` <a id="schema"></a>
 
-Type checking for your **`.projectStructurerc`**. It helps to fill configuration correctly.
+Type checking for your **`projectStructure.json`**. It helps to fill configuration correctly.
 
 ```jsonc
 {
-    "$schema": "node_modules/eslint-plugin-project-structure/projectStructurerc.schema.json"
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json"
     // ...
 }
 ```
