@@ -51,9 +51,9 @@ $ npm i --dev eslint-plugin-project-structure
 
 ### Step 1 (optional)
 
-If you want to check [**extensions**](#extension) that are not supported by eslint like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.yml`**, **`.json`**, read the step below, if not go to the [**next step**](#step-2).<br>
+If you want to check **[extensions](#extension)** that are not supported by eslint like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.yml`**, **`.json`**, read the step below, if not go to the **[next step](#step-2)**.<br>
 
-Add the following script to your **`package.json`**. You can extend the list of [**extensions**](#extension) in the script. After completing **[Step 2](#step-2)** and **[Step 3](#step-3)**, use this script to check your structure.
+Add the following script to your **`package.json`**. You can extend the list of **[extensions](#extension)** in the script. After completing **[Step 2](#step-2)** and **[Step 3](#step-3)**, use this script to check your structure.
 
 ```jsonc
 {
@@ -81,10 +81,10 @@ Add the following lines to **`.eslintrc`**.
 
 ### Step 3
 
-Create a **`projectStructure.json`** or **`projectStructure.yaml`** file in the root of your project.
+Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root of your project.
 
 > **Note**
-> You can choose your own file name, just make sure it is the same as in **[step 2](#step-2)**.
+> You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
 
 #### JSON example for the structure below:
 
@@ -142,7 +142,7 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** file in the 
 }
 ```
 
-#### YAML Example
+#### YAML example
 
 ```yaml
 ignorePatterns:
@@ -198,15 +198,15 @@ Here you can set the paths you want to ignore.
 
 ### **`"name"`**: `<string | undefined>` <a id="name"></a>
 
-When used with [**children**](#children) this will be the name of **`folder`**.<br>
-When used with [**extension**](#extension) this will be the name of **`file`**.<br>
-If used without [**children**](#children) and [**extension**](#extension) this will be name of **`folder`** and **`file`**.<br>
+When used with **[children](#children)** this will be the name of **`folder`**.<br>
+When used with **[extension](#extension)** this will be the name of **`file`**.<br>
+If used without **[children](#children)** and **[extension](#extension)** this will be name of **`folder`** and **`file`**.<br>
 
 > **Note**
-> If you only care about the name of the **`folder`** without rules for its [**children**](#children), leave the [**children**](#children) as **`[]`**.
+> If you only care about the name of the **`folder`** without rules for its **[children](#children)**, leave the **[children](#children)** as **`[]`**.
 
 > **Note**
-> If you only care about the name of the **`file`** without rules for its [**extension**](#extension), leave the [**extension**](#extension) as **`"*"`**.
+> If you only care about the name of the **`file`** without rules for its **[extension](#extension)**, leave the **[extension](#extension)** as **`"*"`**.
 
 #### Fixed name <a id="fixed-name"></a>
 
@@ -360,7 +360,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 ### **`"extension"`**: `<string | string[] | undefined>` <a id="extension"></a>
 
 Extension of your file.<br>
-Not available when [**children**](#children) are used.
+Not available when **[children](#children)** are used.
 
 ```jsonc
 {
@@ -381,7 +381,7 @@ Not available when [**children**](#children) are used.
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 
 Folder children rules.<br>
-Not available when [**extension**](#extension) is used.
+Not available when **[extension](#extension)** is used.
 
 ```jsonc
 {
@@ -415,7 +415,7 @@ The structure of your project and its rules.
 ### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
 A place where you can add your custom rules. This is useful when you want to avoid a lot of repetition in your **[structure](#structure)** or use **[folder recursion](#folder-recursion)** feature.<br>
-The key in the object will correspond to [**ruleId**](#ruleid), which you can then use in many places.
+The key in the object will correspond to **[ruleId](#ruleid)**, which you can then use in many places.
 
 ```jsonc
 {
@@ -443,8 +443,8 @@ A reference to your custom rule.
 }
 ```
 
-You can use it with other keys like [**name**](#name), [**extension**](#extension) and [**children**](#children) but remember that they will override the keys from your custom rule.<br>
-This is useful if you want to get rid of a lot of repetition in your structure, for example, **`folders`** have different [**name**](#name), but the same [**children**](#children).
+You can use it with other keys like **[name](#name)**, **[extension](#extension)** and **[children](#children)** but remember that they will override the keys from your custom rule.<br>
+This is useful if you want to get rid of a lot of repetition in your structure, for example, **`folders`** have different **[name](#name)**, but the same **[children](#children)**.
 
 ```jsonc
 {
@@ -489,7 +489,7 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 
 ## Folder recursion
 
-You can easily create recursions when you refer to the same [**ruleId**](#ruleid) that your rule has.<br><br>
+You can easily create recursions when you refer to the same **[ruleId](#ruleid)** that your rule has.<br><br>
 Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`${{PascalCase}}`** and your next folder will be
 **`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:<br>
 **`src/features/ComponentFolder/components/NextComponentFolder/components... (recursion)`**.
