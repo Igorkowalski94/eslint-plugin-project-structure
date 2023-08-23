@@ -6,20 +6,13 @@ import { ProjectStructureConfig } from "../../../types";
 
 export const readConfigFile = (
     configPath: string,
-): ProjectStructureConfig | void => {
-    let config: ProjectStructureConfig | void;
+): ProjectStructureConfig | undefined => {
+    let config;
 
     try {
-        config = load(
-            readFileSync(configPath, "utf8"),
-        ) as ProjectStructureConfig;
-    } catch (error) {
-        return;
-    }
+        config = load(readFileSync(configPath, "utf8"));
 
-    try {
-        if (config) return config;
-        config = JSON.parse(readFileSync(configPath, "utf-8"));
+        if (!config) config = JSON.parse(readFileSync(configPath, "utf-8"));
     } catch (error) {
         return;
     }
