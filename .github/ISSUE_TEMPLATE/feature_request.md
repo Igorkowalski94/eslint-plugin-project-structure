@@ -2,8 +2,8 @@
 name: Feature request
 about: Suggest an idea for this project
 title: "[Feature request]"
-labels: ''
-assignees: ''
+labels: enhancement
+assignees: Igorkowalski94
 
 ---
 
