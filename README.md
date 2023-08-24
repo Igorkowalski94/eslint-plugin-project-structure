@@ -111,7 +111,7 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
     },
     "rules": {
         "component_folder": {
-            "name": "/^${{PascalCase}}?$/",
+            "name": "/^${{PascalCase}}$/",
             "children": [
                 {
                     "name": "components",
@@ -122,7 +122,7 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
                     ]
                 },
                 {
-                    "name": "/^${{ParentName}}(?:\\.(context|test))?$/",
+                    "name": "/^${{ParentName}}.(context|test)$/",
                     "extension": [".tsx", "ts"]
                 },
                 {
@@ -137,7 +137,7 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
         }
     },
     "regexParameters": {
-        "yourCustomRegexParameter": "(?:\\.(types|api))?"
+        "yourCustomRegexParameter": ".(types|api)"
     }
 }
 ```
@@ -155,12 +155,12 @@ structure:
               - ruleId: component_folder
 rules:
     component_folder:
-        name: "/^${{PascalCase}}?$/"
+        name: "/^${{PascalCase}}$/"
         children:
             - name: components
               children:
                   - ruleId: component_folder
-            - name: "/^${{ParentName}}(?:\\.(context|test))?$/"
+            - name: "/^${{ParentName}}.(context|test)$/"
               extension:
                   - ".tsx"
                   - ts
@@ -169,7 +169,7 @@ rules:
             - name: "/^${{ParentName}}$/"
               extension: ".tsx"
 regexParameters:
-    yourCustomRegexParameter: "(?:\\.(types|api))?"
+    yourCustomRegexParameter: ".(types|api)"
 ```
 
 ## API:
@@ -210,7 +210,7 @@ If used without **[children](#children)** and **[extension](#extension)** this w
 
 #### Fixed name <a id="fixed-name"></a>
 
-Fixed file/folder name.
+Fixed **`file`**/**`folder`** name.
 
 ```jsonc
 {
@@ -221,7 +221,7 @@ Fixed file/folder name.
 
 #### Regex <a id="regex"></a>
 
-Dynamic file/folder name.<br>
+Dynamic **`file`**/**`folder`** name.<br>
 Remember that the regular expression must start and end with a **`/`**.
 
 ```jsonc
@@ -268,7 +268,7 @@ Then you can use them in **[regex](#regex)** with the following notation **`${{y
 #### Built-in regex parameters
 
 **`${{parentName}}`**<a id="parent-name-lower"></a><br>
-The child inherits the name of the folder in which it is located and sets its first letter to lowercase.
+The child inherits the name of the **`folder`** in which it is located and sets its **first letter** to **`lowercase`**.
 
 ```jsonc
 {
@@ -277,7 +277,7 @@ The child inherits the name of the folder in which it is located and sets its fi
 ```
 
 **`${{ParentName}}`**<a id="parent-name-upper"></a><br>
-The child inherits the name of the folder in which it is located and sets its first letter to uppercase.
+The child inherits the name of the **`folder`** in which it is located and sets its **first letter** to **`uppercase`**.
 
 ```jsonc
 {
@@ -344,7 +344,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
     // useNiceHook
     // useNiceHook.api
     // useNiceHook.test
-    "name": "/^(use)${{PascalCase}}(?:\\.(test|api))?$/"
+    "name": "/^use${{PascalCase}}(.(test|api))?$/"
 }
 ```
 
@@ -353,13 +353,13 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
     // YourParentName.hello_world
     // YourParentName.hello_world.test
     // YourParentName.hello_world.api
-    "name": "/^${{ParentName}}(.)${{snake_case}}(?:\\.(test|api))?$/"
+    "name": "/^${{ParentName}}.${{snake_case}}(.(test|api))?$/"
 }
 ```
 
 ### **`"extension"`**: `<string | string[] | undefined>` <a id="extension"></a>
 
-Extension of your file.<br>
+Extension of your **`file`**.<br>
 Not available when **[children](#children)** are used.
 
 ```jsonc
@@ -380,7 +380,7 @@ Not available when **[children](#children)** are used.
 
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 
-Folder children rules.<br>
+**`Folder`** children rules.<br>
 Not available when **[extension](#extension)** is used.
 
 ```jsonc
@@ -443,7 +443,7 @@ A reference to your custom rule.
 }
 ```
 
-You can use it with other keys like **[name](#name)**, **[extension](#extension)** and **[children](#children)** but remember that they will override the keys from your custom rule.<br>
+You can use it with other keys like **[name](#name)**, **[extension](#extension)** and **[children](#children)** but remember that they will **override** the keys from your custom rule.<br>
 This is useful if you want to get rid of a lot of repetition in your structure, for example, **`folders`** have different **[name](#name)**, but the same **[children](#children)**.
 
 ```jsonc
@@ -452,15 +452,20 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
         "name": "src",
         "children": [
             {
-                "name": "features",
+                "name": "folder1",
                 "children": [
                     {
-                        "name": "feature1",
-                        "ruleId": "yourCustomRule"
-                    },
+                        "name": "/^${{PascalCase}}$/",
+                        "ruleId": "shared_children"
+                    }
+                ]
+            },
+            {
+                "name": "folder2",
+                "children": [
                     {
-                        "name": "feature2",
-                        "ruleId": "yourCustomRule"
+                        "name": "/^(subFolder1|subFolder2)$/",
+                        "ruleId": "shared_children"
                     }
                 ]
             }
@@ -468,16 +473,15 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
         ]
     },
     "rules": {
-        "yourCustomRule": {
-            "name": "/^${{camelCase}}$/", // will be overwritten
+        "shared_children": {
             "children": [
                 {
-                    "name": "child1",
-                    "extension": ".ts"
+                    "name": "/^${{PascalCase}}$/",
+                    "extension": ".tsx"
                 },
                 {
-                    "name": "child2",
-                    "extension": ".tsx"
+                    "name": "/^${{camelCase}}$/",
+                    "extension": ".ts"
                 }
             ]
         }
@@ -490,7 +494,7 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 ## Folder recursion
 
 You can easily create recursions when you refer to the same **[ruleId](#ruleid)** that your rule has.<br><br>
-Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`${{PascalCase}}`** and your next folder will be
+Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rule **`${{PascalCase}}`** and your next **`folder`** will be
 **`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:<br>
 **`src/features/ComponentFolder/components/NextComponentFolder/components... (recursion)`**.
 
@@ -514,7 +518,7 @@ Suppose your folder is named **`ComponentFolder`** which satisfies the rule **`$
     },
     "rules": {
         "yourCustomRule": {
-            "name": "/^${{PascalCase}}?$/",
+            "name": "/^${{PascalCase}}$/",
             "children": [
                 {
                     "name": "components",
