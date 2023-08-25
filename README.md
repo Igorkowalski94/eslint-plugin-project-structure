@@ -147,15 +147,11 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
                     "ruleId": "hooks_folder"
                 },
                 {
-                    "name": "/^${{ParentName}}\\.(context|test)$/",
-                    "extension": [".tsx", "ts"]
-                },
-                {
                     "name": "/^${{parentName}}${{yourCustomRegexParameter}}$/",
                     "extension": ".ts"
                 },
                 {
-                    "name": "/^${{ParentName}}$/",
+                    "name": "/^${{ParentName}}(\\.(context|test))?$/",
                     "extension": ".tsx"
                 }
             ]
@@ -197,13 +193,9 @@ rules:
         children:
             - ruleId: components_folder
             - ruleId: hooks_folder
-            - name: "/^${{ParentName}}\\.(context|test)$/"
-              extension:
-                  - ".tsx"
-                  - ts
             - name: "/^${{parentName}}${{yourCustomRegexParameter}}$/"
               extension: ".ts"
-            - name: "/^${{ParentName}}$/"
+            - name: "/^${{ParentName}}(\\.(context|test))?$/"
               extension: ".tsx"
 regexParameters:
     yourCustomRegexParameter: "\\.(types|api)"
