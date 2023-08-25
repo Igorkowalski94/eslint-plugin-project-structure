@@ -132,7 +132,7 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
                     ]
                 },
                 {
-                    "name": "/^use${{PascalCase}}(\\.(test))?$/",
+                    "name": "/^use${{PascalCase}}(\\.test)?$/",
                     "extension": "ts"
                 }
             ]
@@ -186,7 +186,7 @@ rules:
                   - ruleId: hooks_folder
                   - name: "/^${{parentName}}(\\.(test|api|types))?$/"
                     extension: ts
-            - name: "/^use${{PascalCase}}(\\.(test))?$/"
+            - name: "/^use${{PascalCase}}(\\.test)?$/"
               extension: ts
     component_folder:
         name: "/^${{PascalCase}}$/"
