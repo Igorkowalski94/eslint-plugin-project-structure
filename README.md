@@ -100,29 +100,54 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
         "name": "src",
         "children": [
             {
-                "name": "features",
-                "children": [
-                    {
-                        "ruleId": "component_folder"
-                    }
-                ]
+                "ruleId": "components_folder"
+            },
+            {
+                "ruleId": "hooks_folder"
             }
         ]
     },
     "rules": {
-        "component_folder": {
-            "name": "/^${{PascalCase}}$/",
+        "components_folder": {
+            "name": "components",
             "children": [
                 {
-                    "name": "components",
+                    "ruleId": "component_folder"
+                }
+            ]
+        },
+        "hooks_folder": {
+            "name": "hooks",
+            "children": [
+                {
+                    "name": "/^use${{PascalCase}}$/",
                     "children": [
                         {
-                            "ruleId": "component_folder"
+                            "ruleId": "hooks_folder"
+                        },
+                        {
+                            "name": "/^${{parentName}}(\\.(test|api|types))?$/",
+                            "extension": "ts"
                         }
                     ]
                 },
                 {
-                    "name": "/^${{ParentName}}.(context|test)$/",
+                    "name": "/^use${{PascalCase}}(\\.(test))?$/",
+                    "extension": "ts"
+                }
+            ]
+        },
+        "component_folder": {
+            "name": "/^${{PascalCase}}$/",
+            "children": [
+                {
+                    "ruleId": "components_folder"
+                },
+                {
+                    "ruleId": "hooks_folder"
+                },
+                {
+                    "name": "/^${{ParentName}}\\.(context|test)$/",
                     "extension": [".tsx", "ts"]
                 },
                 {
@@ -137,7 +162,7 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
         }
     },
     "regexParameters": {
-        "yourCustomRegexParameter": ".(types|api)"
+        "yourCustomRegexParameter": "\\.(types|api)"
     }
 }
 ```
@@ -150,17 +175,29 @@ ignorePatterns:
 structure:
     name: src
     children:
-        - name: features
-          children:
-              - ruleId: component_folder
+        - ruleId: components_folder
+        - ruleId: hooks_folder
 rules:
+    components_folder:
+        name: components
+        children:
+            - ruleId: component_folder
+    hooks_folder:
+        name: hooks
+        children:
+            - name: "/^use${{PascalCase}}$/"
+              children:
+                  - ruleId: hooks_folder
+                  - name: "/^${{parentName}}(\.(test|api|types))?$/"
+                    extension: ts
+            - name: "/^use${{PascalCase}}(\.(test))?$/"
+              extension: ts
     component_folder:
         name: "/^${{PascalCase}}$/"
         children:
-            - name: components
-              children:
-                  - ruleId: component_folder
-            - name: "/^${{ParentName}}.(context|test)$/"
+            - ruleId: components_folder
+            - ruleId: hooks_folder
+            - name: "/^${{ParentName}}\.(context|test)$/"
               extension:
                   - ".tsx"
                   - ts
@@ -169,7 +206,7 @@ rules:
             - name: "/^${{ParentName}}$/"
               extension: ".tsx"
 regexParameters:
-    yourCustomRegexParameter: ".(types|api)"
+    yourCustomRegexParameter: "\.(types|api)"
 ```
 
 ## API:
@@ -344,7 +381,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
     // useNiceHook
     // useNiceHook.api
     // useNiceHook.test
-    "name": "/^use${{PascalCase}}(.(test|api))?$/"
+    "name": "/^use${{PascalCase}}(\\.(test|api))?$/"
 }
 ```
 
@@ -353,7 +390,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
     // YourParentName.hello_world
     // YourParentName.hello_world.test
     // YourParentName.hello_world.api
-    "name": "/^${{ParentName}}.${{snake_case}}(.(test|api))?$/"
+    "name": "/^${{ParentName}}\\.${{snake_case}}(\\.(test|api))?$/"
 }
 ```
 
