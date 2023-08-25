@@ -188,16 +188,16 @@ rules:
             - name: "/^use${{PascalCase}}$/"
               children:
                   - ruleId: hooks_folder
-                  - name: "/^${{parentName}}(\.(test|api|types))?$/"
+                  - name: "/^${{parentName}}(\\.(test|api|types))?$/"
                     extension: ts
-            - name: "/^use${{PascalCase}}(\.(test))?$/"
+            - name: "/^use${{PascalCase}}(\\.(test))?$/"
               extension: ts
     component_folder:
         name: "/^${{PascalCase}}$/"
         children:
             - ruleId: components_folder
             - ruleId: hooks_folder
-            - name: "/^${{ParentName}}\.(context|test)$/"
+            - name: "/^${{ParentName}}\\.(context|test)$/"
               extension:
                   - ".tsx"
                   - ts
@@ -206,7 +206,7 @@ rules:
             - name: "/^${{ParentName}}$/"
               extension: ".tsx"
 regexParameters:
-    yourCustomRegexParameter: "\.(types|api)"
+    yourCustomRegexParameter: "\\.(types|api)"
 ```
 
 ## API:
