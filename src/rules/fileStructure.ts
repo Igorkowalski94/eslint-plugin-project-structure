@@ -36,7 +36,7 @@ export const fileStructure = ESLintUtils.RuleCreator(
                 const pathnameAbsolutePath = context.getPhysicalFilename?.();
                 const pathname = pathnameAbsolutePath?.replace(
                     `${context.getCwd?.()}${sep}`,
-                    "",
+                    `structure${sep}`,
                 );
 
                 try {

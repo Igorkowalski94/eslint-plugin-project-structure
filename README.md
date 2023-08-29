@@ -97,15 +97,17 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
     "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
     "ignorePatterns": ["src/legacy/*"],
     "structure": {
-        "name": "src",
-        "children": [
-            {
-                "ruleId": "components_folder"
-            },
-            {
-                "ruleId": "hooks_folder"
-            }
-        ]
+        "children": {
+            "name": "src",
+            "children": [
+                {
+                    "ruleId": "components_folder"
+                },
+                {
+                    "ruleId": "hooks_folder"
+                }
+            ]
+        }
     },
     "rules": {
         "components_folder": {
@@ -169,10 +171,11 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
 ignorePatterns:
     - src/legacy/*
 structure:
-    name: src
     children:
-        - ruleId: components_folder
-        - ruleId: hooks_folder
+        name: src
+        children:
+            - ruleId: components_folder
+            - ruleId: hooks_folder
 rules:
     components_folder:
         name: components
@@ -432,14 +435,28 @@ The structure of your project and its rules.
 ```jsonc
 {
     "structure": {
-        "name": "src",
         "children": [
+            {
+                "name": "libs"
+                // ...
+            },
+            {
+                "name": "apps"
+                // ...
+            },
+            {
+                "name": "src"
+                // ...
+            }
             // ...
         ]
     }
     // ...
 }
 ```
+
+> **Warning**
+> Make sure your **`tsconfig`**/**`.eslintrc`** contains all the **`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
 
 ### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
@@ -478,24 +495,29 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 ```jsonc
 {
     "structure": {
-        "name": "src",
         "children": [
             {
-                "name": "folder1",
+                "name": "src",
                 "children": [
                     {
-                        "name": "/^${{PascalCase}}$/",
-                        "ruleId": "shared_children"
-                    }
-                ]
-            },
-            {
-                "name": "folder2",
-                "children": [
+                        "name": "folder1",
+                        "children": [
+                            {
+                                "name": "/^${{PascalCase}}$/",
+                                "ruleId": "shared_children"
+                            }
+                        ]
+                    },
                     {
-                        "name": "/^(subFolder1|subFolder2)$/",
-                        "ruleId": "shared_children"
+                        "name": "folder2",
+                        "children": [
+                            {
+                                "name": "/^(subFolder1|subFolder2)$/",
+                                "ruleId": "shared_children"
+                            }
+                        ]
                     }
+                    // ...
                 ]
             }
             // ...
@@ -530,14 +552,19 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
 ```jsonc
 {
     "structure": {
-        "name": "src",
         "children": [
             {
-                "name": "features",
+                "name": "src",
                 "children": [
                     {
-                        "ruleId": "yourCustomRule"
-                        // ...
+                        "name": "features",
+                        "children": [
+                            {
+                                "ruleId": "yourCustomRule"
+                                // ...
+                            }
+                            // ...
+                        ]
                     }
                     // ...
                 ]
