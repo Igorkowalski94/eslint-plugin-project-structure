@@ -1,7 +1,7 @@
 {
     "author": "Igor Kowalski (Igorkowalski94)",
     "name": "eslint-plugin-project-structure",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "license": "MIT",
     "description": "Eslint plugin that allows you to enforce rules on project structure. Folder and file naming, folder structure, file extensions all under your control to keep your repo consistent even in large teams.",
     "keywords": [
