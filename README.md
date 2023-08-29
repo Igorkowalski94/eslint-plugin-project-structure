@@ -98,22 +98,22 @@ See the list of project structure **[examples](https://github.com/Igorkowalski94
     │       ├── 📂 components
     │       │   ├── 📁 ChildComponent1
     │       │   └── 📂 ChildComponent2
-    |       |       ├── 📁 components
-    |       |       ├── 📁 hooks
-    │       |       ├── 📄 childComponent2.types.ts
-    │       |       ├── 📄 childComponent2.api.ts
-    │       |       ├── 📄 ChildComponent2.context.tsx
-    │       |       ├── 📄 ChildComponent2.test.tsx
-    │       |       └── 📄 ChildComponent2.tsx
-    |       ├── 📂 hooks
-    |       |   ├── 📂 useComplexParent2Hook
-    |       |   |   ├── 📁 hooks
-    |       |   |   ├── 📄 useComplexParent2Hook.api.ts
-    |       |   |   ├── 📄 useComplexParent2Hook.types.ts
-    |       |   |   ├── 📄 useComplexParent2Hook.test.ts
-    |       |   |   └── 📄 useComplexParent2Hook.ts
-    |       |   ├── useSimpleParent2Hook.test.ts
-    |       |   └── useSimpleParent2Hook.ts
+    │       │       ├── 📁 components
+    │       │       ├── 📁 hooks
+    │       │       ├── 📄 childComponent2.types.ts
+    │       │       ├── 📄 childComponent2.api.ts
+    │       │       ├── 📄 ChildComponent2.context.tsx
+    │       │       ├── 📄 ChildComponent2.test.tsx
+    │       │       └── 📄 ChildComponent2.tsx
+    │       ├── 📂 hooks
+    │       │   ├── 📂 useComplexParent2Hook
+    │       │   │   ├── 📁 hooks
+    │       │   │   ├── 📄 useComplexParent2Hook.api.ts
+    │       │   │   ├── 📄 useComplexParent2Hook.types.ts
+    │       │   │   ├── 📄 useComplexParent2Hook.test.ts
+    │       │   │   └── 📄 useComplexParent2Hook.ts
+    │       │   ├── useSimpleParent2Hook.test.ts
+    │       │   └── useSimpleParent2Hook.ts
     │       ├── 📄 parentComponent2.api.ts
     │       ├── 📄 parentComponent2.types.ts
     │       ├── 📄 ParentComponent2.context.tsx
@@ -121,11 +121,11 @@ See the list of project structure **[examples](https://github.com/Igorkowalski94
     │       └── 📄 ParentComponent2.tsx
     └── 📂 hooks
         ├── 📂 useComplexGlobalHook
-        |   ├── 📁 hooks
-        |   ├── 📄 useComplexGlobalHook.api.ts
-        |   ├── 📄 useComplexGlobalHook.types.ts
-        |   ├── 📄 useComplexGlobalHook.test.ts
-        |   └── 📄 useComplexGlobalHook.ts
+        │   ├── 📁 hooks
+        │   ├── 📄 useComplexGlobalHook.api.ts
+        │   ├── 📄 useComplexGlobalHook.types.ts
+        │   ├── 📄 useComplexGlobalHook.test.ts
+        │   └── 📄 useComplexGlobalHook.ts
         ├── useSimpleGlobalHook.test.ts
         └── useSimpleGlobalHook.ts
 
