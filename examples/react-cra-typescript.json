@@ -1,0 +1,39 @@
+{
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
+    "structure": {
+        "children": [
+            {
+                "name": "public",
+                "children": []
+            },
+            {
+                "name": "src",
+                "children": [
+                    {
+                        "name": "App",
+                        "extension": "css"
+                    },
+                    {
+                        "name": "/^App(\\.test)?$/",
+                        "extension": "tsx"
+                    },
+                    {
+                        "name": "index",
+                        "extension": ["css", "tsx"]
+                    },
+                    {
+                        "name": "logo",
+                        "extension": "svg"
+                    },
+                    {
+                        "name": "/^(react-app-env.d|reportWebVitals|setupTests)$/",
+                        "extension": "ts"
+                    }
+                ]
+            },
+            {
+                "extension": "*"
+            }
+        ]
+    }
+}

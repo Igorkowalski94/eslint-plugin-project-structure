@@ -1,0 +1,31 @@
+{
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
+    "structure": {
+        "children": [
+            {
+                "name": "public",
+                "children": []
+            },
+            {
+                "name": "app",
+                "children": [
+                    {
+                        "name": "globals",
+                        "extension": "css"
+                    },
+                    {
+                        "name": "/^(layout|page)$/",
+                        "extension": "tsx"
+                    },
+                    {
+                        "name": "favicon",
+                        "extension": "ico"
+                    }
+                ]
+            },
+            {
+                "extension": "*"
+            }
+        ]
+    }
+}
