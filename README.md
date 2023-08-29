@@ -51,7 +51,7 @@ $ npm i --dev eslint-plugin-project-structure
 
 ### Step 1 (optional)
 
-If you want to check **[extensions](#extension)** that are not supported by eslint like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.yml`**, **`.json`**, read the step below, if not go to the **[next step](#step-2)**.<br>
+If you want to check **[extensions](#extension)** that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.yml`**, **`.json`**, read the step below, if not go to the **[next step](#step-2)**.<br>
 
 Add the following script to your **`package.json`**. You can extend the list of **[extensions](#extension)** in the script. After completing **[Step 2](#step-2)** and **[Step 3](#step-3)**, use this script to check your structure.
 
@@ -404,7 +404,7 @@ Not available when **[children](#children)** are used.
 ```
 
 > **Warning**
-> If you want to check extensions that are not supported by eslint like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.yml`**, **`.json`** go to **[Step 1](#step-1-optional)**.
+> If you want to check extensions that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.yml`**, **`.json`** go to **[Step 1](#step-1-optional)**.
 
 > **Note**
 > You don't need to add **`.`** it is optional.
@@ -458,7 +458,7 @@ The structure of your project and its rules.
 ```
 
 > **Warning**
-> Make sure your **`tsconfig`**/**`.eslintrc`** contains all the **`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
+> Make sure your **`tsconfig`**/**`.eslintrc`** contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
 
 ### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
