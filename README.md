@@ -97,17 +97,19 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
     "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
     "ignorePatterns": ["src/legacy/*"],
     "structure": {
-        "children": {
-            "name": "src",
-            "children": [
-                {
-                    "ruleId": "components_folder"
-                },
-                {
-                    "ruleId": "hooks_folder"
-                }
-            ]
-        }
+        "children": [
+            {
+                "name": "src",
+                "children": [
+                    {
+                        "ruleId": "components_folder"
+                    },
+                    {
+                        "ruleId": "hooks_folder"
+                    }
+                ]
+            }
+        ]
     },
     "rules": {
         "components_folder": {
@@ -172,10 +174,10 @@ ignorePatterns:
     - src/legacy/*
 structure:
     children:
-        name: src
-        children:
-            - ruleId: components_folder
-            - ruleId: hooks_folder
+        - name: src
+          children:
+              - ruleId: components_folder
+              - ruleId: hooks_folder
 rules:
     components_folder:
         name: components
