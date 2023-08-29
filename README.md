@@ -88,9 +88,47 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
 
 #### JSON example for the structure below:
 
-<p align="center">
-<img width="300px" src="./images/example.jpg"/>
-</p>
+```
+.
+└── 📂 src
+    ├── 📂 components
+    │   ├── 📁 ParentComponent1
+    │   └── 📂 ParentComponent2
+    │       ├── 📂 components
+    │       │   ├── 📁 ChildComponent1
+    │       │   └── 📂 ChildComponent2
+    |       |       ├── 📁 components
+    |       |       ├── 📁 hooks
+    │       |       ├── 📄 childComponent2.types.ts
+    │       |       ├── 📄 childComponent2.api.ts
+    │       |       ├── 📄 ChildComponent2.context.tsx
+    │       |       ├── 📄 ChildComponent2.test.tsx
+    │       |       └── 📄 ChildComponent2.tsx
+    |       ├── 📂 hooks
+    |       |   ├── 📂 useComplexParent2Hook
+    |       |   |   ├── 📁 hooks
+    |       |   |   ├── 📄 useComplexParent2Hook.api.ts
+    |       |   |   ├── 📄 useComplexParent2Hook.types.ts
+    |       |   |   ├── 📄 useComplexParent2Hook.test.ts
+    |       |   |   └── 📄 useComplexParent2Hook.ts
+    |       |   ├── useSimpleParent2Hook.test.ts
+    |       |   └── useSimpleParent2Hook.ts
+    │       ├── 📄 parentComponent2.api.ts
+    │       ├── 📄 parentComponent2.types.ts
+    │       ├── 📄 ParentComponent2.context.tsx
+    │       ├── 📄 ParentComponent2.test.tsx
+    │       └── 📄 ParentComponent2.tsx
+    └── 📂 hooks
+        ├── 📂 useComplexGlobalHook
+        |   ├── 📁 hooks
+        |   ├── 📄 useComplexGlobalHook.api.ts
+        |   ├── 📄 useComplexGlobalHook.types.ts
+        |   ├── 📄 useComplexGlobalHook.test.ts
+        |   └── 📄 useComplexGlobalHook.ts
+        ├── useSimpleGlobalHook.test.ts
+        └── useSimpleGlobalHook.ts
+
+```
 
 ```jsonc
 {
