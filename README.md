@@ -19,7 +19,7 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 
 -   [Installation](#installation)
 -   [Getting started](#getting-started)
--   [JSON example](#json-example-for-the-structure-below)
+-   [JSON example](#json-example-for-the-structure-below-containing-all-key-features)
 -   [YAML example](#yaml-example)
 -   [API](#api)
     -   [$schema](#schema)
