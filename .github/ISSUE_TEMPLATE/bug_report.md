@@ -4,7 +4,6 @@ about: Create a report to help us improve
 title: "[BUG]"
 labels: bug, Framework example
 assignees: Igorkowalski94
-
 ---
 
 **Describe the bug**

@@ -82,12 +82,15 @@ Add the following lines to **`.eslintrc`**.
 ### Step 3
 
 Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root of your project.<br>
-See the list of project structure **[examples](https://github.com/Igorkowalski94/eslint-plugin-project-structure/tree/main/examples)** for your framework.
 
 > **Note**
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
 
-#### JSON example for the structure below:
+**[Here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/tree/main/examples)** you will find an example of a project structure for your **`framework`**.<br>
+If your **`framework`** is not on the examples list and you want to help the community, add your **`framework`** configuration **[here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new?assignees=Igorkowalski94&labels=Framework+example&projects=&template=framework-example.md&title=%5BFramework+example%5D)**.<br>
+You can also help the community use proven project structure. Add the structure of your project with a description in the **[discussion section](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**.
+
+#### JSON example for the structure below, containing all key features:
 
 ```
 .
@@ -443,7 +446,7 @@ Not available when **[children](#children)** are used.
 ```
 
 > **Warning**
-> If you want to check extensions that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.yml`**, **`.json`** go to **[Step 1](#step-1-optional)**.
+> If you want to check extensions that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** go to **[Step 1](#step-1-optional)**.
 
 > **Note**
 > You don't need to add **`.`** it is optional.
@@ -488,6 +491,9 @@ The structure of your project and its rules.
             {
                 "name": "src"
                 // ...
+            },
+            {
+                "extension": "*"
             }
             // ...
         ]
