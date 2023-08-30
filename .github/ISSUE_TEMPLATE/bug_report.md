@@ -4,7 +4,6 @@ about: Create a report to help us improve
 title: "[BUG]"
 labels: bug, Framework example
 assignees: Igorkowalski94
-
 ---
 
 1. Make sure you have the latest version before reporting a bug.
