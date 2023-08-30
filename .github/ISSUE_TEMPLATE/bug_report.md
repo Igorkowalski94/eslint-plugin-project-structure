@@ -4,19 +4,23 @@ about: Create a report to help us improve
 title: "[BUG]"
 labels: bug, Framework example
 assignees: Igorkowalski94
+
 ---
+
+1. Make sure you have the latest version before reporting a bug.
+2. If the eslint error only appears in the file but not in the console, you probably just need to close the file and open it again.
 
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior.
-
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
+**An image of your current structure**
+It must contain the entire structure from the root. Folders that are not a problem can be closed.
+
 **Add your projectStructure file**
-Full name of the file, including extension and content, where the bug occurs.
+The entire content of the file.
 
 ** Operating system, Node.js an npm versions, and eslint version (please complete the following information):**
 
