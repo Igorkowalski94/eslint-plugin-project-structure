@@ -97,44 +97,45 @@ If you have a well-thought-out and proven project structure and want to share it
 ├── 📄 projectStructure.json
 ├── 📄 .eslintrc.json
 └── 📂 src
-    ├── 📂 components
+    ├── 📂 hooks
     │   ├── ...
-    │   └── 📂 ParentComponent
-    │       ├── 📄 parentComponent.api.ts
-    │       ├── 📄 parentComponent.types.ts
-    │       ├── 📄 ParentComponent.context.tsx
-    │       ├── 📄 ParentComponent.test.tsx
-    │       ├── 📄 ParentComponent.tsx
-    │       ├── 📂 components
-    │       │   ├── ...
-    │       │   └── 📂 ChildComponent
-    │       │       ├── 📁 components (recursion)
-    │       │       ├── 📁 hooks (recursion)
-    │       │       ├── 📄 childComponent.types.ts
-    │       │       ├── 📄 childComponent.api.ts
-    │       │       ├── 📄 ChildComponent.context.tsx
-    │       │       ├── 📄 ChildComponent.test.tsx
-    │       │       └── 📄 ChildComponent.tsx
-    │       └── 📂 hooks
-    │           ├── ...
-    │           ├── 📄 useSimpleParentComponentHook.test.ts
-    │           ├── 📄 useSimpleParentComponentHook.ts
-    │           └── 📂 useComplexParentComponentHook
-    │               ├── 📁 hooks (recursion)
-    │               ├── 📄 useComplexParentComponentHook.api.ts
-    │               ├── 📄 useComplexParentComponentHook.types.ts
-    │               ├── 📄 useComplexParentComponentHook.test.ts
-    │               └── 📄 useComplexParentComponentHook.ts
-    └── 📂 hooks
+    │   ├── 📄 useSimpleGlobalHook.test.ts
+    │   ├── 📄 useSimpleGlobalHook.ts
+    │   └── 📂 useComplexGlobalHook
+    │       ├── 📁 hooks (recursion)
+    │       ├── 📄 useComplexGlobalHook.api.ts
+    │       ├── 📄 useComplexGlobalHook.types.ts
+    │       ├── 📄 useComplexGlobalHook.test.ts
+    │       └── 📄 useComplexGlobalHook.ts
+    └── 📂 components
         ├── ...
-        ├── 📄 useSimpleGlobalHook.test.ts
-        ├── 📄 useSimpleGlobalHook.ts
-        └── 📂 useComplexGlobalHook
-            ├── 📁 hooks (recursion)
-            ├── 📄 useComplexGlobalHook.api.ts
-            ├── 📄 useComplexGlobalHook.types.ts
-            ├── 📄 useComplexGlobalHook.test.ts
-            └── 📄 useComplexGlobalHook.ts
+        └── 📂 ParentComponent
+            ├── 📄 parentComponent.api.ts
+            ├── 📄 parentComponent.types.ts
+            ├── 📄 ParentComponent.context.tsx
+            ├── 📄 ParentComponent.test.tsx
+            ├── 📄 ParentComponent.tsx
+            ├── 📂 components
+            │   ├── ...
+            │   └── 📂 ChildComponent
+            │       ├── 📁 components (recursion)
+            │       ├── 📁 hooks (recursion)
+            │       ├── 📄 childComponent.types.ts
+            │       ├── 📄 childComponent.api.ts
+            │       ├── 📄 ChildComponent.context.tsx
+            │       ├── 📄 ChildComponent.test.tsx
+            │       └── 📄 ChildComponent.tsx
+            └── 📂 hooks
+                ├── ...
+                ├── 📄 useSimpleParentComponentHook.test.ts
+                ├── 📄 useSimpleParentComponentHook.ts
+                └── 📂 useComplexParentComponentHook
+                    ├── 📁 hooks (recursion)
+                    ├── 📄 useComplexParentComponentHook.api.ts
+                    ├── 📄 useComplexParentComponentHook.types.ts
+                    ├── 📄 useComplexParentComponentHook.test.ts
+                    └── 📄 useComplexParentComponentHook.ts
+
 
 
 ```
