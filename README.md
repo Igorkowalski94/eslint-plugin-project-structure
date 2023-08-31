@@ -101,8 +101,8 @@ If you have a well-thought-out and proven project structure and want to share it
     │       ├── 📂 components
     │       │   ├── ...
     │       │   └── 📂 ChildComponent
-    │       │       ├── 📁 components
-    │       │       ├── 📁 hooks
+    │       │       ├── 📁 components (recursion)
+    │       │       ├── 📁 hooks (recursion)
     │       │       ├── 📄 childComponent.types.ts
     │       │       ├── 📄 childComponent.api.ts
     │       │       ├── 📄 ChildComponent.context.tsx
@@ -111,7 +111,7 @@ If you have a well-thought-out and proven project structure and want to share it
     │       ├── 📂 hooks
     │       │   ├── ...
     │       │   ├── 📂 useComplexParentComponentHook
-    │       │   │   ├── 📁 hooks
+    │       │   │   ├── 📁 hooks (recursion)
     │       │   │   ├── 📄 useComplexParentComponentHook.api.ts
     │       │   │   ├── 📄 useComplexParentComponentHook.types.ts
     │       │   │   ├── 📄 useComplexParentComponentHook.test.ts
@@ -126,7 +126,7 @@ If you have a well-thought-out and proven project structure and want to share it
     └── 📂 hooks
         ├── ...
         ├── 📂 useComplexGlobalHook
-        │   ├── 📁 hooks
+        │   ├── 📁 hooks (recursion)
         │   ├── 📄 useComplexGlobalHook.api.ts
         │   ├── 📄 useComplexGlobalHook.types.ts
         │   ├── 📄 useComplexGlobalHook.test.ts
