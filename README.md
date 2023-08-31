@@ -149,6 +149,9 @@ If you have a well-thought-out and proven project structure and want to share it
                         "ruleId": "hooks_folder"
                     }
                 ]
+            },
+            {
+                "extension": "*"
             }
         ]
     },
@@ -219,6 +222,7 @@ structure:
           children:
               - ruleId: components_folder
               - ruleId: hooks_folder
+        - extension: "*"
 rules:
     components_folder:
         name: components
@@ -492,7 +496,7 @@ The structure of your project and its rules.
                 // ...
             },
             {
-                "extension": "*"
+                "extension": "*" // All files located in the root of your project, like package.json, .eslintrc, etc. You can specify them more precisely.
             }
             // ...
         ]
