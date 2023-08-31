@@ -19,8 +19,8 @@ jobs:
             - name: Install dependencies
               run: yarn --non-interactive --frozen-lockfile --ignore-scripts
 
-            - name: dead-code:check
-              run: yarn dead-code:check
+            - name: deadCode:check
+              run: yarn deadCode:check
 
             - name: lint:check
               run: yarn lint:check
