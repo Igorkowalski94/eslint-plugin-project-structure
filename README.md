@@ -136,8 +136,6 @@ If you have a well-thought-out and proven project structure and want to share it
                     ├── 📄 useComplexParentComponentHook.test.ts
                     └── 📄 useComplexParentComponentHook.ts
 
-
-
 ```
 
 ```jsonc
