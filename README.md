@@ -93,35 +93,38 @@ If you have a well-thought-out and proven project structure and want to share it
 
 ```
 .
+├── ...
 └── 📂 src
     ├── 📂 components
-    │   ├── 📁 ParentComponent1
-    │   └── 📂 ParentComponent2
+    │   ├── ...
+    │   └── 📂 ParentComponent
     │       ├── 📂 components
-    │       │   ├── 📁 ChildComponent1
-    │       │   └── 📂 ChildComponent2
+    │       │   ├── ...
+    │       │   └── 📂 ChildComponent
     │       │       ├── 📁 components
     │       │       ├── 📁 hooks
-    │       │       ├── 📄 childComponent2.types.ts
-    │       │       ├── 📄 childComponent2.api.ts
-    │       │       ├── 📄 ChildComponent2.context.tsx
-    │       │       ├── 📄 ChildComponent2.test.tsx
-    │       │       └── 📄 ChildComponent2.tsx
+    │       │       ├── 📄 childComponent.types.ts
+    │       │       ├── 📄 childComponent.api.ts
+    │       │       ├── 📄 ChildComponent.context.tsx
+    │       │       ├── 📄 ChildComponent.test.tsx
+    │       │       └── 📄 ChildComponent.tsx
     │       ├── 📂 hooks
-    │       │   ├── 📂 useComplexParent2Hook
+    │       │   ├── ...
+    │       │   ├── 📂 useComplexParentComponentHook
     │       │   │   ├── 📁 hooks
-    │       │   │   ├── 📄 useComplexParent2Hook.api.ts
-    │       │   │   ├── 📄 useComplexParent2Hook.types.ts
-    │       │   │   ├── 📄 useComplexParent2Hook.test.ts
-    │       │   │   └── 📄 useComplexParent2Hook.ts
-    │       │   ├── useSimpleParent2Hook.test.ts
-    │       │   └── useSimpleParent2Hook.ts
-    │       ├── 📄 parentComponent2.api.ts
-    │       ├── 📄 parentComponent2.types.ts
-    │       ├── 📄 ParentComponent2.context.tsx
-    │       ├── 📄 ParentComponent2.test.tsx
-    │       └── 📄 ParentComponent2.tsx
+    │       │   │   ├── 📄 useComplexParentComponentHook.api.ts
+    │       │   │   ├── 📄 useComplexParentComponentHook.types.ts
+    │       │   │   ├── 📄 useComplexParentComponentHook.test.ts
+    │       │   │   └── 📄 useComplexParentComponentHook.ts
+    │       │   ├── useSimpleParentComponentHook.test.ts
+    │       │   └── useSimpleParentComponentHook.ts
+    │       ├── 📄 parentComponent.api.ts
+    │       ├── 📄 parentComponent.types.ts
+    │       ├── 📄 ParentComponent.context.tsx
+    │       ├── 📄 ParentComponent.test.tsx
+    │       └── 📄 ParentComponent.tsx
     └── 📂 hooks
+        ├── ...
         ├── 📂 useComplexGlobalHook
         │   ├── 📁 hooks
         │   ├── 📄 useComplexGlobalHook.api.ts
