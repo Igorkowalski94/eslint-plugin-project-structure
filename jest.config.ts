@@ -1,6 +1,7 @@
 import type { JestConfigWithTsJest } from "ts-jest";
 
 const jestConfig: JestConfigWithTsJest = {
+    maxWorkers: "90%",
     testEnvironment: "node",
     transform: {
         "^.+\\.tsx?$": [

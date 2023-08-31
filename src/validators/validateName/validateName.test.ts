@@ -1,4 +1,5 @@
 import { getInvalidNameError } from "./helpers/getInvalidNameError";
+import { getInvalidRegexError } from "./helpers/getInvalidRegexError";
 import { getNameError } from "./helpers/getNameError";
 import { getNameRegexError } from "./helpers/validateRegexPattern/helpers/getNameRegexError";
 import { validateName } from "./validateName";
@@ -16,6 +17,16 @@ describe("validateName", () => {
             ).toThrow(getInvalidNameError(ruleName));
         },
     );
+
+    it("should throw error when regex is invalid", () => {
+        expect(() =>
+            validateName({
+                nodeName: "componentName.api",
+                ruleName: "/^?/",
+                parentName: "parentName",
+            }),
+        ).toThrow(getInvalidRegexError("/^?/"));
+    });
 
     it("should not throw error when nodeName match regex", () => {
         expect(() =>

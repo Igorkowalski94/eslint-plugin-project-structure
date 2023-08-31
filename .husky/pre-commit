@@ -3,9 +3,9 @@
 
 echo '🕵️‍♂️ Checking your crappy code 🕵️‍♂️'
 
-echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ dead-code:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
-yarn dead-code:check || (echo '🤢🤮🤢 dead-code:check failed 🤢🤮🤢'; false)
-echo '✅✅✅ dead-code:check ✅✅✅'
+echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ deadCode:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
+yarn deadCode:check || (echo '🤢🤮🤢 deadCode:check failed 🤢🤮🤢'; false)
+echo '✅✅✅ deadCode:check ✅✅✅'
 
 echo '🕵️‍♂️🕵️‍♂️🕵️‍♂️ lint:check 🕵️‍♂️🕵️‍♂️🕵️‍♂️'
 yarn lint:check || (echo '🤢🤮🤢 lint:check failed 🤢🤮🤢'; false);

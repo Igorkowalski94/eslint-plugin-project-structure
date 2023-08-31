@@ -1,7 +1,7 @@
 {
     "author": "Igor Kowalski (Igorkowalski94)",
     "name": "eslint-plugin-project-structure",
-    "version": "1.4.6",
+    "version": "1.4.7",
     "license": "MIT",
     "description": "Eslint plugin that allows you to enforce rules on project structure. Folder and file naming, folder structure, file extensions all under your control to keep your repo consistent even in large teams.",
     "keywords": [
@@ -34,17 +34,16 @@
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
     },
     "scripts": {
+        "clean": "del -rf dist",
         "build": "tsc -p tsconfig.build.json && node esbuild.config.js",
-        "dead-code:check": "ts-prune --error",
-        "types:check": "tsc",
         "format": "prettier --write --config .prettierrc.json .",
         "format:check": "prettier --check --config .prettierrc.json .",
-        "lint": "eslint src --max-warnings 0",
+        "deadCode:check": "ts-prune --error",
+        "types:check": "tsc",
         "lint:check": "eslint src --max-warnings 0",
-        "clean": "del -rf dist",
-        "test": "jest --coverage --watch",
         "test:check": "jest --coverage --watchAll=false --bail",
-        "test:current": "jest --coverage --changedSince=origin/main",
+        "test": "jest --coverage --watch",
+        "checkAll": "yarn deadCode:check && yarn format:check && yarn lint:check && yarn test:check",
         "husky:prepare": "husky install"
     },
     "dependencies": {

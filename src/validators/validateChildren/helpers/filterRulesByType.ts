@@ -1,5 +1,5 @@
-import { getIsFileFromPathname } from "../../../helpers/getIsFileFromPathName";
 import { getNodeRule } from "../../../helpers/getNodeRule/getNodeRule";
+import { isFileFromPathname } from "../../../helpers/isFileFromPathname";
 import { ProjectStructureConfig, Rule } from "../../../types";
 
 export interface FilterRulesByType {
@@ -15,7 +15,7 @@ export const filterRulesByType = ({
 }: FilterRulesByType): boolean => {
     const nodeRule = getNodeRule(rule, config);
 
-    const isFile = getIsFileFromPathname(pathname);
+    const isFile = isFileFromPathname(pathname);
     const isFolderNode = !!nodeRule.children;
     const isFileNode = !!nodeRule.extension;
 
