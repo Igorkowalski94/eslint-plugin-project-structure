@@ -94,6 +94,8 @@ If you have a well-thought-out and proven project structure and want to share it
 ```
 .
 ├── ...
+├── 📄 projectStructure.json
+├── 📄 .eslintrc.json
 └── 📂 src
     ├── 📂 components
     │   ├── ...
