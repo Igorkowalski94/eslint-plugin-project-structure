@@ -116,8 +116,8 @@ If you have a well-thought-out and proven project structure and want to share it
     │       │   │   ├── 📄 useComplexParentComponentHook.types.ts
     │       │   │   ├── 📄 useComplexParentComponentHook.test.ts
     │       │   │   └── 📄 useComplexParentComponentHook.ts
-    │       │   ├── useSimpleParentComponentHook.test.ts
-    │       │   └── useSimpleParentComponentHook.ts
+    │       │   ├── 📄 useSimpleParentComponentHook.test.ts
+    │       │   └── 📄 useSimpleParentComponentHook.ts
     │       ├── 📄 parentComponent.api.ts
     │       ├── 📄 parentComponent.types.ts
     │       ├── 📄 ParentComponent.context.tsx
@@ -131,8 +131,8 @@ If you have a well-thought-out and proven project structure and want to share it
         │   ├── 📄 useComplexGlobalHook.types.ts
         │   ├── 📄 useComplexGlobalHook.test.ts
         │   └── 📄 useComplexGlobalHook.ts
-        ├── useSimpleGlobalHook.test.ts
-        └── useSimpleGlobalHook.ts
+        ├── 📄 useSimpleGlobalHook.test.ts
+        └── 📄 useSimpleGlobalHook.ts
 
 ```
 
