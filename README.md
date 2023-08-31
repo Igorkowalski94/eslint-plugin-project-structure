@@ -100,6 +100,11 @@ If you have a well-thought-out and proven project structure and want to share it
     ├── 📂 components
     │   ├── ...
     │   └── 📂 ParentComponent
+    │       ├── 📄 parentComponent.api.ts
+    │       ├── 📄 parentComponent.types.ts
+    │       ├── 📄 ParentComponent.context.tsx
+    │       ├── 📄 ParentComponent.test.tsx
+    │       ├── 📄 ParentComponent.tsx
     │       ├── 📂 components
     │       │   ├── ...
     │       │   └── 📂 ChildComponent
@@ -110,31 +115,27 @@ If you have a well-thought-out and proven project structure and want to share it
     │       │       ├── 📄 ChildComponent.context.tsx
     │       │       ├── 📄 ChildComponent.test.tsx
     │       │       └── 📄 ChildComponent.tsx
-    │       ├── 📂 hooks
-    │       │   ├── ...
-    │       │   ├── 📂 useComplexParentComponentHook
-    │       │   │   ├── 📁 hooks (recursion)
-    │       │   │   ├── 📄 useComplexParentComponentHook.api.ts
-    │       │   │   ├── 📄 useComplexParentComponentHook.types.ts
-    │       │   │   ├── 📄 useComplexParentComponentHook.test.ts
-    │       │   │   └── 📄 useComplexParentComponentHook.ts
-    │       │   ├── 📄 useSimpleParentComponentHook.test.ts
-    │       │   └── 📄 useSimpleParentComponentHook.ts
-    │       ├── 📄 parentComponent.api.ts
-    │       ├── 📄 parentComponent.types.ts
-    │       ├── 📄 ParentComponent.context.tsx
-    │       ├── 📄 ParentComponent.test.tsx
-    │       └── 📄 ParentComponent.tsx
+    │       └── 📂 hooks
+    │           ├── ...
+    │           ├── 📄 useSimpleParentComponentHook.test.ts
+    │           ├── 📄 useSimpleParentComponentHook.ts
+    │           └── 📂 useComplexParentComponentHook
+    │               ├── 📁 hooks (recursion)
+    │               ├── 📄 useComplexParentComponentHook.api.ts
+    │               ├── 📄 useComplexParentComponentHook.types.ts
+    │               ├── 📄 useComplexParentComponentHook.test.ts
+    │               └── 📄 useComplexParentComponentHook.ts
     └── 📂 hooks
         ├── ...
-        ├── 📂 useComplexGlobalHook
-        │   ├── 📁 hooks (recursion)
-        │   ├── 📄 useComplexGlobalHook.api.ts
-        │   ├── 📄 useComplexGlobalHook.types.ts
-        │   ├── 📄 useComplexGlobalHook.test.ts
-        │   └── 📄 useComplexGlobalHook.ts
         ├── 📄 useSimpleGlobalHook.test.ts
-        └── 📄 useSimpleGlobalHook.ts
+        ├── 📄 useSimpleGlobalHook.ts
+        └── 📂 useComplexGlobalHook
+            ├── 📁 hooks (recursion)
+            ├── 📄 useComplexGlobalHook.api.ts
+            ├── 📄 useComplexGlobalHook.types.ts
+            ├── 📄 useComplexGlobalHook.test.ts
+            └── 📄 useComplexGlobalHook.ts
+
 
 ```
 
