@@ -1,5 +1,3 @@
-import { sep } from "path";
-
 import { FinalError } from "../../../errors/FinalError/FinalError";
 import { finalErrorGuard } from "../../../errors/FinalError/helpers/finalErrorGuard";
 import { ruleErrorGuard } from "../../../errors/RuleError/helpers/ruleErrorGuard";
@@ -20,7 +18,7 @@ export const validateRulesList = ({
     nodesList,
     config,
 }: ValidateRulesList): void => {
-    const nodeName = pathname.split(sep)[0];
+    const nodeName = pathname.split("/")[0];
     const nodeType = getNodeType(nodeName);
 
     let errorMessage = `\n\n 🔥🔥🔥 ${nodeType} '${nodeName}' is invalid:\n\n It should `;

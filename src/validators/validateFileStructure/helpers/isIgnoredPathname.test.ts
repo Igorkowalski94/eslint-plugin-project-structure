@@ -17,23 +17,10 @@ describe("isIgnoredPathname", () => {
         },
     );
 
-    it.each<[string]>([
-        ["src/legacy/ComponentName.tsx"],
-        ["src\\legacy\\ComponentName.tsx"],
-    ])(
-        "should return true when pathname is in ignorePatterns filePath = %s",
-        (filePath) => {
-            expect(isIgnoredPathname(filePath, ["src/legacy"])).toEqual(true);
-        },
-    );
-
-    it.each<[string]>([
-        ["src/feature/ComponentName.tsx"],
-        ["src\\feature\\ComponentName.tsx"],
-    ])(
-        "should return false when pathname is not in ignorePatterns filePath = %s",
-        (filePath) => {
-            expect(isIgnoredPathname(filePath, ["src/legacy"])).toEqual(false);
-        },
-    );
+    it.each<[boolean, string]>([
+        [true, "src/legacy/ComponentName.tsx"],
+        [false, "src/ComponentName.tsx"],
+    ])("should return = %s when filePath = %s", (ignore, filePath) => {
+        expect(isIgnoredPathname(filePath, ["src/legacy"])).toEqual(ignore);
+    });
 });

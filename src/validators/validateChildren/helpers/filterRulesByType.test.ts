@@ -50,15 +50,6 @@ describe("filterRulesByType", () => {
         [true, { pathname: "src/componentName", rule: idFolder }],
         [true, { pathname: "src/componentName", rule: idName }],
 
-        [false, { pathname: "src\\componentName", rule: fileRule }],
-        [false, { pathname: "src\\componentName", rule: idFile }],
-
-        [true, { pathname: "src\\componentName", rule: emptyRule }],
-        [true, { pathname: "src\\componentName", rule: idEmpty }],
-        [true, { pathname: "src\\componentName", rule: folderRule }],
-        [true, { pathname: "src\\componentName", rule: idFolder }],
-        [true, { pathname: "src\\componentName", rule: idName }],
-
         [true, { pathname: "componentName", rule: fileRule }],
         [true, { pathname: "componentName", rule: idFile }],
         [true, { pathname: "componentName", rule: emptyRule }],

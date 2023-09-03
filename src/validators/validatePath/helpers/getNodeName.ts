@@ -1,5 +1,3 @@
-import { sep } from "path";
-
 import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
 import { isFileFromPathname } from "../../../helpers/isFileFromPathname";
 
@@ -11,7 +9,7 @@ interface GetNodeNameReturn {
 export const getNodeName = (pathname: string): GetNodeNameReturn => {
     const isFile = isFileFromPathname(pathname);
 
-    const currentNodeName = pathname.split(sep)[0];
+    const currentNodeName = pathname.split("/")[0];
 
     const nodeName = isFile
         ? getFileNameWithoutExtension(pathname)

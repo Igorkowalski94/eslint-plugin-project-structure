@@ -135,7 +135,6 @@ If you have a well-thought-out and proven project structure and want to share it
                     ├── 📄 useComplexParentComponentHook.types.ts
                     ├── 📄 useComplexParentComponentHook.test.ts
                     └── 📄 useComplexParentComponentHook.ts
-
 ```
 
 ```jsonc
@@ -484,6 +483,14 @@ Not available when **[extension](#extension)** is used.
 
 The structure of your project and its rules.
 
+```
+.
+├── 📂 libs
+├── 📂 apps
+├── 📂 src
+└── 📄 ...
+```
+
 ```jsonc
 {
     "structure": {
@@ -547,6 +554,27 @@ A reference to your custom rule.
 You can use it with other keys like **[name](#name)**, **[extension](#extension)** and **[children](#children)** but remember that they will **override** the keys from your custom rule.<br>
 This is useful if you want to get rid of a lot of repetition in your structure, for example, **`folders`** have different **[name](#name)**, but the same **[children](#children)**.
 
+```
+.
+├── ...
+└── 📂 src
+    ├── 📂 folder1
+    │   ├── ...
+    │   └── 📂 NestedFolder
+    │       ├── ...
+    │       ├── 📄 File1.tsx
+    │       └── 📄 file2.ts
+    └── 📂 folder2
+        ├── 📂 subFolder1
+        │    ├── ...
+        │    ├── 📄 File1.tsx
+        │    └── 📄 file2.ts
+        └── 📂 subFolder2
+            ├── ...
+            ├── 📄 File1.tsx
+            └── 📄 file2.ts
+```
+
 ```jsonc
 {
     "structure": {
@@ -572,7 +600,6 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
                             }
                         ]
                     }
-                    // ...
                 ]
             }
             // ...
@@ -601,8 +628,21 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 
 You can easily create recursions when you refer to the same **[ruleId](#ruleid)** that your rule has.<br><br>
 Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rule **`${{PascalCase}}`** and your next **`folder`** will be
-**`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:<br>
-**`src/features/ComponentFolder/components/NextComponentFolder/components... (recursion)`**.
+**`NextComponentFolder`** which also satisfies the rule **`${{PascalCase}}`**. In this case, the recursion will look like this:
+
+```
+.
+├── ...
+└── 📂 src
+    └── 📂 ComponentFolder
+        ├── ...
+        └── 📂 components
+            ├── ...
+            └── 📁 NextComponentFolder
+                ├── ...
+                └── 📂 components
+                    └── ... (recursion)
+```
 
 ```jsonc
 {
@@ -612,16 +652,8 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
                 "name": "src",
                 "children": [
                     {
-                        "name": "features",
-                        "children": [
-                            {
-                                "ruleId": "yourCustomRule"
-                                // ...
-                            }
-                            // ...
-                        ]
+                        "ruleId": "yourCustomRule"
                     }
-                    // ...
                 ]
             }
             // ...
@@ -636,7 +668,6 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
                     "children": [
                         {
                             "ruleId": "yourCustomRule"
-                            // ...
                         }
                         // ...
                     ]

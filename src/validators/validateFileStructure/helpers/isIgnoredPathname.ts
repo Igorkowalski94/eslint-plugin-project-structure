@@ -15,11 +15,5 @@ export const isIgnoredPathname = (
     )
         throw getInvalidIgnorePatternsError(ignorePatterns);
 
-    const pathnameUnifySep = pathname.includes("\\")
-        ? pathname.replace(/\\/g, "/")
-        : pathname;
-
-    return ignorePatterns.some((pattern) =>
-        new RegExp(pattern).test(pathnameUnifySep),
-    );
+    return ignorePatterns.some((pattern) => new RegExp(pattern).test(pathname));
 };
