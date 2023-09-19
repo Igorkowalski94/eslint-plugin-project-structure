@@ -13,7 +13,7 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 ✅ File extension validation.<br>
 ✅ Inheriting the parent's name (the child inherits the name of the folder in which it is located).<br>
 ✅ Folder recursion.<br>
-✅ Forcing a nested/flat structure.
+✅ Forcing a nested/flat structure for a given folder.
 
 ### Go to:
 
