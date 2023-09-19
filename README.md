@@ -19,8 +19,10 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 
 -   [Installation](#installation)
 -   [Getting started](#getting-started)
--   [JSON example](#json-example-for-the-structure-below-containing-all-key-features)
--   [YAML example](#yaml-example)
+-   [Simple JSON example](#simple-json-example-for-the-structure-below)
+-   [Simple YAML example](#simple-yaml-example)
+-   [Advanced JSON example](#advanced-json-example-for-the-structure-below-containing-all-key-features)
+-   [Advanced YAML example](#advanced-yaml-example)
 -   [API](#api)
     -   [$schema](#schema)
     -   [ignorePatterns](#ignore-patterns)
@@ -89,7 +91,67 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
 **[Here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/tree/main/examples)** you will find an example of the project structure for the **`framework (CLI)`** you are using. If it's not on the examples list and you want to help the community, add its configuration **[here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new?assignees=Igorkowalski94&labels=Framework+example&projects=&template=framework-example.md&title=%5BFramework+example%5D)**.<br>
 If you have a well-thought-out and proven project structure and want to share it with others, you can add it with a description in the **[discussions section](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**.
 
-#### JSON example for the structure below, containing all key features:
+#### Simple JSON example for the structure below:
+
+```
+.
+├── ...
+├── 📄 projectStructure.json
+├── 📄 .eslintrc.json
+└── 📂 src
+    ├── 📄 index.tsx
+    └── 📂 components
+        ├── ...
+        └── 📄 ComponentName.ts
+```
+
+```jsonc
+{
+    "structure": {
+        "children": [
+            {
+                "name": "src",
+                "children": [
+                    {
+                        "name": "index",
+                        "extension": "tsx"
+                    },
+                    {
+                        "name": "components",
+                        "children": [
+                            {
+                                "name": "/^${{PascalCase}}$/",
+                                "extension": "ts"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "extension": "*"
+            }
+        ]
+    }
+}
+```
+
+#### Simple YAML example
+
+```yaml
+structure:
+    children:
+        - name: src
+          children:
+              - name: index
+                extension: tsx
+              - name: components
+                children:
+                    - name: "/^${{PascalCase}}$/"
+                      extension: ts
+        - extension: "*"
+```
+
+#### Advanced JSON example for the structure below, containing all key features:
 
 ```
 .
@@ -215,7 +277,7 @@ If you have a well-thought-out and proven project structure and want to share it
 }
 ```
 
-#### YAML example
+#### Advanced YAML example
 
 ```yaml
 ignorePatterns:
