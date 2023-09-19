@@ -19,10 +19,8 @@ Eslint plugin that allows you to enforce rules on project structure to keep your
 
 -   [Installation](#installation)
 -   [Getting started](#getting-started)
--   [Simple JSON example](#simple-json-example-for-the-structure-below)
--   [Simple YAML example](#simple-yaml-example)
--   [Advanced JSON example](#advanced-json-example-for-the-structure-below-containing-all-key-features)
--   [Advanced YAML example](#advanced-yaml-example)
+-   [Simple example](#simple-example-for-the-structure-below)
+-   [Advanced example](#advanced-example-for-the-structure-below-containing-all-key-features)
 -   [API](#api)
     -   [$schema](#schema)
     -   [ignorePatterns](#ignore-patterns)
@@ -91,7 +89,7 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
 **[Here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/tree/main/examples)** you will find an example of the project structure for the **`framework (CLI)`** you are using. If it's not on the examples list and you want to help the community, add its configuration **[here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new?assignees=Igorkowalski94&labels=Framework+example&projects=&template=framework-example.md&title=%5BFramework+example%5D)**.<br>
 If you have a well-thought-out and proven project structure and want to share it with others, you can add it with a description in the **[discussions section](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**.
 
-#### Simple JSON example for the structure below:
+#### Simple example for the structure below:
 
 ```
 .
@@ -104,6 +102,8 @@ If you have a well-thought-out and proven project structure and want to share it
         ├── ...
         └── 📄 ComponentName.tsx
 ```
+
+#### JSON
 
 ```jsonc
 {
@@ -135,7 +135,7 @@ If you have a well-thought-out and proven project structure and want to share it
 }
 ```
 
-#### Simple YAML example
+#### YAML
 
 ```yaml
 structure:
@@ -151,7 +151,7 @@ structure:
         - extension: "*"
 ```
 
-#### Advanced JSON example for the structure below, containing all key features:
+#### Advanced example for the structure below, containing all key features:
 
 ```
 .
@@ -198,6 +198,8 @@ structure:
                     ├── 📄 useComplexParentComponentHook.test.ts
                     └── 📄 useComplexParentComponentHook.ts
 ```
+
+#### JSON
 
 ```jsonc
 {
@@ -277,7 +279,7 @@ structure:
 }
 ```
 
-#### Advanced YAML example
+#### YAML
 
 ```yaml
 ignorePatterns:
