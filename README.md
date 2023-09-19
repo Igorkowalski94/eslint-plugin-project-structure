@@ -110,6 +110,9 @@ If you have a well-thought-out and proven project structure and want to share it
     "structure": {
         "children": [
             {
+                "extension": "*"
+            },
+            {
                 "name": "src",
                 "children": [
                     {
@@ -126,9 +129,6 @@ If you have a well-thought-out and proven project structure and want to share it
                         ]
                     }
                 ]
-            },
-            {
-                "extension": "*"
             }
         ]
     }
@@ -208,18 +208,18 @@ structure:
     "structure": {
         "children": [
             {
+                "extension": "*"
+            },
+            {
                 "name": "src",
                 "children": [
                     {
-                        "ruleId": "components_folder"
+                        "ruleId": "hooks_folder"
                     },
                     {
-                        "ruleId": "hooks_folder"
+                        "ruleId": "components_folder"
                     }
                 ]
-            },
-            {
-                "extension": "*"
             }
         ]
     },
@@ -286,11 +286,11 @@ ignorePatterns:
     - src/legacy/*
 structure:
     children:
+        - extension: "*"
         - name: src
           children:
-              - ruleId: components_folder
               - ruleId: hooks_folder
-        - extension: "*"
+              - ruleId: components_folder
 rules:
     components_folder:
         name: components
