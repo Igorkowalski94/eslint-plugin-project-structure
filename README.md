@@ -140,6 +140,7 @@ If you have a well-thought-out and proven project structure and want to share it
 ```yaml
 structure:
     children:
+        - extension: "*"
         - name: src
           children:
               - name: index
@@ -148,7 +149,6 @@ structure:
                 children:
                     - name: "/^${{PascalCase}}$/"
                       extension: tsx
-        - extension: "*"
 ```
 
 #### Advanced example for the structure below, containing all key features:
