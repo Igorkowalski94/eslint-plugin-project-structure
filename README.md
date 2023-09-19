@@ -102,7 +102,7 @@ If you have a well-thought-out and proven project structure and want to share it
     ├── 📄 index.tsx
     └── 📂 components
         ├── ...
-        └── 📄 ComponentName.ts
+        └── 📄 ComponentName.tsx
 ```
 
 ```jsonc
@@ -121,7 +121,7 @@ If you have a well-thought-out and proven project structure and want to share it
                         "children": [
                             {
                                 "name": "/^${{PascalCase}}$/",
-                                "extension": "ts"
+                                "extension": "tsx"
                             }
                         ]
                     }
@@ -147,7 +147,7 @@ structure:
               - name: components
                 children:
                     - name: "/^${{PascalCase}}$/"
-                      extension: ts
+                      extension: tsx
         - extension: "*"
 ```
 
