@@ -550,8 +550,8 @@ The structure of your project and its rules.
 ```
 .
 ├── 📂 libs
-├── 📂 apps
 ├── 📂 src
+├── 📂 yourCoolFolderName
 └── 📄 ...
 ```
 
