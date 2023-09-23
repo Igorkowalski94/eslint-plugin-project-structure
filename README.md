@@ -560,16 +560,22 @@ The structure of your project and its rules.
     "structure": {
         "children": [
             {
-                "name": "libs"
-                // ...
+                "name": "libs",
+                "children": [
+                    // ...
+                ]
             },
             {
-                "name": "apps"
-                // ...
+                "name": "src",
+                "children": [
+                    // ...
+                ]
             },
             {
-                "name": "src"
-                // ...
+                "name": "yourCoolFolderName",
+                "children": [
+                    // ...
+                ]
             },
             {
                 "extension": "*" // All files located in the root of your project, like package.json, .eslintrc, etc. You can specify them more precisely.
