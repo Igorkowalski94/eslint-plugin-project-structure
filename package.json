@@ -19,9 +19,6 @@
         "folder name validation",
         "extension validation"
     ],
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
-    },
     "homepage": "https://github.com/Igorkowalski94/eslint-plugin-project-structure#readme",
     "repository": {
         "type": "git",
