@@ -1,6 +1,6 @@
 # eslint-plugin-project-structure
 
-<img width="100%" src="./images/mainImage.jpg"/>
+<img width="100%" src="./images/main.jpg"/>
 
 Eslint plugin that allows you to enforce rules on project structure to keep your repository consistent even in large teams.
 
