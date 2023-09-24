@@ -373,7 +373,7 @@ Remember that the regular expression must start and end with a **`/`**.
 
 ```jsonc
 {
-    "name": "/^(Your regex logic)$/"
+    "name": "/^Regex logic$/"
     // ...
 }
 ```
@@ -387,10 +387,10 @@ You can freely mix regex parameters together see **[example](#regex-parameters-m
 ```jsonc
 {
     "regexParameters": {
-        "yourCustomRegexParameter": "/^(Your regex logic)$/",
-        "camelCase": "/^(Your regex logic)$/", // Override built-in camelCase.
-        "parentName": "/^(Your regex logic)$/", // Overwriting will be ignored.
-        "ParentName": "/^(Your regex logic)$/" // Overwriting will be ignored.
+        "yourCustomRegexParameter": "(Regex logic)",
+        "camelCase": "(Regex logic)", // Override built-in camelCase.
+        "parentName": "(Regex logic)", // Overwriting will be ignored.
+        "ParentName": "(Regex logic)" // Overwriting will be ignored.
         // ...
     }
     // ...
