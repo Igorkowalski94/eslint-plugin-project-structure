@@ -87,7 +87,10 @@ Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root 
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
 
 **[Here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/tree/main/examples)** you will find an example of the project structure for the **`framework (CLI)`** you are using. If it's not on the examples list and you want to help the community, add its configuration **[here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new?assignees=Igorkowalski94&labels=Framework+example&projects=&template=framework-example.md&title=%5BFramework+example%5D)**.<br>
-If you have a well-thought-out and proven project structure and want to share it with others, you can add it with a description in the **[discussions section](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**.
+
+If you want to help:<br>
+You can leave a ⭐ and share the link with your friends. It will help grow our community. <br>
+You can share your project structure in the **[discussions section](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)** and help create standards for given frameworks. Standards will make moving from one project to another much easier and will increase the overall quality and consistency of projects in our industry.
 
 #### Simple example for the structure below:
 
