@@ -53,14 +53,47 @@ $ npm i --dev eslint-plugin-project-structure
 
 If you want to check **[extensions](#extension)** that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`**, read the step below, if not go to the **[next step](#step-2)**.<br>
 
-Add the following script to your **`package.json`**. You can extend the list of **[extensions](#extension)** in the script. After completing **[Step 2](#step-2)** and **[Step 3](#step-3)**, use this script to check your structure.
+> [!CAUTION]
+> If your project requires the use of **`@typescript-eslint/parser`** or another parser for a given plugin, as in the case of e.g. **`plugin:@typescript-eslint/recommended-type-checked`** extend such a plugin for a given parser.
 
-```jsonc
-{
-    "scripts": {
-        "projectStructure:check": "eslint --parser ./node_modules/eslint-plugin-project-structure/dist/parser.js --rule project-structure/file-structure:error --ext .js,.jsx,.ts,.tsx,.css,.sass,.less,.svg,.png,.jpg,.ico,.yml,.json ."
-    }
-}
+Add the following lines to **`.eslintrc`**.
+
+```js
+module.exports = {
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: "./tsconfig.json",
+    },
+    extends: ["plugin:@typescript-eslint/recommended"],
+    overrides: [
+        // Use @typescript-eslint/parser for the following file extensions.
+        {
+            files: ["*.ts", "*.tsx"],
+            parser: "@typescript-eslint/parser",
+            extends: [
+                // Example plugin that requires @typescript-eslint/parser. Can be removed if you don't use it.
+                "plugin:@typescript-eslint/recommended-requiring-type-checking",
+            ],
+        },
+        // Use eslint-plugin-project-structure parser for the following file extensions.
+        {
+            files: [
+                "*.js",
+                "*.jsx",
+                "*.css",
+                "*.sass",
+                "*.less",
+                "*.svg",
+                "*.png",
+                "*.jpg",
+                "*.yml",
+                "*.json",
+            ],
+            parser: "./node_modules/eslint-plugin-project-structure/dist/parser.js",
+        },
+    ],
+};
 ```
 
 ### Step 2
@@ -83,7 +116,7 @@ Add the following lines to **`.eslintrc`**.
 
 Create a **`projectStructure.json`** or **`projectStructure.yaml`** in the root of your project.<br>
 
-> **Note**
+> [!NOTE]
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
 
 **[Here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/tree/main/examples)** you will find an example of the project structure for the **`framework (CLI)`** you are using. If it's not on the examples list and you want to help the community, add its configuration **[here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new?assignees=Igorkowalski94&labels=Framework+example&projects=&template=framework-example.md&title=%5BFramework+example%5D)**.<br>
@@ -352,10 +385,10 @@ When used with **[children](#children)** this will be the name of **`folder`**.<
 When used with **[extension](#extension)** this will be the name of **`file`**.<br>
 If used without **[children](#children)** and **[extension](#extension)** this will be name of **`folder`** and **`file`**.<br>
 
-> **Note**
+> [!NOTE]
 > If you only care about the name of the **`folder`** without rules for its **[children](#children)**, leave the **[children](#children)** as **`[]`**.
 
-> **Note**
+> [!NOTE]
 > If you only care about the name of the **`file`** without rules for its **[extension](#extension)**, leave the **[extension](#extension)** as **`"*"`**.
 
 #### Fixed name <a id="fixed-name"></a>
@@ -409,10 +442,10 @@ Then you can use them in **[regex](#regex)** with the following notation **`${{y
 }
 ```
 
-> **Note**
+> [!NOTE]
 > Remember that the regular expression must start and end with a **`/`**.
 
-> **Note**
+> [!NOTE]
 > If your parameter will only be part of the **[regex](#regex)**, I recommend wrapping it in parentheses and not adding **`/^$/`**.
 
 #### Built-in regex parameters
@@ -519,13 +552,13 @@ Not available when **[children](#children)** are used.
 }
 ```
 
-> **Warning**
+> [!WARNING]
 > If you want to check extensions that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** go to **[Step 1](#step-1-optional)**.
 
-> **Note**
+> [!NOTE]
 > You don't need to add **`.`** it is optional.
 
-> **Note**
+> [!NOTE]
 > If you want to include all extensions use **`*`**.
 
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
@@ -590,7 +623,7 @@ The structure of your project and its rules.
 }
 ```
 
-> **Warning**
+> [!WARNING]
 > Make sure your **`tsconfig`**/**`.eslintrc`** contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
 
 ### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
