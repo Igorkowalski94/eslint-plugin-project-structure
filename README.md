@@ -51,34 +51,32 @@ $ npm i --dev eslint-plugin-project-structure
 
 ### Step 1 (optional)
 
-If you want to check **[extensions](#extension)** that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`**, read the step below, if not go to the **[next step](#step-2)**.<br>
+If you want to check **[extensions](#extension)** that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** etc., read the step below, if not go to the **[next step](#step-2)**.<br>
 
 > [!CAUTION]
 > If your project requires the use of **`@typescript-eslint/parser`** or another parser for a given plugin, as in the case of e.g. **`plugin:@typescript-eslint/recommended-type-checked`** extend such a plugin for a given parser.
 
 Add the following lines to **`.eslintrc`**.
 
-```js
-module.exports = {
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-        tsconfigRootDir: __dirname,
-        project: "./tsconfig.json",
+```jsonc
+ {
+    "parserOptions": {
+        "project": "./tsconfig.json",
     },
-    extends: ["plugin:@typescript-eslint/recommended"],
-    overrides: [
+    "extends": ["plugin:@typescript-eslint/recommended"],
+    "overrides": [
         // Use @typescript-eslint/parser for the following file extensions.
         {
-            files: ["*.ts", "*.tsx"],
-            parser: "@typescript-eslint/parser",
-            extends: [
+            "files": ["*.ts", "*.tsx"],
+            "parser": "@typescript-eslint/parser",
+            "extends": [
                 // Example plugin that requires @typescript-eslint/parser. Can be removed if you don't use it.
                 "plugin:@typescript-eslint/recommended-requiring-type-checking",
             ],
         },
-        // Use eslint-plugin-project-structure parser for the following file extensions.
+        // Use eslint-plugin-project-structure parser for the following file extensions. You can extend the list of extensions.
         {
-            files: [
+            "files": [
                 "*.js",
                 "*.jsx",
                 "*.css",
@@ -87,10 +85,11 @@ module.exports = {
                 "*.svg",
                 "*.png",
                 "*.jpg",
+                "*.ico",
                 "*.yml",
                 "*.json",
             ],
-            parser: "./node_modules/eslint-plugin-project-structure/dist/parser.js",
+            "parser": "./node_modules/eslint-plugin-project-structure/dist/parser.js",
         },
     ],
 };
