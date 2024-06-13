@@ -56,6 +56,9 @@ If you want to check **[extensions](#extension)** that are not supported by **`e
 > [!CAUTION]
 > If your project requires the use of **`@typescript-eslint/parser`** or another parser for a given plugin, as in the case of e.g. **`plugin:@typescript-eslint/recommended-type-checked`** extend such a plugin for a given parser.
 
+> [!CAUTION]
+> If your rule requires the use of **`@typescript-eslint/parser`** or another parser, move this rule to the rules of a given parser.
+
 Add the following lines to **`.eslintrc`**.
 
 ```jsonc
@@ -65,6 +68,9 @@ Add the following lines to **`.eslintrc`**.
     },
     // Plugins that work with all parsers.
     "extends": ["plugin:@typescript-eslint/recommended"],
+    "rules": [
+        // Rules that work with all parsers.
+    ],
     "overrides": [
         // Use @typescript-eslint/parser for the following file extensions.
         {
@@ -74,6 +80,9 @@ Add the following lines to **`.eslintrc`**.
                 // Here, add plugins that require @typescript-eslint/parser. If you don't use them, you can leave the array empty.
                 // "plugin:@typescript-eslint/recommended-requiring-type-checking",
             ],
+            "rules":{
+                // Here, add rules that require @typescript-eslint/parser.
+            }
         },
         // Use eslint-plugin-project-structure parser for the following file extensions. You can extend the list of extensions.
         {
