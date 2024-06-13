@@ -2,3 +2,10 @@ dist/**
 node_modules/**
 coverage/**
 jestCache/**
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
