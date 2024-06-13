@@ -63,6 +63,7 @@ Add the following lines to **`.eslintrc`**.
     "parserOptions": {
         "project": "./tsconfig.json",
     },
+    // Plugins that work with all parsers.
     "extends": ["plugin:@typescript-eslint/recommended"],
     "overrides": [
         // Use @typescript-eslint/parser for the following file extensions.
@@ -70,8 +71,8 @@ Add the following lines to **`.eslintrc`**.
             "files": ["*.ts", "*.tsx"],
             "parser": "@typescript-eslint/parser",
             "extends": [
-                // Example plugin that requires @typescript-eslint/parser. Can be removed if you don't use it.
-                "plugin:@typescript-eslint/recommended-requiring-type-checking",
+                // Here, add plugins that require @typescript-eslint/parser. If you don't use them, you can leave the array empty.
+                // "plugin:@typescript-eslint/recommended-requiring-type-checking",
             ],
         },
         // Use eslint-plugin-project-structure parser for the following file extensions. You can extend the list of extensions.
