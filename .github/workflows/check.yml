@@ -17,7 +17,7 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - name: Install dependencies
-              run: yarn install --non-interactive --frozen-lockfile --ignore-scripts
+              run: yarn install --frozen-lockfile
 
             - name: deadCode:check
               run: yarn deadCode:check
