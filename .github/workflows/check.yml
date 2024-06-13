@@ -13,7 +13,7 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v3
               with:
-                  node-version: '16.10.0'
+                  node-version: "16.10.0"
                   registry-url: "https://registry.npmjs.org"
 
             - name: Enable Corepack
@@ -21,7 +21,7 @@ jobs:
 
             - name: Set Yarn version
               run: corepack prepare yarn@3.6.3 --activate
-              
+
             - name: Cache Yarn dependencies
               uses: actions/cache@v2
               with:
