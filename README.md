@@ -53,12 +53,6 @@ $ npm i --dev eslint-plugin-project-structure
 
 If you want to check **[extensions](#extension)** that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** etc., read the step below, if not go to the **[next step](#step-2)**.<br>
 
-> [!CAUTION]
-> If your project requires the use of **`@typescript-eslint/parser`** or another parser for a given plugin, as in the case of e.g. **`plugin:@typescript-eslint/recommended-type-checked`** extend such a plugin for a given parser.
-
-> [!CAUTION]
-> If your rule requires the use of **`@typescript-eslint/parser`** or another parser, move this rule to the rules of a given parser.
-
 Add the following lines to **`.eslintrc`**.
 
 ```jsonc
@@ -66,29 +60,14 @@ Add the following lines to **`.eslintrc`**.
     "parserOptions": {
         "project": "./tsconfig.json",
     },
-    // Plugins that work with all parsers.
+    // Plugins rules that work with all parsers.
     "extends": ["plugin:@typescript-eslint/recommended"],
-    "rules": [
-        // Rules that work with all parsers.
-    ],
+    // Rules that work with all parsers.
+    "rules": [],
     "overrides": [
-        // Use @typescript-eslint/parser for the following file extensions.
-        {
-            "files": ["*.ts", "*.tsx"],
-            "parser": "@typescript-eslint/parser",
-            "extends": [
-                // Here, add plugins that require @typescript-eslint/parser. If you don't use them, you can leave the array empty.
-                // "plugin:@typescript-eslint/recommended-requiring-type-checking",
-            ],
-            "rules":{
-                // Here, add rules that require @typescript-eslint/parser.
-            }
-        },
         // Use eslint-plugin-project-structure parser for the following file extensions. You can extend the list of extensions.
         {
             "files": [
-                "*.js",
-                "*.jsx",
                 "*.css",
                 "*.sass",
                 "*.less",
@@ -99,7 +78,27 @@ Add the following lines to **`.eslintrc`**.
                 "*.yml",
                 "*.json",
             ],
+            "rules":{
+                // Here you can disable rules that are not to be executed on additional file extensions or rules that require a different parser.
+
+                // "no-irregular-whitespace": "off",
+            },
             "parser": "./node_modules/eslint-plugin-project-structure/dist/parser.js",
+        },
+         // Use @typescript-eslint/parser for the following file extensions.
+        {
+            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+            "parser": "@typescript-eslint/parser",
+            "extends": [
+                // If multiple rules from a given plugin require @typescript-eslint/parser,
+                // you can extend the entire plugin here instead of disabling individual rules in the eslint-plugin-project-structure parser.
+
+                // "plugin:@typescript-eslint/recommended-requiring-type-checking",
+            ],
+            "rules": {
+                // Here you can add rules that require @typescript-eslint/parser.
+                // Then you don't have to disable them for the eslint-plugin-project-structure parser.
+            }
         },
     ],
 };
