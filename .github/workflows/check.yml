@@ -16,6 +16,19 @@ jobs:
                   node-version: "14.x"
                   registry-url: "https://registry.npmjs.org"
 
+            - name: Install Yarn
+              run: npm install -g yarn@3.6.3
+
+            - name: Cache Yarn dependencies
+              uses: actions/cache@v2
+              with:
+                  path: |
+                      ~/.yarn
+                      .yarn/cache
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+
             - name: Install dependencies
               run: yarn install --frozen-lockfile
 
