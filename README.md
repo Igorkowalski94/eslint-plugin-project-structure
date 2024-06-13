@@ -112,11 +112,11 @@ Add the following lines to **`.eslintrc`**.
 {
     "plugins": ["project-structure"],
     "rules": {
-        "project-structure/file-structure": "error" // warn | error
+        "project-structure/file-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/config-path": "projectStructure.json" // json | yaml
-    }
+        "project-structure/config-path": "projectStructure.json", // json | yaml
+    },
 }
 ```
 
@@ -154,28 +154,28 @@ You can share your project structure in the **[discussions section](https://gith
     "structure": {
         "children": [
             {
-                "extension": "*"
+                "extension": "*",
             },
             {
                 "name": "src",
                 "children": [
                     {
                         "name": "index",
-                        "extension": "tsx"
+                        "extension": "tsx",
                     },
                     {
                         "name": "components",
                         "children": [
                             {
                                 "name": "/^${{PascalCase}}$/",
-                                "extension": "tsx"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+                                "extension": "tsx",
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
 }
 ```
 
@@ -252,29 +252,29 @@ structure:
     "structure": {
         "children": [
             {
-                "extension": "*"
+                "extension": "*",
             },
             {
                 "name": "src",
                 "children": [
                     {
-                        "ruleId": "hooks_folder"
+                        "ruleId": "hooks_folder",
                     },
                     {
-                        "ruleId": "components_folder"
-                    }
-                ]
-            }
-        ]
+                        "ruleId": "components_folder",
+                    },
+                ],
+            },
+        ],
     },
     "rules": {
         "components_folder": {
             "name": "components",
             "children": [
                 {
-                    "ruleId": "component_folder"
-                }
-            ]
+                    "ruleId": "component_folder",
+                },
+            ],
         },
         "hooks_folder": {
             "name": "hooks",
@@ -283,43 +283,43 @@ structure:
                     "name": "/^use${{PascalCase}}$/",
                     "children": [
                         {
-                            "ruleId": "hooks_folder"
+                            "ruleId": "hooks_folder",
                         },
                         {
                             "name": "/^${{parentName}}(\\.(test|api|types))?$/",
-                            "extension": "ts"
-                        }
-                    ]
+                            "extension": "ts",
+                        },
+                    ],
                 },
                 {
                     "name": "/^use${{PascalCase}}(\\.test)?$/",
-                    "extension": "ts"
-                }
-            ]
+                    "extension": "ts",
+                },
+            ],
         },
         "component_folder": {
             "name": "/^${{PascalCase}}$/",
             "children": [
                 {
-                    "ruleId": "components_folder"
+                    "ruleId": "components_folder",
                 },
                 {
-                    "ruleId": "hooks_folder"
+                    "ruleId": "hooks_folder",
                 },
                 {
                     "name": "/^${{parentName}}${{yourCustomRegexParameter}}$/",
-                    "extension": ".ts"
+                    "extension": ".ts",
                 },
                 {
                     "name": "/^${{ParentName}}(\\.(context|test))?$/",
-                    "extension": ".tsx"
-                }
-            ]
-        }
+                    "extension": ".tsx",
+                },
+            ],
+        },
     },
     "regexParameters": {
-        "yourCustomRegexParameter": "\\.(types|api)"
-    }
+        "yourCustomRegexParameter": "\\.(types|api)",
+    },
 }
 ```
 
@@ -371,7 +371,7 @@ Type checking for your **`projectStructure.json`**. It helps to fill configurati
 
 ```jsonc
 {
-    "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json"
+    "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
     // ...
 }
 ```
@@ -382,7 +382,7 @@ Here you can set the paths you want to ignore.
 
 ```jsonc
 {
-    "ignorePatterns": ["src/legacy/*"]
+    "ignorePatterns": ["src/legacy/*"],
     // ...
 }
 ```
@@ -405,7 +405,7 @@ Fixed **`file`**/**`folder`** name.
 
 ```jsonc
 {
-    "name": "FixedName"
+    "name": "FixedName",
     // ...
 }
 ```
@@ -417,7 +417,7 @@ Remember that the regular expression must start and end with a **`/`**.
 
 ```jsonc
 {
-    "name": "/^Regex logic$/"
+    "name": "/^Regex logic$/",
     // ...
 }
 ```
@@ -434,9 +434,9 @@ You can freely mix regex parameters together see **[example](#regex-parameters-m
         "yourCustomRegexParameter": "(Regex logic)",
         "camelCase": "(Regex logic)", // Override built-in camelCase.
         "parentName": "(Regex logic)", // Overwriting will be ignored.
-        "ParentName": "(Regex logic)" // Overwriting will be ignored.
+        "ParentName": "(Regex logic)", // Overwriting will be ignored.
         // ...
-    }
+    },
     // ...
 }
 ```
@@ -445,7 +445,7 @@ Then you can use them in **[regex](#regex)** with the following notation **`${{y
 
 ```jsonc
 {
-    "name": "/^${{yourCustomRegexParameter}}$/"
+    "name": "/^${{yourCustomRegexParameter}}$/",
     // ...
 }
 ```
@@ -463,7 +463,7 @@ The child inherits the name of the **`folder`** in which it is located and sets 
 
 ```jsonc
 {
-    "name": "/^${{parentName}}$/"
+    "name": "/^${{parentName}}$/",
 }
 ```
 
@@ -472,7 +472,7 @@ The child inherits the name of the **`folder`** in which it is located and sets 
 
 ```jsonc
 {
-    "name": "/^${{ParentName}}$/"
+    "name": "/^${{ParentName}}$/",
 }
 ```
 
@@ -482,7 +482,7 @@ The added regex is **`((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`**.
 
 ```jsonc
 {
-    "name": "/^${{PascalCase}}$/"
+    "name": "/^${{PascalCase}}$/",
 }
 ```
 
@@ -492,7 +492,7 @@ The added regex is **`(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`**.
 
 ```jsonc
 {
-    "name": "/^${{camelCase}}$/"
+    "name": "/^${{camelCase}}$/",
 }
 ```
 
@@ -502,7 +502,7 @@ The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "/^${{snake_case}}$/"
+    "name": "/^${{snake_case}}$/",
 }
 ```
 
@@ -512,7 +512,7 @@ The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "/^${{kebab-case}}$/"
+    "name": "/^${{kebab-case}}$/",
 }
 ```
 
@@ -522,7 +522,7 @@ The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "/^${{dash-case}}$/"
+    "name": "/^${{dash-case}}$/",
 }
 ```
 
@@ -535,7 +535,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
     // useNiceHook
     // useNiceHook.api
     // useNiceHook.test
-    "name": "/^use${{PascalCase}}(\\.(test|api))?$/"
+    "name": "/^use${{PascalCase}}(\\.(test|api))?$/",
 }
 ```
 
@@ -544,7 +544,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
     // YourParentName.hello_world
     // YourParentName.hello_world.test
     // YourParentName.hello_world.api
-    "name": "/^${{ParentName}}\\.${{snake_case}}(\\.(test|api))?$/"
+    "name": "/^${{ParentName}}\\.${{snake_case}}(\\.(test|api))?$/",
 }
 ```
 
@@ -555,7 +555,7 @@ Not available when **[children](#children)** are used.
 
 ```jsonc
 {
-    "extension": ["*", ".ts", ".tsx", "js", "jsx", "..."]
+    "extension": ["*", ".ts", ".tsx", "js", "jsx", "..."],
     // ...
 }
 ```
@@ -578,11 +578,11 @@ Not available when **[extension](#extension)** is used.
 {
     "children": [
         {
-            "name": "Child"
+            "name": "Child",
             // ...
-        }
+        },
         // ...
-    ]
+    ],
     // ...
 }
 ```
@@ -607,26 +607,26 @@ The structure of your project and its rules.
                 "name": "libs",
                 "children": [
                     // ...
-                ]
+                ],
             },
             {
                 "name": "src",
                 "children": [
                     // ...
-                ]
+                ],
             },
             {
                 "name": "yourCoolFolderName",
                 "children": [
                     // ...
-                ]
+                ],
             },
             {
-                "extension": "*" // All files located in the root of your project, like package.json, .eslintrc, etc. You can specify them more precisely.
-            }
+                "extension": "*", // All files located in the root of your project, like package.json, .eslintrc, etc. You can specify them more precisely.
+            },
             // ...
-        ]
-    }
+        ],
+    },
     // ...
 }
 ```
@@ -646,10 +646,10 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
             "name": "ComponentName",
             "children": [
                 // ...
-            ]
-        }
+            ],
+        },
         // ...
-    }
+    },
     // ...
 }
 ```
@@ -660,7 +660,7 @@ A reference to your custom rule.
 
 ```jsonc
 {
-    "ruleId": "yourCustomRule"
+    "ruleId": "yourCustomRule",
     // ...
 }
 ```
@@ -701,39 +701,39 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
                         "children": [
                             {
                                 "name": "/^${{PascalCase}}$/",
-                                "ruleId": "shared_children"
-                            }
-                        ]
+                                "ruleId": "shared_children",
+                            },
+                        ],
                     },
                     {
                         "name": "folder2",
                         "children": [
                             {
                                 "name": "/^(subFolder1|subFolder2)$/",
-                                "ruleId": "shared_children"
-                            }
-                        ]
-                    }
-                ]
-            }
+                                "ruleId": "shared_children",
+                            },
+                        ],
+                    },
+                ],
+            },
             // ...
-        ]
+        ],
     },
     "rules": {
         "shared_children": {
             "children": [
                 {
                     "name": "/^${{PascalCase}}$/",
-                    "extension": ".tsx"
+                    "extension": ".tsx",
                 },
                 {
                     "name": "/^${{camelCase}}$/",
-                    "extension": ".ts"
-                }
-            ]
-        }
+                    "extension": ".ts",
+                },
+            ],
+        },
         // ...
-    }
+    },
     // ...
 }
 ```
@@ -766,12 +766,12 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
                 "name": "src",
                 "children": [
                     {
-                        "ruleId": "yourCustomRule"
-                    }
-                ]
-            }
+                        "ruleId": "yourCustomRule",
+                    },
+                ],
+            },
             // ...
-        ]
+        ],
     },
     "rules": {
         "yourCustomRule": {
@@ -781,16 +781,16 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
                     "name": "components",
                     "children": [
                         {
-                            "ruleId": "yourCustomRule"
-                        }
+                            "ruleId": "yourCustomRule",
+                        },
                         // ...
-                    ]
-                }
+                    ],
+                },
                 // ...
-            ]
-        }
+            ],
+        },
         // ...
-    }
+    },
     // ...
 }
 ```

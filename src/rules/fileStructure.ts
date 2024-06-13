@@ -16,8 +16,7 @@ export const fileStructure = ESLintUtils.RuleCreator(
     meta: {
         docs: {
             description: "Force project structure",
-            recommended: "error",
-            suggestion: true,
+            recommended: "recommended",
         },
         type: "suggestion",
         schema: [],
