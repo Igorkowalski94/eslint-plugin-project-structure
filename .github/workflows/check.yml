@@ -16,18 +16,8 @@ jobs:
                   node-version: "14.x"
                   registry-url: "https://registry.npmjs.org"
 
-            - name: Cache Yarn dependencies
-              uses: actions/cache@v2
-              with:
-                  path: |
-                      ~/.npm
-                      ~/.cache/yarn
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-yarn-
-
             - name: Install dependencies
-              run: yarn --non-interactive --frozen-lockfile --ignore-scripts
+              run: yarn install --non-interactive --frozen-lockfile --ignore-scripts
 
             - name: deadCode:check
               run: yarn deadCode:check
