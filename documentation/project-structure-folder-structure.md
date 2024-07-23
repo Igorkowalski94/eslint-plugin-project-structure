@@ -124,12 +124,10 @@ Add the following lines to **`.eslintrc`**.
 
 ### Step 3
 
-Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of your project.<br>
+Create a **`folderStructure.jsonc`**, **`folderStructure.json`** or **`folderStructure.yaml`** in the root of your project.<br>
 
 > [!NOTE]
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
-
-**[Here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/tree/main/examples)** you will find an example of the folder structure for the **`framework (CLI)`** you are using. If it's not on the examples list and you want to help the community, add its configuration **[here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new?assignees=Igorkowalski94&labels=Framework+example&projects=&template=framework-example.md&title=%5BFramework+example%5D)**.<br>
 
 If you want to help:<br>
 Leave a ⭐ and share the link with your friends. Become part of the community!<br>
@@ -140,7 +138,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 ```
 .
 ├── ...
-├── 📄 folderStructure.json
+├── 📄 folderStructure.jsonc
 ├── 📄 .eslintrc.json
 └── 📂 src
     ├── 📄 index.tsx
@@ -202,7 +200,7 @@ structure:
 ```
 .
 ├── ...
-├── 📄 folderStructure.json
+├── 📄 folderStructure.jsonc
 ├── 📄 .eslintrc.json
 └── 📂 src
     ├── 📂 hooks
@@ -367,7 +365,7 @@ regexParameters:
 
 ### **`"$schema"`**: `<string | undefined>` <a id="schema"></a>
 
-Type checking for your **`folderStructure.json`**. It helps to fill configuration correctly.
+Type checking for your **`folderStructure.jsonc`**. It helps to fill configuration correctly.
 
 ```jsonc
 {
