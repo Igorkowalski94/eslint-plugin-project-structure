@@ -42,11 +42,11 @@ Enforce rules on folder structure to keep your repository consistent, orderly an
 ## Installation
 
 ```bsh
-$ yarn add -D eslint-plugin-project-structure
+yarn add -D eslint-plugin-project-structure
 ```
 
 ```bsh
-$ npm i --dev eslint-plugin-project-structure
+npm i --dev eslint-plugin-project-structure
 ```
 
 ## Getting started
@@ -117,7 +117,7 @@ Add the following lines to **`.eslintrc`**.
         "project-structure/folder-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.json", // json | yaml
+        "project-structure/folder-structure-config-path": "folderStructure.json", // json | jsonc | yaml
     },
 }
 ```

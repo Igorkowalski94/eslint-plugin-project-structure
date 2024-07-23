@@ -28,11 +28,11 @@ Enforce rules on export names.
 ## Installation
 
 ```bsh
-$ yarn add -D eslint-plugin-project-structure
+yarn add -D eslint-plugin-project-structure
 ```
 
 ```bsh
-$ npm i --dev eslint-plugin-project-structure
+npm i --dev eslint-plugin-project-structure
 ```
 
 ## Getting started

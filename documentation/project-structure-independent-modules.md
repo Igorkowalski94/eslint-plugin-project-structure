@@ -39,11 +39,11 @@ Get rid of dependencies between modules and create truly independent functionali
 ## Installation
 
 ```bsh
-$ yarn add -D eslint-plugin-independent-modules
+yarn add -D eslint-plugin-independent-modules
 ```
 
 ```bsh
-$ npm i --dev eslint-plugin-independent-modules
+npm i --dev eslint-plugin-independent-modules
 ```
 
 ## Getting started
@@ -59,7 +59,7 @@ Add the following lines to **`.eslintrc`**.
         "project-structure/independent-modules": "error", // warn | error
     },
     "settings": {
-        "project-structure/independent-modules-config-path": "independentModules.json", // json | yaml
+        "project-structure/independent-modules-config-path": "independentModules.json", // json | jsonc | yaml
     },
 }
 ```
@@ -98,7 +98,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
             └── 📄 Feature2.tsx            // Public
 ```
 
-```json
+```jsonc
 {
     "modules": [
         {
@@ -119,16 +119,16 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
                 // This will make your rule work recursively/apply to all nestings.
                 // You can change the number of common path parts required, {family_1} at least 1, {family_3} at least 3 common part etc.
 
-                "{family}/**"
+                "{family}/**",
                 // Let's assume we are in the "features/Feature1/Feature1.tsx".
                 // In this case we will be able to import:
                 // "features/Feature1/feature1.types.ts"             ({family} === "features/Feature1")
                 // "features/Feature1/feature1.api.ts"               ({family} === "features/Feature1")
                 // "features/Feature1/hooks/useHook.ts"              ({family} === "features/Feature1")
                 // "features/Feature1/components/ChildComponent.tsx" ({family} === "features/Feature1")
-            ]
-        }
-    ]
+            ],
+        },
+    ],
 }
 ```
 
@@ -155,7 +155,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 
 ```
 
-```json
+```jsonc
 {
     "$schema": "node_modules/eslint-plugin-project-structure/independentModules.schema.json",
     "modules": [
@@ -185,7 +185,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 
                 [
                     "{family}/components/*/*",
-                    "!{family}/components/*/*.(types|api|types).ts"
+                    "!{family}/components/*/*.(types|api|types).ts",
                 ],
                 // Let's assume we are in the "features/Feature2/Feature2.tsx"
                 // In this case we will be able to import:
@@ -193,14 +193,14 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
                 // "features/Feature2/components/ComplexChild/ComplexChild.tsx  ({family} === "features/Feature2")
                 // But we won't be able to import ComplexChild private files.
 
-                ["{family}/*/*", "!{family}/*/*.(types|api|types).ts"]
+                ["{family}/*/*", "!{family}/*/*.(types|api|types).ts"],
                 // Let's assume we are in the "features/Feature2/components/SimpleChild.tsx"
                 // In this case we will be able to import:
                 // "features/Feature2/components/ComplexChild/ComplexChild.tsx  ({family} === "features/Feature2/components")
                 // But we won't be able to import ComplexChild private files.
-            ]
-        }
-    ]
+            ],
+        },
+    ],
 }
 ```
 
