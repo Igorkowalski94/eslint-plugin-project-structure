@@ -2,7 +2,7 @@
 
 Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.
 
-### Features
+#### Features
 
 ✅ Validation of folder structure (Any files/folders outside the structure will be considered an error).<br>
 ✅ Validation of folder and file names.<br>

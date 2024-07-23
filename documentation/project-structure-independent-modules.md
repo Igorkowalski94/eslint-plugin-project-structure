@@ -3,7 +3,7 @@
 Create independent modules to keep your repository scalable and easy to maintain.<br>
 Get rid of dependencies between modules and create truly independent functionalities.
 
-### Features
+#### Features
 
 ✅ Creating independent modules in which you control what can be imported.<br>
 ✅ Disabling external imports (node_modules) for a given module. <br>
