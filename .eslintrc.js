@@ -11,7 +11,13 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: "module",
     },
-    plugins: ["@typescript-eslint", "import", "prettier"],
+    plugins: [
+        "@typescript-eslint",
+        "import",
+        "prettier",
+        "project-structure",
+        "independent-modules",
+    ],
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -19,7 +25,13 @@ module.exports = {
         "plugin:import/warnings",
         "prettier",
     ],
+    settings: {
+        "project-structure/config-path": "projectStructure.json",
+        "independent-modules/config-path": "independentModules.json",
+    },
     rules: {
+        "independent-modules/validate-module": "error",
+        "project-structure/file-structure": "error",
         "prettier/prettier": [
             "error",
             {

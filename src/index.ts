@@ -1,6 +1,10 @@
-import { fileStructure } from "./rules/fileStructure";
+import { exportRules } from "./rules/exportRules/exportRules";
+import { folderStructure } from "./rules/folderStructure/folderStructure";
+import { independentModules } from "./rules/independentModules/independentModules";
 
 // ts-prune-ignore-next
 export const rules = {
-    "file-structure": fileStructure,
+    "folder-structure": folderStructure,
+    "export-rules": exportRules,
+    "independent-modules": independentModules,
 };

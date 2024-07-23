@@ -21,7 +21,6 @@ const jestConfig: JestConfigWithTsJest = {
             branches: 100,
         },
     },
-    coveragePathIgnorePatterns: ["src/rules"],
 };
 
 export default jestConfig;

@@ -1,0 +1,52 @@
+{
+    "$schema": "node_modules/eslint-plugin-independent-modules/independentModules.schema.json",
+    "debugMode": true,
+    "modules": [
+        {
+            "name": "Rules",
+            "pattern": "rules/**",
+            "allowImportsFrom": [
+                "{familyImports}",
+                "{globalHelpers}",
+                "{globalConsts}",
+                "{globalErrors}",
+                "path",
+                "fs"
+            ]
+        },
+        {
+            "name": "Global helpers",
+            "pattern": "helpers/**",
+            "allowImportsFrom": [
+                "{familyImports}",
+                "{globalHelpers}",
+                "{globalConsts}",
+                "fs"
+            ]
+        }
+    ],
+    "reusableImportPatterns": {
+        "privateFolders": ["(helpers|errors)"],
+        "privateFiles": ["*.(types|consts).ts"],
+
+        "notPrivateFilesAndFolders": [
+            "!(**/{privateFiles})",
+            "!(**/{privateFolders}/**)"
+        ],
+
+        "globalConsts": ["consts.ts"],
+        "globalErrors": ["errors/**"],
+        "globalHelpers": [["helpers/**", "{notPrivateFilesAndFolders}"]],
+
+        "familyImports": [
+            ["{family}/*", "!{family}/*.test.ts"],
+
+            [
+                "{family}/{privateFolders}/*/*",
+                "!{family}/{privateFolders}/*/{privateFiles}"
+            ],
+
+            ["{family}/*/*", "!{family}/*/{privateFiles}"]
+        ]
+    }
+}

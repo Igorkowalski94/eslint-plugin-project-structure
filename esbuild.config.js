@@ -4,7 +4,7 @@ const { nodeExternalsPlugin } = require("esbuild-node-externals");
 const common = {
     platform: "node",
     bundle: true,
-    minify: true,
+    minify: false,
     treeShaking: true,
     plugins: [nodeExternalsPlugin()],
 };
