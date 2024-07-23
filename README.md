@@ -10,6 +10,8 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 
 ### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
+### Rules:
+
 ## **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
 
 Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.
