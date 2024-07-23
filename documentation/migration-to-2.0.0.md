@@ -14,7 +14,7 @@ From:
         "project-structure/file-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/config-path": "projectStructure.json", // json | yaml
+        "project-structure/config-path": "projectStructure.json", // json | jsonc | yaml
     },
 }
 ```
@@ -27,7 +27,7 @@ To:
         "project-structure/folder-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.json", // json | yaml
+        "project-structure/folder-structure-config-path": "folderStructure.json", // json | jsonc | yaml
     },
 }
 ```
@@ -68,9 +68,9 @@ To: {parentName}
 }
 ```
 
-### New rules
+### New rules:
 
-### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ## **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 

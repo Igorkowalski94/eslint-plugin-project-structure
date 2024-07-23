@@ -13,9 +13,9 @@ Enforce rules on folder structure to keep your repository consistent, orderly an
 ✅ Folder recursion (You can nest a given folder structure recursively).<br>
 ✅ Forcing a nested/flat structure for a given folder.
 
-### [**Migration guide to 2.0.0**](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)
+#### [**Migration guide to 2.0.0.**](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)
 
-### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ### Go to:
 

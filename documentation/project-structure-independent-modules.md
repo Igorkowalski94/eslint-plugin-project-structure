@@ -13,7 +13,7 @@ Get rid of dependencies between modules and create truly independent functionali
 ✅ Support for imports without extension. <br>
 ✅ Reusable import patterns. <br>
 
-### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ### Go to:
 

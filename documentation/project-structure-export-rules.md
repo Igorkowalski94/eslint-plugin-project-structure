@@ -12,7 +12,7 @@ Enforce rules on export names.
 ✅ Different export name rules for different files.<br>
 ✅ Support for all export types. Name export or default export for Classes, types, interfaces, variables, functions etc.<br>
 
-### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ### Go to:
 
