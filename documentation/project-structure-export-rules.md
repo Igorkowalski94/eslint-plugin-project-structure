@@ -2,7 +2,7 @@
 
 Enforce rules on export names.
 
-#### Features
+### Features
 
 ✅ Export name validation. <br>
 ✅ Inheriting the file name as the export name (Option of adding your own prefixes/suffixes or changing the case).<br>

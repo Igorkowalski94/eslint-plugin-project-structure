@@ -77,7 +77,7 @@ To: {parentName}
 Create independent modules to keep your repository scalable and easy to maintain.<br>
 Get rid of dependencies between modules and create truly independent functionalities.
 
-#### Features
+### Features
 
 ✅ Creating independent modules in which you control what can be imported.<br>
 ✅ Disabling external imports (node_modules) for a given module. <br>
@@ -91,7 +91,7 @@ Get rid of dependencies between modules and create truly independent functionali
 
 Enforce rules on export names.
 
-#### Features
+### Features
 
 ✅ Export name validation. <br>
 ✅ Inheriting the file name as the export name (With the option of adding your own prefixes/suffixes or changing the case).<br>
