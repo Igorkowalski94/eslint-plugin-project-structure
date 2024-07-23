@@ -1,7 +1,5 @@
 # project-structure/folder-structure
 
-### [**Migration guide to 2.0.0**](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)
-
 Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.
 
 ### Features
@@ -14,6 +12,8 @@ Enforce rules on folder structure to keep your repository consistent, orderly an
 ✅ Inheriting the parent's name (The child inherits the name of the folder in which it is located).<br>
 ✅ Folder recursion (You can nest a given folder structure recursively).<br>
 ✅ Forcing a nested/flat structure for a given folder.
+
+### [**Migration guide to 2.0.0**](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)
 
 ### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
