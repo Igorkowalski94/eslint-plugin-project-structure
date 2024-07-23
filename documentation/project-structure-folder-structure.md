@@ -117,7 +117,7 @@ Add the following lines to **`.eslintrc`**.
         "project-structure/folder-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.json", // json | jsonc | yaml
+        "project-structure/folder-structure-config-path": "folderStructure.jsonc", // json | jsonc | yaml
     },
 }
 ```
