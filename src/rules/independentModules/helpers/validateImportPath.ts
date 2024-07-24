@@ -21,5 +21,5 @@ export const validateImportPath = ({
             filename,
         });
 
-        return micromatch.every(importPath, newPattern);
+        return micromatch.isMatch(importPath, newPattern);
     });

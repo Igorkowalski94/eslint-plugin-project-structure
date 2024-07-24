@@ -2,6 +2,7 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import micromatch from "micromatch";
 
+import { getFilenamePathWithoutRoot } from "./getFilenamePathWithoutRoot";
 import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
 import { isExportNameValid } from "./isExportNameValid";
 import { removeFilenameParts } from "./removeFilenameParts";
@@ -20,11 +21,13 @@ interface ValidateExportProps {
 
 export const validateExport = ({
     exportName,
-    context: { filename: filenamePath, report, options },
+    context: { filename, report, options, settings },
     node,
 }: ValidateExportProps): void => {
+    const filenamePath = getFilenamePathWithoutRoot({ filename, settings });
+
     const rule = options.find(({ filePattern }) =>
-        micromatch.every(filenamePath, filePattern),
+        micromatch.isMatch(filenamePath, filePattern),
     );
 
     if (!rule) return;

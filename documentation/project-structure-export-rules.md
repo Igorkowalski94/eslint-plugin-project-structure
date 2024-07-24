@@ -49,6 +49,9 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
     "rules": {
         "project-structure/export-rules": "error", // warn | error
     },
+    "settings": {
+        "project-structure/export-rules-root": "libs", // Optional, only if your root is other than "src".
+    },
 }
 ```
 

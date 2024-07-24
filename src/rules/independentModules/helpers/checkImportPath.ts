@@ -45,7 +45,7 @@ export const checkImportPath = ({
 
     if (isExternal) {
         const isValidExternalImportPattern = allowImportsFromExtracted.some(
-            (p) => micromatch.every(importPath, p),
+            (p) => micromatch.isMatch(importPath, p),
         );
 
         if (isValidExternalImportPattern || allowExternalImports !== false)

@@ -11,8 +11,8 @@
                 "{globalConsts}",
                 "{globalErrors}",
                 "path",
-                "fs"
-            ]
+                "fs",
+            ],
         },
         {
             "name": "Global helpers",
@@ -21,9 +21,9 @@
                 "{familyImports}",
                 "{globalHelpers}",
                 "{globalConsts}",
-                "fs"
-            ]
-        }
+                "fs",
+            ],
+        },
     ],
     "reusableImportPatterns": {
         "privateFolders": ["(helpers|errors)"],
@@ -31,7 +31,7 @@
 
         "notPrivateFilesAndFolders": [
             "!(**/{privateFiles})",
-            "!(**/{privateFolders}/**)"
+            "!(**/{privateFolders}/**)",
         ],
 
         "globalConsts": ["consts.ts"],
@@ -43,10 +43,10 @@
 
             [
                 "{family}/{privateFolders}/*/*",
-                "!{family}/{privateFolders}/*/{privateFiles}"
+                "!{family}/{privateFolders}/*/{privateFiles}",
             ],
 
-            ["{family}/*/*", "!{family}/*/{privateFiles}"]
-        ]
-    }
+            ["{family}/*/*", "!{family}/*/{privateFiles}"],
+        ],
+    },
 }

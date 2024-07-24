@@ -12,6 +12,8 @@ export const REFERENCES = {
     SNAKE_CASE: "{SNAKE_CASE}",
 };
 
+export const DEFAULT_ROOT = "src";
+
 export const DEFAULT_ALLOW_EXPORT_NAMES = [
     `/^${REFERENCES.camelCase}$/`,
     `/^${REFERENCES.PascalCase}$/`,

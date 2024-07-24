@@ -10,6 +10,10 @@ jest.mock("./getFileNameWithoutExtension", () => ({
     getFileNameWithoutExtension: jest.fn(),
 }));
 
+jest.mock("path", () => ({
+    sep: "/",
+}));
+
 describe("validateExport", () => {
     test("Should not call getFileNameWithoutExtension when !rule", () => {
         const getFileNameWithoutExtensionMock = jest.fn();
@@ -20,7 +24,8 @@ describe("validateExport", () => {
 
         validateExport({
             context: {
-                filename: "features/Feature1/Feature1.tsx",
+                settings: {},
+                filename: ".../src/features/Feature1/Feature1.tsx",
                 options: [
                     {
                         filePattern: "**/*.ts",
@@ -45,7 +50,8 @@ describe("validateExport", () => {
 
         validateExport({
             context: {
-                filename: "features/Feature1/Feature1.tsx",
+                settings: {},
+                filename: ".../src/features/Feature1/Feature1.tsx",
                 options: [
                     {
                         filePattern: "**/*.tsx",
@@ -72,7 +78,8 @@ describe("validateExport", () => {
 
         validateExport({
             context: {
-                filename: "helpers/helper.consts.ts",
+                settings: {},
+                filename: ".../src/helpers/helper.consts.ts",
                 options: [
                     {
                         filePattern: "**/*.ts",
