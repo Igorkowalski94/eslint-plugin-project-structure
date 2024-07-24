@@ -1,6 +1,6 @@
 import { convertChildrenRuleIdToRule } from "./helpers/convertChildrenRuleIdToRule";
 import { filterRulesByType } from "./helpers/filterRulesByType";
-import { getNextPathname } from "./helpers/getNextPath";
+import { getNextPathname } from "./helpers/getNextPathname";
 import { sortChildrenByNameType } from "./helpers/sortChildrenByNameType";
 import { validateRulesList } from "./helpers/validateRulesList";
 import { getInvalidChildrenError } from "../../errors/getInvalidChildrenError";

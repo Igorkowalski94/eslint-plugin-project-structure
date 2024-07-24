@@ -2,7 +2,7 @@ import { applyRegexParameters } from "./helpers/applyRegexParameters";
 import { getNameRegexError } from "../../../../errors/getNameRegexError";
 import { RegexParameters } from "../../../../folderStructure.types";
 
-export interface ValidateRegexPattern {
+export interface ValidateRegexPatternProps {
     nodeName: string;
     parentName: string;
     regex: string;
@@ -14,7 +14,7 @@ export const validateRegexPattern = ({
     parentName,
     regex,
     regexParameters,
-}: ValidateRegexPattern): void => {
+}: ValidateRegexPatternProps): void => {
     let currentRegex = regex;
 
     currentRegex = applyRegexParameters({

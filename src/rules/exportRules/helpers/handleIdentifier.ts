@@ -19,7 +19,8 @@ export const handleIdentifier = ({
             TSESTree.AST_NODE_TYPES.ExportNamedDeclaration &&
         node.parent?.parent?.type !==
             TSESTree.AST_NODE_TYPES.ExportNamedDeclaration &&
-        node.parent.type !== TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration
+        node.parent.type !== TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration &&
+        node.parent.type !== TSESTree.AST_NODE_TYPES.ClassDeclaration
     )
         return;
 

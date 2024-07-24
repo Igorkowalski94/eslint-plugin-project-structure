@@ -2,7 +2,7 @@ import { FolderStructureConfig, Rule } from "../../../folderStructure.types";
 import { getNodeRule } from "../../getNodeRule";
 import { isFileFromPathname } from "../../isFileFromPathname";
 
-export interface FilterRulesByType {
+export interface FilterRulesByTypeProps {
     pathname: string;
     rule: Rule;
     config: FolderStructureConfig;
@@ -12,7 +12,7 @@ export const filterRulesByType = ({
     pathname,
     rule,
     config,
-}: FilterRulesByType): boolean => {
+}: FilterRulesByTypeProps): boolean => {
     const nodeRule = getNodeRule(rule, config);
 
     const isFile = isFileFromPathname(pathname);

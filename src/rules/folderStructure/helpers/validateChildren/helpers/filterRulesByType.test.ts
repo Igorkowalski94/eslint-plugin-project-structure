@@ -1,4 +1,4 @@
-import { FilterRulesByType, filterRulesByType } from "./filterRulesByType";
+import { FilterRulesByTypeProps, filterRulesByType } from "./filterRulesByType";
 import {
     RuleId,
     FolderStructureConfig,
@@ -44,7 +44,7 @@ describe("filterRulesByType", () => {
     const idEmpty = { ruleId: "idEmpty" };
     const idName = { ruleId: "name" };
 
-    it.each<[boolean, Omit<FilterRulesByType, "config">]>([
+    it.each<[boolean, Omit<FilterRulesByTypeProps, "config">]>([
         [false, { pathname: "src/componentName", rule: fileRule }],
         [false, { pathname: "src/componentName", rule: idFile }],
 

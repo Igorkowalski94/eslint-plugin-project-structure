@@ -1,11 +1,11 @@
 import {
-    ValidateRegexPattern,
+    ValidateRegexPatternProps,
     validateRegexPattern,
 } from "./validateRegexPattern";
 import { getNameRegexError } from "../../../../errors/getNameRegexError";
 
 describe("validateRegexPattern", () => {
-    it.each<[ValidateRegexPattern]>([
+    it.each<[ValidateRegexPatternProps]>([
         [
             {
                 nodeName: "parentName",
@@ -76,7 +76,7 @@ describe("validateRegexPattern", () => {
         },
     );
 
-    it.each<[ValidateRegexPattern]>([
+    it.each<[ValidateRegexPatternProps]>([
         [
             {
                 nodeName: "XparentName",
