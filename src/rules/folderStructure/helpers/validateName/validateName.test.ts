@@ -1,6 +1,6 @@
 import { validateName } from "./validateName";
+import { getInvalidRegexError } from "../../../../errors/getInvalidRegexError";
 import { getInvalidNameError } from "../../errors/getInvalidNameError";
-import { getInvalidRegexError } from "../../errors/getInvalidRegexError";
 import { getNameError } from "../../errors/getNameError";
 import { getNameRegexError } from "../../errors/getNameRegexError";
 

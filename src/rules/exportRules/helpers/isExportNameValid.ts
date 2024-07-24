@@ -1,3 +1,6 @@
+import { getInvalidRegexError } from "../../../errors/getInvalidRegexError";
+import { isRegex } from "../../../helpers/isRegex";
+import { isRegexInvalid } from "../../../helpers/isRegexInvalid";
 import { ExportRules } from "../exportRules.types";
 
 interface IsExportNameValidProps {
@@ -11,6 +14,9 @@ export const isExportNameValid = ({
 }: IsExportNameValidProps): boolean =>
     Boolean(
         allowExportNamesWithoutReference?.some((pattern) => {
+            if (!isRegex(pattern) || isRegexInvalid(pattern))
+                throw getInvalidRegexError(pattern);
+
             const cleanedRegex = (
                 pattern.match(/^\/(.+)\/$/) as RegExpMatchArray
             )[1];

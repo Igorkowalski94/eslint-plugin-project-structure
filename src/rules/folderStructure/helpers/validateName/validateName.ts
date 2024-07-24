@@ -1,8 +1,8 @@
-import { isRegex } from "./helpers/isRegex";
-import { isRegexInvalid } from "./helpers/isRegexInvalid";
 import { validateRegexPattern } from "./helpers/validateRegexPattern/validateRegexPattern";
+import { getInvalidRegexError } from "../../../../errors/getInvalidRegexError";
+import { isRegex } from "../../../../helpers/isRegex";
+import { isRegexInvalid } from "../../../../helpers/isRegexInvalid";
 import { getInvalidNameError } from "../../errors/getInvalidNameError";
-import { getInvalidRegexError } from "../../errors/getInvalidRegexError";
 import { getNameError } from "../../errors/getNameError";
 import { RegexParameters } from "../../folderStructure.types";
 
