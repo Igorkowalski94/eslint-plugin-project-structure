@@ -61,27 +61,27 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
         {
             "filePattern": ["**/*.ts", "!**/index.ts"], // Export name rules for all .ts files except index.ts
             "allowExportNames": [
-                "/^{filename_camelCase}$", // Take the filename and convert it to camelCase.
-                "/^{filename_PascalCase}Props$", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
-                "/^{filename_snake_case}_return$", // Take the filename and convert it to snake_case and add the '_return' prefix.
+                "/^{filename_camelCase}$/", // Take the filename and convert it to camelCase.
+                "/^{filename_PascalCase}Props$/", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
+                "/^{filename_snake_case}_return$/", // Take the filename and convert it to snake_case and add the '_return' prefix.
             ],
         },
         {
             "filePattern": "**/*.tsx", // // Export name rules for all .tsx files.
             "filenamePartsToRemove": [".react"], // Removing parts of a file name (ComponentName.react.tsx => ComponentName.tsx).
             "allowExportNames": [
-                "/^{filename_PascalCase}$", // Take the filename and convert it to PascalCase.
-                "/^{filename_PascalCase}Props$", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
+                "/^{filename_PascalCase}$/", // Take the filename and convert it to PascalCase.
+                "/^{filename_PascalCase}Props$/", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
             ],
         },
         {
             "filePattern": "**/*.js", // Export name rules for all .js files.
             "allowExportNames": [
                 // Allow snake_case, camelCase, SNAKE_CASE, and the first capital letter in export name.
-                "/^{snake_case}$",
-                "/^{SNAKE_CASE}$",
-                "/^{camelCase}$",
-                "^[A-Z]", // You can also use your own regex.
+                "/^{snake_case}$/",
+                "/^{SNAKE_CASE}$/",
+                "/^{camelCase}$/",
+                "/^[A-Z]/", // You can also use your own regex.
             ],
         },
     ],
@@ -91,20 +91,20 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 ```ts
 // File TransformUserData.ts
 
-// Satisfies regex "/^{filename_PascalCase}Props$"
+// Satisfies regex "/^{filename_PascalCase}Props$/"
 export interface TransformUserDataProps {
     name: number;
     surname: number;
     email: string;
 }
 
-// Satisfies regex "/^{filename_snake_case}_return$"
+// Satisfies regex "/^{filename_snake_case}_return$/"
 export interface transform_user_data_return {
     fullName: string;
     email: string;
 }
 
-// Satisfies regex "/^{filename_camelCase}$"
+// Satisfies regex "/^{filename_camelCase}$/"
 export const getFullName = ({
     name,
     surname,
@@ -120,12 +120,12 @@ export const getFullName = ({
 
 import { FC } from "react";
 
-// Satisfies regex "/^{filename_PascalCase}Props$"
+// Satisfies regex "/^{filename_PascalCase}Props$/"
 export interface ComponentNameProps {
     title: string;
 }
 
-// Satisfies regex "/^{filename_PascalCase}$"
+// Satisfies regex "/^{filename_PascalCase}$/"
 export const ComponentName: FC<ComponentNameProps> = ({ title }) => (
     <h1>{title}</h1>
 );
@@ -134,16 +134,16 @@ export const ComponentName: FC<ComponentNameProps> = ({ title }) => (
 ```ts
 // File Foo.js
 
-// Satisfies regex "/^{SNAKE_CASE}$"
+// Satisfies regex "/^{SNAKE_CASE}$/"
 export const IMPORTANT_VARIABLE_1 = "";
 
-// Satisfies regex "/^{snake_case}$"
+// Satisfies regex "/^{snake_case}$/"
 export const important_variable_2 = "";
 
-// Satisfies regex "/^{camelCase}$"
+// Satisfies regex "/^{camelCase}$/"
 export const importantVariable3 = "";
 
-// Satisfies regex "^[A-Z]"
+// Satisfies regex "/^[A-Z]/"
 export const Importantvariable4 = "";
 ```
 
@@ -178,7 +178,10 @@ If the export name matches at least one regex, it will be considered valid.
 
 ```jsonc
 {
-    "allowExportNames": ["/^{filename_camelCase}$", "/^{filename_PascalCase}$"],
+    "allowExportNames": [
+        "/^{filename_camelCase}$/",
+        "/^{filename_PascalCase}$/",
+    ],
 }
 ```
 
