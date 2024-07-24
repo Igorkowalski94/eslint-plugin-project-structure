@@ -1,8 +1,8 @@
-import { ExportRules } from "../exportRules.types";
+import { NamingRule } from "../namingRules.types";
 
 interface RemovePartsFromFileNameProps {
     filenameWithoutExtension: string;
-    filenamePartsToRemove: ExportRules["filenamePartsToRemove"];
+    filenamePartsToRemove: NamingRule["filenamePartsToRemove"];
 }
 
 export const removeFilenameParts = ({

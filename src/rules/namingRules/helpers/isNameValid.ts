@@ -1,19 +1,19 @@
 import { getInvalidRegexError } from "../../../errors/getInvalidRegexError";
 import { isRegex } from "../../../helpers/isRegex";
 import { isRegexInvalid } from "../../../helpers/isRegexInvalid";
-import { ExportRules } from "../exportRules.types";
+import { NamingRule } from "../namingRules.types";
 
-interface IsExportNameValidProps {
-    exportName: string;
-    allowExportNamesWithoutReference: ExportRules["allowExportNames"];
+interface IsNameValidProps {
+    name: string;
+    allowNamesWithoutReference: NamingRule["allowNames"];
 }
 
-export const isExportNameValid = ({
-    allowExportNamesWithoutReference,
-    exportName,
-}: IsExportNameValidProps): boolean =>
+export const isNameValid = ({
+    allowNamesWithoutReference,
+    name,
+}: IsNameValidProps): boolean =>
     Boolean(
-        allowExportNamesWithoutReference?.some((pattern) => {
+        allowNamesWithoutReference?.some((pattern) => {
             if (!isRegex(pattern) || isRegexInvalid(pattern))
                 throw getInvalidRegexError(pattern);
 
@@ -23,6 +23,6 @@ export const isExportNameValid = ({
 
             const regexp = new RegExp(cleanedRegex, "g");
 
-            return regexp.test(exportName);
+            return regexp.test(name);
         }),
     );

@@ -1,30 +1,30 @@
-import { isExportNameValid } from "./isExportNameValid";
+import { isNameValid } from "./isNameValid";
 import { getInvalidRegexError } from "../../../errors/getInvalidRegexError";
 
-describe("isExportNameValid", () => {
+describe("isNameValid", () => {
     test("Should throw getInvalidRegexError when pattern is not regex", () => {
         expect(() =>
-            isExportNameValid({
-                allowExportNamesWithoutReference: ["^[A-Z]"],
-                exportName: "exportName",
+            isNameValid({
+                allowNamesWithoutReference: ["^[A-Z]"],
+                name: "name",
             }),
         ).toThrow(getInvalidRegexError("^[A-Z]"));
     });
 
     test("Should throw getInvalidRegexError when regex is invalid", () => {
         expect(() =>
-            isExportNameValid({
-                allowExportNamesWithoutReference: ["/^?/"],
-                exportName: "exportName",
+            isNameValid({
+                allowNamesWithoutReference: ["/^?/"],
+                name: "name",
             }),
         ).toThrow(getInvalidRegexError("/^?/"));
     });
 
     test("Should not throw getInvalidRegexError when regex is valid", () => {
         expect(() =>
-            isExportNameValid({
-                allowExportNamesWithoutReference: ["/^[A-Z]/"],
-                exportName: "exportName",
+            isNameValid({
+                allowNamesWithoutReference: ["/^[A-Z]/"],
+                name: "name",
             }),
         ).not.toThrow(getInvalidRegexError("/^[A-Z]/"));
     });

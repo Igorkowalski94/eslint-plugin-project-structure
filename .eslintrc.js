@@ -28,6 +28,34 @@ module.exports = {
     rules: {
         "project-structure/independent-modules": "error",
         "project-structure/folder-structure": "error",
+        "project-structure/export-rules": [
+            2,
+            {
+                filePattern: "**/*consts.ts",
+                allowExportNames: ["/^{SNAKE_CASE}$/"],
+            },
+            {
+                filePattern: "**/*.types.ts",
+                allowExportNames: ["/^{PascalCase}$/"],
+            },
+            {
+                filePattern: ["**/errors/*.ts"],
+                allowExportNames: [
+                    "/^{filename_PascalCase}Props$/",
+                    "/^{filename_PascalCase}Return$/",
+                    "/^{filename_camelCase}$/",
+                    "/^{filename_PascalCase}$/",
+                ],
+            },
+            {
+                filePattern: ["**/*.ts", "!index.ts"],
+                allowExportNames: [
+                    "/^{filename_PascalCase}Props$/",
+                    "/^{filename_PascalCase}Return$/",
+                    "/^{filename_camelCase}$/",
+                ],
+            },
+        ],
         "prettier/prettier": [
             "error",
             {

@@ -1,4 +1,4 @@
-import { Cases } from "../exportRules.types";
+import { Cases } from "../namingRules.types";
 
 export const transformStringToCase = (
     str: string,

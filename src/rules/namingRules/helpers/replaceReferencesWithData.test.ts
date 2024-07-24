@@ -1,26 +1,29 @@
-import { replaceReferenceWithFilename } from "./replaceReferencesWithFilename";
+import { replaceReferencesWithData } from "./replaceReferencesWithData";
 import {
     CAMEL_CASE,
     PASCAL_CASE,
     SNAKE_CASE_LOWER,
     SNAKE_CASE_UPPER,
 } from "../../../consts";
-import { ExportRules } from "../exportRules.types";
+import { NamingRule } from "../namingRules.types";
 
-describe("replaceReferenceWithFilename", () => {
+describe("replaceReferencesWithData", () => {
     test.each<{
         filenameWithoutParts: string;
-        allowExportNames?: ExportRules["allowExportNames"];
-        expected: ExportRules["allowExportNames"];
+        allowNames?: NamingRule["allowNames"];
+        expected: NamingRule["allowNames"];
+        ignoreFilenameReferences: boolean;
     }>([
         {
             filenameWithoutParts: "component-name",
+            ignoreFilenameReferences: false,
             expected: [`/^${CAMEL_CASE}$/`, `/^${PASCAL_CASE}$/`],
         },
 
         {
             filenameWithoutParts: "componentName",
-            allowExportNames: [
+            ignoreFilenameReferences: false,
+            allowNames: [
                 "/^{PascalCase}$/",
                 "/^{camelCase}$/",
                 "/^{snake_case}$/",
@@ -36,20 +39,18 @@ describe("replaceReferenceWithFilename", () => {
 
         {
             filenameWithoutParts: "componentName",
-            allowExportNames: [
+            ignoreFilenameReferences: true,
+            allowNames: [
                 "/^{filename_PascalCase}$/",
                 "/^{filename_PascalCase}Props$/",
                 "/^{filename_PascalCase}Return$/",
             ],
-            expected: [
-                "/^ComponentName$/",
-                "/^ComponentNameProps$/",
-                "/^ComponentNameReturn$/",
-            ],
+            expected: [],
         },
         {
             filenameWithoutParts: "helperName1",
-            allowExportNames: [
+            ignoreFilenameReferences: false,
+            allowNames: [
                 "/^{filename_camelCase}$/",
                 "/^{filename_snake_case}$/",
                 "/^{filename_SNAKE_CASE}$/",
@@ -66,11 +67,17 @@ describe("replaceReferenceWithFilename", () => {
         },
     ])(
         "Should return correct values for %o",
-        ({ allowExportNames, filenameWithoutParts, expected }) => {
+        ({
+            allowNames,
+            filenameWithoutParts,
+            ignoreFilenameReferences,
+            expected,
+        }) => {
             expect(
-                replaceReferenceWithFilename({
-                    allowExportNames,
+                replaceReferencesWithData({
+                    allowNames,
                     filenameWithoutParts,
+                    ignoreFilenameReferences,
                 }),
             ).toEqual(expected);
         },

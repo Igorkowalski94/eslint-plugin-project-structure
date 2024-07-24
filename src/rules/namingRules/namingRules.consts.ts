@@ -14,19 +14,19 @@ export const REFERENCES = {
 
 export const DEFAULT_ROOT = "src";
 
-export const DEFAULT_ALLOW_EXPORT_NAMES = [
+export const DEFAULT_ALLOW_NAMES = [
     `/^${REFERENCES.camelCase}$/`,
     `/^${REFERENCES.PascalCase}$/`,
 ];
 
-export const MATCH_RULES_SCHEMA: JSONSchema4 = {
+export const NAMING_RULES_SCHEMA: JSONSchema4 = {
     $schema: "http://json-schema.org/draft-04/schema#",
     definitions: {
         Cases: {
             type: "string",
             enum: ["camelCase", "PascalCase", "snake_case"],
         },
-        MatchExportToFilename: {
+        NameRule: {
             type: "object",
             properties: {
                 filePattern: {
@@ -49,14 +49,14 @@ export const MATCH_RULES_SCHEMA: JSONSchema4 = {
                     },
                     default: [],
                 },
-                allowExportCases: {
+                allowCases: {
                     type: "array",
                     items: {
                         $ref: "#/definitions/Cases",
                     },
                     default: [],
                 },
-                allowExportNames: {
+                allowNames: {
                     type: "array",
                     items: {
                         type: "string",
@@ -70,10 +70,10 @@ export const MATCH_RULES_SCHEMA: JSONSchema4 = {
     },
     type: "array",
     items: {
-        $ref: "#/definitions/MatchExportToFilename",
+        $ref: "#/definitions/NameRule",
     },
 };
 
 export const ESLINT_ERRORS = {
-    invalidExportName: `🔥 Invalid export name, allowExportNames: {{allowExportNamesWithoutReference}}. 🔥`,
+    invalidName: `🔥 Invalid name, allowNames: {{allowNamesWithoutReference}}. 🔥`,
 };

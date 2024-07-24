@@ -87,16 +87,16 @@ Get rid of dependencies between modules and create truly independent functionali
 ✅ Support for imports without extension. <br>
 ✅ Reusable import patterns. <br>
 
-## **[project-structure-export-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-export-rules.md)**
+## **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
-Enforce rules on export.
+Enforce naming rules.
 
 ### Features
 
-✅ Export name validation. <br>
-✅ Inheriting the file name as the export name (Option of adding your own prefixes/suffixes or changing the case).<br>
+✅ Naming validation. <br>
+✅ Support for all name types. Classes, types, interfaces, enums, variables, functions etc.<br>
+✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
 ✅ Deleting parts of a file name. <br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
-✅ Different export name rules for different files.<br>
-✅ Support for all export types. Name export or default export for Classes, types, interfaces, variables, functions etc.<br>
+✅ Different name rules for different files.<br>

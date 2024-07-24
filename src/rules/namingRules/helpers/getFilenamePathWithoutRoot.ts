@@ -3,7 +3,7 @@ import { sep } from "path";
 import { SharedConfigurationSettings } from "@typescript-eslint/utils/dist/ts-eslint";
 
 import { getInvalidRootError } from "../errors/getInvalidRootError";
-import { DEFAULT_ROOT } from "../exportRules.consts";
+import { DEFAULT_ROOT } from "../namingRules.consts";
 
 interface GetFilenamePathWithoutRootProps {
     settings: SharedConfigurationSettings;

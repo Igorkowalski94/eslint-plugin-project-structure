@@ -1,16 +1,16 @@
-# project-structure/export-rules
+# project-structure/naming-rules
 
-Enforce rules on export.
+Enforce naming rules.
 
 ### Features
 
-✅ Export name validation. <br>
-✅ Inheriting the file name as the export name (Option of adding your own prefixes/suffixes or changing the case).<br>
+✅ Naming validation. <br>
+✅ Support for all name types. Classes, types, interfaces, enums, variables, functions etc.<br>
+✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
 ✅ Deleting parts of a file name. <br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
-✅ Different export name rules for different files.<br>
-✅ Support for all export types. Name export or default export for Classes, types, interfaces, variables, functions etc.<br>
+✅ Different name rules for different files.<br>
 
 #### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -21,8 +21,9 @@ Enforce rules on export.
 -   [Example](#example)
 -   [API](#api)
     -   [filePattern](#file-pattern)
+    -   [nameType](#nameType)
     -   [filenamePartsToRemove](#filename-parts-to-remove)
-    -   [allowExportNames](#allow-export-names)
+    -   [allowNames](#allow-names)
         -   [references](#references)
 
 ## Installation
@@ -47,10 +48,10 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 {
     "plugins": ["project-structure"],
     "rules": {
-        "project-structure/export-rules": "error", // warn | error
+        "project-structure/naming-rules": "error", // warn | error
     },
     "settings": {
-        "project-structure/export-rules-root": "libs", // Optional, only if your root is other than "src".
+        "project-structure/naming-rules-root": "libs", // Optional, only if your root is other than "src".
     },
 }
 ```
@@ -59,28 +60,31 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 
 ```jsonc
 {
-    "project-structure/export-rules": [
+    "project-structure/naming-rules": [
         "error",
         {
-            "filePattern": ["**/*.ts", "!**/index.ts"], // Export name rules for all .ts files except index.ts
-            "allowExportNames": [
+            "filePattern": ["**/*.ts", "!**/index.ts"], // Name rules for all .ts files except index.ts
+            "nameType": "VariableDeclarator",
+            "allowNames": [
                 "/^{filename_camelCase}$/", // Take the filename and convert it to camelCase.
                 "/^{filename_PascalCase}Props$/", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
                 "/^{filename_snake_case}_return$/", // Take the filename and convert it to snake_case and add the '_return' prefix.
             ],
         },
         {
-            "filePattern": "**/*.tsx", // // Export name rules for all .tsx files.
+            "filePattern": "**/*.tsx", // // Name rules for all .tsx files.
+            "nameType": ["ArrowFunctionExpression", "FunctionDeclaration"],
             "filenamePartsToRemove": [".react"], // Removing parts of a file name (ComponentName.react.tsx => ComponentName.tsx).
-            "allowExportNames": [
+            "allowNames": [
                 "/^{filename_PascalCase}$/", // Take the filename and convert it to PascalCase.
                 "/^{filename_PascalCase}Props$/", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
             ],
         },
         {
-            "filePattern": "**/*.js", // Export name rules for all .js files.
-            "allowExportNames": [
-                // Allow snake_case, camelCase, SNAKE_CASE, and the first capital letter in export name.
+            "filePattern": "**/*.js", // Name rules for all .js files.
+            "nameType": "VariableDeclarator",
+            "allowNames": [
+                // Allow snake_case, camelCase, SNAKE_CASE, and the first capital letter in name.
                 "/^{snake_case}$/",
                 "/^{SNAKE_CASE}$/",
                 "/^{camelCase}$/",
@@ -95,20 +99,20 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 // File TransformUserData.ts
 
 // Satisfies regex "/^{filename_PascalCase}Props$/"
-export interface TransformUserDataProps {
+interface TransformUserDataProps {
     name: number;
     surname: number;
     email: string;
 }
 
 // Satisfies regex "/^{filename_snake_case}_return$/"
-export interface transform_user_data_return {
+interface transform_user_data_return {
     fullName: string;
     email: string;
 }
 
 // Satisfies regex "/^{filename_camelCase}$/"
-export const getFullName = ({
+const getFullName = ({
     name,
     surname,
     email,
@@ -124,12 +128,12 @@ export const getFullName = ({
 import { FC } from "react";
 
 // Satisfies regex "/^{filename_PascalCase}Props$/"
-export interface ComponentNameProps {
+ interface ComponentNameProps {
     title: string;
 }
 
 // Satisfies regex "/^{filename_PascalCase}$/"
-export const ComponentName: FC<ComponentNameProps> = ({ title }) => (
+ const ComponentName: FC<ComponentNameProps> = ({ title }) => (
     <h1>{title}</h1>
 );
 ```
@@ -138,16 +142,16 @@ export const ComponentName: FC<ComponentNameProps> = ({ title }) => (
 // File Foo.js
 
 // Satisfies regex "/^{SNAKE_CASE}$/"
-export const IMPORTANT_VARIABLE_1 = "";
+const IMPORTANT_VARIABLE_1 = "";
 
 // Satisfies regex "/^{snake_case}$/"
-export const important_variable_2 = "";
+const important_variable_2 = "";
 
 // Satisfies regex "/^{camelCase}$/"
-export const importantVariable3 = "";
+const importantVariable3 = "";
 
 // Satisfies regex "/^[A-Z]/"
-export const Importantvariable4 = "";
+const Importantvariable4 = "";
 ```
 
 ## API:
@@ -158,7 +162,32 @@ Here you define which files should meet the rules. You can use all **[micromatch
 
 ```jsonc
 {
-    "filePattern": ["**/*.ts", "!**/index.ts"], // Export name rules for all .ts files except index.ts
+    "filePattern": ["**/*.ts", "!**/index.ts"], // Name rules for all .ts files except index.ts
+}
+```
+
+### **`"type"`**: `<NameType | NameType[]>` <a id="name-type"></a>
+
+here you define the name type you are interested in.
+
+```jsonc
+{
+    "type": "VariableDeclarator"
+},
+
+```
+
+```jsonc
+{
+    "type": [
+        "ClassDeclaration",
+        "VariableDeclarator",
+        "FunctionDeclaration",
+        "ArrowFunctionExpression",
+        "TSTypeAliasDeclaration",
+        "TSInterfaceDeclaration",
+        "TSEnumDeclaration",
+    ],
 }
 ```
 
@@ -172,19 +201,19 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 }
 ```
 
-### **`"allowExportNames"`**: `<string[] | undefined>` <a id="allow-export-names"></a>
+### **`"allowNames"`**: `<string[] | undefined>` <a id="allow-export-names"></a>
 
 If the export name matches at least one regex, it will be considered valid.
 
 > [!NOTE]
-> If you do not specify **`"allowExportNames"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
+> If you do not specify **`"allowNames"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
+
+> [!NOTE]
+> Rules with filename will not be taken into account for nested variables, functions, etc.
 
 ```jsonc
 {
-    "allowExportNames": [
-        "/^{filename_camelCase}$/",
-        "/^{filename_PascalCase}$/",
-    ],
+    "allowNames": ["/^{filename_camelCase}$/", "/^{filename_PascalCase}$/"],
 }
 ```
 
@@ -193,36 +222,48 @@ If the export name matches at least one regex, it will be considered valid.
 **`{filename_camelCase}`**<br>
 Take the name of the file you are currently in and change it to **`camelCase`**.
 
+> [!NOTE]
+> Rules with filename will not be taken into account for nested variables, functions, etc.
+
 ```jsonc
 {
-    "allowExportNames": ["/^{filename_camelCase}$/"],
+    "allowNames": ["/^{filename_camelCase}$/"],
 }
 ```
 
 **`{filename_PascalCase}`**<br>
 Take the name of the file you are currently in and change it to **`PascalCase`**.
 
+> [!NOTE]
+> Rules with filename will not be taken into account for nested variables, functions, etc.
+
 ```jsonc
 {
-    "allowExportNames": ["/^{filename_PascalCase}$/"],
+    "allowNames": ["/^{filename_PascalCase}$/"],
 }
 ```
 
 **`{filename_snake_case}`**<br>
 Take the name of the file you are currently in and change it to **`snake_case`**.
 
+> [!NOTE]
+> Rules with filename will not be taken into account for nested variables, functions, etc.
+
 ```jsonc
 {
-    "allowExportNames": ["/^{filename_snake_case}$/"],
+    "allowNames": ["/^{filename_snake_case}$/"],
 }
 ```
 
 **`{filename_SNAKE_CASE}`**<br>
 Take the name of the file you are currently in and change it to **`SNAKE_CASE`**.
 
+> [!NOTE]
+> Rules with filename will not be taken into account for nested variables, functions, etc.
+
 ```jsonc
 {
-    "allowExportNames": ["/^{filename_SNAKE_CASE}$/"],
+    "allowNames": ["/^{filename_SNAKE_CASE}$/"],
 }
 ```
 
@@ -232,7 +273,7 @@ The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[
 
 ```jsonc
 {
-    "allowExportNames": ["/^{camelCase}$/"],
+    "allowNames": ["/^{camelCase}$/"],
 }
 ```
 
@@ -242,7 +283,7 @@ The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 
 ```jsonc
 {
-    "allowExportNames": ["/^{PascalCase}$/"],
+    "allowNames": ["/^{PascalCase}$/"],
 }
 ```
 
@@ -252,7 +293,7 @@ The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
-    "allowExportNames": ["/^{snake_case}$/"],
+    "allowNames": ["/^{snake_case}$/"],
 }
 ```
 
@@ -262,6 +303,6 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
 {
-    "allowExportNames": ["/^{SNAKE_CASE}$/"],
+    "allowNames": ["/^{SNAKE_CASE}$/"],
 }
 ```

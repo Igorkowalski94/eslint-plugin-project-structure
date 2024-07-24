@@ -2,19 +2,24 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
 import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
-import { validateExport } from "./validateExport";
-import { ESLINT_ERRORS } from "../exportRules.consts";
-import { ExportRules } from "../exportRules.types";
+import { validateName } from "./validateName";
+import { ESLINT_ERRORS } from "../namingRules.consts";
+import { NamingRule } from "../namingRules.types";
 
 jest.mock("./getFileNameWithoutExtension", () => ({
     getFileNameWithoutExtension: jest.fn(),
 }));
 
+jest.mock("./shouldIgnoreFilenameReferences", () => ({
+    shouldIgnoreFilenameReferences: jest.fn().mockReturnValue(false),
+}));
+
 jest.mock("path", () => ({
+    ...jest.requireActual("path"),
     sep: "/",
 }));
 
-describe("validateExport", () => {
+describe("validateName", () => {
     test("Should not call getFileNameWithoutExtension when !rule", () => {
         const getFileNameWithoutExtensionMock = jest.fn();
 
@@ -22,69 +27,108 @@ describe("validateExport", () => {
             getFileNameWithoutExtensionMock,
         );
 
-        validateExport({
+        validateName({
             context: {
                 settings: {},
                 filename: ".../src/features/Feature1/Feature1.tsx",
                 options: [
                     {
+                        type: "VariableDeclarator",
                         filePattern: "**/*.ts",
                     },
                 ],
                 report: () => {},
             } as unknown as RuleContext<
                 keyof typeof ESLINT_ERRORS,
-                ExportRules[]
+                NamingRule[]
             >,
-            exportName: "componentName",
-            node: {} as TSESTree.Identifier,
+            name: "componentName",
+            node: {} as TSESTree.VariableDeclarator,
+            nameType: "VariableDeclarator",
         });
 
         expect(getFileNameWithoutExtensionMock).not.toHaveBeenCalled();
     });
 
-    test("Should not call report when exportName is valid", () => {
+    test.each<{ nameType: NamingRule["nameType"] }>([
+        { nameType: "ClassDeclaration" },
+        { nameType: ["ArrowFunctionExpression", "ClassDeclaration"] },
+    ])("Should not call getFileNameWithoutExtension for %o", ({ nameType }) => {
+        const getFileNameWithoutExtensionMock = jest.fn();
+
+        (getFileNameWithoutExtension as jest.Mock).mockImplementation(
+            getFileNameWithoutExtensionMock,
+        );
+
+        validateName({
+            context: {
+                settings: {},
+                filename: ".../src/features/Feature1/Feature1.ts",
+                options: [
+                    {
+                        nameType,
+                        filePattern: "**/*.ts",
+                    },
+                ],
+                report: () => {},
+            } as unknown as RuleContext<
+                keyof typeof ESLINT_ERRORS,
+                NamingRule[]
+            >,
+            name: "componentName",
+            node: {} as TSESTree.VariableDeclarator,
+            nameType: "VariableDeclarator",
+        });
+
+        expect(getFileNameWithoutExtensionMock).not.toHaveBeenCalled();
+    });
+
+    test("Should not call report when name is valid", () => {
         const reportMock = jest.fn();
 
         (getFileNameWithoutExtension as jest.Mock).mockReturnValue("Feature1");
 
-        validateExport({
+        validateName({
             context: {
                 settings: {},
+
                 filename: ".../src/features/Feature1/Feature1.tsx",
                 options: [
                     {
+                        type: "VariableDeclarator",
                         filePattern: "**/*.tsx",
                     },
                 ],
                 report: reportMock,
             } as unknown as RuleContext<
                 keyof typeof ESLINT_ERRORS,
-                ExportRules[]
+                NamingRule[]
             >,
-            exportName: "Feature1",
-            node: {} as TSESTree.Identifier,
+            name: "Feature1",
+            node: {} as TSESTree.VariableDeclarator,
+            nameType: "VariableDeclarator",
         });
 
         expect(reportMock).not.toHaveBeenCalled();
     });
 
-    test("Should call report when exportName is invalid", () => {
+    test("Should call report when name is invalid", () => {
         const reportMock = jest.fn();
 
         (getFileNameWithoutExtension as jest.Mock).mockReturnValue(
             "helper.consts",
         );
 
-        validateExport({
+        validateName({
             context: {
                 settings: {},
                 filename: ".../src/helpers/helper.consts.ts",
                 options: [
                     {
                         filePattern: "**/*.ts",
+                        type: "VariableDeclarator",
                         filenamePartsToRemove: [".consts"],
-                        allowExportNames: [
+                        allowNames: [
                             "/^{filename_camelCase}$/",
                             "/^{filename_PascalCase}Props$/",
                             "/^{filename_PascalCase}Return$/",
@@ -94,17 +138,18 @@ describe("validateExport", () => {
                 report: reportMock,
             } as unknown as RuleContext<
                 keyof typeof ESLINT_ERRORS,
-                ExportRules[]
+                NamingRule[]
             >,
-            exportName: "Helper",
-            node: {} as TSESTree.Identifier,
+            name: "Helper",
+            node: {} as TSESTree.VariableDeclarator,
+            nameType: "VariableDeclarator",
         });
 
         expect(reportMock).toHaveBeenCalledWith({
             node: {},
-            messageId: "invalidExportName",
+            messageId: "invalidName",
             data: {
-                allowExportNamesWithoutReference: JSON.stringify([
+                allowNamesWithoutReference: JSON.stringify([
                     "/^helper$/",
                     "/^HelperProps$/",
                     "/^HelperReturn$/",

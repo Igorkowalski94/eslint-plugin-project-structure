@@ -1,3 +1,4 @@
+import { getAllowNamesWithoutFileRef } from "./getAllowNamesWithoutFileRef";
 import { transformStringToCase } from "./transformStringToCase";
 import {
     CAMEL_CASE,
@@ -5,19 +6,26 @@ import {
     SNAKE_CASE_LOWER,
     SNAKE_CASE_UPPER,
 } from "../../../consts";
-import { DEFAULT_ALLOW_EXPORT_NAMES, REFERENCES } from "../exportRules.consts";
-import { ExportRules } from "../exportRules.types";
+import { DEFAULT_ALLOW_NAMES, REFERENCES } from "../namingRules.consts";
+import { NamingRule } from "../namingRules.types";
 
-interface ReplaceReferencesWithFilename {
+interface ReplaceReferencesWithDataProps {
     filenameWithoutParts: string;
-    allowExportNames: ExportRules["allowExportNames"];
+    allowNames: NamingRule["allowNames"];
+    ignoreFilenameReferences: boolean;
 }
 
-export const replaceReferenceWithFilename = ({
-    allowExportNames,
+export const replaceReferencesWithData = ({
+    allowNames,
     filenameWithoutParts,
-}: ReplaceReferencesWithFilename): ExportRules["allowExportNames"] =>
-    (allowExportNames ?? DEFAULT_ALLOW_EXPORT_NAMES)?.reduce<string[]>(
+    ignoreFilenameReferences,
+}: ReplaceReferencesWithDataProps): NamingRule["allowNames"] => {
+    const allowNamesWithoutFileRef = getAllowNamesWithoutFileRef({
+        allowNames,
+        ignoreFilenameReferences,
+    });
+
+    return (allowNamesWithoutFileRef ?? DEFAULT_ALLOW_NAMES)?.reduce<string[]>(
         (acc, pattern) => [
             ...acc,
             pattern
@@ -44,3 +52,4 @@ export const replaceReferenceWithFilename = ({
         ],
         [],
     );
+};

@@ -1,9 +1,9 @@
 import { removeFilenameParts } from "./removeFilenameParts";
-import { ExportRules } from "../exportRules.types";
+import { NamingRule } from "../namingRules.types";
 
 describe("removeFilenameParts", () => {
     test.each<{
-        filenamePartsToRemove?: ExportRules["filenamePartsToRemove"];
+        filenamePartsToRemove?: NamingRule["filenamePartsToRemove"];
         filenameWithoutExtension: string;
         expected: string;
     }>([
