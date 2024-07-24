@@ -1,7 +1,7 @@
 {
     "author": "Igor Kowalski (Igorkowalski94)",
     "name": "eslint-plugin-project-structure",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "license": "MIT",
     "description": "Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.",
     "keywords": [
@@ -17,8 +17,7 @@
         "file name validation",
         "folder name validation",
         "extension validation",
-        "export validation",
-        "match export to filename",
+        "naming rules",
         "independent modules",
         "modules",
         "import validation"
