@@ -15,12 +15,13 @@ export const handleIdentifier = ({
     context,
 }: HandleIdentifierProps): void => {
     if (
-        node.parent.parent?.parent?.type !==
+        (node.parent.parent?.parent?.type !==
             TSESTree.AST_NODE_TYPES.ExportNamedDeclaration &&
-        node.parent?.parent?.type !==
-            TSESTree.AST_NODE_TYPES.ExportNamedDeclaration &&
-        node.parent.type !== TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration &&
-        node.parent.type !== TSESTree.AST_NODE_TYPES.ClassDeclaration
+            node.parent?.parent?.type !==
+                TSESTree.AST_NODE_TYPES.ExportNamedDeclaration &&
+            node.parent.type !==
+                TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration) ||
+        node.parent.type === TSESTree.AST_NODE_TYPES.ClassDeclaration
     )
         return;
 

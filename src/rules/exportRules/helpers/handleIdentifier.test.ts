@@ -17,6 +17,11 @@ describe("handleIdentifier", () => {
             type2: TSESTree.AST_NODE_TYPES.CallExpression,
             type3: TSESTree.AST_NODE_TYPES.CallExpression,
         },
+        {
+            type1: TSESTree.AST_NODE_TYPES.ClassDeclaration,
+            type2: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
+            type3: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
+        },
     ])(
         "Should not call validateExport when values = %o",
         ({ type1, type2, type3 }) => {
