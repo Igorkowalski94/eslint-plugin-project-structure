@@ -27,7 +27,7 @@ export const validateExport = ({
     const filenamePath = getFilenamePathWithoutRoot({ filename, settings });
 
     const rule = options.find(({ filePattern }) =>
-        micromatch.isMatch(filenamePath, filePattern),
+        micromatch.every(filenamePath, filePattern),
     );
 
     if (!rule) return;

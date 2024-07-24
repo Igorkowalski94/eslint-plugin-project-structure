@@ -154,7 +154,7 @@ export const Importantvariable4 = "";
 
 ### **`"filePattern"`**: `<string | string[]>` <a id="file-pattern"></a>
 
-Here you define which files should meet the rules. You can use all **[micromatch.isMatch](https://github.com/micromatch/micromatch?tab=readme-ov-file#ismatch)** functionalities.
+Here you define which files should meet the rules. You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.
 
 ```jsonc
 {

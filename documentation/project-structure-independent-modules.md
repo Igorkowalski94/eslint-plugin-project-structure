@@ -344,7 +344,7 @@ The name of your module.
 
 Your module's pattern.<br>
 
-You can use all **[micromatch.isMatch](https://github.com/micromatch/micromatch?tab=readme-ov-file#ismatch)** functionalities.
+You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.
 
 ```jsonc
 {
@@ -364,7 +364,7 @@ You can use all **[micromatch.isMatch](https://github.com/micromatch/micromatch?
 
 The place where you specify what can be imported into your module.<br>
 
-You can use all **[micromatch.isMatch](https://github.com/micromatch/micromatch?tab=readme-ov-file#ismatch)** functionalities.<br>
+You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.<br>
 
 If at least **one** pattern in **`allowImportsFrom`** meets the condition, the import is considered allowed.<br>
 

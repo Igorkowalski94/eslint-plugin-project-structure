@@ -6,4 +6,4 @@ export const findModuleConfig = (
     fileName: string,
     modules: IndependentModulesConfig["modules"],
 ): Module | undefined =>
-    modules.find(({ pattern }) => micromatch.isMatch(fileName, pattern));
+    modules.find(({ pattern }) => micromatch.every(fileName, pattern));
