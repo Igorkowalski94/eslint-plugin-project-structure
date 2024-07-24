@@ -89,12 +89,12 @@ Get rid of dependencies between modules and create truly independent functionali
 
 ## **[project-structure-export-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-export-rules.md)**
 
-Enforce rules on export names.
+Enforce rules on export.
 
 ### Features
 
 ✅ Export name validation. <br>
-✅ Inheriting the file name as the export name (With the option of adding your own prefixes/suffixes or changing the case).<br>
+✅ Inheriting the file name as the export name (Option of adding your own prefixes/suffixes or changing the case).<br>
 ✅ Deleting parts of a file name. <br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>

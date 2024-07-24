@@ -44,7 +44,7 @@ Get rid of dependencies between modules and create truly independent functionali
 
 ## **[project-structure-export-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-export-rules.md)**
 
-Enforce rules on export names.
+Enforce rules on export.
 
 #### Features
 

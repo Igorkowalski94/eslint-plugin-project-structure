@@ -28,13 +28,13 @@ Get rid of dependencies between modules and create truly independent functionali
     -   [modules](#modules)
         -   [name](#name)
         -   [pattern](#pattern)
-        -   [allowImportsFrom](#allowImportsFrom)
-        -   [errorMessage](#errorMessage)
-        -   [allowExternalImports](#allowExternalImports)
-    -   [reusableImportPatterns](#reusableImportPatterns)
+        -   [allowImportsFrom](#allow-imports-from)
+        -   [errorMessage](#error-message)
+        -   [allowExternalImports](#allow-external-imports)
+    -   [reusableImportPatterns](#reusable-import-patterns)
     -   [{family}](#family)
     -   [{dirname}](#dirname)
-    -   [Debug mode](#debug-mode)
+    -   [debugMode](#debug-mode)
 
 ## Installation
 
@@ -360,7 +360,7 @@ You can use all **[micromatch.isMatch](https://github.com/micromatch/micromatch?
 }
 ```
 
-### **`"allowImportsFrom"`**: `<(string | string[])[]>` <a id="allowImportsFrom"></a>
+### **`"allowImportsFrom"`**: `<(string | string[])[]>` <a id="allow-imports-from"></a>
 
 The place where you specify what can be imported into your module.<br>
 
@@ -382,8 +382,11 @@ If at least **one** pattern in **`allowImportsFrom`** meets the condition, the i
                 // All files from the types folder. All directories/nestings.
                 "types/**",
 
-                // All nested files in hooks folder except *.types.js
+                // All nested files in hooks folder except *.types.ts
                 ["hooks/**", "!hooks/**/*.types.ts"],
+
+                // All nested files in the components folder except files in the helpers folders.
+                ["components/**", "!components/**/helpers/**"],
 
                 // All nested .js files in the helpers folder except index.js
                 ["helpers/**/*.js", "!helpers/**/index.js"],
@@ -403,7 +406,7 @@ If at least **one** pattern in **`allowImportsFrom`** meets the condition, the i
 }
 ```
 
-### **`"errorMessage"`**: `<string | undefined>` <a id="errorMessage"></a>
+### **`"errorMessage"`**: `<string | undefined>` <a id="error-message"></a>
 
 Here, you can set your custom error for a given module.
 
@@ -417,7 +420,7 @@ Here, you can set your custom error for a given module.
 }
 ```
 
-### **`"allowExternalImports"`**: `<boolean | undefined>` <a id="allowExternalImports"></a>
+### **`"allowExternalImports"`**: `<boolean | undefined>` <a id="allow-external-imports"></a>
 
 Here you can enable/disable the ability to import external imports (node_modules) in a given module.<br>
 
@@ -435,11 +438,11 @@ The default value is true.
 }
 ```
 
-### **`"reusableImportPatterns"`**: `Record<string, (string | string[])[]>` <a id="reusableImportPatterns"></a>
+### **`"reusableImportPatterns"`**: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
 
 To avoid repetitions, you can create reusable import patterns. <br>
 By writing **`"{yourKey}"`** you refer to a particular key in the **`"reusableImportPatterns"`** object,<br>
-you can use this reference in **`"reusableImportPatterns"`** and in [**`"allowImportsFrom"`**](#allowImportsFrom).<br>
+you can use this reference in **`"reusableImportPatterns"`** and in [**`"allowImportsFrom"`**](#allow-imports-from).<br>
 
 The library will automatically inform you about all usage errors such as: Infinite recursion, too many array nests. e.t.c.
 
@@ -544,9 +547,9 @@ Current file    = "features/Feature1/Child1/hooks/useComplexHook1/useComplexHook
 {dirname_5}     = "features"
 ```
 
-### **`Debug mode`**: `<boolean | undefined>` <a id="debugMode"></a>
+### **`"debugMode"`**: `<boolean | undefined>` <a id="debug-mode"></a>
 
-Debug mode showing the current [**`"allowImportsFrom"`**](#allowImportsFrom), [**`{family}`**](#family), and [**`{dirname}`**](#dirname) for a given import.<br>
+Debug mode showing the current [**`"allowImportsFrom"`**](#allow-imports-from), [**`{family}`**](#family), and [**`{dirname}`**](#dirname) for a given import.<br>
 The default value is `false`.
 
 ```jsonc

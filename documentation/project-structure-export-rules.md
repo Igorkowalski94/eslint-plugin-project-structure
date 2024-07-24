@@ -1,6 +1,6 @@
 # project-structure/export-rules
 
-Enforce rules on export names.
+Enforce rules on export.
 
 ### Features
 
@@ -20,10 +20,10 @@ Enforce rules on export names.
 -   [Getting started](#getting-started)
 -   [Example](#example)
 -   [API](#api)
-    -   [filePattern](#filePattern)
-    -   [allowExportNames](#allowExportNames)
+    -   [filePattern](#file-pattern)
+    -   [filenamePartsToRemove](#filename-parts-to-remove)
+    -   [allowExportNames](#allow-export-names)
         -   [references](#references)
-    -   [filenamePartsToRemove](#filenamePartsToRemove)
 
 ## Installation
 
@@ -149,7 +149,7 @@ export const Importantvariable4 = "";
 
 ## API:
 
-### **`"filePattern"`**: `<string | string[]>` <a id="filePattern"></a>
+### **`"filePattern"`**: `<string | string[]>` <a id="file-pattern"></a>
 
 Here you define which files should meet the rules. You can use all **[micromatch.isMatch](https://github.com/micromatch/micromatch?tab=readme-ov-file#ismatch)** functionalities.
 
@@ -159,7 +159,7 @@ Here you define which files should meet the rules. You can use all **[micromatch
 }
 ```
 
-### **`"filenamePartsToRemove"`**: `<string[] | undefined>` <a id="filenamePartsToRemove"></a>
+### **`"filenamePartsToRemove"`**: `<string[] | undefined>` <a id="filename-parts-to-remove"></a>
 
 Useful if you use prefixes in your filenames and don't want them to be part of the export name.
 
@@ -169,9 +169,9 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 }
 ```
 
-### **`"allowExportNames"`**: `<string[] | undefined>` <a id="allowExportNames"></a>
+### **`"allowExportNames"`**: `<string[] | undefined>` <a id="allow-export-names"></a>
 
-If the file name matches at least one regex, it will be considered valid.
+If the export name matches at least one regex, it will be considered valid.
 
 > [!NOTE]
 > If you do not specify **`"allowExportNames"`**, the default values ​​are **[{filename_camelCase}](#filename-camelCase)** and **[{filename_PascalCase}](#filename-PascalCase)**.
