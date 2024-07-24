@@ -13,8 +13,8 @@ export const REFERENCES = {
 };
 
 export const DEFAULT_ALLOW_EXPORT_NAMES = [
-    `/^${REFERENCES.filename_PascalCase}$/`,
-    `/^${REFERENCES.filename_camelCase}$/`,
+    `/^${REFERENCES.camelCase}$/`,
+    `/^${REFERENCES.PascalCase}$/`,
 ];
 
 export const MATCH_RULES_SCHEMA: JSONSchema4 = {

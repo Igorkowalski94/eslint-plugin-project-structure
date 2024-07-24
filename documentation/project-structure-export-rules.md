@@ -174,7 +174,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 If the export name matches at least one regex, it will be considered valid.
 
 > [!NOTE]
-> If you do not specify **`"allowExportNames"`**, the default values ​​are **[{filename_camelCase}](#filename-camelCase)** and **[{filename_PascalCase}](#filename-PascalCase)**.
+> If you do not specify **`"allowExportNames"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
 
 ```jsonc
 {
@@ -184,7 +184,7 @@ If the export name matches at least one regex, it will be considered valid.
 
 #### References
 
-**`{filename_camelCase}`**<a id="filename-camelCase"></a><br>
+**`{filename_camelCase}`**<br>
 Take the name of the file you are currently in and change it to **`camelCase`**.
 
 ```jsonc
@@ -193,7 +193,7 @@ Take the name of the file you are currently in and change it to **`camelCase`**.
 }
 ```
 
-**`{filename_PascalCase}`**<a id="filename-PascalCase"></a><br>
+**`{filename_PascalCase}`**<br>
 Take the name of the file you are currently in and change it to **`PascalCase`**.
 
 ```jsonc
@@ -220,7 +220,7 @@ Take the name of the file you are currently in and change it to **`SNAKE_CASE`**
 }
 ```
 
-**`{camelCase}`**<br>
+**`{camelCase}`**<a id="camel-case"></a><br>
 Add **`camelCase`** validation to your regex.<br>
 The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`**.
 
@@ -230,7 +230,7 @@ The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[
 }
 ```
 
-**`{PascalCase}`**<br>
+**`{PascalCase}`**<a id="pascal-case"></a><br>
 Add **`PascalCase`** validation to your regex.<br>
 The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 

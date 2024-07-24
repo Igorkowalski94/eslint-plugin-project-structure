@@ -15,7 +15,7 @@ describe("replaceReferenceWithFilename", () => {
     }>([
         {
             filenameWithoutParts: "component-name",
-            expected: ["/^ComponentName$/", "/^componentName$/"],
+            expected: [`/^${CAMEL_CASE}$/`, `/^${PASCAL_CASE}$/`],
         },
 
         {

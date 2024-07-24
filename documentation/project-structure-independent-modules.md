@@ -6,7 +6,7 @@ Get rid of dependencies between modules and create truly independent functionali
 ### Features
 
 ✅ Creating independent modules in which you control what can be imported.<br>
-✅ Disabling external imports (node_modules) for a given module. <br>
+✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
 ✅ Reference {dirname} which allows you to decide about the current directory and its level in the pattern.<br>
 ✅ Reference {family} which finds the common part between a given import and the current file.<br>
 ✅ Non-relative/relative imports support. <br>
@@ -84,19 +84,19 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 └── 📂 src
     └── 📂 features
         ├── ...
-        ├── 📂 Feature1
-        │   ├── 📁 components              // Private
-        │   │   └── 📄 ChildComponent.tsx
-        │   ├── 📄 feature1.api.ts         // Private
-        │   ├── 📄 feature1.types.ts       // Private
-        │   └── 📄 Feature1.tsx            // Public
+        ├── 📂 Feature1                    Feature1 family.
+        │   ├── 📁 components
+        │   │   └── 📄 SimpleComponent.tsx  Private / Public for Feature1 family.
+        │   ├── 📄 feature1.api.ts          Private / Public for Feature1 family.
+        │   ├── 📄 feature1.types.ts        Private / Public for Feature1 family.
+        │   └── 📄 Feature1.tsx             Public.
         │
-        └── 📂 Feature2
-            ├── 📁 components              // Private
-            │   └── 📄 ChildComponent.tsx
-            ├── 📄 feature2.api.ts         // Private
-            ├── 📄 feature2.types.ts       // Private
-            └── 📄 Feature2.tsx            // Public
+        └── 📂 Feature2                    Feature2 family.
+            ├── 📁 components
+            │   └── 📄 SimpleComponent.tsx  Private / Public for Feature2 family.
+            ├── 📄 feature2.api.ts          Private / Public for Feature2 family.
+            ├── 📄 feature2.types.ts        Private / Public for Feature2 family.
+            └── 📄 Feature2.tsx             Public.
 ```
 
 #### independentModules.jsonc
@@ -128,7 +128,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
                 // "features/Feature1/feature1.types.ts"             ({family} === "features/Feature1")
                 // "features/Feature1/feature1.api.ts"               ({family} === "features/Feature1")
                 // "features/Feature1/hooks/useHook.ts"              ({family} === "features/Feature1")
-                // "features/Feature1/components/ChildComponent.tsx" ({family} === "features/Feature1")
+                // "features/Feature1/components/SimpleComponent.tsx" ({family} === "features/Feature1")
             ],
         },
     ],
@@ -144,18 +144,18 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 └── 📂 src
     └── 📂 features
         ├── ...
-        ├── 📂 Feature1               // Same structure as Feature2.
-        └── 📂 Feature2
-            ├── 📄 feature2.api.ts     // Private
-            ├── 📄 feature2.types.ts   // Private
-            ├── 📄 Feature2.tsx        // Public
+        ├── 📂 Feature1              Feature1 family. Same structure as Feature2.
+        └── 📂 Feature2              Feature2 family.
+            ├── 📄 feature2.api.ts    Private / Public for Feature2 family.
+            ├── 📄 feature2.types.ts  Private / Public for Feature2 family.
+            ├── 📄 Feature2.tsx       Public.
             └── 📂 components
-                ├── 📄 SimpleChild.tsx             // Public
-                └── 📂 ComplexChild
-                    ├── 📁 components              // Private
-                    ├── 📄 complexChild.api.ts     // Private
-                    ├── 📄 complexChild.types.ts   // Private
-                    └── 📄 ComplexChild.tsx        // Public
+                ├── 📄 SimpleComponent.tsx          Private / Public for Feature2 family / Public for ComplexComponent family.
+                └── 📂 ComplexComponent             ComplexComponent family.
+                    ├── 📁 components               Private / Public for ComplexComponent family.
+                    ├── 📄 complexComponent.api.ts   Private / Public for ComplexComponent family.
+                    ├── 📄 complexComponent.types.ts Private / Public for ComplexComponent family.
+                    └── 📄 ComplexComponent.tsx      Private / Public for Feature2 family / Public for SimpleComponent.tsx.
 
 ```
 
@@ -195,15 +195,15 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
                 ],
                 // Let's assume we are in the "features/Feature2/Feature2.tsx"
                 // In this case we will be able to import:
-                // "features/Feature2/components/SimpleChild.tsx                ({family} === "features/Feature2")
-                // "features/Feature2/components/ComplexChild/ComplexChild.tsx  ({family} === "features/Feature2")
-                // But we won't be able to import ComplexChild private files.
+                // "features/Feature2/components/SimpleComponent.tsx                    ({family} === "features/Feature2")
+                // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2")
+                // But we won't be able to import ComplexComponent private files.
 
                 ["{family}/*/*", "!{family}/*/*.(types|api|types).ts"],
-                // Let's assume we are in the "features/Feature2/components/SimpleChild.tsx"
+                // Let's assume we are in the "features/Feature2/components/SimpleComponent.tsx"
                 // In this case we will be able to import:
-                // "features/Feature2/components/ComplexChild/ComplexChild.tsx  ({family} === "features/Feature2/components")
-                // But we won't be able to import ComplexChild private files.
+                // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2/components")
+                // But we won't be able to import ComplexComponent private files.
             ],
         },
     ],
