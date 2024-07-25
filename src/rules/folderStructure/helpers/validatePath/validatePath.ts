@@ -7,7 +7,7 @@ import { validateChildren } from "../validateChildren/validateChildren";
 import { validateExtension } from "../validateExtension/validateExtension";
 import { validateName } from "../validateName/validateName";
 
-interface ValidatePath {
+interface ValidatePathProps {
     pathname: string;
     parentName: string;
     rule: Rule;
@@ -19,7 +19,7 @@ export const validatePath = ({
     parentName,
     rule,
     config,
-}: ValidatePath): void => {
+}: ValidatePathProps): void => {
     if (!rule || typeof rule !== "object" || Array.isArray(rule))
         throw getInvalidRuleError(rule);
 

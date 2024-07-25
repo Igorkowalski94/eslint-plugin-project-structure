@@ -14,8 +14,6 @@ export interface HandleProgramProps {
     node: TSESTree.Program;
 }
 
-type MessageIds = "error";
-
 export const handleProgram = ({
     context: { cwd, settings, filename, report },
     node,
@@ -38,6 +36,6 @@ export const handleProgram = ({
         report({
             node,
             message: error.message,
-        } as unknown as ReportDescriptor<MessageIds>);
+        } as unknown as ReportDescriptor<"error">);
     }
 };

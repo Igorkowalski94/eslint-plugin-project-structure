@@ -21,38 +21,62 @@ module.exports = {
     ],
     settings: {
         "project-structure/folder-structure-config-path":
-            "folderStructure.jsonc",
+            "folderStructure.json",
         "project-structure/independent-modules-config-path":
-            "independentModules.jsonc",
+            "independentModules.json",
     },
     rules: {
         "project-structure/independent-modules": "error",
         "project-structure/folder-structure": "error",
-        "project-structure/export-rules": [
+        "project-structure/naming-rules": [
             2,
             {
                 filePattern: "**/*consts.ts",
-                allowExportNames: ["/^{SNAKE_CASE}$/"],
-            },
-            {
-                filePattern: "**/*.types.ts",
-                allowExportNames: ["/^{PascalCase}$/"],
-            },
-            {
-                filePattern: ["**/errors/*.ts"],
-                allowExportNames: [
-                    "/^{filename_PascalCase}Props$/",
-                    "/^{filename_PascalCase}Return$/",
-                    "/^{filename_camelCase}$/",
-                    "/^{filename_PascalCase}$/",
+                rules: [
+                    {
+                        nameType: "VariableDeclarator",
+                        allowNames: ["/^{SNAKE_CASE}$/"],
+                    },
                 ],
             },
             {
-                filePattern: ["**/*.ts", "!index.ts"],
-                allowExportNames: [
-                    "/^{filename_PascalCase}Props$/",
-                    "/^{filename_PascalCase}Return$/",
-                    "/^{filename_camelCase}$/",
+                filePattern: "**/*.types.ts",
+                rules: [
+                    {
+                        nameType: [
+                            "TSInterfaceDeclaration",
+                            "TSTypeAliasDeclaration",
+                            "TSEnumDeclaration",
+                        ],
+                        allowNamesFileRoot: ["/^{PascalCase}$/"],
+                    },
+                ],
+            },
+            {
+                filePattern: "**/*.ts",
+                rules: [
+                    {
+                        nameType: [
+                            "ArrowFunctionExpression",
+                            "FunctionDeclaration",
+                        ],
+                        allowNamesFileRoot: ["/^{filename_camelCase}$/"],
+                        allowNames: ["/^{camelCase}$/"],
+                    },
+                    {
+                        nameType: [
+                            "TSInterfaceDeclaration",
+                            "TSTypeAliasDeclaration",
+                        ],
+                        allowNamesFileRoot: [
+                            "/^{filename_PascalCase}Props$/",
+                            "/^{filename_PascalCase}Return$/",
+                        ],
+                    },
+                    {
+                        nameType: "VariableDeclarator",
+                        allowNames: ["/^{camelCase}$/"],
+                    },
                 ],
             },
         ],

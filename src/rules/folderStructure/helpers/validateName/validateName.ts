@@ -6,7 +6,7 @@ import { getInvalidNameError } from "../../errors/getInvalidNameError";
 import { getNameError } from "../../errors/getNameError";
 import { RegexParameters } from "../../folderStructure.types";
 
-interface ValidateName {
+interface ValidateNameProps {
     nodeName: string;
     ruleName: string;
     parentName: string;
@@ -18,7 +18,7 @@ export const validateName = ({
     ruleName,
     parentName,
     regexParameters,
-}: ValidateName): void => {
+}: ValidateNameProps): void => {
     if (typeof ruleName !== "string") throw getInvalidNameError(ruleName);
     if (isRegexInvalid(ruleName)) throw getInvalidRegexError(ruleName);
 

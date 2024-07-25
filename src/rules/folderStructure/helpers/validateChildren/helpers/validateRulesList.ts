@@ -5,7 +5,7 @@ import { Rule, FolderStructureConfig } from "../../../folderStructure.types";
 import { getNodeType } from "../../getNodeType";
 import { validatePath } from "../../validatePath/validatePath";
 
-interface ValidateRulesList {
+interface ValidateRulesListProps {
     pathname: string;
     parentName: string;
     nodesList: Rule[];
@@ -17,7 +17,7 @@ export const validateRulesList = ({
     parentName,
     nodesList,
     config,
-}: ValidateRulesList): void => {
+}: ValidateRulesListProps): void => {
     const nodeName = pathname.split("/")[0];
     const nodeType = getNodeType(nodeName);
 

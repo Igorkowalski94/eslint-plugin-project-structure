@@ -2,7 +2,7 @@ import { getDefaultRegexParameters } from "./getDefaultRegexParameters";
 import { getInvalidRegexParametersError } from "../../../../../errors/getInvalidRegexParametersError";
 import { RegexParameters } from "../../../../../folderStructure.types";
 
-interface ApplyRegexParameters {
+interface ApplyRegexParametersProps {
     regex: string;
     parentName: string;
     regexParameters?: RegexParameters;
@@ -12,7 +12,7 @@ export const applyRegexParameters = ({
     regex,
     parentName,
     regexParameters,
-}: ApplyRegexParameters): string => {
+}: ApplyRegexParametersProps): string => {
     if (
         regexParameters !== undefined &&
         (typeof regexParameters !== "object" || Array.isArray(regexParameters))

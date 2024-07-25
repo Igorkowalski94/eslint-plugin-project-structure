@@ -59,14 +59,14 @@ Add the following lines to **`.eslintrc`**.
         "project-structure/independent-modules": "error", // warn | error
     },
     "settings": {
-        "project-structure/independent-modules-config-path": "independentModules.jsonc", // json | jsonc | yaml
+        "project-structure/independent-modules-config-path": "independentModules.jsonc", // json | yaml
     },
 }
 ```
 
 ### Step 2
 
-Create a **`independentModules.jsonc`**, **`independentModules.json`** or **`independentModules.yaml`** in the root of your project.<br>
+Create a **`independentModules.json`**, **`independentModules.json`** or **`independentModules.yaml`** in the root of your project.<br>
 
 > [!NOTE]
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
@@ -80,7 +80,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 ```
 .
 ├── ...
-├── 📄 independentModules.jsonc
+├── 📄 independentModules.json
 └── 📂 src
     └── 📂 features
         ├── ...
@@ -99,7 +99,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
             └── 📄 Feature2.tsx             Public.
 ```
 
-#### independentModules.jsonc
+#### independentModules.json
 
 ```jsonc
 {
@@ -140,7 +140,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 ```
 .
 ├── ...
-├── 📄 independentModules.jsonc
+├── 📄 independentModules.json
 └── 📂 src
     └── 📂 features
         ├── ...
@@ -159,7 +159,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 
 ```
 
-#### independentModules.jsonc
+#### independentModules.json
 
 ```jsonc
 {

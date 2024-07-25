@@ -6,108 +6,108 @@
                 "name": "src",
                 "children": [
                     {
-                        "ruleId": "rules_folder",
+                        "ruleId": "rules_folder"
                     },
                     {
-                        "ruleId": "helpers_folder",
+                        "ruleId": "helpers_folder"
                     },
                     {
-                        "ruleId": "errors_folder",
+                        "ruleId": "errors_folder"
                     },
                     {
                         "name": "consts",
-                        "extension": ".ts",
+                        "extension": ".ts"
                     },
                     {
                         "name": "index",
-                        "extension": ".ts",
-                    },
-                ],
+                        "extension": ".ts"
+                    }
+                ]
             },
             {
-                "extension": "*",
-            },
-        ],
+                "extension": "*"
+            }
+        ]
     },
     "rules": {
         "additional_files": {
             "name": "/^{parentName}(\\.(types|consts|test))$/",
-            "extension": ".ts",
+            "extension": ".ts"
         },
 
         "test_file": {
             "name": "/^{camelCase}\\.test$/",
-            "extension": ".ts",
+            "extension": ".ts"
         },
 
         "helper_folder": {
             "name": "/^{camelCase}$/",
             "children": [
                 {
-                    "ruleId": "helpers_folder",
+                    "ruleId": "helpers_folder"
                 },
                 {
-                    "ruleId": "additional_files",
+                    "ruleId": "additional_files"
                 },
                 {
                     "name": "/^{parentName}$/",
-                    "extension": ".ts",
-                },
-            ],
+                    "extension": ".ts"
+                }
+            ]
         },
         "helpers_folder": {
             "name": "helpers",
             "children": [
                 {
-                    "ruleId": "helper_folder",
+                    "ruleId": "helper_folder"
                 },
                 {
-                    "ruleId": "test_file",
+                    "ruleId": "test_file"
                 },
                 {
                     "name": "/^{camelCase}$/",
-                    "extension": ".ts",
-                },
-            ],
+                    "extension": ".ts"
+                }
+            ]
         },
         "rule_folder": {
             "name": "/^{camelCase}$/",
             "children": [
                 {
-                    "ruleId": "helpers_folder",
+                    "ruleId": "helpers_folder"
                 },
                 {
-                    "ruleId": "errors_folder",
+                    "ruleId": "errors_folder"
                 },
                 {
-                    "ruleId": "additional_files",
+                    "ruleId": "additional_files"
                 },
                 {
                     "name": "/^{parentName}$/",
-                    "extension": ".ts",
-                },
-            ],
+                    "extension": ".ts"
+                }
+            ]
         },
         "rules_folder": {
             "name": "rules",
             "children": [
                 {
-                    "ruleId": "rule_folder",
-                },
-            ],
+                    "ruleId": "rule_folder"
+                }
+            ]
         },
         "errors_folder": {
             "name": "errors",
             "children": [
                 {
                     "name": "/^{camelCase}(\\.test)?$/",
-                    "extension": ".ts",
+                    "extension": ".ts"
                 },
                 {
                     "name": "/^{PascalCase}(\\.test)?$/",
-                    "extension": ".ts",
-                },
-            ],
-        },
-    },
+                    "extension": ".ts"
+                }
+            ]
+        }
+    }
 }

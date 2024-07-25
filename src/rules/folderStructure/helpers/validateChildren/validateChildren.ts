@@ -6,7 +6,7 @@ import { validateRulesList } from "./helpers/validateRulesList";
 import { getInvalidChildrenError } from "../../errors/getInvalidChildrenError";
 import { FolderStructureConfig, Rule } from "../../folderStructure.types";
 
-interface ValidateChildren {
+interface ValidateChildrenProps {
     pathname: string;
     nodeName: string;
     children: Rule[];
@@ -18,7 +18,7 @@ export const validateChildren = ({
     nodeName,
     children,
     config,
-}: ValidateChildren): void => {
+}: ValidateChildrenProps): void => {
     if (
         !Array.isArray(children) ||
         children.some(

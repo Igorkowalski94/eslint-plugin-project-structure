@@ -117,14 +117,14 @@ Add the following lines to **`.eslintrc`**.
         "project-structure/folder-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.jsonc", // json | jsonc | yaml
+        "project-structure/folder-structure-config-path": "folderStructure.json", // json | yaml
     },
 }
 ```
 
 ### Step 3
 
-Create a **`folderStructure.jsonc`**, **`folderStructure.json`** or **`folderStructure.yaml`** in the root of your project.<br>
+Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of your project.<br>
 
 > [!NOTE]
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
@@ -138,7 +138,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 ```
 .
 ├── ...
-├── 📄 folderStructure.jsonc
+├── 📄 folderStructure.json
 ├── 📄 .eslintrc.json
 └── 📂 src
     ├── 📄 index.tsx
@@ -147,7 +147,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
         └── 📄 ComponentName.tsx
 ```
 
-#### JSON
+#### folderStructure.json
 
 ```jsonc
 {
@@ -179,7 +179,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 }
 ```
 
-#### YAML
+#### folderStructure.yaml
 
 ```yaml
 structure:
@@ -200,7 +200,7 @@ structure:
 ```
 .
 ├── ...
-├── 📄 folderStructure.jsonc
+├── 📄 folderStructure.json
 ├── 📄 .eslintrc.json
 └── 📂 src
     ├── 📂 hooks
@@ -241,7 +241,7 @@ structure:
                     └── 📄 useComplexParentComponentHook.ts
 ```
 
-#### JSON
+#### folderStructure.json
 
 ```jsonc
 {
@@ -321,7 +321,7 @@ structure:
 }
 ```
 
-#### YAML
+#### folderStructure.yaml
 
 ```yaml
 ignorePatterns:
@@ -365,7 +365,7 @@ regexParameters:
 
 ### **`"$schema"`**: `<string | undefined>` <a id="schema"></a>
 
-Type checking for your **`folderStructure.jsonc`**. It helps to fill configuration correctly.
+Type checking for your **`folderStructure.json`**. It helps to fill configuration correctly.
 
 ```jsonc
 {
