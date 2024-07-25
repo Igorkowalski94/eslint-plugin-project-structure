@@ -49,9 +49,10 @@ Enforce naming rules.
 ### Features
 
 ✅ Naming validation. <br>
-✅ Support for all name types. Classes, types, interfaces, enums, variables, functions etc.<br>
+✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
 ✅ Deleting parts of a file name. <br>
+✅ Naming rules only for name types located in the root of the file (not nested).
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
 ✅ Different name rules for different files.<br>
