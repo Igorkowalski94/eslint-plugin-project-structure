@@ -1,5 +1,5 @@
 {
-    "$schema": "node_modules/eslint-plugin-independent-modules/independentModules.schema.json",
+    "$schema": "node_modules/eslint-plugin-project-structure/independentModules.schema.json",
     "debugMode": true,
     "modules": [
         {
