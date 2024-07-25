@@ -75,5 +75,5 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
 };
 
 export const ESLINT_ERRORS = {
-    invalidName: `🔥 Invalid name, allowNames: {{allowNamesWithoutReference}}. 🔥`,
+    invalidName: `🔥 Invalid name, allowed names: {{allowNamesWithoutReferences}}. 🔥`,
 };

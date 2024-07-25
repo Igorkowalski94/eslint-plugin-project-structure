@@ -5,7 +5,7 @@ describe("isNameValid", () => {
     test("Should throw getInvalidRegexError when pattern is not regex", () => {
         expect(() =>
             isNameValid({
-                allowNamesWithoutReference: ["^[A-Z]"],
+                allowNamesWithoutReferences: ["^[A-Z]"],
                 name: "name",
             }),
         ).toThrow(getInvalidRegexError("^[A-Z]"));
@@ -14,7 +14,7 @@ describe("isNameValid", () => {
     test("Should throw getInvalidRegexError when regex is invalid", () => {
         expect(() =>
             isNameValid({
-                allowNamesWithoutReference: ["/^?/"],
+                allowNamesWithoutReferences: ["/^?/"],
                 name: "name",
             }),
         ).toThrow(getInvalidRegexError("/^?/"));
@@ -23,7 +23,7 @@ describe("isNameValid", () => {
     test("Should not throw getInvalidRegexError when regex is valid", () => {
         expect(() =>
             isNameValid({
-                allowNamesWithoutReference: ["/^[A-Z]/"],
+                allowNamesWithoutReferences: ["/^[A-Z]/"],
                 name: "name",
             }),
         ).not.toThrow(getInvalidRegexError("/^[A-Z]/"));

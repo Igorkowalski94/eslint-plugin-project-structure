@@ -12,17 +12,14 @@ describe("replaceReferencesWithData", () => {
         filenameWithoutParts: string;
         allowNames?: NamingRule["allowNames"];
         expected: NamingRule["allowNames"];
-        ignoreFilenameReferences: boolean;
     }>([
         {
             filenameWithoutParts: "component-name",
-            ignoreFilenameReferences: false,
             expected: [`/^${CAMEL_CASE}$/`, `/^${PASCAL_CASE}$/`],
         },
 
         {
             filenameWithoutParts: "componentName",
-            ignoreFilenameReferences: false,
             allowNames: [
                 "/^{PascalCase}$/",
                 "/^{camelCase}$/",
@@ -36,20 +33,8 @@ describe("replaceReferencesWithData", () => {
                 `/^${SNAKE_CASE_UPPER}$/`,
             ],
         },
-
-        {
-            filenameWithoutParts: "componentName",
-            ignoreFilenameReferences: true,
-            allowNames: [
-                "/^{filename_PascalCase}$/",
-                "/^{filename_PascalCase}Props$/",
-                "/^{filename_PascalCase}Return$/",
-            ],
-            expected: [],
-        },
         {
             filenameWithoutParts: "helperName1",
-            ignoreFilenameReferences: false,
             allowNames: [
                 "/^{filename_camelCase}$/",
                 "/^{filename_snake_case}$/",
@@ -67,17 +52,11 @@ describe("replaceReferencesWithData", () => {
         },
     ])(
         "Should return correct values for %o",
-        ({
-            allowNames,
-            filenameWithoutParts,
-            ignoreFilenameReferences,
-            expected,
-        }) => {
+        ({ allowNames, filenameWithoutParts, expected }) => {
             expect(
                 replaceReferencesWithData({
                     allowNames,
                     filenameWithoutParts,
-                    ignoreFilenameReferences,
                 }),
             ).toEqual(expected);
         },

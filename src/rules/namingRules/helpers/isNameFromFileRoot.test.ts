@@ -1,12 +1,12 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 import {
-    ShouldIgnoreFilenameReferencesProps,
-    shouldIgnoreFilenameReferences,
-} from "./shouldIgnoreFilenameReferences";
+    IsNameFromFileRootProps,
+    isNameFromFileRoot,
+} from "./isNameFromFileRoot";
 import { NameType } from "../namingRules.types";
 
-describe("shouldIgnoreFilenameReferences", () => {
+describe("isNameFromFileRoot", () => {
     test.each<{
         nameType: NameType;
         node:
@@ -25,7 +25,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.Program },
             } as TSESTree.ClassDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "ClassDeclaration",
@@ -34,7 +34,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
                 },
             } as TSESTree.ClassDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "ClassDeclaration",
@@ -43,14 +43,14 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
                 },
             } as TSESTree.ClassDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "FunctionDeclaration",
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.Program },
             } as TSESTree.FunctionDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "FunctionDeclaration",
@@ -59,7 +59,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
                 },
             } as TSESTree.FunctionDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "FunctionDeclaration",
@@ -68,14 +68,14 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
                 },
             } as TSESTree.FunctionDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "TSEnumDeclaration",
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.Program },
             } as TSESTree.TSEnumDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "TSEnumDeclaration",
@@ -84,7 +84,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
                 },
             } as TSESTree.TSEnumDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "TSEnumDeclaration",
@@ -93,7 +93,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
                 },
             } as TSESTree.TSEnumDeclaration,
-            expected: false,
+            expected: true,
         },
 
         {
@@ -101,7 +101,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.Program },
             } as TSESTree.TSInterfaceDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "TSInterfaceDeclaration",
@@ -110,7 +110,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
                 },
             } as TSESTree.TSInterfaceDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "TSInterfaceDeclaration",
@@ -119,7 +119,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
                 },
             } as TSESTree.TSInterfaceDeclaration,
-            expected: false,
+            expected: true,
         },
 
         {
@@ -127,7 +127,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.Program },
             } as TSESTree.TSTypeAliasDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "TSTypeAliasDeclaration",
@@ -136,7 +136,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
                 },
             } as TSESTree.TSTypeAliasDeclaration,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "TSTypeAliasDeclaration",
@@ -145,7 +145,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
                 },
             } as TSESTree.TSTypeAliasDeclaration,
-            expected: false,
+            expected: true,
         },
 
         {
@@ -153,7 +153,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { parent: { type: TSESTree.AST_NODE_TYPES.Program } },
             } as TSESTree.VariableDeclarator,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "ArrowFunctionExpression",
@@ -164,7 +164,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     },
                 },
             } as TSESTree.VariableDeclarator,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "ArrowFunctionExpression",
@@ -175,7 +175,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     },
                 },
             } as TSESTree.VariableDeclarator,
-            expected: false,
+            expected: true,
         },
 
         {
@@ -183,7 +183,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { parent: { type: TSESTree.AST_NODE_TYPES.Program } },
             } as TSESTree.VariableDeclarator,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "VariableDeclarator",
@@ -194,7 +194,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     },
                 },
             } as TSESTree.VariableDeclarator,
-            expected: false,
+            expected: true,
         },
         {
             nameType: "VariableDeclarator",
@@ -205,7 +205,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     },
                 },
             } as TSESTree.VariableDeclarator,
-            expected: false,
+            expected: true,
         },
 
         {
@@ -213,7 +213,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
             } as TSESTree.BlockStatement,
-            expected: true,
+            expected: false,
         },
 
         {
@@ -221,7 +221,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
             } as TSESTree.BlockStatement,
-            expected: true,
+            expected: false,
         },
 
         {
@@ -229,7 +229,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
             } as TSESTree.BlockStatement,
-            expected: true,
+            expected: false,
         },
 
         {
@@ -237,7 +237,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
             } as TSESTree.BlockStatement,
-            expected: true,
+            expected: false,
         },
 
         {
@@ -245,7 +245,7 @@ describe("shouldIgnoreFilenameReferences", () => {
             node: {
                 parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
             } as TSESTree.BlockStatement,
-            expected: true,
+            expected: false,
         },
 
         {
@@ -255,7 +255,7 @@ describe("shouldIgnoreFilenameReferences", () => {
                     parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
                 },
             } as TSESTree.BlockStatement,
-            expected: true,
+            expected: false,
         },
 
         {
@@ -265,15 +265,15 @@ describe("shouldIgnoreFilenameReferences", () => {
                     parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
                 },
             } as TSESTree.BlockStatement,
-            expected: true,
+            expected: false,
         },
     ])(
         "Should return correct value for = %o",
         ({ nameType, node, expected }) => {
             expect(
-                shouldIgnoreFilenameReferences({
+                isNameFromFileRoot({
                     nameType,
-                    node: node as ShouldIgnoreFilenameReferencesProps["node"],
+                    node: node as IsNameFromFileRootProps["node"],
                 }),
             ).toEqual(expected);
         },

@@ -5,15 +5,15 @@ import { NamingRule } from "../namingRules.types";
 
 interface IsNameValidProps {
     name: string;
-    allowNamesWithoutReference: NamingRule["allowNames"];
+    allowNamesWithoutReferences: NamingRule["allowNames"];
 }
 
 export const isNameValid = ({
-    allowNamesWithoutReference,
+    allowNamesWithoutReferences,
     name,
 }: IsNameValidProps): boolean =>
     Boolean(
-        allowNamesWithoutReference?.some((pattern) => {
+        allowNamesWithoutReferences?.some((pattern) => {
             if (!isRegex(pattern) || isRegexInvalid(pattern))
                 throw getInvalidRegexError(pattern);
 

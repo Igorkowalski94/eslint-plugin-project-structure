@@ -4,7 +4,7 @@ import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import { handleVariableDeclarator } from "./handleVariableDeclarator";
 import { validateName } from "./validateName";
 import { ESLINT_ERRORS } from "../namingRules.consts";
-import { NamingRule } from "../namingRules.types";
+import { FileNamingRules } from "../namingRules.types";
 
 jest.mock("./validateName", () => ({
     validateName: jest.fn(),
@@ -22,7 +22,7 @@ describe("handleVariableDeclarator", () => {
             } as TSESTree.VariableDeclarator,
             context: {} as RuleContext<
                 keyof typeof ESLINT_ERRORS,
-                NamingRule[]
+                FileNamingRules[]
             >,
         }),
             expect(validateNameMock).not.toHaveBeenCalled();
@@ -82,7 +82,7 @@ describe("handleVariableDeclarator", () => {
                 } as TSESTree.VariableDeclarator,
                 context: {} as RuleContext<
                     keyof typeof ESLINT_ERRORS,
-                    NamingRule[]
+                    FileNamingRules[]
                 >,
             }),
                 expect(validateNameMock).toHaveBeenCalledWith(expected);

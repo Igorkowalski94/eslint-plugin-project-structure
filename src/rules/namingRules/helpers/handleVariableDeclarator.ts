@@ -3,11 +3,11 @@ import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
 import { validateName } from "./validateName";
 import { ESLINT_ERRORS } from "../namingRules.consts";
-import { NamingRule, NameType } from "../namingRules.types";
+import { FileNamingRules, NameType } from "../namingRules.types";
 
 interface HandleVariableDeclaratorProps {
     node: TSESTree.VariableDeclarator;
-    context: RuleContext<keyof typeof ESLINT_ERRORS, NamingRule[]>;
+    context: RuleContext<keyof typeof ESLINT_ERRORS, FileNamingRules[]>;
 }
 
 export const handleVariableDeclarator = ({

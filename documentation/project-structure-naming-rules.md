@@ -5,9 +5,10 @@ Enforce naming rules.
 ### Features
 
 ✅ Naming validation. <br>
-✅ Support for all name types. Classes, types, interfaces, enums, variables, functions etc.<br>
+✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
 ✅ Deleting parts of a file name. <br>
+✅ Naming rules only for name types located in the root of the file (not nested).
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
 ✅ Different name rules for different files.<br>
@@ -21,9 +22,11 @@ Enforce naming rules.
 -   [Example](#example)
 -   [API](#api)
     -   [filePattern](#file-pattern)
-    -   [nameType](#nameType)
-    -   [filenamePartsToRemove](#filename-parts-to-remove)
-    -   [allowNames](#allow-names)
+    -   [rules](#rules)
+        -   [nameType](#name-type)
+        -   [filenamePartsToRemove](#filename-parts-to-remove)
+        -   [allowNames](#allow-names)
+        -   [allowNamesFileRoot](#allow-names-file-root)
         -   [references](#references)
 
 ## Installation
@@ -63,32 +66,57 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
     "project-structure/naming-rules": [
         "error",
         {
-            "filePattern": ["**/*.ts", "!**/index.ts"], // Name rules for all .ts files except index.ts
-            "nameType": "VariableDeclarator",
-            "allowNames": [
-                "/^{filename_camelCase}$/", // Take the filename and convert it to camelCase.
-                "/^{filename_PascalCase}Props$/", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
-                "/^{filename_snake_case}_return$/", // Take the filename and convert it to snake_case and add the '_return' prefix.
+            "filePattern": "**/*consts.ts", // Name rules for all files ending with .const.ts.
+            "rules": [
+                {
+                    // nameTypes we are interested in.
+                    "type": "VariableDeclarator",
+                    "allowNames": [
+                        // All variables in the file should match SNAKE_CASE.
+                        "/^{SNAKE_CASE}$/",
+
+                        // or
+
+                        // All variables must start with a capital letter.
+                        "/^[A-Z]/",
+                    ],
+                },
             ],
         },
         {
-            "filePattern": "**/*.tsx", // // Name rules for all .tsx files.
-            "nameType": ["ArrowFunctionExpression", "FunctionDeclaration"],
-            "filenamePartsToRemove": [".react"], // Removing parts of a file name (ComponentName.react.tsx => ComponentName.tsx).
-            "allowNames": [
-                "/^{filename_PascalCase}$/", // Take the filename and convert it to PascalCase.
-                "/^{filename_PascalCase}Props$/", // Take the filename and convert it to PascalCase and add the 'Props' prefix.
-            ],
-        },
-        {
-            "filePattern": "**/*.js", // Name rules for all .js files.
-            "nameType": "VariableDeclarator",
-            "allowNames": [
-                // Allow snake_case, camelCase, SNAKE_CASE, and the first capital letter in name.
-                "/^{snake_case}$/",
-                "/^{SNAKE_CASE}$/",
-                "/^{camelCase}$/",
-                "/^[A-Z]/", // You can also use your own regex.
+            "filePattern": ["**/*.ts", "!(**/index.ts)"], // Name rules for all .ts files except index.ts files.
+            "rules": [
+                {
+                    "nameType": [
+                        // nameTypes we are interested in.
+                        "ArrowFunctionExpression",
+                        "FunctionDeclaration",
+                    ],
+                    "allowNamesFileRoot": [
+                        // Functions located at the root of the file (non-nested) should be named: Filename as camelCase.
+                        "/^{filename_camelCase}$/",
+                    ],
+                    "allowNames": [
+                        // Nested functions in the file should match camelCase.
+                        "/^{camelCase}$/",
+                    ],
+                },
+                {
+                    "nameType": [
+                        // nameTypes we are interested in.
+                        "TSInterfaceDeclaration",
+                        "TSTypeAliasDeclaration",
+                    ],
+                    "allowNamesFileRoot": [
+                        // Interface or type located at the root of the file (non-nested) should be named: Filename as PascalCase + Props.
+                        "/^{filename_PascalCase}Props$/",
+
+                        //or
+
+                        // Interface or type located at the root of the file (non-nested) should be named: Filename as SNAKE_CASE + _Return.
+                        "/^{filename_SNAKE_CASE}_Return$/",
+                    ],
+                },
             ],
         },
     ],
@@ -96,7 +124,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 ```
 
 ```ts
-// File TransformUserData.ts
+// File transformUserData.ts
 
 // Satisfies regex "/^{filename_PascalCase}Props$/"
 interface TransformUserDataProps {
@@ -123,35 +151,13 @@ const getFullName = ({
 ```
 
 ```ts
-// File ComponentName.tsx
-
-import { FC } from "react";
-
-// Satisfies regex "/^{filename_PascalCase}Props$/"
- interface ComponentNameProps {
-    title: string;
-}
-
-// Satisfies regex "/^{filename_PascalCase}$/"
- const ComponentName: FC<ComponentNameProps> = ({ title }) => (
-    <h1>{title}</h1>
-);
-```
-
-```ts
-// File Foo.js
+// File transformUserData.consts.ts
 
 // Satisfies regex "/^{SNAKE_CASE}$/"
 const IMPORTANT_VARIABLE_1 = "";
 
-// Satisfies regex "/^{snake_case}$/"
-const important_variable_2 = "";
-
-// Satisfies regex "/^{camelCase}$/"
-const importantVariable3 = "";
-
 // Satisfies regex "/^[A-Z]/"
-const Importantvariable4 = "";
+const Importantvariable2 = "";
 ```
 
 ## API:
@@ -166,54 +172,133 @@ Here you define which files should meet the rules. You can use all **[micromatch
 }
 ```
 
-### **`"type"`**: `<NameType | NameType[]>` <a id="name-type"></a>
+### **`"rules"`**: `<NamingRule[]>` <a id="rules"></a>
 
-here you define the name type you are interested in.
+The place where you define the naming rules for a given file.
 
 ```jsonc
 {
-    "type": "VariableDeclarator"
+    "filePattern": "**/*.tsx",
+    "rules": []
 },
+```
 
+### **`"nameType"`**: `<NameType | NameType[]>` <a id="name-type"></a>
+
+Here you define the name type you are interested in.<br>
+
+Available types:<br>
+
+-   **`"ClassDeclaration"`**<br>
+-   **`"VariableDeclarator`**<br>
+-   **`"FunctionDeclaration"`**<br>
+-   **`"ArrowFunctionExpression"`**<br>
+-   **`"TSTypeAliasDeclaration"`**<br>
+-   **`"TSInterfaceDeclaration"`**<br>
+-   **`"TSEnumDeclaration"`**<br>
+
+```jsonc
+{
+    "filePattern": "**/*.tsx",
+    "rules": [
+        {
+            "nameType": "VariableDeclarator",
+        },
+    ],
+}
 ```
 
 ```jsonc
 {
-    "type": [
-        "ClassDeclaration",
-        "VariableDeclarator",
-        "FunctionDeclaration",
-        "ArrowFunctionExpression",
-        "TSTypeAliasDeclaration",
-        "TSInterfaceDeclaration",
-        "TSEnumDeclaration",
+    "filePattern": "**/*.tsx",
+    "rules": [
+        {
+            "nameType": ["FunctionDeclaration", "ArrowFunctionExpression"],
+            "allowNames": [],
+        },
+        {
+            "nameType": ["VariableDeclarator"],
+            "allowNames": [],
+        },
     ],
 }
 ```
 
 ### **`"filenamePartsToRemove"`**: `<string[] | undefined>` <a id="filename-parts-to-remove"></a>
 
-Useful if you use prefixes in your filenames and don't want them to be part of the export name.
+Useful if you use prefixes in your filenames and don't want them to be part of the name.
+
+> [!NOTE]
+> Only taken into account when using [**`references`**](#references) with filename.
 
 ```jsonc
 {
-    "filenamePartsToRemove": [".react"], // ComponentName.react.tsx => ComponentName.tsx
+    "filePattern": "**/*.tsx",
+    "rules": [
+        {
+            "nameType": "ArrowFunctionExpression",
+            "filenamePartsToRemove": [".react"], // ComponentName.react.tsx => ComponentName.tsx
+        },
+    ],
 }
 ```
 
-### **`"allowNames"`**: `<string[] | undefined>` <a id="allow-export-names"></a>
+### **`"allowNames"`**: `<string[] | undefined>` <a id="allow-names"></a>
 
-If the export name matches at least one regex, it will be considered valid.
+If the name matches at least one regex, it will be considered valid.
 
 > [!NOTE]
 > If you do not specify **`"allowNames"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
 
+```jsonc
+{
+    "filePattern": "**/*.tsx",
+    "rules": [
+        {
+            "nameType": "ArrowFunctionExpression",
+            // Arrow functions in .tsx files should meet camelCase or PascalCase.
+            "allowNames": ["/^{camelCase}$/", "/^{PascalCase}$/"],
+        },
+        {
+            "nameType": "VariableDeclarator",
+            // Variables in .tsx files should meet SNAKE_CASE.
+            "allowNames": ["/^{SNAKE_CASE}$/"],
+        },
+    ],
+}
+```
+
+### **`"allowNamesFileRoot"`**: `<string[] | undefined>` <a id="allow-names-file-root"></a>
+
+**`"allowNamesFileRoot"`** only takes into account [**`nameTypes`**](#name-type) that are in the root of a given file (not nested).
+
+If the name matches at least one regex, it will be considered valid.
+
 > [!NOTE]
-> Rules with filename will not be taken into account for nested variables, functions, etc.
+> If you do not specify **`"allowNamesFileRoot"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
 
 ```jsonc
 {
-    "allowNames": ["/^{filename_camelCase}$/", "/^{filename_PascalCase}$/"],
+    "filePattern": "**/*.tsx",
+    "rules": [
+        {
+            "nameType": ["ArrowFunctionExpression", "FunctionDeclaration"],
+            // Arrow function or function located at the root of the file (not nested) should meet the name: filename as PascalCase.
+            "allowNamesFileRoot": ["/^{filename_PascalCase}$/"],
+        },
+        {
+            "nameType": ["TSInterfaceDeclaration", "TSTypeAliasDeclaration"],
+            "allowNamesFileRoot": [
+                // Interface or type located at the root of the file (non-nested) should meet the name: filename as PascalCase + Props.
+                "/^{filename_PascalCase}Props$/",
+
+                // or
+
+                // Interface or type located at the root of the file (non-nested) should meet the name: filename as PascalCase + Return
+                "/^{filename_PascalCase}Return$/",
+            ],
+        },
+    ],
 }
 ```
 
@@ -222,48 +307,40 @@ If the export name matches at least one regex, it will be considered valid.
 **`{filename_camelCase}`**<br>
 Take the name of the file you are currently in and change it to **`camelCase`**.
 
-> [!NOTE]
-> Rules with filename will not be taken into account for nested variables, functions, etc.
-
 ```jsonc
 {
     "allowNames": ["/^{filename_camelCase}$/"],
+    "allowNamesFileRoot": ["/^{filename_camelCase}$/"],
 }
 ```
 
 **`{filename_PascalCase}`**<br>
 Take the name of the file you are currently in and change it to **`PascalCase`**.
 
-> [!NOTE]
-> Rules with filename will not be taken into account for nested variables, functions, etc.
-
 ```jsonc
 {
     "allowNames": ["/^{filename_PascalCase}$/"],
+    "allowNamesFileRoot": ["/^{filename_PascalCase}$/"],
 }
 ```
 
 **`{filename_snake_case}`**<br>
 Take the name of the file you are currently in and change it to **`snake_case`**.
 
-> [!NOTE]
-> Rules with filename will not be taken into account for nested variables, functions, etc.
-
 ```jsonc
 {
     "allowNames": ["/^{filename_snake_case}$/"],
+    "allowNamesFileRoot": ["/^{filename_snake_case}$/"],
 }
 ```
 
 **`{filename_SNAKE_CASE}`**<br>
 Take the name of the file you are currently in and change it to **`SNAKE_CASE`**.
 
-> [!NOTE]
-> Rules with filename will not be taken into account for nested variables, functions, etc.
-
 ```jsonc
 {
     "allowNames": ["/^{filename_SNAKE_CASE}$/"],
+    "allowNamesFileRoot": ["/^{filename_SNAKE_CASE}$/"],
 }
 ```
 
@@ -274,6 +351,7 @@ The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[
 ```jsonc
 {
     "allowNames": ["/^{camelCase}$/"],
+    "allowNamesFileRoot": ["/^{camelCase}$/"],
 }
 ```
 
@@ -284,6 +362,7 @@ The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 ```jsonc
 {
     "allowNames": ["/^{PascalCase}$/"],
+    "allowNamesFileRoot": ["/^{PascalCase}$/"],
 }
 ```
 
@@ -294,6 +373,7 @@ The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 ```jsonc
 {
     "allowNames": ["/^{snake_case}$/"],
+    "allowNamesFileRoot": ["/^{snake_case}$/"],
 }
 ```
 
@@ -304,5 +384,6 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 ```jsonc
 {
     "allowNames": ["/^{SNAKE_CASE}$/"],
+    "allowNamesFileRoot": ["/^{SNAKE_CASE}$/"],
 }
 ```

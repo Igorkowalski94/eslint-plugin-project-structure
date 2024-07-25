@@ -1,17 +1,19 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
-import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
+import { getCurrentAllowNames } from "./getCurrentAllowNames";
+import { isCorrectNameType } from "./isCorrectNameType";
 import { validateName } from "./validateName";
+import { CAMEL_CASE } from "../../../consts";
 import { ESLINT_ERRORS } from "../namingRules.consts";
-import { NamingRule } from "../namingRules.types";
+import { FileNamingRules } from "../namingRules.types";
 
-jest.mock("./getFileNameWithoutExtension", () => ({
-    getFileNameWithoutExtension: jest.fn(),
+jest.mock("./isCorrectNameType", () => ({
+    isCorrectNameType: jest.fn(),
 }));
 
-jest.mock("./shouldIgnoreFilenameReferences", () => ({
-    shouldIgnoreFilenameReferences: jest.fn().mockReturnValue(false),
+jest.mock("./getCurrentAllowNames", () => ({
+    getCurrentAllowNames: jest.fn(),
 }));
 
 jest.mock("path", () => ({
@@ -20,141 +22,205 @@ jest.mock("path", () => ({
 }));
 
 describe("validateName", () => {
-    test("Should not call getFileNameWithoutExtension when !rule", () => {
-        const getFileNameWithoutExtensionMock = jest.fn();
-
-        (getFileNameWithoutExtension as jest.Mock).mockImplementation(
-            getFileNameWithoutExtensionMock,
-        );
-
-        validateName({
-            context: {
-                settings: {},
-                filename: ".../src/features/Feature1/Feature1.tsx",
-                options: [
-                    {
-                        type: "VariableDeclarator",
-                        filePattern: "**/*.ts",
-                    },
-                ],
-                report: () => {},
-            } as unknown as RuleContext<
-                keyof typeof ESLINT_ERRORS,
-                NamingRule[]
-            >,
-            name: "componentName",
-            node: {} as TSESTree.VariableDeclarator,
-            nameType: "VariableDeclarator",
-        });
-
-        expect(getFileNameWithoutExtensionMock).not.toHaveBeenCalled();
+    test("Should return undefined if !fileRule", () => {
+        expect(
+            validateName({
+                context: {
+                    settings: {},
+                    filename: ".../src/features/Feature1/Feature1.tsx",
+                    options: [
+                        {
+                            type: "VariableDeclarator",
+                            filePattern: "**/*.ts",
+                        },
+                    ],
+                    report: () => {},
+                } as unknown as RuleContext<
+                    keyof typeof ESLINT_ERRORS,
+                    FileNamingRules[]
+                >,
+                name: "componentName",
+                node: {} as TSESTree.VariableDeclarator,
+                nameType: "VariableDeclarator",
+            }),
+        ).toEqual(undefined);
     });
 
-    test.each<{ nameType: NamingRule["nameType"] }>([
-        { nameType: "ClassDeclaration" },
-        { nameType: ["ArrowFunctionExpression", "ClassDeclaration"] },
-    ])("Should not call getFileNameWithoutExtension for %o", ({ nameType }) => {
-        const getFileNameWithoutExtensionMock = jest.fn();
+    test("Should return undefined if !isCorrectNameType", () => {
+        const isCorrectNameTypeMock = jest.fn().mockReturnValue(false);
 
-        (getFileNameWithoutExtension as jest.Mock).mockImplementation(
-            getFileNameWithoutExtensionMock,
+        (isCorrectNameType as jest.Mock).mockImplementation(
+            isCorrectNameTypeMock,
         );
 
-        validateName({
-            context: {
-                settings: {},
-                filename: ".../src/features/Feature1/Feature1.ts",
-                options: [
-                    {
-                        nameType,
-                        filePattern: "**/*.ts",
-                    },
-                ],
-                report: () => {},
-            } as unknown as RuleContext<
-                keyof typeof ESLINT_ERRORS,
-                NamingRule[]
-            >,
-            name: "componentName",
-            node: {} as TSESTree.VariableDeclarator,
-            nameType: "VariableDeclarator",
-        });
+        expect(
+            validateName({
+                context: {
+                    settings: {},
+                    filename: ".../src/features/Feature1/Feature1.tsx",
+                    options: [
+                        {
+                            filePattern: "**/*.tsx",
+                            rules: [
+                                {
+                                    nameType: "VariableDeclarator",
+                                    allowNames: ["/^{camelCase}$/"],
+                                },
+                            ],
+                        },
+                    ],
+                    report: () => {},
+                } as unknown as RuleContext<
+                    keyof typeof ESLINT_ERRORS,
+                    FileNamingRules[]
+                >,
+                name: "componentName",
+                node: {} as TSESTree.VariableDeclarator,
+                nameType: "VariableDeclarator",
+            }),
+        ).toEqual(undefined);
 
-        expect(getFileNameWithoutExtensionMock).not.toHaveBeenCalled();
+        expect(isCorrectNameTypeMock).toHaveBeenCalled();
     });
 
-    test("Should not call report when name is valid", () => {
+    test("Should return undefined if !currentAllowNames", () => {
+        const isCorrectNameTypeMock = jest.fn().mockReturnValue(true);
+        const getCurrentAllowNamesMock = jest.fn().mockReturnValue(undefined);
+
+        (isCorrectNameType as jest.Mock).mockImplementation(
+            isCorrectNameTypeMock,
+        );
+
+        (getCurrentAllowNames as jest.Mock).mockImplementation(
+            getCurrentAllowNamesMock,
+        );
+
+        expect(
+            validateName({
+                context: {
+                    settings: {},
+                    filename: ".../src/features/Feature1/Feature1.tsx",
+                    options: [
+                        {
+                            filePattern: "**/*.tsx",
+                            rules: [
+                                {
+                                    nameType: "VariableDeclarator",
+                                    allowNames: ["/^{camelCase}$/"],
+                                },
+                            ],
+                        },
+                    ],
+                    report: () => {},
+                } as unknown as RuleContext<
+                    keyof typeof ESLINT_ERRORS,
+                    FileNamingRules[]
+                >,
+                name: "componentName",
+                node: {} as TSESTree.VariableDeclarator,
+                nameType: "VariableDeclarator",
+            }),
+        ).toEqual(undefined);
+
+        expect(isCorrectNameTypeMock).toHaveBeenCalled();
+        expect(getCurrentAllowNamesMock).toHaveBeenCalled();
+    });
+
+    test("Should call report if !isValidExport", () => {
+        const isCorrectNameTypeMock = jest.fn().mockReturnValue(true);
+        const getCurrentAllowNamesMock = jest
+            .fn()
+            .mockReturnValue(["/^{camelCase}$/"]);
         const reportMock = jest.fn();
 
-        (getFileNameWithoutExtension as jest.Mock).mockReturnValue("Feature1");
+        (isCorrectNameType as jest.Mock).mockImplementation(
+            isCorrectNameTypeMock,
+        );
+
+        (getCurrentAllowNames as jest.Mock).mockImplementation(
+            getCurrentAllowNamesMock,
+        );
 
         validateName({
             context: {
                 settings: {},
-
                 filename: ".../src/features/Feature1/Feature1.tsx",
                 options: [
                     {
-                        type: "VariableDeclarator",
                         filePattern: "**/*.tsx",
-                    },
-                ],
-                report: reportMock,
-            } as unknown as RuleContext<
-                keyof typeof ESLINT_ERRORS,
-                NamingRule[]
-            >,
-            name: "Feature1",
-            node: {} as TSESTree.VariableDeclarator,
-            nameType: "VariableDeclarator",
-        });
-
-        expect(reportMock).not.toHaveBeenCalled();
-    });
-
-    test("Should call report when name is invalid", () => {
-        const reportMock = jest.fn();
-
-        (getFileNameWithoutExtension as jest.Mock).mockReturnValue(
-            "helper.consts",
-        );
-
-        validateName({
-            context: {
-                settings: {},
-                filename: ".../src/helpers/helper.consts.ts",
-                options: [
-                    {
-                        filePattern: "**/*.ts",
-                        type: "VariableDeclarator",
-                        filenamePartsToRemove: [".consts"],
-                        allowNames: [
-                            "/^{filename_camelCase}$/",
-                            "/^{filename_PascalCase}Props$/",
-                            "/^{filename_PascalCase}Return$/",
+                        rules: [
+                            {
+                                nameType: "VariableDeclarator",
+                                allowNames: ["/^{camelCase}$/"],
+                            },
                         ],
                     },
                 ],
                 report: reportMock,
             } as unknown as RuleContext<
                 keyof typeof ESLINT_ERRORS,
-                NamingRule[]
+                FileNamingRules[]
             >,
-            name: "Helper",
+            name: "VariableName",
             node: {} as TSESTree.VariableDeclarator,
             nameType: "VariableDeclarator",
         });
 
+        expect(isCorrectNameTypeMock).toHaveBeenCalled();
+        expect(getCurrentAllowNamesMock).toHaveBeenCalled();
         expect(reportMock).toHaveBeenCalledWith({
             node: {},
             messageId: "invalidName",
             data: {
-                allowNamesWithoutReference: JSON.stringify([
-                    "/^helper$/",
-                    "/^HelperProps$/",
-                    "/^HelperReturn$/",
+                allowNamesWithoutReferences: JSON.stringify([
+                    `/^${CAMEL_CASE}$/`,
                 ]),
             },
         });
+    });
+
+    test("Should not call report if isValidExport", () => {
+        const isCorrectNameTypeMock = jest.fn().mockReturnValue(true);
+        const getCurrentAllowNamesMock = jest
+            .fn()
+            .mockReturnValue(["/^{camelCase}$/"]);
+        const reportMock = jest.fn();
+
+        (isCorrectNameType as jest.Mock).mockImplementation(
+            isCorrectNameTypeMock,
+        );
+
+        (getCurrentAllowNames as jest.Mock).mockImplementation(
+            getCurrentAllowNamesMock,
+        );
+
+        validateName({
+            context: {
+                settings: {},
+                filename: ".../src/features/Feature1/Feature1.tsx",
+                options: [
+                    {
+                        filePattern: "**/*.tsx",
+                        rules: [
+                            {
+                                nameType: "VariableDeclarator",
+                                allowNames: ["/^{camelCase}$/"],
+                            },
+                        ],
+                    },
+                ],
+                report: reportMock,
+            } as unknown as RuleContext<
+                keyof typeof ESLINT_ERRORS,
+                FileNamingRules[]
+            >,
+            name: "variableName",
+            node: {} as TSESTree.VariableDeclarator,
+            nameType: "VariableDeclarator",
+        });
+
+        expect(isCorrectNameTypeMock).toHaveBeenCalled();
+        expect(getCurrentAllowNamesMock).toHaveBeenCalled();
+        expect(reportMock).not.toHaveBeenCalled();
     });
 });

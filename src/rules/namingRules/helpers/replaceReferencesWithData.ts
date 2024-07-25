@@ -1,4 +1,3 @@
-import { getAllowNamesWithoutFileRef } from "./getAllowNamesWithoutFileRef";
 import { transformStringToCase } from "./transformStringToCase";
 import {
     CAMEL_CASE,
@@ -12,20 +11,13 @@ import { NamingRule } from "../namingRules.types";
 interface ReplaceReferencesWithDataProps {
     filenameWithoutParts: string;
     allowNames: NamingRule["allowNames"];
-    ignoreFilenameReferences: boolean;
 }
 
 export const replaceReferencesWithData = ({
     allowNames,
     filenameWithoutParts,
-    ignoreFilenameReferences,
-}: ReplaceReferencesWithDataProps): NamingRule["allowNames"] => {
-    const allowNamesWithoutFileRef = getAllowNamesWithoutFileRef({
-        allowNames,
-        ignoreFilenameReferences,
-    });
-
-    return (allowNamesWithoutFileRef ?? DEFAULT_ALLOW_NAMES)?.reduce<string[]>(
+}: ReplaceReferencesWithDataProps): NamingRule["allowNames"] =>
+    (allowNames ?? DEFAULT_ALLOW_NAMES)?.reduce<string[]>(
         (acc, pattern) => [
             ...acc,
             pattern
@@ -52,4 +44,3 @@ export const replaceReferencesWithData = ({
         ],
         [],
     );
-};

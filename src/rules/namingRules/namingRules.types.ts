@@ -10,8 +10,13 @@ export type NameType =
     | "TSEnumDeclaration";
 
 export interface NamingRule {
-    filePattern: string | string[];
     nameType: NameType | NameType[];
     filenamePartsToRemove?: string[];
+    allowNamesFileRoot?: string[];
     allowNames?: string[];
+}
+
+export interface FileNamingRules {
+    filePattern: string | string[];
+    rules: NamingRule[];
 }

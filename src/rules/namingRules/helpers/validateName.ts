@@ -2,18 +2,19 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import micromatch from "micromatch";
 
+import { getCurrentAllowNames } from "./getCurrentAllowNames";
 import { getFilenamePathWithoutRoot } from "./getFilenamePathWithoutRoot";
 import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
+import { isCorrectNameType } from "./isCorrectNameType";
 import { isNameValid } from "./isNameValid";
 import { removeFilenameParts } from "./removeFilenameParts";
 import { replaceReferencesWithData } from "./replaceReferencesWithData";
-import { shouldIgnoreFilenameReferences } from "./shouldIgnoreFilenameReferences";
 import { ESLINT_ERRORS } from "../namingRules.consts";
-import { NamingRule, NameType } from "../namingRules.types";
+import { FileNamingRules, NameType } from "../namingRules.types";
 
-interface ValidateNameProps {
+export interface ValidateNameProps {
     name: string;
-    context: RuleContext<keyof typeof ESLINT_ERRORS, NamingRule[]>;
+    context: RuleContext<keyof typeof ESLINT_ERRORS, FileNamingRules[]>;
     node:
         | TSESTree.VariableDeclarator
         | TSESTree.ClassDeclaration
@@ -32,49 +33,55 @@ export const validateName = ({
 }: ValidateNameProps): void => {
     const filenamePath = getFilenamePathWithoutRoot({ filename, settings });
 
-    const rule = options.find(({ filePattern }) =>
+    const fileRules = options.find(({ filePattern }) =>
         micromatch.every(filenamePath, filePattern),
     );
 
-    if (!rule) return;
+    if (!fileRules) return;
 
-    if (Array.isArray(rule.nameType) && !rule.nameType.includes(nameType))
-        return;
+    fileRules.rules.forEach((rule) => {
+        if (!isCorrectNameType({ nameType, ruleNameType: rule.nameType }))
+            return;
 
-    if (typeof rule.nameType === "string" && rule.nameType !== nameType) return;
+        const { allowNames, allowNamesFileRoot, filenamePartsToRemove } = rule;
 
-    const { allowNames, filenamePartsToRemove } = rule;
-
-    const filenameWithoutExtension = getFileNameWithoutExtension(filenamePath);
-
-    const filenameWithoutParts = removeFilenameParts({
-        filenameWithoutExtension,
-        filenamePartsToRemove,
-    });
-
-    const allowNamesWithoutReference = replaceReferencesWithData({
-        allowNames,
-        filenameWithoutParts,
-        ignoreFilenameReferences: shouldIgnoreFilenameReferences({
+        const currentAllowNames = getCurrentAllowNames({
+            allowNames,
+            allowNamesFileRoot,
             nameType,
             node,
-        }),
-    });
+        });
 
-    const isValidExport = isNameValid({
-        allowNamesWithoutReference,
-        name,
-    });
+        if (!currentAllowNames) return;
 
-    if (isValidExport) return;
+        const filenameWithoutExtension =
+            getFileNameWithoutExtension(filenamePath);
 
-    report({
-        node,
-        messageId: "invalidName",
-        data: {
-            allowNamesWithoutReference: JSON.stringify(
-                allowNamesWithoutReference,
-            ),
-        },
+        const filenameWithoutParts = removeFilenameParts({
+            filenameWithoutExtension,
+            filenamePartsToRemove,
+        });
+
+        const allowNamesWithoutReferences = replaceReferencesWithData({
+            allowNames: currentAllowNames,
+            filenameWithoutParts,
+        });
+
+        const isValidExport = isNameValid({
+            allowNamesWithoutReferences,
+            name,
+        });
+
+        if (isValidExport) return;
+
+        report({
+            node,
+            messageId: "invalidName",
+            data: {
+                allowNamesWithoutReferences: JSON.stringify(
+                    allowNamesWithoutReferences,
+                ),
+            },
+        });
     });
 };
