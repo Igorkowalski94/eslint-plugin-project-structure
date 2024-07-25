@@ -20,7 +20,7 @@ export const DEFAULT_ALLOW_NAMES = [
 ];
 
 export const NAMING_RULES_SCHEMA: JSONSchema4 = {
-    $schema: "http://json-schema.org/draft-04/schema#",
+    $schema: "http://json-schema.org/draft-07/schema#",
     definitions: {
         Cases: {
             type: "string",
@@ -66,26 +66,31 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
             required: ["nameType"],
             additionalProperties: false,
         },
-    },
-    type: "object",
-    properties: {
-        filePattern: {
-            oneOf: [
-                { type: "string" },
-                {
-                    type: "array",
-                    items: { type: "string" },
+        FileNamingRules: {
+            type: "object",
+            properties: {
+                filePattern: {
+                    oneOf: [
+                        { type: "string" },
+                        {
+                            type: "array",
+                            items: { type: "string" },
+                        },
+                    ],
                 },
-            ],
-        },
-        rules: {
-            type: "array",
-            items: { $ref: "#/definitions/NamingRule" },
+                rules: {
+                    type: "array",
+                    items: { $ref: "#/definitions/NamingRule" },
+                },
+            },
+            required: ["filePattern", "rules"],
+            additionalProperties: false,
         },
     },
-    required: ["filePattern", "rules"],
-    additionalProperties: false,
+    type: "array",
+    items: { $ref: "#/definitions/FileNamingRules" },
 };
+
 export const ESLINT_ERRORS = {
     invalidName: `🔥 Invalid name, allowed names: {{allowNamesWithoutReferences}}. 🔥`,
 };
