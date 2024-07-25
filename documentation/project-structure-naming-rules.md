@@ -147,10 +147,15 @@ const getFullName = ({
     name,
     surname,
     email,
-}: TransformUserDataProps): transform_user_data_return => ({
-    fullName: `${name} ${surname}`,
-    email,
-});
+}: TransformUserDataProps): transform_user_data_return => {
+    // Satisfies regex "/^{camelCase}$/",
+    const nestedFunction = () => {};
+
+    return {
+        fullName: `${name} ${surname}`,
+        email,
+    };
+};
 ```
 
 ```ts
