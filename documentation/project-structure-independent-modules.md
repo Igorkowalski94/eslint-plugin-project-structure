@@ -66,7 +66,7 @@ Add the following lines to **`.eslintrc`**.
 
 ### Step 2
 
-Create a **`independentModules.json`**, **`independentModules.json`** or **`independentModules.yaml`** in the root of your project.<br>
+Create a **`independentModules.json`** or **`independentModules.yaml`** in the root of your project.<br>
 
 > [!NOTE]
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
