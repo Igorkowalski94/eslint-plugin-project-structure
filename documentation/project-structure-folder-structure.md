@@ -57,6 +57,9 @@ If you want to check **[extensions](#extension)** that are not supported by **`e
 
 Add the following lines to **`.eslintrc`**.
 
+> [!IMPORTANT]
+> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+
 ```jsonc
  {
     "parserOptions": {
@@ -126,8 +129,8 @@ Add the following lines to **`.eslintrc`**.
 
 Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of your project.<br>
 
-> [!NOTE]
-> You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
+> [!CAUTION]
+> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
 
 If you want to help:<br>
 Leave a ⭐ and share the link with your friends. Become part of the community!<br>

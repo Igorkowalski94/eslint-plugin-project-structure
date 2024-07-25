@@ -71,6 +71,9 @@ Create a **`independentModules.json`**, **`independentModules.json`** or **`inde
 > [!NOTE]
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
 
+> [!CAUTION]
+> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+
 If you want to help:<br>
 Leave a ⭐ and share the link with your friends. Become part of the community!<br>
 If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.

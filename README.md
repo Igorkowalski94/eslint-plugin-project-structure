@@ -52,7 +52,7 @@ Enforce naming rules.
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
 ✅ Deleting parts of a file name. <br>
-✅ Naming rules only for name types located in the root of the file (not nested).
+✅ Naming rules only for name types located in the root of the file (not nested).<br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
 ✅ Different name rules for different files.<br>
