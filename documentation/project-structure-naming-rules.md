@@ -143,7 +143,7 @@ interface transform_user_data_return {
 }
 
 // Satisfies regex "/^{filename_camelCase}$/"
-const getFullName = ({
+const transformUserData = ({
     name,
     surname,
     email,
