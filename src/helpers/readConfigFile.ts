@@ -8,7 +8,10 @@ export const readConfigFile = <T>(configPath: string): T | undefined => {
     try {
         config = load(readFileSync(configPath, "utf8"));
 
-        if (!config) config = JSON.parse(readFileSync(configPath, "utf-8"));
+        if (!config)
+            config = JSON.parse(
+                JSON.stringify(readFileSync(configPath, "utf-8")),
+            );
     } catch (error) {
         return;
     }

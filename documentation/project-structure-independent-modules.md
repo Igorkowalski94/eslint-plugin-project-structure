@@ -155,7 +155,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
                     ├── 📁 components               Private / Public for ComplexComponent family.
                     ├── 📄 complexComponent.api.ts   Private / Public for ComplexComponent family.
                     ├── 📄 complexComponent.types.ts Private / Public for ComplexComponent family.
-                    └── 📄 ComplexComponent.tsx      Private / Public for Feature2 family / Public for SimpleComponent.tsx.
+                    └── 📄 ComplexComponent.tsx      Private / Public for ComplexComponent family / Public for Feature2 family / Public for SimpleComponent.tsx.
 
 ```
 

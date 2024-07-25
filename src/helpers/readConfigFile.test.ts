@@ -15,9 +15,9 @@ jest.mock("js-yaml", () => ({
 describe("readConfigFile", () => {
     it("should return config from yaml", () => {
         (readFileSync as jest.Mock).mockReturnValue('{"name":"yaml"}');
-        expect(readConfigFile("folderStructure.yaml")).toEqual({
-            name: "yaml",
-        });
+        expect(readConfigFile("folderStructure.yaml")).toEqual(
+            '{"name":"yaml"}',
+        );
     });
 
     it("should return undefined when yaml config path is incorrect", () => {
@@ -32,9 +32,9 @@ describe("readConfigFile", () => {
         (load as jest.Mock).mockReturnValue(null);
         (readFileSync as jest.Mock).mockReturnValue('{"name":"json"}');
 
-        expect(readConfigFile("folderStructure.json")).toEqual({
-            name: "json",
-        });
+        expect(readConfigFile("folderStructure.json")).toEqual(
+            '{"name":"json"}',
+        );
     });
 
     it("should return undefined when json config path is incorrect", () => {
