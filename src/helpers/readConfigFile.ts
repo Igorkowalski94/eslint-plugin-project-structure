@@ -1,6 +1,7 @@
 import { readFileSync } from "fs";
 
 import { load } from "js-yaml";
+import stripJsonComments from "strip-json-comments";
 
 export const readConfigFile = <T>(configPath: string): T | undefined => {
     let config;
@@ -10,7 +11,7 @@ export const readConfigFile = <T>(configPath: string): T | undefined => {
 
         if (!config)
             config = JSON.parse(
-                JSON.stringify(readFileSync(configPath, "utf-8")),
+                stripJsonComments(readFileSync(configPath, "utf-8")),
             );
     } catch (error) {
         return;

@@ -10,6 +10,7 @@ const jestConfig: JestConfigWithTsJest = {
                 isolatedModules: true,
             },
         ],
+        "^.+\\.[jt]sx?$": "babel-jest",
     },
     cacheDirectory: "<rootDir>/jestCache",
     collectCoverage: false,
@@ -21,6 +22,7 @@ const jestConfig: JestConfigWithTsJest = {
             branches: 100,
         },
     },
+    transformIgnorePatterns: ["/node_modules/(?!strip-json-comments).+\\.js$"],
 };
 
 export default jestConfig;
