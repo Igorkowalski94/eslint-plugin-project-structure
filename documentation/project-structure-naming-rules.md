@@ -176,7 +176,7 @@ Here you define which files should meet the rules. You can use all **[micromatch
 
 ```jsonc
 {
-    "filePattern": ["**/*.ts", "!**/index.ts"], // Name rules for all .ts files except index.ts
+    "filePattern": ["**/*.ts", "!(**/index.ts)"], // Name rules for all .ts files except index.ts
 }
 ```
 
@@ -210,22 +210,11 @@ Available types:<br>
     "filePattern": "**/*.tsx",
     "rules": [
         {
-            "nameType": "VariableDeclarator",
-        },
-    ],
-}
-```
-
-```jsonc
-{
-    "filePattern": "**/*.tsx",
-    "rules": [
-        {
             "nameType": ["FunctionDeclaration", "ArrowFunctionExpression"],
             "allowNames": [],
         },
         {
-            "nameType": ["VariableDeclarator"],
+            "nameType": "VariableDeclarator",
             "allowNames": [],
         },
     ],
@@ -246,6 +235,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
         {
             "nameType": "ArrowFunctionExpression",
             "filenamePartsToRemove": [".react"], // ComponentName.react.tsx => ComponentName.tsx
+            "allowNamesFileRoot": ["/^{filename_PascalCase}$/"],
         },
     ],
 }

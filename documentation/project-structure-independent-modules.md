@@ -130,7 +130,6 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
                 // In this case we will be able to import:
                 // "features/Feature1/feature1.types.ts"             ({family} === "features/Feature1")
                 // "features/Feature1/feature1.api.ts"               ({family} === "features/Feature1")
-                // "features/Feature1/hooks/useHook.ts"              ({family} === "features/Feature1")
                 // "features/Feature1/components/SimpleComponent.tsx" ({family} === "features/Feature1")
             ],
         },
@@ -357,7 +356,7 @@ You can use all **[micromatch.every](https://github.com/micromatch/micromatch?ta
         },
         {
             // Everything from the helpers folder except the index.ts and .js files.
-            "pattern": ["helpers/**", "!**/index.ts", "!**/*.js"],
+            "pattern": ["helpers/**", "!(**/index.ts)", "!(**/*.js)"],
         },
     ],
 }
