@@ -24,56 +24,68 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
     definitions: {
         Cases: {
             type: "string",
-            enum: ["camelCase", "PascalCase", "snake_case"],
+            enum: ["camelCase", "PascalCase", "snake_case", "SNAKE_CASE"],
         },
-        NameRule: {
+        NameType: {
+            type: "string",
+            enum: [
+                "ClassDeclaration",
+                "VariableDeclarator",
+                "FunctionDeclaration",
+                "ArrowFunctionExpression",
+                "TSTypeAliasDeclaration",
+                "TSInterfaceDeclaration",
+                "TSEnumDeclaration",
+            ],
+        },
+        NamingRule: {
             type: "object",
             properties: {
-                filePattern: {
+                nameType: {
                     oneOf: [
-                        {
-                            type: "string",
-                        },
+                        { $ref: "#/definitions/NameType" },
                         {
                             type: "array",
-                            items: {
-                                type: "string",
-                            },
+                            items: { $ref: "#/definitions/NameType" },
                         },
                     ],
                 },
                 filenamePartsToRemove: {
                     type: "array",
-                    items: {
-                        type: "string",
-                    },
-                    default: [],
+                    items: { type: "string" },
                 },
-                allowCases: {
+                allowNamesFileRoot: {
                     type: "array",
-                    items: {
-                        $ref: "#/definitions/Cases",
-                    },
-                    default: [],
+                    items: { type: "string" },
                 },
                 allowNames: {
                     type: "array",
-                    items: {
-                        type: "string",
-                    },
-                    default: [],
+                    items: { type: "string" },
                 },
             },
-            required: ["filePattern"],
+            required: ["nameType"],
             additionalProperties: false,
         },
     },
-    type: "array",
-    items: {
-        $ref: "#/definitions/NameRule",
+    type: "object",
+    properties: {
+        filePattern: {
+            oneOf: [
+                { type: "string" },
+                {
+                    type: "array",
+                    items: { type: "string" },
+                },
+            ],
+        },
+        rules: {
+            type: "array",
+            items: { $ref: "#/definitions/NamingRule" },
+        },
     },
+    required: ["filePattern", "rules"],
+    additionalProperties: false,
 };
-
 export const ESLINT_ERRORS = {
     invalidName: `🔥 Invalid name, allowed names: {{allowNamesWithoutReferences}}. 🔥`,
 };
