@@ -57,7 +57,7 @@ If you want to check **[extensions](#extension)** that are not supported by **`e
 
 Add the following lines to **`.eslintrc`**.
 
-> [!IMPORTANT]
+> [!CAUTION]
 > Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
 
 ```jsonc
@@ -504,6 +504,16 @@ The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 ```jsonc
 {
     "name": "/^{snake_case}$/",
+}
+```
+
+**`{SNAKE_CASE}`**<br>
+Add **`SNAKE_CASE`** validation to your regex.<br>
+The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
+
+```jsonc
+{
+    "name": "/^{SNAKE_CASE}$/",
 }
 ```
 

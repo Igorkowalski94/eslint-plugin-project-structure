@@ -52,7 +52,7 @@ To:
 
 ### Changes for the regexParameters
 
-From: ${{parentName}}
+From: ${{key}}
 
 ```jsonc
 {
@@ -60,11 +60,50 @@ From: ${{parentName}}
 }
 ```
 
-To: {parentName}
+To: {key}
 
 ```jsonc
 {
     "name": "/^{parentName}$/",
+}
+```
+
+### Changes for build-in PascalCase
+
+Allowed before: Component, ComponentName, ComponentName1, ComponenTTName, COMPONENTNAME.<br>
+Allowed now: Component, ComponentName, ComponentName1<br>
+
+From: `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`<br>
+To: `[A-Z](([a-z0-9]+[A-Z]?)*)`<br>
+
+### Changes for build-in camelCase
+
+Allowed before: component, componentName, componentName1, componenTTName, cOMPONENTNAME.<br>
+Allowed now: component, componentName, componentName1.<br>
+
+From: `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`<br>
+To: `[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`<br>
+
+You can go back to the old settings via [regexParameters](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#regex-parameters).
+
+```jsonc
+{
+    "regexParameters": {
+        "PascalCase": "((([A-Z]|\\d){1}([a-z]|\\d)*)*([A-Z]|\\d){1}([a-z]|\\d)*)",
+        "camelCase": "(([a-z]|\\d)+(([A-Z]|\\d){1}([a-z]|\\d)*)*)",
+    },
+}
+```
+
+### New build-in SNAKE_CASE
+
+**`{SNAKE_CASE}`**<br>
+Add **`SNAKE_CASE`** validation to your regex.<br>
+The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
+
+```jsonc
+{
+    "name": "/^{SNAKE_CASE}$/",
 }
 ```
 

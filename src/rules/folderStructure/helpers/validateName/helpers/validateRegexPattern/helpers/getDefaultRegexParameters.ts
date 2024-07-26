@@ -5,6 +5,7 @@ import {
     KEBAB_CASE,
     PASCAL_CASE,
     SNAKE_CASE_LOWER,
+    SNAKE_CASE_UPPER,
 } from "../../../../../../../consts";
 import { RegexParameters } from "../../../../../folderStructure.types";
 
@@ -15,6 +16,7 @@ export const getDefaultRegexParameters = (
     PascalCase: PASCAL_CASE,
     camelCase: CAMEL_CASE,
     snake_case: SNAKE_CASE_LOWER,
+    SNAKE_CASE: SNAKE_CASE_UPPER,
     "kebab-case": KEBAB_CASE,
     ...regexParameters,
     ParentName: getUpperCaseFirstLetter(parentName),

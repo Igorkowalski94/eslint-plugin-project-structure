@@ -1,7 +1,7 @@
 {
     "author": "Igor Kowalski (Igorkowalski94)",
     "name": "eslint-plugin-project-structure",
-    "version": "2.0.15",
+    "version": "2.0.16",
     "license": "MIT",
     "description": "Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.",
     "keywords": [
