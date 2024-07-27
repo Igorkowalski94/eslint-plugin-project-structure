@@ -59,7 +59,7 @@ Add the following lines to **`.eslintrc`**.
         "project-structure/independent-modules": "error", // warn | error
     },
     "settings": {
-        "project-structure/independent-modules-config-path": "independentModules.jsonc", // json | yaml
+        "project-structure/independent-modules-config-path": "independentModules.json", // json | yaml
     },
 }
 ```
