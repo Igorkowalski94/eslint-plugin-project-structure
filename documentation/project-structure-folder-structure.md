@@ -15,7 +15,8 @@ Enforce rules on folder structure to keep your repository consistent, orderly an
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
-Become part of the community! Leave a ⭐ and share the link with your friends.<br>
+Become part of the community!<br>
+Leave a ⭐ and share the link with your friends.<br>
 If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
 
 ### Documentation:
@@ -120,6 +121,9 @@ Add the following lines to **`.eslintrc`**.
 
 Add the following lines to **`.eslintrc`**.
 
+> [!CAUTION]
+> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+
 ```jsonc
 {
     "plugins": ["project-structure"],
@@ -135,9 +139,6 @@ Add the following lines to **`.eslintrc`**.
 ### Step 3
 
 Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of your project.<br>
-
-> [!CAUTION]
-> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
 
 #### Simple example for the structure below:
 
