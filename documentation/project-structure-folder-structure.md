@@ -2,7 +2,7 @@
 
 Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.
 
-### Features
+#### Features:
 
 ✅ Validation of folder structure (Any files/folders outside the structure will be considered an error).<br>
 ✅ Validation of folder and file names.<br>
@@ -13,9 +13,16 @@ Enforce rules on folder structure to keep your repository consistent, orderly an
 ✅ Folder recursion (You can nest a given folder structure recursively).<br>
 ✅ Forcing a nested/flat structure for a given folder.
 
-#### [**Migration guide to 2.0.0.**](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)
+[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
-#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+Become part of the community! Leave a ⭐ and share the link with your friends.<br>
+If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
+
+### Documentation:
+
+-   **[Migration guide to 2.0.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)**
+-   **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
+-   **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
 ### Go to:
 
@@ -131,10 +138,6 @@ Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of
 
 > [!CAUTION]
 > Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
-
-If you want to help:<br>
-Leave a ⭐ and share the link with your friends. Become part of the community!<br>
-If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
 
 #### Simple example for the structure below:
 

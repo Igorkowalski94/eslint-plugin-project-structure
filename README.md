@@ -2,16 +2,14 @@
 
 Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.
 
-If you want to help:<br>
-Leave a ⭐ and share the link with your friends. Become part of the community!<br>
+[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+
+Become part of the community! Leave a ⭐ and share the link with your friends.<br>
 If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
-
-#### [**Migration guide to 2.0.0.**](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)
-
-#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ### Documentation:
 
+-   **[Migration guide to 2.0.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)**
 -   **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
 -   **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 -   **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
@@ -22,7 +20,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 
 Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.
 
-#### Features
+#### Features:
 
 ✅ Validation of folder structure (Any files/folders outside the structure will be considered an error).<br>
 ✅ Validation of folder and file names.<br>
@@ -38,7 +36,7 @@ Enforce rules on folder structure to keep your repository consistent, orderly an
 Create independent modules to keep your repository scalable and easy to maintain.<br>
 Get rid of dependencies between modules and create truly independent functionalities.
 
-#### Features
+#### Features:
 
 ✅ Creating independent modules in which you control what can be imported.<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
@@ -52,7 +50,7 @@ Get rid of dependencies between modules and create truly independent functionali
 
 Enforce naming rules.
 
-#### Features
+#### Features:
 
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>

@@ -3,7 +3,7 @@
 Create independent modules to keep your repository scalable and easy to maintain.<br>
 Get rid of dependencies between modules and create truly independent functionalities.
 
-### Features
+#### Features:
 
 ✅ Creating independent modules in which you control what can be imported.<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
@@ -13,7 +13,15 @@ Get rid of dependencies between modules and create truly independent functionali
 ✅ Support for imports without extension. <br>
 ✅ Reusable import patterns. <br>
 
-#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+
+Become part of the community! Leave a ⭐ and share the link with your friends.<br>
+If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
+
+### Documentation:
+
+-   **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
+-   **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
 ### Go to:
 
@@ -73,10 +81,6 @@ Create a **`independentModules.json`** or **`independentModules.yaml`** in the r
 
 > [!CAUTION]
 > Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
-
-If you want to help:<br>
-Leave a ⭐ and share the link with your friends. Become part of the community!<br>
-If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
 
 #### Simple example for the folder structure below:
 

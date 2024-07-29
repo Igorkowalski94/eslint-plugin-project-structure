@@ -6,6 +6,9 @@ A minor configuration fix will be required for version <= 1.4.7.
 
 ### Changes for the file .eslintrc
 
+> [!CAUTION]
+> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+
 From:
 
 ```jsonc
@@ -109,14 +112,14 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ### New rules:
 
-#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ## **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 
 Create independent modules to keep your repository scalable and easy to maintain.<br>
 Get rid of dependencies between modules and create truly independent functionalities.
 
-### Features
+#### Features:
 
 ✅ Creating independent modules in which you control what can be imported.<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
@@ -130,7 +133,7 @@ Get rid of dependencies between modules and create truly independent functionali
 
 Enforce naming rules.
 
-### Features
+#### Features:
 
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>

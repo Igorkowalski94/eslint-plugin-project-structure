@@ -2,7 +2,7 @@
 
 Enforce naming rules.
 
-### Features
+#### Features:
 
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
@@ -13,7 +13,15 @@ Enforce naming rules.
 ✅ Build in case validation.<br>
 ✅ Different name rules for different files.<br>
 
-#### [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+
+Become part of the community! Leave a ⭐ and share the link with your friends.<br>
+If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
+
+### Documentation:
+
+-   **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
+-   **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 
 ### Go to:
 
@@ -45,10 +53,6 @@ Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
 > Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
-
-If you want to help:<br>
-Leave a ⭐ and share the link with your friends. Become part of the community!<br>
-If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
 
 ```jsonc
 {
