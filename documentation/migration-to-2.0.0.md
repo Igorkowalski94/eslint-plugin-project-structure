@@ -17,7 +17,7 @@ From:
         "project-structure/file-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/config-path": "projectStructure.json", // json | jsonc | yaml
+        "project-structure/config-path": "projectStructure.json", // json | yaml
     },
 }
 ```
@@ -30,7 +30,7 @@ To:
         "project-structure/folder-structure": "error", // warn | error
     },
     "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.json", // json | jsonc | yaml
+        "project-structure/folder-structure-config-path": "folderStructure.json", // json | yaml
     },
 }
 ```
