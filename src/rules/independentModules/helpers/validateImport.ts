@@ -1,10 +1,9 @@
-import { sep } from "path";
-
 import { TSESTree } from "@typescript-eslint/utils";
 import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint/Rule";
 
 import { validateAll } from "./validateAll";
 import { finalErrorGuard } from "../../../errors/finalErrorGuard";
+import { getConfigPath } from "../../../helpers/getConfigPath";
 import { Context } from "../independentModules.types";
 
 export interface ValidateImportProps {
@@ -23,9 +22,11 @@ export const validateImport = ({
     context: { cwd, filename, report, settings },
     node,
 }: ValidateImportProps): void => {
-    const configPath = `${cwd}${sep}${
-        settings["project-structure/independent-modules-config-path"]
-    }`;
+    const configPath = getConfigPath({
+        cwd,
+        key: "project-structure/independent-modules-config-path",
+        settings,
+    });
 
     try {
         validateAll({

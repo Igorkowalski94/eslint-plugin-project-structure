@@ -18,7 +18,8 @@
             "allowImportsFrom": [
                 "{familyImports}",
                 "{globalHelpers}",
-                "{globalConsts}"
+                "{globalConsts}",
+                "{globalErrors}"
             ]
         }
     ],

@@ -8,6 +8,7 @@ import {
 
 import { validateFolderStructure } from "./validateFolderStructure/validateFolderStructure";
 import { finalErrorGuard } from "../../../errors/finalErrorGuard";
+import { getConfigPath } from "../../../helpers/getConfigPath";
 
 export interface HandleProgramProps {
     context: RuleContext<"error", []>;
@@ -18,9 +19,11 @@ export const handleProgram = ({
     context: { cwd, settings, filename, report },
     node,
 }: HandleProgramProps): void => {
-    const configPath = `${cwd}${sep}${
-        settings["project-structure/folder-structure-config-path"]
-    }`;
+    const configPath = getConfigPath({
+        cwd,
+        key: "project-structure/folder-structure-config-path",
+        settings,
+    });
 
     const pathnameAbsolutePath = filename;
     const pathname = pathnameAbsolutePath
