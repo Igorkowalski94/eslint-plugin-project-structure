@@ -23,5 +23,5 @@ export const getDebugMessage = ({
         return (acc = `${acc}${JSON.stringify(newPattern)}\n`);
     }, "allowImportsFrom:\n");
 
-    return `\n\nFile path   = "${filename}"\nImport path = "${importPath}"\n{family}    = "${getFamilyPath({ filename, importPath, pattern: "{family}" })}"\n{dirname}   = "${getDirnamePath(filename, "{dirname}")}"\n${referencesMode}\n`;
+    return `\n\nFile path   = "${filename}"\nImport path = "${importPath}"\n{family}    = "${getFamilyPath({ filename, importPath, pattern: "{family}" })}"\n{dirname}   = "${getDirnamePath(filename, "{dirname}")}"\n\n${referencesMode}\n`;
 };

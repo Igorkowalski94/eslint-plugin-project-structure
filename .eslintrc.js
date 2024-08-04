@@ -29,13 +29,13 @@ module.exports = {
         "project-structure/independent-modules": "error",
         "project-structure/folder-structure": "error",
         "project-structure/naming-rules": [
-            2,
+            "error",
             {
                 filePattern: "**/*consts.ts",
                 rules: [
                     {
                         nameType: "VariableDeclarator",
-                        allowNames: ["/^{SNAKE_CASE}$/"],
+                        allowNames: ["{SNAKE_CASE}"],
                     },
                 ],
             },
@@ -48,7 +48,7 @@ module.exports = {
                             "TSTypeAliasDeclaration",
                             "TSEnumDeclaration",
                         ],
-                        allowNamesFileRoot: ["/^{PascalCase}$/"],
+                        allowNamesFileRoot: ["{PascalCase}"],
                     },
                 ],
             },
@@ -60,8 +60,8 @@ module.exports = {
                             "ArrowFunctionExpression",
                             "FunctionDeclaration",
                         ],
-                        allowNamesFileRoot: ["/^{filename_camelCase}$/"],
-                        allowNames: ["/^{camelCase}$/"],
+                        allowNamesFileRoot: ["{filename_camelCase}"],
+                        allowNames: ["{camelCase}"],
                     },
                     {
                         nameType: [
@@ -69,13 +69,13 @@ module.exports = {
                             "TSTypeAliasDeclaration",
                         ],
                         allowNamesFileRoot: [
-                            "/^{filename_PascalCase}Props$/",
-                            "/^{filename_PascalCase}Return$/",
+                            "{filename_PascalCase}Props",
+                            "{filename_PascalCase}Return",
                         ],
                     },
                     {
                         nameType: "VariableDeclarator",
-                        allowNames: ["/^{camelCase}$/"],
+                        allowNames: ["{camelCase}"],
                     },
                 ],
             },

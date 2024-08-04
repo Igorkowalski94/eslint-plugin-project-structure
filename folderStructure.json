@@ -15,33 +15,29 @@
                         "ruleId": "errors_folder"
                     },
                     {
-                        "name": "consts",
-                        "extension": ".ts"
+                        "name": "consts.ts"
                     },
                     {
-                        "name": "index",
-                        "extension": ".ts"
+                        "name": "index.ts"
                     }
                 ]
             },
             {
-                "extension": "*"
+                "name": "*"
             }
         ]
     },
     "rules": {
         "additional_files": {
-            "name": "/^{parentName}(\\.(types|consts|test))$/",
-            "extension": ".ts"
+            "name": "{parentName}(.(types|consts|test)).ts"
         },
 
         "test_file": {
-            "name": "/^{camelCase}\\.test$/",
-            "extension": ".ts"
+            "name": "{camelCase}.test.ts"
         },
 
         "helper_folder": {
-            "name": "/^{camelCase}$/",
+            "name": "{camelCase}",
             "children": [
                 {
                     "ruleId": "helpers_folder"
@@ -50,8 +46,7 @@
                     "ruleId": "additional_files"
                 },
                 {
-                    "name": "/^{parentName}$/",
-                    "extension": ".ts"
+                    "name": "{parentName}.ts"
                 }
             ]
         },
@@ -65,13 +60,12 @@
                     "ruleId": "test_file"
                 },
                 {
-                    "name": "/^{camelCase}$/",
-                    "extension": ".ts"
+                    "name": "{camelCase}.ts"
                 }
             ]
         },
         "rule_folder": {
-            "name": "/^{camelCase}$/",
+            "name": "{camelCase}",
             "children": [
                 {
                     "ruleId": "helpers_folder"
@@ -83,8 +77,7 @@
                     "ruleId": "additional_files"
                 },
                 {
-                    "name": "/^{parentName}$/",
-                    "extension": ".ts"
+                    "name": "{parentName}.ts"
                 }
             ]
         },
@@ -100,12 +93,10 @@
             "name": "errors",
             "children": [
                 {
-                    "name": "/^{camelCase}(\\.test)?$/",
-                    "extension": ".ts"
+                    "name": "{camelCase}(.test)?.ts"
                 },
                 {
-                    "name": "/^{PascalCase}(\\.test)?$/",
-                    "extension": ".ts"
+                    "name": "{PascalCase}(.test)?.ts"
                 }
             ]
         }
