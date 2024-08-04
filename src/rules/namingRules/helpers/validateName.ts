@@ -2,6 +2,7 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import micromatch from "micromatch";
 
+import { getAllowNamesWithCaseReferences } from "./getAllowNamesWithCaseReferences";
 import { getCurrentAllowNames } from "./getCurrentAllowNames";
 import { getFilenamePathWithoutRoot } from "./getFilenamePathWithoutRoot";
 import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
@@ -74,12 +75,16 @@ export const validateName = ({
 
         if (isValidExport) return;
 
+        const allowNamesWithCaseReferences = getAllowNamesWithCaseReferences(
+            allowNamesWithoutReferences,
+        );
+
         report({
             node,
             messageId: "invalidName",
             data: {
                 allowNamesWithoutReferences: JSON.stringify(
-                    allowNamesWithoutReferences,
+                    allowNamesWithCaseReferences,
                 ),
             },
         });

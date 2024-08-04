@@ -1,17 +1,11 @@
 import { readFileSync } from "fs";
 
+import { parse } from "comment-json";
 import { load } from "js-yaml";
 
 export const readConfigFile = <T>(configPath: string): T | undefined => {
-    let config;
+    if (configPath.endsWith("json"))
+        return parse(readFileSync(configPath, "utf-8")) as T;
 
-    try {
-        config = load(readFileSync(configPath, "utf8"));
-
-        if (!config) config = JSON.parse(readFileSync(configPath, "utf-8"));
-    } catch (error) {
-        return;
-    }
-
-    return config;
+    return load(readFileSync(configPath, "utf8")) as T;
 };

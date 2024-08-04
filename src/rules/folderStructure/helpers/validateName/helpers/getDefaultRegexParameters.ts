@@ -6,13 +6,18 @@ import {
     PASCAL_CASE,
     SNAKE_CASE_LOWER,
     SNAKE_CASE_UPPER,
-} from "../../../../../../../consts";
-import { RegexParameters } from "../../../../../folderStructure.types";
+} from "../../../../../consts";
+import { RegexParameters } from "../../../folderStructure.types";
 
-export const getDefaultRegexParameters = (
-    parentName: string,
-    regexParameters: RegexParameters = {},
-): Record<string, string> => ({
+interface GetDefaultRegexParametersProps {
+    parentName: string;
+    regexParameters?: RegexParameters;
+}
+
+export const getDefaultRegexParameters = ({
+    parentName,
+    regexParameters = {},
+}: GetDefaultRegexParametersProps): Record<string, string> => ({
     PascalCase: PASCAL_CASE,
     camelCase: CAMEL_CASE,
     snake_case: SNAKE_CASE_LOWER,
@@ -22,4 +27,3 @@ export const getDefaultRegexParameters = (
     ParentName: getUpperCaseFirstLetter(parentName),
     parentName: getLowerCaseFirstLetter(parentName),
 });
-8;

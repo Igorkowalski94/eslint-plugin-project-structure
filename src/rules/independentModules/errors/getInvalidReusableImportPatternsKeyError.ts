@@ -1,6 +1,4 @@
-import { FinalError } from "../../../errors/FinalError";
-
 export const getInvalidReusableImportPatternsKeyError = (key: string): Error =>
-    new FinalError(
+    new Error(
         `🔥 The '${key}' key does not exist in the reusableImportPatterns object. 🔥`,
     );

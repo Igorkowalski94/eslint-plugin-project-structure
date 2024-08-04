@@ -1,12 +1,16 @@
 import { isIgnoredPathname } from "./helpers/isIgnoredPathname";
 import { validateFolderStructure } from "./validateFolderStructure";
+import { getInvalidConfigFileError } from "../../../../errors/getInvalidConfigFileError";
 import { readConfigFile } from "../../../../helpers/readConfigFile";
-import { getInvalidConfigFileError } from "../../errors/getInvalidConfigFileError";
-import { getInvalidStructureError } from "../../errors/getInvalidStructureError";
+import { validateConfig } from "../../../../helpers/validateConfig";
 import { validatePath } from "../validatePath/validatePath";
 
 jest.mock("./helpers/isIgnoredPathname", () => ({
     isIgnoredPathname: jest.fn(),
+}));
+
+jest.mock("../../../../helpers/validateConfig", () => ({
+    validateConfig: jest.fn(),
 }));
 
 jest.mock("../validatePath/validatePath", () => ({
@@ -18,39 +22,18 @@ jest.mock("../../../../helpers/readConfigFile", () => ({
 }));
 
 describe("validateFolderStructure", () => {
-    it("should return undefined when filePath is undefined", () => {
-        expect(
-            validateFolderStructure(".projectStructurerc", undefined),
-        ).toEqual(undefined);
-    });
-
-    it.each([0, 1, "", "1", [], [1], null, undefined])(
+    it.each([null, undefined])(
         "should throw error when config is invalid config = %s",
         (config) => {
             (readConfigFile as jest.Mock).mockReturnValue(config);
 
             expect(() =>
-                validateFolderStructure(
-                    ".projectStructurerc",
-                    "ComponentName.tsx",
-                ),
-            ).toThrow(getInvalidConfigFileError(".projectStructurerc"));
-        },
-    );
-
-    it.each([0, 1, "", "1", [], [1], null, undefined])(
-        "should throw error when structure is invalid structure = %s",
-        (structure) => {
-            (readConfigFile as jest.Mock).mockReturnValue({
-                structure,
-            });
-
-            expect(() =>
-                validateFolderStructure(
-                    ".projectStructurerc",
-                    "ComponentName.tsx",
-                ),
-            ).toThrow(getInvalidStructureError());
+                validateFolderStructure({
+                    cwd: "",
+                    configPath: "folderStructure.json",
+                    filename: "ComponentName.tsx",
+                }),
+            ).toThrow(getInvalidConfigFileError("folderStructure.json"));
         },
     );
 
@@ -59,10 +42,11 @@ describe("validateFolderStructure", () => {
         (readConfigFile as jest.Mock).mockReturnValue({ structure: {} });
 
         expect(
-            validateFolderStructure(
-                ".projectStructurerc",
-                "src/features/ComponentName.tsx",
-            ),
+            validateFolderStructure({
+                cwd: "",
+                configPath: "folderStructure.json",
+                filename: "src/features/ComponentName.tsx",
+            }),
         ).toEqual(undefined);
     });
 
@@ -71,18 +55,23 @@ describe("validateFolderStructure", () => {
 
         (isIgnoredPathname as jest.Mock).mockReturnValue(false);
         (validatePath as jest.Mock).mockImplementation(validatePathMock);
-        (readConfigFile as jest.Mock).mockReturnValue({ structure: {} });
+        (validateConfig as jest.Mock).mockImplementation();
+        (readConfigFile as jest.Mock).mockReturnValue({
+            structure: { children: 2, name: {} },
+        });
 
-        validateFolderStructure(
-            ".projectStructurerc",
-            "src/features/ComponentName.tsx",
-        );
+        validateFolderStructure({
+            cwd: "",
+            configPath: "folderStructure.json",
+            filename: "src/features/ComponentName.tsx",
+        });
 
-        expect(validatePathMock).toBeCalledWith({
-            pathname: "src/features/ComponentName.tsx",
+        expect(validatePathMock).toHaveBeenCalledWith({
+            pathname: "structure/src/features/ComponentName.tsx",
+            filenameWithoutCwd: "src/features/ComponentName.tsx",
             parentName: "structure",
-            rule: {},
-            config: { structure: {} },
+            rule: { children: 2, name: {} },
+            config: { structure: { children: 2, name: {} } },
         });
     });
 });

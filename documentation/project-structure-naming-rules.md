@@ -1,17 +1,17 @@
 # project-structure/naming-rules
 
-Enforce naming rules.
+Enforce complex naming rules.
 
 #### Features:
 
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
+✅ Naming rules only for name types located in the root of the file (not nested).<br>
 ✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
 ✅ Deleting parts of a file name. <br>
-✅ Naming rules only for name types located in the root of the file (not nested).<br>
+✅ Different name rules for different files.<br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
-✅ Different name rules for different files.<br>
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -53,7 +53,7 @@ npm i --dev eslint-plugin-project-structure
 Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
-> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
 
 ```jsonc
 {
@@ -78,15 +78,15 @@ Add the following lines to **`.eslintrc`**.
             "rules": [
                 {
                     // nameTypes we are interested in.
-                    "type": "VariableDeclarator",
+                    "nameType": "VariableDeclarator",
                     "allowNames": [
                         // All variables in the file should match SNAKE_CASE.
-                        "/^{SNAKE_CASE}$/",
+                        "{SNAKE_CASE}",
 
                         // or
 
-                        // All variables must start with a capital letter.
-                        "/^[A-Z]/",
+                        // All variables must have six uppercase letters.
+                        "[A-Z]{6}",
                     ],
                 },
             ],
@@ -102,11 +102,11 @@ Add the following lines to **`.eslintrc`**.
                     ],
                     "allowNamesFileRoot": [
                         // Functions located at the root of the file (non-nested) should be named: Filename as camelCase.
-                        "/^{filename_camelCase}$/",
+                        "{filename_camelCase}",
                     ],
                     "allowNames": [
                         // Nested functions in the file should match camelCase.
-                        "/^{camelCase}$/",
+                        "{camelCase}",
                     ],
                 },
                 {
@@ -117,12 +117,12 @@ Add the following lines to **`.eslintrc`**.
                     ],
                     "allowNamesFileRoot": [
                         // Interface or type located at the root of the file (non-nested) should be named: Filename as PascalCase + Props.
-                        "/^{filename_PascalCase}Props$/",
+                        "{filename_PascalCase}Props",
 
                         //or
 
                         // Interface or type located at the root of the file (non-nested) should be named: Filename as SNAKE_CASE + _Return.
-                        "/^{filename_SNAKE_CASE}_Return$/",
+                        "{filename_SNAKE_CASE}_Return",
                     ],
                 },
             ],
@@ -134,26 +134,26 @@ Add the following lines to **`.eslintrc`**.
 ```ts
 // File transformUserData.ts
 
-// Satisfies regex "/^{filename_PascalCase}Props$/"
+// Satisfies regex "{filename_PascalCase}Props"
 interface TransformUserDataProps {
     name: number;
     surname: number;
     email: string;
 }
 
-// Satisfies regex "/^{filename_snake_case}_return$/"
+// Satisfies regex "{filename_snake_case}_return"
 interface transform_user_data_return {
     fullName: string;
     email: string;
 }
 
-// Satisfies regex "/^{filename_camelCase}$/"
+// Satisfies regex "{filename_camelCase}"
 const transformUserData = ({
     name,
     surname,
     email,
 }: TransformUserDataProps): transform_user_data_return => {
-    // Satisfies regex "/^{camelCase}$/",
+    // Satisfies regex "{camelCase}",
     const nestedFunction = () => {};
 
     return {
@@ -166,11 +166,11 @@ const transformUserData = ({
 ```ts
 // File transformUserData.consts.ts
 
-// Satisfies regex "/^{SNAKE_CASE}$/"
+// Satisfies regex "{SNAKE_CASE}"
 const IMPORTANT_VARIABLE_1 = "";
 
-// Satisfies regex "/^[A-Z]/"
-const Importantvariable2 = "";
+// Satisfies regex "[A-Z]{6}"
+const MYNAME = "";
 ```
 
 ## API:
@@ -203,7 +203,7 @@ Here you define the name type you are interested in.<br>
 Available types:<br>
 
 -   **`"ClassDeclaration"`**<br>
--   **`"VariableDeclarator`**<br>
+-   **`"VariableDeclarator"`**<br>
 -   **`"FunctionDeclaration"`**<br>
 -   **`"ArrowFunctionExpression"`**<br>
 -   **`"TSTypeAliasDeclaration"`**<br>
@@ -240,7 +240,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
         {
             "nameType": "ArrowFunctionExpression",
             "filenamePartsToRemove": [".react"], // ComponentName.react.tsx => ComponentName.tsx
-            "allowNamesFileRoot": ["/^{filename_PascalCase}$/"],
+            "allowNamesFileRoot": ["{filename_PascalCase}"],
         },
     ],
 }
@@ -249,6 +249,10 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 ### **`"allowNames"`**: `<string[] | undefined>` <a id="allow-names"></a>
 
 If the name matches at least one regex, it will be considered valid.
+
+The following improvements are automatically added to the regex:
+
+-   The name is wrapped in `^$`.
 
 > [!NOTE]
 > If you do not specify **`"allowNames"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
@@ -260,12 +264,12 @@ If the name matches at least one regex, it will be considered valid.
         {
             "nameType": "ArrowFunctionExpression",
             // Arrow functions in .tsx files should meet camelCase or PascalCase.
-            "allowNames": ["/^{camelCase}$/", "/^{PascalCase}$/"],
+            "allowNames": ["{camelCase}", "{PascalCase}"],
         },
         {
             "nameType": "VariableDeclarator",
             // Variables in .tsx files should meet SNAKE_CASE.
-            "allowNames": ["/^{SNAKE_CASE}$/"],
+            "allowNames": ["{SNAKE_CASE}"],
         },
     ],
 }
@@ -277,6 +281,10 @@ If the name matches at least one regex, it will be considered valid.
 
 If the name matches at least one regex, it will be considered valid.
 
+The following improvements are automatically added to the regex:
+
+-   The name is wrapped in `^$`.
+
 > [!NOTE]
 > If you do not specify **`"allowNamesFileRoot"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
 
@@ -287,18 +295,18 @@ If the name matches at least one regex, it will be considered valid.
         {
             "nameType": ["ArrowFunctionExpression", "FunctionDeclaration"],
             // Arrow function or function located at the root of the file (not nested) should meet the name: filename as PascalCase.
-            "allowNamesFileRoot": ["/^{filename_PascalCase}$/"],
+            "allowNamesFileRoot": ["{filename_PascalCase}"],
         },
         {
             "nameType": ["TSInterfaceDeclaration", "TSTypeAliasDeclaration"],
             "allowNamesFileRoot": [
                 // Interface or type located at the root of the file (non-nested) should meet the name: filename as PascalCase + Props.
-                "/^{filename_PascalCase}Props$/",
+                "{filename_PascalCase}Props",
 
                 // or
 
                 // Interface or type located at the root of the file (non-nested) should meet the name: filename as PascalCase + Return
-                "/^{filename_PascalCase}Return$/",
+                "{filename_PascalCase}Return",
             ],
         },
     ],
@@ -312,8 +320,8 @@ Take the name of the file you are currently in and change it to **`camelCase`**.
 
 ```jsonc
 {
-    "allowNames": ["/^{filename_camelCase}$/"],
-    "allowNamesFileRoot": ["/^{filename_camelCase}$/"],
+    "allowNames": ["{filename_camelCase}"],
+    "allowNamesFileRoot": ["{filename_camelCase}"],
 }
 ```
 
@@ -322,8 +330,8 @@ Take the name of the file you are currently in and change it to **`PascalCase`**
 
 ```jsonc
 {
-    "allowNames": ["/^{filename_PascalCase}$/"],
-    "allowNamesFileRoot": ["/^{filename_PascalCase}$/"],
+    "allowNames": ["{filename_PascalCase}"],
+    "allowNamesFileRoot": ["{filename_PascalCase}"],
 }
 ```
 
@@ -332,8 +340,8 @@ Take the name of the file you are currently in and change it to **`snake_case`**
 
 ```jsonc
 {
-    "allowNames": ["/^{filename_snake_case}$/"],
-    "allowNamesFileRoot": ["/^{filename_snake_case}$/"],
+    "allowNames": ["{filename_snake_case}"],
+    "allowNamesFileRoot": ["{filename_snake_case}"],
 }
 ```
 
@@ -342,8 +350,8 @@ Take the name of the file you are currently in and change it to **`SNAKE_CASE`**
 
 ```jsonc
 {
-    "allowNames": ["/^{filename_SNAKE_CASE}$/"],
-    "allowNamesFileRoot": ["/^{filename_SNAKE_CASE}$/"],
+    "allowNames": ["{filename_SNAKE_CASE}"],
+    "allowNamesFileRoot": ["{filename_SNAKE_CASE}"],
 }
 ```
 
@@ -353,8 +361,8 @@ The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[
 
 ```jsonc
 {
-    "allowNames": ["/^{camelCase}$/"],
-    "allowNamesFileRoot": ["/^{camelCase}$/"],
+    "allowNames": ["{camelCase}"],
+    "allowNamesFileRoot": ["{camelCase}"],
 }
 ```
 
@@ -364,8 +372,8 @@ The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 
 ```jsonc
 {
-    "allowNames": ["/^{PascalCase}$/"],
-    "allowNamesFileRoot": ["/^{PascalCase}$/"],
+    "allowNames": ["{PascalCase}"],
+    "allowNamesFileRoot": ["{PascalCase}"],
 }
 ```
 
@@ -375,8 +383,8 @@ The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
-    "allowNames": ["/^{snake_case}$/"],
-    "allowNamesFileRoot": ["/^{snake_case}$/"],
+    "allowNames": ["{snake_case}"],
+    "allowNamesFileRoot": ["{snake_case}"],
 }
 ```
 
@@ -386,7 +394,7 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
 {
-    "allowNames": ["/^{SNAKE_CASE}$/"],
-    "allowNamesFileRoot": ["/^{SNAKE_CASE}$/"],
+    "allowNames": ["{SNAKE_CASE}"],
+    "allowNamesFileRoot": ["{SNAKE_CASE}"],
 }
 ```

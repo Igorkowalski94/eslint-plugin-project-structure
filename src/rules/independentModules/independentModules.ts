@@ -12,7 +12,8 @@ export const independentModules = ESLintUtils.RuleCreator(
     name: "independent-modules",
     meta: {
         docs: {
-            description: "Force independent modules",
+            description:
+                "Create independent modules to keep your repository scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.",
         },
         type: "problem",
         schema: [],

@@ -1,14 +1,12 @@
-import { getNodeName } from "./helpers/getNodeName";
-import { getInvalidRuleError } from "../../errors/getInvalidRuleError";
-import { getInvalidTypeError } from "../../errors/getInvalidTypeError";
 import { Rule, FolderStructureConfig } from "../../folderStructure.types";
-import { getNodeRule } from "../getNodeRule";
+import { getNodeName } from "../getNodeName";
+import { getRule } from "../getRule";
 import { validateChildren } from "../validateChildren/validateChildren";
-import { validateExtension } from "../validateExtension/validateExtension";
 import { validateName } from "../validateName/validateName";
 
 interface ValidatePathProps {
     pathname: string;
+    filenameWithoutCwd: string;
     parentName: string;
     rule: Rule;
     config: FolderStructureConfig;
@@ -16,19 +14,15 @@ interface ValidatePathProps {
 
 export const validatePath = ({
     pathname,
+    filenameWithoutCwd,
     parentName,
     rule,
     config,
 }: ValidatePathProps): void => {
-    if (!rule || typeof rule !== "object" || Array.isArray(rule))
-        throw getInvalidRuleError(rule);
+    const nodeName = getNodeName(pathname);
+    const nodeRule = getRule({ rule, rules: config.rules });
 
-    const { nodeName, fileNameWithExtension } = getNodeName(pathname);
-
-    const nodeRule = getNodeRule(rule, config);
-    const { name, children, extension } = nodeRule;
-
-    if (extension && children) throw getInvalidTypeError(nodeRule);
+    const { name, children } = nodeRule;
 
     if (name)
         validateName({
@@ -38,8 +32,12 @@ export const validatePath = ({
             regexParameters: config.regexParameters,
         });
 
-    if (extension && fileNameWithExtension)
-        validateExtension(fileNameWithExtension, extension);
-
-    if (children) validateChildren({ pathname, nodeName, children, config });
+    if (children)
+        validateChildren({
+            pathname,
+            filenameWithoutCwd,
+            nodeName,
+            children,
+            config,
+        });
 };

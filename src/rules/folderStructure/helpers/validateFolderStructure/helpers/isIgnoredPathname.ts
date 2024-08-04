@@ -1,19 +1,15 @@
-import { getInvalidIgnorePatternsError } from "../../../errors/getInvalidIgnorePatternsError";
+import micromatch from "micromatch";
 
-export const isIgnoredPathname = (
-    pathname: string,
-    ignorePatterns?: string[],
-): boolean => {
+interface IsIgnoredPathnameProps {
+    pathname: string;
+    ignorePatterns?: string[];
+}
+
+export const isIgnoredPathname = ({
+    pathname,
+    ignorePatterns,
+}: IsIgnoredPathnameProps): boolean => {
     if (!ignorePatterns) return false;
 
-    if (
-        !Array.isArray(ignorePatterns) ||
-        (Array.isArray(ignorePatterns) &&
-            ignorePatterns.some(
-                (pattern) => !pattern || typeof pattern !== "string",
-            ))
-    )
-        throw getInvalidIgnorePatternsError(ignorePatterns);
-
-    return ignorePatterns.some((pattern) => new RegExp(pattern).test(pathname));
+    return micromatch.some(pathname, ignorePatterns);
 };

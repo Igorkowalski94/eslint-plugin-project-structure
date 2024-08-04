@@ -36,7 +36,7 @@ export const validateImport = ({
             configPath,
         });
     } catch (error) {
-        if (!finalErrorGuard(error)) return;
+        if (!finalErrorGuard(error)) throw error;
 
         report({
             node,

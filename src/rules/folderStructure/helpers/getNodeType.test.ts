@@ -1,11 +1,11 @@
 import { getNodeType } from "./getNodeType";
 
 describe("getNodeType", () => {
-    it("should return 'file' when nodeName includes .", () => {
+    it("should return 'file' when nodeName do not includes /", () => {
         expect(getNodeType("fileName.tsx")).toEqual("File");
     });
 
-    it("should return 'folder' when pathname do not includes .", () => {
-        expect(getNodeType("FolderName")).toEqual("Folder");
+    it("should return 'folder' when nodeName includes /", () => {
+        expect(getNodeType("FolderName/filename.tsx")).toEqual("Folder");
     });
 });

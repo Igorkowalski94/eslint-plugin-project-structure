@@ -13,7 +13,7 @@ export const namingRules = ESLintUtils.RuleCreator(
     name: "project-structure-naming-rules",
     meta: {
         docs: {
-            description: "Naming rules",
+            description: "Enforce complex naming rules.",
             recommended: "recommended",
         },
         type: "problem",

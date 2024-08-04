@@ -3,11 +3,11 @@ import { sortChildrenByNameType } from "./sortChildrenByNameType";
 describe("sortChildrenByNameType", () => {
     const children = [
         { name: "FixedName1" },
-        { name: "/^{ParentName}$/" },
+        { name: "{ParentName}" },
         { name: "FixedName2" },
         { ruleId: "ruleId" },
         { children: [] },
-        { name: "/^{camelCase}$/" },
+        { name: "{camelCase}" },
         { extension: "*" },
         { name: "FixedName3" },
     ];
@@ -19,8 +19,8 @@ describe("sortChildrenByNameType", () => {
         { ruleId: "ruleId" },
         { children: [] },
         { extension: "*" },
-        { name: "/^{camelCase}$/" },
-        { name: "/^{ParentName}$/" },
+        { name: "{camelCase}" },
+        { name: "{ParentName}" },
     ];
 
     it("should sort children by name type", () => {

@@ -1,5 +1,3 @@
-import { sep } from "path";
-
 import { TSESTree } from "@typescript-eslint/utils";
 import {
     ReportDescriptor,
@@ -25,16 +23,10 @@ export const handleProgram = ({
         settings,
     });
 
-    const pathnameAbsolutePath = filename;
-    const pathname = pathnameAbsolutePath
-        ?.replace(`${cwd}${sep}`, `structure${sep}`)
-        .split(sep)
-        .join("/");
-
     try {
-        validateFolderStructure(configPath, pathname);
+        validateFolderStructure({ configPath, filename, cwd });
     } catch (error) {
-        if (!finalErrorGuard(error)) return;
+        if (!finalErrorGuard(error)) throw error;
 
         report({
             node,

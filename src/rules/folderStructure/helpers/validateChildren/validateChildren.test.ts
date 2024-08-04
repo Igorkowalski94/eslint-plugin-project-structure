@@ -1,47 +1,12 @@
 import { validateRulesList } from "./helpers/validateRulesList";
 import { validateChildren } from "./validateChildren";
-import { getInvalidChildrenError } from "../../errors/getInvalidChildrenError";
-import { Rule } from "../../folderStructure.types";
 
 jest.mock("./helpers/validateRulesList", () => ({
     validateRulesList: jest.fn(),
 }));
 
 describe("validateChildren", () => {
-    it.each([
-        0,
-        1,
-        {},
-        null,
-        undefined,
-        "test",
-        "",
-
-        [0],
-        [1],
-        [null],
-        [undefined],
-        ["test"],
-        [""],
-    ])(
-        "should throw error when children are invalid, children =  %s",
-        (children) => {
-            expect(() =>
-                validateChildren({
-                    pathname: "src/features/ComponentName.tsx",
-                    nodeName: "src/features",
-                    children: children as Rule[],
-                    config: {
-                        structure: {
-                            name: "src",
-                        },
-                    },
-                }),
-            ).toThrow(getInvalidChildrenError(children));
-        },
-    );
-
-    it("should call validateChildren when children are not empty", () => {
+    it("should call validateRulesList when children are not empty", () => {
         const validateRulesListMock = jest.fn();
 
         (validateRulesList as jest.Mock).mockImplementation(
@@ -50,6 +15,7 @@ describe("validateChildren", () => {
 
         validateChildren({
             pathname: "src/features/ComponentName.tsx",
+            filenameWithoutCwd: "src/features/ComponentName.tsx",
             nodeName: "src/features",
             children: [
                 {
@@ -67,10 +33,10 @@ describe("validateChildren", () => {
             },
         });
 
-        expect(validateRulesListMock).toBeCalled();
+        expect(validateRulesListMock).toHaveBeenCalled();
     });
 
-    it("should not call validateChildren when children are empty", () => {
+    it("should not call validateRulesList when children are empty", () => {
         const validateRulesListMock = jest.fn();
 
         (validateRulesList as jest.Mock).mockImplementation(
@@ -79,6 +45,7 @@ describe("validateChildren", () => {
 
         validateChildren({
             pathname: "src/features/ComponentName.tsx",
+            filenameWithoutCwd: "src/features/ComponentName.tsx",
             nodeName: "src/features",
             children: [],
             config: {
@@ -88,6 +55,6 @@ describe("validateChildren", () => {
             },
         });
 
-        expect(validateRulesListMock).not.toBeCalled();
+        expect(validateRulesListMock).not.toHaveBeenCalled();
     });
 });

@@ -1,12 +1,14 @@
-import { validateRegexPattern } from "./helpers/validateRegexPattern/validateRegexPattern";
+import { applyRegexParameters } from "./helpers/applyRegexParameters";
+import { getLowerCaseFirstLetter } from "./helpers/getLowerCaseFirstLetter";
+import { getUpperCaseFirstLetter } from "./helpers/getUpperCaseFirstLetter";
+import { DOT_CHARACTER_REGEX, WILDCARD_REGEX } from "./validateName.consts";
 import { getInvalidRegexError } from "../../../../errors/getInvalidRegexError";
-import { isRegex } from "../../../../helpers/isRegex";
 import { isRegexInvalid } from "../../../../helpers/isRegexInvalid";
-import { getInvalidNameError } from "../../errors/getInvalidNameError";
-import { getNameError } from "../../errors/getNameError";
+import { getNameRegexError } from "../../errors/getNameRegexError";
+import { REFERENCES } from "../../folderStructure.consts";
 import { RegexParameters } from "../../folderStructure.types";
 
-interface ValidateNameProps {
+export interface ValidateNameProps {
     nodeName: string;
     ruleName: string;
     parentName: string;
@@ -19,18 +21,28 @@ export const validateName = ({
     parentName,
     regexParameters,
 }: ValidateNameProps): void => {
-    if (typeof ruleName !== "string") throw getInvalidNameError(ruleName);
-    if (isRegexInvalid(ruleName)) throw getInvalidRegexError(ruleName);
+    const regexImproved = ruleName
+        .replaceAll(".", DOT_CHARACTER_REGEX)
+        .replaceAll(`${DOT_CHARACTER_REGEX}${DOT_CHARACTER_REGEX}`, ".")
+        .replaceAll("*", WILDCARD_REGEX)
+        .replaceAll(`*${WILDCARD_REGEX}`, "*");
 
-    if (isRegex(ruleName))
-        return validateRegexPattern({
-            nodeName,
-            parentName,
-            regex: ruleName,
-            regexParameters,
-        });
+    if (isRegexInvalid(regexImproved))
+        throw getInvalidRegexError(regexImproved);
 
-    if (ruleName === nodeName) return;
+    const regexWithRegexParameters = applyRegexParameters({
+        regex: regexImproved,
+        parentName,
+        regexParameters,
+    });
 
-    throw getNameError(nodeName, ruleName);
+    const finalRegex = new RegExp(`^${regexWithRegexParameters}$`, "g");
+
+    if (finalRegex.test(nodeName)) return;
+
+    const regexWithParentName = ruleName
+        .replaceAll(REFERENCES.parentName, getLowerCaseFirstLetter(parentName))
+        .replaceAll(REFERENCES.ParentName, getUpperCaseFirstLetter(parentName));
+
+    throw getNameRegexError(regexWithParentName);
 };

@@ -1,87 +1,46 @@
-import { FilterRulesByTypeProps, filterRulesByType } from "./filterRulesByType";
-import {
-    RuleId,
-    FolderStructureConfig,
-    Rule,
-} from "../../../folderStructure.types";
+import { filterRulesByType } from "./filterRulesByType";
+import { FolderStructureConfig, Rule } from "../../../folderStructure.types";
 
 describe("filterRulesByType", () => {
-    const emptyRule: Rule = {} as Rule;
-
     const fileRule: Rule = {
-        extension: ".tsx",
-    };
-
-    const nameRule: Rule = {
-        name: "componentName",
+        name: "ComponentName.tsx",
     };
 
     const folderRule: Rule = {
-        children: [fileRule, emptyRule, { children: [nameRule] }],
+        children: [fileRule, { children: [fileRule] }],
     };
 
-    const config: FolderStructureConfig = {
-        ignorePatterns: [],
-        rules: {
-            folder: {
-                children: [],
-            },
-            file: {
-                extension: ".ts",
-            },
-            name: {
-                name: "elo",
-            },
-            idEmpty: {} as Rule,
-        },
-        structure: {
-            name: "src",
-        },
+    const rules: FolderStructureConfig["rules"] = {
+        folder: folderRule,
+        file: fileRule,
     };
 
-    const idFile: RuleId = { ruleId: "file" };
-    const idFolder: RuleId = { ruleId: "folder" };
-    const idEmpty = { ruleId: "idEmpty" };
-    const idName = { ruleId: "name" };
+    const idFile: Rule = { ruleId: "file" };
+    const idFolder: Rule = { ruleId: "folder" };
 
-    it.each<[boolean, Omit<FilterRulesByTypeProps, "config">]>([
-        [false, { pathname: "src/componentName", rule: fileRule }],
-        [false, { pathname: "src/componentName", rule: idFile }],
+    it.each<{ filter: boolean; pathname: string; rule: Rule }>([
+        {
+            filter: false,
+            pathname: "src/componentName",
+            rule: fileRule,
+        },
+        { filter: false, pathname: "src/componentName", rule: idFile },
 
-        [true, { pathname: "src/componentName", rule: emptyRule }],
-        [true, { pathname: "src/componentName", rule: idEmpty }],
-        [true, { pathname: "src/componentName", rule: folderRule }],
-        [true, { pathname: "src/componentName", rule: idFolder }],
-        [true, { pathname: "src/componentName", rule: idName }],
+        { filter: true, pathname: "src/componentName", rule: folderRule },
+        { filter: true, pathname: "src/componentName", rule: idFolder },
 
-        [true, { pathname: "componentName", rule: fileRule }],
-        [true, { pathname: "componentName", rule: idFile }],
-        [true, { pathname: "componentName", rule: emptyRule }],
-        [true, { pathname: "componentName", rule: idEmpty }],
+        { filter: true, pathname: "componentName", rule: fileRule },
+        { filter: true, pathname: "componentName", rule: idFile },
 
-        [false, { pathname: "componentName", rule: folderRule }],
-        [false, { pathname: "componentName", rule: idFolder }],
-    ])("should return %s  when args = %s", (filter, { pathname, rule }) => {
+        { filter: false, pathname: "componentName", rule: folderRule },
+        { filter: false, pathname: "componentName", rule: idFolder },
+    ])("should return correct value for %o", ({ filter, pathname, rule }) => {
         expect(
             filterRulesByType({
                 pathname,
                 rule,
-                config,
+                rules,
             }),
         ).toEqual(filter);
-    });
-
-    it("should return true when !nodeRule", () => {
-        expect(() =>
-            filterRulesByType({
-                pathname: "componentName",
-                rule: { ruleId: "test" },
-                config: {
-                    structure: {
-                        name: "src",
-                    },
-                },
-            }),
-        ).toThrow();
     });
 });

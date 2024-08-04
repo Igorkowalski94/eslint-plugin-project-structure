@@ -1,13 +1,13 @@
-import { convertChildrenRuleIdToRule } from "./helpers/convertChildrenRuleIdToRule";
 import { filterRulesByType } from "./helpers/filterRulesByType";
 import { getNextPathname } from "./helpers/getNextPathname";
 import { sortChildrenByNameType } from "./helpers/sortChildrenByNameType";
 import { validateRulesList } from "./helpers/validateRulesList";
-import { getInvalidChildrenError } from "../../errors/getInvalidChildrenError";
 import { FolderStructureConfig, Rule } from "../../folderStructure.types";
+import { getRule } from "../getRule";
 
 interface ValidateChildrenProps {
     pathname: string;
+    filenameWithoutCwd: string;
     nodeName: string;
     children: Rule[];
     config: FolderStructureConfig;
@@ -15,32 +15,32 @@ interface ValidateChildrenProps {
 
 export const validateChildren = ({
     pathname,
+    filenameWithoutCwd,
     nodeName,
     children,
     config,
 }: ValidateChildrenProps): void => {
-    if (
-        !Array.isArray(children) ||
-        children.some(
-            (child) =>
-                !child || typeof child !== "object" || Array.isArray(child),
-        )
-    )
-        throw getInvalidChildrenError(children);
-
-    const nextPathname = getNextPathname(pathname, nodeName);
-    const convertedChildren = convertChildrenRuleIdToRule(children, config);
-    const sortedChildren = sortChildrenByNameType(convertedChildren);
+    const nextPathname = getNextPathname({ pathname, nodeName });
+    const childrenWithRules = children.map((rule) =>
+        getRule({ rule, rules: config.rules }),
+    );
+    const sortedChildren = sortChildrenByNameType(childrenWithRules);
 
     const childrenByFileType = sortedChildren.filter((node) =>
-        filterRulesByType({ pathname: nextPathname, rule: node, config }),
+        filterRulesByType({
+            pathname: nextPathname,
+            rule: node,
+            rules: config.rules,
+        }),
     );
 
-    if (sortedChildren.length)
-        validateRulesList({
-            pathname: nextPathname,
-            parentName: nodeName,
-            nodesList: childrenByFileType,
-            config,
-        });
+    if (!sortedChildren.length) return;
+
+    validateRulesList({
+        pathname: nextPathname,
+        filenameWithoutCwd,
+        parentName: nodeName,
+        nodesList: childrenByFileType,
+        config,
+    });
 };

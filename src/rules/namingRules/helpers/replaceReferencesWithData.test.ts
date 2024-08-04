@@ -15,39 +15,39 @@ describe("replaceReferencesWithData", () => {
     }>([
         {
             filenameWithoutParts: "component-name",
-            expected: [`/^${CAMEL_CASE}$/`, `/^${PASCAL_CASE}$/`],
+            expected: [`${CAMEL_CASE}`, `${PASCAL_CASE}`],
         },
 
         {
             filenameWithoutParts: "componentName",
             allowNames: [
-                "/^{PascalCase}$/",
-                "/^{camelCase}$/",
-                "/^{snake_case}$/",
-                "/^{SNAKE_CASE}$/",
+                "{PascalCase}",
+                "{camelCase}",
+                "{snake_case}",
+                "{SNAKE_CASE}",
             ],
             expected: [
-                `/^${PASCAL_CASE}$/`,
-                `/^${CAMEL_CASE}$/`,
-                `/^${SNAKE_CASE_LOWER}$/`,
-                `/^${SNAKE_CASE_UPPER}$/`,
+                `${PASCAL_CASE}`,
+                `${CAMEL_CASE}`,
+                `${SNAKE_CASE_LOWER}`,
+                `${SNAKE_CASE_UPPER}`,
             ],
         },
         {
             filenameWithoutParts: "helperName1",
             allowNames: [
-                "/^{filename_camelCase}$/",
-                "/^{filename_snake_case}$/",
-                "/^{filename_SNAKE_CASE}$/",
-                "/^{filename_PascalCase}Props$/",
-                "/^{filename_PascalCase}Return$/",
+                "{filename_camelCase}",
+                "{filename_snake_case}",
+                "{filename_SNAKE_CASE}",
+                "{filename_PascalCase}Props",
+                "{filename_PascalCase}Return",
             ],
             expected: [
-                "/^helperName1$/",
-                "/^helper_name_1$/",
-                "/^HELPER_NAME_1$/",
-                "/^HelperName1Props$/",
-                "/^HelperName1Return$/",
+                "helperName1",
+                "helper_name_1",
+                "HELPER_NAME_1",
+                "HelperName1Props",
+                "HelperName1Return",
             ],
         },
     ])(

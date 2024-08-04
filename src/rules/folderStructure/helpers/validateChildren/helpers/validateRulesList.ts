@@ -1,12 +1,17 @@
-import { FinalError } from "../../../../../errors/FinalError";
-import { finalErrorGuard } from "../../../../../errors/finalErrorGuard";
+import { getNodePath } from "./getNodePath";
+import { getAllowedNamesError } from "../../../errors/getAllowedNamesError";
+import { getBaseErrorEnd } from "../../../errors/getBaseErrorEnd";
+import { getBaseErrorStart } from "../../../errors/getBaseErrorStart";
+import { getNodeTypeError } from "../../../errors/getNodeTypeError";
 import { ruleErrorGuard } from "../../../errors/ruleErrorGuard";
 import { Rule, FolderStructureConfig } from "../../../folderStructure.types";
+import { getNodeName } from "../../getNodeName";
 import { getNodeType } from "../../getNodeType";
 import { validatePath } from "../../validatePath/validatePath";
 
 interface ValidateRulesListProps {
     pathname: string;
+    filenameWithoutCwd: string;
     parentName: string;
     nodesList: Rule[];
     config: FolderStructureConfig;
@@ -14,43 +19,47 @@ interface ValidateRulesListProps {
 
 export const validateRulesList = ({
     pathname,
+    filenameWithoutCwd,
     parentName,
     nodesList,
     config,
 }: ValidateRulesListProps): void => {
-    const nodeName = pathname.split("/")[0];
-    const nodeType = getNodeType(nodeName);
+    const nodeName = getNodeName(pathname);
+    const nodeType = getNodeType(pathname);
+    const nodePath = getNodePath({ filenameWithoutCwd, nodeName });
 
-    let errorMessage = `\n\n 🔥🔥🔥 ${nodeType} '${nodeName}' is invalid:\n\n It should `;
-    let countAddedMessages = 0;
+    let errorMessage = getBaseErrorStart({ nodeName, nodeType });
+    let allowedNamesCount = 0;
 
-    if (nodesList.length === 0) {
-        if (nodeType === "Folder") errorMessage += "be a file.";
-        if (nodeType === "File") errorMessage += "be a folder.";
-    }
+    if (nodesList.length === 0)
+        throw getNodeTypeError({ errorMessage, nodePath, nodeType });
 
     for (const childNode of nodesList) {
         try {
-            validatePath({ pathname, parentName, rule: childNode, config });
+            validatePath({
+                pathname,
+                filenameWithoutCwd,
+                parentName,
+                rule: childNode,
+                config,
+            });
             return;
         } catch (error) {
-            if (finalErrorGuard(error) && error.type === "final")
-                throw new FinalError(error.message);
-
             if (
                 ruleErrorGuard(error) &&
-                !errorMessage.includes(error.ruleMessage)
+                !errorMessage.includes(error.message)
             ) {
-                if (countAddedMessages === 0) {
-                    errorMessage += error.ruleMessage;
-                } else {
-                    errorMessage += "\n or " + error.ruleMessage;
-                }
+                errorMessage += getAllowedNamesError({
+                    allowedNamesCount,
+                    error,
+                });
 
-                countAddedMessages++;
+                allowedNamesCount++;
+            } else {
+                throw error;
             }
         }
     }
 
-    throw new FinalError(`${errorMessage} \n\n 🔥🔥🔥`);
+    throw getBaseErrorEnd({ errorMessage, nodePath });
 };

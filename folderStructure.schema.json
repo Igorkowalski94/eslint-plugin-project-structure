@@ -1,236 +1,59 @@
 {
-    "$ref": "#/definitions/FolderStructureConfig",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
-        "Extension": {
-            "anyOf": [
-                {
-                    "type": "string"
-                },
-                {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            ]
-        },
-        "RuleIdAlone": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "children": {
-                    "default": [],
-                    "type": "null"
-                },
-                "extension": {
-                    "default": "",
-                    "type": "null"
-                },
-                "name": {
-                    "default": "",
-                    "type": "null"
-                }
-            },
-            "required": ["ruleId"],
-            "type": "object"
-        },
-        "RuleIdName": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "children": {
-                    "default": [],
-                    "type": "null"
-                },
-                "extension": {
-                    "default": "",
-                    "type": "null"
-                },
-                "name": {
-                    "default": "",
-                    "type": "string"
-                }
-            },
-            "required": ["ruleId", "name"],
-            "type": "object"
-        },
-        "RuleIdFile": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "children": {
-                    "default": "🔥 Type error: Cannot use 'children' together with 'extension'. 🔥",
-                    "type": "null"
-                },
-                "extension": {
-                    "default": "",
-                    "$ref": "#/definitions/Extension"
-                },
-                "name": {
-                    "default": "",
-                    "type": "string"
-                }
-            },
-            "required": ["ruleId", "extension"],
-            "type": "object"
-        },
-        "RuleIdFolder": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "extension": {
-                    "default": "🔥 Type error: Cannot use 'extension' together with 'children'. 🔥",
-                    "type": "null"
-                },
-                "children": {
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/Rule"
-                    },
-                    "type": "array"
-                },
-                "name": {
-                    "default": "",
-                    "type": "string"
-                }
-            },
-            "required": ["ruleId", "children"],
-            "type": "object"
-        },
-        "NameRule": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "children": {
-                    "default": [],
-                    "type": "null"
-                },
-                "extension": {
-                    "default": "",
-                    "type": "null"
-                },
-                "name": {
-                    "default": "",
-                    "type": "string"
-                }
-            },
-            "required": ["name"],
-            "type": "object"
-        },
-        "FileRule": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "children": {
-                    "default": "🔥 Type error: Cannot use 'children' together with 'extension'. 🔥",
-                    "type": "null"
-                },
-                "extension": {
-                    "default": "",
-                    "$ref": "#/definitions/Extension"
-                },
-                "name": {
-                    "default": "",
-                    "type": "string"
-                }
-            },
-            "required": ["extension"],
-            "type": "object"
-        },
-        "FolderRule": {
-            "additionalProperties": false,
-            "properties": {
-                "ruleId": {
-                    "default": "",
-                    "type": "string"
-                },
-                "extension": {
-                    "default": "🔥 Type error: Cannot use 'extension' together with 'children'. 🔥",
-                    "type": "null"
-                },
-                "children": {
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/Rule"
-                    },
-                    "type": "array"
-                },
-                "name": {
-                    "default": "",
-                    "type": "string"
-                }
-            },
-            "required": ["children"],
-            "type": "object"
-        },
-        "FolderStructureConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "ignorePatterns": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "rules": {
-                    "additionalProperties": {
-                        "$ref": "#/definitions/Rule"
-                    },
-                    "type": "object"
-                },
-                "structure": {
-                    "$ref": "#/definitions/Rule"
-                },
-                "regexParameters": {
-                    "type": "object"
-                }
-            },
-            "required": ["structure"],
-            "type": "object"
-        },
         "Rule": {
-            "anyOf": [
-                {
-                    "$ref": "#/definitions/NameRule"
+            "type": "object",
+            "default": { "name": "" },
+            "properties": {
+                "ruleId": {
+                    "type": "string",
+                    "default": ""
                 },
-                {
-                    "$ref": "#/definitions/FolderRule"
+                "name": {
+                    "type": "string",
+                    "default": ""
                 },
-                {
-                    "$ref": "#/definitions/FileRule"
-                },
-                {
-                    "$ref": "#/definitions/RuleIdAlone"
-                },
-                {
-                    "$ref": "#/definitions/RuleIdName"
-                },
-                {
-                    "$ref": "#/definitions/RuleIdFile"
-                },
-                {
-                    "$ref": "#/definitions/RuleIdFolder"
+                "children": {
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/Rule"
+                    }
                 }
-            ]
+            },
+            "additionalProperties": false
+        },
+        "RegexParameters": {
+            "type": "object",
+            "default": {},
+            "additionalProperties": {
+                "type": "string"
+            }
         }
-    }
+    },
+    "type": "object",
+    "properties": {
+        "ignorePatterns": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "string"
+            }
+        },
+        "structure": {
+            "$ref": "#/definitions/Rule"
+        },
+        "rules": {
+            "type": "object",
+            "default": {},
+            "additionalProperties": {
+                "$ref": "#/definitions/Rule"
+            }
+        },
+        "regexParameters": {
+            "$ref": "#/definitions/RegexParameters"
+        }
+    },
+    "required": ["structure"],
+    "additionalProperties": false
 }

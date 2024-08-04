@@ -1,2 +1,8 @@
-export const getNextPathname = (pathname: string, nodeName: string): string =>
-    pathname.replace(`${nodeName}/`, "");
+interface GetNextPathnameProps {
+    pathname: string;
+    nodeName: string;
+}
+export const getNextPathname = ({
+    nodeName,
+    pathname,
+}: GetNextPathnameProps): string => pathname.replace(`${nodeName}/`, "");

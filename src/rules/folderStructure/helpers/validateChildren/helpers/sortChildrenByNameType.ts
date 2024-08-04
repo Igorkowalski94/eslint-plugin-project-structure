@@ -1,3 +1,4 @@
+import { isRegex } from "./isRegex";
 import { Rule } from "../../../folderStructure.types";
 
 /**
@@ -14,7 +15,7 @@ import { Rule } from "../../../folderStructure.types";
  *           "children": []
  *       },
  *       {
- *           "name": "/^{PascalCase}$/",
+ *           "name": "{PascalCase}",
  *           "children": []
  *       }
  *   ]
@@ -22,8 +23,8 @@ import { Rule } from "../../../folderStructure.types";
  */
 export const sortChildrenByNameType = (children: Rule[]): Rule[] =>
     children.sort(({ name: nameA }, { name: nameB }) => {
-        if (nameA?.includes("/") && !nameB?.includes("/")) return 1;
-        if (!nameA && !nameB?.includes("/")) return 1;
+        if (isRegex(nameA) && !isRegex(nameB)) return 1;
+        if (!nameA && !isRegex(nameB)) return 1;
 
         return -1;
     });

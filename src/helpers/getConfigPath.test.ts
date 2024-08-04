@@ -1,11 +1,11 @@
 import { getConfigPath } from "./getConfigPath";
-import { getMissingConfigError } from "../errors/getMissingConfigError";
+import { getMissingConfigFileError } from "../errors/getMissingConfigFileError";
 
 describe("getConfigPath", () => {
-    it("should throw getMissingConfigError when config path is missing", () => {
+    it("should throw getMissingConfigFileError when config path is missing", () => {
         expect(() =>
             getConfigPath({ cwd: "src", key: "ruleKey", settings: {} }),
-        ).toThrow(getMissingConfigError("ruleKey"));
+        ).toThrow(getMissingConfigFileError("ruleKey"));
     });
 
     it("should return config path when settings contain config path - relative", () => {

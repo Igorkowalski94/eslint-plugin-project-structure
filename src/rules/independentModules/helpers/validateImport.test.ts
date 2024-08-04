@@ -39,12 +39,12 @@ describe("validateImport", () => {
             throw "random error";
         });
 
-        validateImport({
-            context: { report: reportMock, settings: {} },
-            importPath: "",
-            node: {},
-        } as unknown as ValidateImportProps);
-
-        expect(reportMock).not.toHaveBeenCalled();
+        expect(() =>
+            validateImport({
+                context: { report: reportMock, settings: {} },
+                importPath: "",
+                node: {},
+            } as unknown as ValidateImportProps),
+        ).toThrow("random error");
     });
 });

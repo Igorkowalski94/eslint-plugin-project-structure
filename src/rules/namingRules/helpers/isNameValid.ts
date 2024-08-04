@@ -1,5 +1,4 @@
 import { getInvalidRegexError } from "../../../errors/getInvalidRegexError";
-import { isRegex } from "../../../helpers/isRegex";
 import { isRegexInvalid } from "../../../helpers/isRegexInvalid";
 import { NamingRule } from "../namingRules.types";
 
@@ -14,14 +13,9 @@ export const isNameValid = ({
 }: IsNameValidProps): boolean =>
     Boolean(
         allowNamesWithoutReferences?.some((pattern) => {
-            if (!isRegex(pattern) || isRegexInvalid(pattern))
-                throw getInvalidRegexError(pattern);
+            if (isRegexInvalid(pattern)) throw getInvalidRegexError(pattern);
 
-            const cleanedRegex = (
-                pattern.match(/^\/(.+)\/$/) as RegExpMatchArray
-            )[1];
-
-            const regexp = new RegExp(cleanedRegex, "g");
+            const regexp = new RegExp(`^${pattern}$`, "g");
 
             return regexp.test(name);
         }),

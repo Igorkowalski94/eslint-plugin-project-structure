@@ -3,7 +3,10 @@ import { getNextPathname } from "./getNextPathname";
 describe("getNextPathname", () => {
     it("should return correct next path", () => {
         expect(
-            getNextPathname("src/features/ComponentName.tsx", "src/features"),
+            getNextPathname({
+                pathname: "src/features/ComponentName.tsx",
+                nodeName: "src/features",
+            }),
         ).toEqual("ComponentName.tsx");
     });
 });

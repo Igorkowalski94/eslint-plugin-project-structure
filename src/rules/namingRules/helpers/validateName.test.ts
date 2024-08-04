@@ -4,7 +4,6 @@ import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import { getCurrentAllowNames } from "./getCurrentAllowNames";
 import { isCorrectNameType } from "./isCorrectNameType";
 import { validateName } from "./validateName";
-import { CAMEL_CASE } from "../../../consts";
 import { ESLINT_ERRORS } from "../namingRules.consts";
 import { FileNamingRules } from "../namingRules.types";
 
@@ -64,7 +63,7 @@ describe("validateName", () => {
                             rules: [
                                 {
                                     nameType: "VariableDeclarator",
-                                    allowNames: ["/^{camelCase}$/"],
+                                    allowNames: ["{camelCase}"],
                                 },
                             ],
                         },
@@ -106,7 +105,7 @@ describe("validateName", () => {
                             rules: [
                                 {
                                     nameType: "VariableDeclarator",
-                                    allowNames: ["/^{camelCase}$/"],
+                                    allowNames: ["{camelCase}"],
                                 },
                             ],
                         },
@@ -130,7 +129,7 @@ describe("validateName", () => {
         const isCorrectNameTypeMock = jest.fn().mockReturnValue(true);
         const getCurrentAllowNamesMock = jest
             .fn()
-            .mockReturnValue(["/^{camelCase}$/"]);
+            .mockReturnValue(["{camelCase}"]);
         const reportMock = jest.fn();
 
         (isCorrectNameType as jest.Mock).mockImplementation(
@@ -151,7 +150,7 @@ describe("validateName", () => {
                         rules: [
                             {
                                 nameType: "VariableDeclarator",
-                                allowNames: ["/^{camelCase}$/"],
+                                allowNames: ["{camelCase}"],
                             },
                         ],
                     },
@@ -172,9 +171,7 @@ describe("validateName", () => {
             node: {},
             messageId: "invalidName",
             data: {
-                allowNamesWithoutReferences: JSON.stringify([
-                    `/^${CAMEL_CASE}$/`,
-                ]),
+                allowNamesWithoutReferences: JSON.stringify(["{camelCase}"]),
             },
         });
     });
@@ -183,7 +180,7 @@ describe("validateName", () => {
         const isCorrectNameTypeMock = jest.fn().mockReturnValue(true);
         const getCurrentAllowNamesMock = jest
             .fn()
-            .mockReturnValue(["/^{camelCase}$/"]);
+            .mockReturnValue(["{camelCase}"]);
         const reportMock = jest.fn();
 
         (isCorrectNameType as jest.Mock).mockImplementation(
@@ -204,7 +201,7 @@ describe("validateName", () => {
                         rules: [
                             {
                                 nameType: "VariableDeclarator",
-                                allowNames: ["/^{camelCase}$/"],
+                                allowNames: ["{camelCase}"],
                             },
                         ],
                     },

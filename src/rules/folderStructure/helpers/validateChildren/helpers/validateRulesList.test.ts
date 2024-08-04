@@ -1,5 +1,10 @@
 import { validateRulesList } from "./validateRulesList";
+import { getAllowedNamesError } from "../../../errors/getAllowedNamesError";
+import { getBaseErrorEnd } from "../../../errors/getBaseErrorEnd";
+import { getBaseErrorStart } from "../../../errors/getBaseErrorStart";
 import { getIdRuleError } from "../../../errors/getIdRuleError";
+import { getNameRegexError } from "../../../errors/getNameRegexError";
+import { getNodeTypeError } from "../../../errors/getNodeTypeError";
 import { FolderStructureConfig, Rule } from "../../../folderStructure.types";
 
 jest.mock("path", () => ({
@@ -15,11 +20,10 @@ describe("validateRulesList", () => {
                     name: "features",
                     children: [
                         {
-                            name: "/^{PascalCase}$/",
+                            name: "{PascalCase}",
                             children: [
                                 {
-                                    name: "/^{ParentName}$/",
-                                    extension: ".tsx",
+                                    name: "{ParentName}.tsx",
                                 },
                             ],
                         },
@@ -32,12 +36,10 @@ describe("validateRulesList", () => {
 
     const nodesList: Rule[] = [
         {
-            name: "/^{ParentName}(\\.(context|test|test.helpers))$/",
-            extension: ".tsx",
+            name: "{ParentName}(.(context|test|test.helpers)).tsx",
         },
         {
-            name: "/^{parentName}(\\.(api|types))$/",
-            extension: ".ts",
+            name: "{parentName}(.(api|types)).ts",
         },
     ];
 
@@ -51,25 +53,41 @@ describe("validateRulesList", () => {
         expect(() =>
             validateRulesList({
                 pathname: "componentName.api.ts",
+                filenameWithoutCwd: "src/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList: [],
                 config,
             }),
         ).toThrow(
-            "\n\n 🔥🔥🔥 File 'componentName.api.ts' is invalid:\n\n It should be a folder. \n\n 🔥🔥🔥",
+            getNodeTypeError({
+                errorMessage: getBaseErrorStart({
+                    nodeName: "componentName.api.ts",
+                    nodeType: "File",
+                }),
+                nodePath: "src/componentName.api.ts",
+                nodeType: "File",
+            }),
         );
     });
 
     it("should throw error when rule requires only files", () => {
         expect(() =>
             validateRulesList({
-                pathname: "componentName",
+                pathname: "folderName/componentName.api.ts",
+                filenameWithoutCwd: "src/folderName/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList: [],
                 config,
             }),
         ).toThrow(
-            "\n\n 🔥🔥🔥 Folder 'componentName' is invalid:\n\n It should be a file. \n\n 🔥🔥🔥",
+            getNodeTypeError({
+                errorMessage: getBaseErrorStart({
+                    nodeName: "folderName",
+                    nodeType: "Folder",
+                }),
+                nodePath: "src/folderName",
+                nodeType: "Folder",
+            }),
         );
     });
 
@@ -77,6 +95,7 @@ describe("validateRulesList", () => {
         expect(() =>
             validateRulesList({
                 pathname: "componentName.api.ts",
+                filenameWithoutCwd: "src/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList,
                 config,
@@ -88,12 +107,16 @@ describe("validateRulesList", () => {
         expect(() =>
             validateRulesList({
                 pathname: "ComponentName.tsx",
+                filenameWithoutCwd: "src/ComponentName.tsx",
                 parentName: "ComponentName",
                 nodesList,
                 config,
             }),
         ).toThrow(
-            "\n\n 🔥🔥🔥 File 'ComponentName.tsx' is invalid:\n\n It should match name pattern /^{ParentName}(\\.(context|test|test.helpers))$/\n or match name pattern /^{parentName}(\\.(api|types))$/ \n\n 🔥🔥🔥",
+            getBaseErrorEnd({
+                errorMessage: `${getBaseErrorStart({ nodeName: "ComponentName.tsx", nodeType: "File" })}${getAllowedNamesError({ allowedNamesCount: 0, error: getNameRegexError("ComponentName(.(context|test|test.helpers)).tsx") })}${getAllowedNamesError({ allowedNamesCount: 1, error: getNameRegexError("componentName(.(api|types)).ts") })}`,
+                nodePath: "src/ComponentName.tsx",
+            }),
         );
     });
 
@@ -101,6 +124,7 @@ describe("validateRulesList", () => {
         expect(() =>
             validateRulesList({
                 pathname: "componentName.api.ts",
+                filenameWithoutCwd: "src/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList: nodesListRuleIdNotExist,
                 config,

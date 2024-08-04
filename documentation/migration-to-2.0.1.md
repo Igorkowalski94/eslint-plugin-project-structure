@@ -1,13 +1,20 @@
-# Migration guide to 2.0.0
+# Migration guide to 2.1.0
 
-Version 2.0.0 introduces two new rules and minor configuration improvements.
+Version 2.1.0 introduces two new rules and minor configuration improvements.
 
 A minor configuration fix will be required for version <= 1.4.7.
+
+### General changes:
+
+-   You can now use comments in folderStructure.json and independentModules.json files.
+-   Improved error messages for folder-structure.
+-   Easier configuration of folder-structure. The "extension" key has been removed, now the file extension will be part of the "name". You don't need to add /^$/ to your regex, they will be added automatically and other improvements.
 
 ### Changes for the file .eslintrc
 
 > [!CAUTION]
-> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
+> You can freely use comments inside **`folderStructure`** file.
 
 From:
 
@@ -35,7 +42,7 @@ To:
 }
 ```
 
-### Changes for the projectStructure.json
+### Changes for the projectStructure.json => folderStructure.json
 
 From:
 
@@ -53,7 +60,17 @@ To:
 }
 ```
 
-### Changes for the regexParameters
+### Changes for the regexParameters and name.
+
+The name is treated as a `regex`.
+
+The following improvements are automatically added to the regex:
+
+-   The name is wrapped in `^$`.
+-   All `.` characters (any character except newline) will be converted to `\\.` (dot as a character).
+    If you want original behavior, use the following notation `..`.
+-   All `*` characters will be converted to `(([^/]*)+)` (wildcard).
+    If you want original behavior, use the following notation `**`.
 
 From: ${{key}}
 
@@ -67,7 +84,7 @@ To: {key}
 
 ```jsonc
 {
-    "name": "/^{parentName}$/",
+    "name": "{parentName}",
 }
 ```
 
@@ -106,7 +123,7 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "/^{SNAKE_CASE}$/",
+    "name": "{SNAKE_CASE}",
 }
 ```
 
@@ -116,7 +133,7 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ## **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 
-Create independent modules to keep your repository scalable and easy to maintain.<br>
+Create independent modules to keep your project scalable and easy to maintain.<br>
 Get rid of dependencies between modules and create truly independent functionalities.
 
 #### Features:
@@ -131,7 +148,7 @@ Get rid of dependencies between modules and create truly independent functionali
 
 ## **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
-Enforce naming rules.
+Enforce complex naming rules.
 
 #### Features:
 

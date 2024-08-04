@@ -15,17 +15,13 @@ export const REFERENCES = {
 export const DEFAULT_ROOT = "src";
 
 export const DEFAULT_ALLOW_NAMES = [
-    `/^${REFERENCES.camelCase}$/`,
-    `/^${REFERENCES.PascalCase}$/`,
+    REFERENCES.camelCase,
+    REFERENCES.PascalCase,
 ];
 
 export const NAMING_RULES_SCHEMA: JSONSchema4 = {
     $schema: "http://json-schema.org/draft-07/schema#",
     definitions: {
-        Cases: {
-            type: "string",
-            enum: ["camelCase", "PascalCase", "snake_case", "SNAKE_CASE"],
-        },
         NameType: {
             type: "string",
             enum: [

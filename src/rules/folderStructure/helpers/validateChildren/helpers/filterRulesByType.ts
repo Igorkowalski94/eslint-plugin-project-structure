@@ -1,26 +1,26 @@
 import { FolderStructureConfig, Rule } from "../../../folderStructure.types";
-import { getNodeRule } from "../../getNodeRule";
-import { isFileFromPathname } from "../../isFileFromPathname";
+import { getRule } from "../../getRule";
+import { isFile as isFileFn } from "../../isFile";
 
-export interface FilterRulesByTypeProps {
+interface FilterRulesByTypeProps {
     pathname: string;
     rule: Rule;
-    config: FolderStructureConfig;
+    rules: FolderStructureConfig["rules"];
 }
 
 export const filterRulesByType = ({
     pathname,
     rule,
-    config,
+    rules,
 }: FilterRulesByTypeProps): boolean => {
-    const nodeRule = getNodeRule(rule, config);
+    const nodeRule = getRule({ rule, rules });
 
-    const isFile = isFileFromPathname(pathname);
+    const isFile = isFileFn(pathname);
     const isFolderNode = !!nodeRule.children;
-    const isFileNode = !!nodeRule.extension;
+    const isFileNode = !nodeRule.children;
 
-    if (!isFileNode && !isFolderNode) return true;
     if (!isFile && isFolderNode) return true;
     if (isFile && isFileNode) return true;
+
     return false;
 };

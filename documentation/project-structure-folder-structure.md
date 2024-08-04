@@ -1,17 +1,17 @@
 # project-structure/folder-structure
 
-Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.
+Enforce rules on folder structure to keep your project consistent, orderly and well thought out.
 
 #### Features:
 
 ✅ Validation of folder structure (Any files/folders outside the structure will be considered an error).<br>
-✅ Validation of folder and file names.<br>
-✅ File/Folders name case validation.<br>
 ✅ File/Folders name regex validation.<br>
-✅ File extension validation (Support for all extensions).<br>
+✅ Build in case validation.<br>
 ✅ Inheriting the parent's name (The child inherits the name of the folder in which it is located).<br>
 ✅ Folder recursion (You can nest a given folder structure recursively).<br>
+✅ Accurate and detailed error messages even with multiple nested folders (recursion).<br>
 ✅ Forcing a nested/flat structure for a given folder.
+✅ Support for all file extensions.<br>
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -21,7 +21,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 
 ### Documentation:
 
--   **[Migration guide to 2.0.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.0.0.md)**
+-   **[Migration guide to 2.1.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.1.0.md)**
 -   **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 -   **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
@@ -40,7 +40,6 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
     -   [regexParameters](#regex-parameters)
         -   [Built-in regex parameters](#built-in-regex-parameters)
         -   [Regex parameters mix example](#regex-parameters-mix-example)
-    -   [extension](#extension)
     -   [children](#children)
     -   [structure](#structure)
     -   [rules](#rules)
@@ -61,12 +60,13 @@ npm i --dev eslint-plugin-project-structure
 
 ### Step 1 (optional)
 
-If you want to check **[extensions](#extension)** that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** etc., read the step below, if not go to the **[next step](#step-2)**.<br>
+If you want to check extensions that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** etc., read the step below, if not go to the **[next step](#step-2)**.<br>
 
 Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
-> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
+> You can freely use comments inside **`folderStructure`** file.
 
 ```jsonc
  {
@@ -122,7 +122,8 @@ Add the following lines to **`.eslintrc`**.
 Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
-> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
+> You can freely use comments inside **`folderStructure`** file.
 
 ```jsonc
 {
@@ -161,21 +162,21 @@ Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of
     "structure": {
         "children": [
             {
-                "extension": "*",
+                // Allow any files in the root of your project, like package.json, .eslintrc, etc. You can add rules for them separately.
+                // You can also add exceptions like this: "(?!folderStructure)*"
+                "name": "*",
             },
             {
                 "name": "src",
                 "children": [
                     {
-                        "name": "index",
-                        "extension": "tsx",
+                        "name": "index.tsx",
                     },
                     {
                         "name": "components",
                         "children": [
                             {
-                                "name": "/^{PascalCase}$/",
-                                "extension": "tsx",
+                                "name": "{PascalCase}.tsx",
                             },
                         ],
                     },
@@ -191,15 +192,13 @@ Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of
 ```yaml
 structure:
     children:
-        - extension: "*"
+        - name: "*"
         - name: src
           children:
-              - name: index
-                extension: tsx
+              - name: index.tsx
               - name: components
                 children:
-                    - name: "/^{PascalCase}$/"
-                      extension: tsx
+                    - name: "{PascalCase}.tsx"
 ```
 
 #### Advanced example for the structure below, containing all key features:
@@ -253,11 +252,13 @@ structure:
 ```jsonc
 {
     "$schema": "node_modules/eslint-plugin-project-structure/folderStructure.schema.json",
-    "ignorePatterns": ["src/legacy/*"],
+    "ignorePatterns": ["src/legacy/**"],
     "structure": {
         "children": [
             {
-                "extension": "*",
+                // Allow any files in the root of your project, like package.json, .eslintrc, etc. You can add rules for them separately.
+                // You can also add exceptions like this: "(?!folderStructure)*"
+                "name": "*",
             },
             {
                 "name": "src",
@@ -273,6 +274,25 @@ structure:
         ],
     },
     "rules": {
+        "hooks_folder": {
+            "name": "hooks",
+            "children": [
+                {
+                    "name": "use{PascalCase}",
+                    "children": [
+                        {
+                            "ruleId": "hooks_folder",
+                        },
+                        {
+                            "name": "{parentName}(.(test|api|types))?.ts",
+                        },
+                    ],
+                },
+                {
+                    "name": "use{PascalCase}(.test)?.ts",
+                },
+            ],
+        },
         "components_folder": {
             "name": "components",
             "children": [
@@ -281,29 +301,8 @@ structure:
                 },
             ],
         },
-        "hooks_folder": {
-            "name": "hooks",
-            "children": [
-                {
-                    "name": "/^use{PascalCase}$/",
-                    "children": [
-                        {
-                            "ruleId": "hooks_folder",
-                        },
-                        {
-                            "name": "/^{parentName}(\\.(test|api|types))?$/",
-                            "extension": "ts",
-                        },
-                    ],
-                },
-                {
-                    "name": "/^use{PascalCase}(\\.test)?$/",
-                    "extension": "ts",
-                },
-            ],
-        },
         "component_folder": {
-            "name": "/^{PascalCase}$/",
+            "name": "{PascalCase}",
             "children": [
                 {
                     "ruleId": "components_folder",
@@ -312,18 +311,16 @@ structure:
                     "ruleId": "hooks_folder",
                 },
                 {
-                    "name": "/^{parentName}{yourCustomRegexParameter}$/",
-                    "extension": ".ts",
+                    "name": "{parentName}{yourCustomRegexParameter}.ts",
                 },
                 {
-                    "name": "/^{ParentName}(\\.test)?$/",
-                    "extension": ".tsx",
+                    "name": "{ParentName}(.test)?.tsx",
                 },
             ],
         },
     },
     "regexParameters": {
-        "yourCustomRegexParameter": "\\.(types|api)",
+        "yourCustomRegexParameter": ".(types|api)",
     },
 }
 ```
@@ -332,10 +329,10 @@ structure:
 
 ```yaml
 ignorePatterns:
-    - src/legacy/*
+    - src/legacy/**
 structure:
     children:
-        - extension: "*"
+        - name: "*"
         - name: src
           children:
               - ruleId: hooks_folder
@@ -348,24 +345,20 @@ rules:
     hooks_folder:
         name: hooks
         children:
-            - name: "/^use{PascalCase}$/"
+            - name: "use{PascalCase}"
               children:
                   - ruleId: hooks_folder
-                  - name: "/^{parentName}(\\.(test|api|types))?$/"
-                    extension: ts
-            - name: "/^use{PascalCase}(\\.test)?$/"
-              extension: ts
+                  - name: "{parentName}(.(test|api|types))?.ts"
+            - name: "use{PascalCase}(.test)?.ts"
     component_folder:
-        name: "/^{PascalCase}$/"
+        name: "{PascalCase}"
         children:
             - ruleId: components_folder
             - ruleId: hooks_folder
-            - name: "/^{parentName}{yourCustomRegexParameter}$/"
-              extension: ".ts"
-            - name: "/^{ParentName}(\\.(context|test))?$/"
-              extension: ".tsx"
+            - name: "{parentName}{yourCustomRegexParameter}.ts"
+            - name: "{ParentName}(.(context|test))?.tsx"
 regexParameters:
-    yourCustomRegexParameter: "\\.(types|api)"
+    yourCustomRegexParameter: ".(types|api)"
 ```
 
 ## API:
@@ -383,47 +376,43 @@ Type checking for your **`folderStructure.json`**. It helps to fill configuratio
 
 ### **`"ignorePatterns"`**: `<string[] | undefined>` <a id="ignore-patterns"></a>
 
-Here you can set the paths you want to ignore.
+Here you can set the paths you want to ignore. You can use all **[micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some)** functionalities.
 
 ```jsonc
 {
-    "ignorePatterns": ["src/legacy/*"],
+    "ignorePatterns": ["src/legacy/**"],
     // ...
 }
 ```
 
 ### **`"name"`**: `<string | undefined>` <a id="name"></a>
 
+The name is treated as a `regex`.
+
+The following improvements are automatically added to the regex:
+
+-   The name is wrapped in `^$`.
+-   All `.` characters (any character except newline) will be converted to `\\.` (dot as a character).
+    If you want original behavior, use the following notation `..`.
+-   All `*` characters will be converted to `(([^/]*)+)` (wildcard).
+    If you want original behavior, use the following notation `**`.
+
 When used with **[children](#children)** this will be the name of **`folder`**.<br>
-When used with **[extension](#extension)** this will be the name of **`file`**.<br>
-If used without **[children](#children)** and **[extension](#extension)** this will be name of **`folder`** and **`file`**.<br>
+When used without **[children](#children)** this will be the name of **`file`**.<br>
 
 > [!NOTE]
 > If you only care about the name of the **`folder`** without rules for its **[children](#children)**, leave the **[children](#children)** as **`[]`**.
 
-> [!NOTE]
-> If you only care about the name of the **`file`** without rules for its **[extension](#extension)**, leave the **[extension](#extension)** as **`"*"`**.
-
-#### Fixed name <a id="fixed-name"></a>
-
-Fixed **`file`**/**`folder`** name.
-
 ```jsonc
 {
-    "name": "FixedName",
-    // ...
+    "name": "fileName.*",
 }
 ```
 
-#### Regex <a id="regex"></a>
-
-Dynamic **`file`**/**`folder`** name.<br>
-Remember that the regular expression must start and end with a **`/`**.
-
 ```jsonc
 {
-    "name": "/^Regex logic$/",
-    // ...
+    "name": "folderName",
+    "children": [],
 }
 ```
 
@@ -446,20 +435,14 @@ You can freely mix regex parameters together see **[example](#regex-parameters-m
 }
 ```
 
-Then you can use them in **[regex](#regex)** with the following notation **`{yourCustomRegexParameter}`**.
+Then you can use them in **[name](#name)** with the following notation **`{yourCustomRegexParameter}`**.
 
 ```jsonc
 {
-    "name": "/^{yourCustomRegexParameter}$/",
+    "name": "{yourCustomRegexParameter}",
     // ...
 }
 ```
-
-> [!NOTE]
-> Remember that the regular expression must start and end with a **`/`**.
-
-> [!NOTE]
-> If your parameter will only be part of the **[regex](#regex)**, I recommend wrapping it in parentheses and not adding **`/^$/`**.
 
 #### Built-in regex parameters
 
@@ -468,7 +451,7 @@ The child inherits the name of the **`folder`** in which it is located and sets 
 
 ```jsonc
 {
-    "name": "/^{parentName}$/",
+    "name": "{parentName}",
 }
 ```
 
@@ -477,7 +460,7 @@ The child inherits the name of the **`folder`** in which it is located and sets 
 
 ```jsonc
 {
-    "name": "/^{ParentName}$/",
+    "name": "{ParentName}",
 }
 ```
 
@@ -487,7 +470,7 @@ The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 
 ```jsonc
 {
-    "name": "/^{PascalCase}$/",
+    "name": "{PascalCase}",
 }
 ```
 
@@ -497,7 +480,7 @@ The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[
 
 ```jsonc
 {
-    "name": "/^{camelCase}$/",
+    "name": "{camelCase}",
 }
 ```
 
@@ -507,7 +490,7 @@ The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "/^{snake_case}$/",
+    "name": "{snake_case}",
 }
 ```
 
@@ -517,7 +500,7 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "/^{SNAKE_CASE}$/",
+    "name": "{SNAKE_CASE}",
 }
 ```
 
@@ -527,7 +510,7 @@ The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "/^{kebab-case}$/",
+    "name": "{kebab-case}",
 }
 ```
 
@@ -537,47 +520,25 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 
 ```jsonc
 {
-    // useNiceHook
-    // useNiceHook.api
-    // useNiceHook.test
-    "name": "/^use{PascalCase}(\\.(test|api))?$/",
+    // useNiceHook.ts
+    // useNiceHook.api.ts
+    // useNiceHook.test.ts
+    "name": "use{PascalCase}(.(test|api))?.ts",
 }
 ```
 
 ```jsonc
 {
-    // YourParentName.hello_world
-    // YourParentName.hello_world.test
-    // YourParentName.hello_world.api
-    "name": "/^{ParentName}\\.{snake_case}(\\.(test|api))?$/",
+    // YourParentName.hello_world.ts
+    // YourParentName.hello_world.test.ts
+    // YourParentName.hello_world.api.ts
+    "name": "{ParentName}.{snake_case}(.(test|api))?.ts",
 }
 ```
-
-### **`"extension"`**: `<string | string[] | undefined>` <a id="extension"></a>
-
-Extension of your **`file`**.<br>
-Not available when **[children](#children)** are used.
-
-```jsonc
-{
-    "extension": ["*", ".ts", ".tsx", "js", "jsx", "..."],
-    // ...
-}
-```
-
-> [!WARNING]
-> If you want to check extensions that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** go to **[Step 1](#step-1-optional)**.
-
-> [!NOTE]
-> You don't need to add **`.`** it is optional.
-
-> [!NOTE]
-> If you want to include all extensions use **`*`**.
 
 ### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
 
 **`Folder`** children rules.<br>
-Not available when **[extension](#extension)** is used.
 
 ```jsonc
 {
@@ -627,7 +588,9 @@ The structure of your project and its rules.
                 ],
             },
             {
-                "extension": "*", // All files located in the root of your project, like package.json, .eslintrc, etc. You can specify them more precisely.
+                // Allow any files in the root of your project, like package.json, .eslintrc, etc. You can add rules for them separately.
+                // You can also add exceptions like this: "(?!folderStructure)*"
+                "name": "*",
             },
             // ...
         ],
@@ -670,7 +633,7 @@ A reference to your custom rule.
 }
 ```
 
-You can use it with other keys like **[name](#name)**, **[extension](#extension)** and **[children](#children)** but remember that they will **override** the keys from your custom rule.<br>
+You can use it with other keys like **[name](#name)** and **[children](#children)** but remember that they will **override** the keys from your custom rule.<br>
 This is useful if you want to get rid of a lot of repetition in your structure, for example, **`folders`** have different **[name](#name)**, but the same **[children](#children)**.
 
 ```
@@ -705,7 +668,7 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
                         "name": "folder1",
                         "children": [
                             {
-                                "name": "/^{PascalCase}$/",
+                                "name": "{PascalCase}",
                                 "ruleId": "shared_children",
                             },
                         ],
@@ -714,7 +677,7 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
                         "name": "folder2",
                         "children": [
                             {
-                                "name": "/^(subFolder1|subFolder2)$/",
+                                "name": "(subFolder1|subFolder2)",
                                 "ruleId": "shared_children",
                             },
                         ],
@@ -728,12 +691,10 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
         "shared_children": {
             "children": [
                 {
-                    "name": "/^{PascalCase}$/",
-                    "extension": ".tsx",
+                    "name": "{PascalCase}.tsx",
                 },
                 {
-                    "name": "/^{camelCase}$/",
-                    "extension": ".ts",
+                    "name": "{camelCase}.ts",
                 },
             ],
         },
@@ -780,7 +741,7 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
     },
     "rules": {
         "yourCustomRule": {
-            "name": "/^{PascalCase}$/",
+            "name": "{PascalCase}",
             "children": [
                 {
                     "name": "components",

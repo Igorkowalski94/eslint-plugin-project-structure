@@ -83,6 +83,11 @@ describe("addExtensionToImportPath", () => {
             extensions: undefined,
             expected: "@types/lib/index.d.ts",
         },
+        {
+            importPath: "react",
+            extensions: undefined,
+            expected: "react",
+        },
     ])(
         "Should return correct value for %s",
         ({ importPath, extensions, expected }) => {

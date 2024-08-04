@@ -1,11 +1,13 @@
 # project-structure-independent-modules
 
-Create independent modules to keep your repository scalable and easy to maintain.<br>
-Get rid of dependencies between modules and create truly independent functionalities.
+A key principle of a healthy project is to prevent the creation of a massive dependency tree,<br>
+where removing or editing one feature triggers a chain reaction that impacts the entire project.<br>
+Create independent modules to keep your project scalable and easy to maintain.<br>
+Get rid of dependencies between modules and create truly independent functionalities.<br>
 
 #### Features:
 
-✅ Creating independent modules in which you control what can be imported.<br>
+✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components etc. of one functionality cannot be imported into another functionality).<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
 ✅ Reference {dirname} which allows you to decide about the current directory and its level in the pattern.<br>
 ✅ Reference {family} which finds the common part between a given import and the current file.<br>
@@ -62,7 +64,8 @@ npm i --dev eslint-plugin-independent-modules
 Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
-> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
+> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
+> You can freely use comments inside **`independentModules`** file.
 
 ```jsonc
 {
@@ -82,9 +85,6 @@ Create a **`independentModules.json`** or **`independentModules.yaml`** in the r
 
 > [!NOTE]
 > You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
-
-> [!CAUTION]
-> Remember to remove comments from the JSON file. Otherwise the configuration will be incorrect.
 
 #### Simple example for the folder structure below:
 

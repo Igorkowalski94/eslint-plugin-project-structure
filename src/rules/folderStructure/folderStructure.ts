@@ -9,7 +9,8 @@ export const folderStructure = ESLintUtils.RuleCreator(
     name: "project-structure-folder-structure",
     meta: {
         docs: {
-            description: "Force folder structure",
+            description:
+                "Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.",
             recommended: "recommended",
         },
         type: "problem",

@@ -1,0 +1,17 @@
+import { FinalError } from "../../../errors/FinalError";
+import { NodeType } from "../folderStructure.types";
+
+interface GetNodeTypeErrorProps {
+    nodeType: NodeType;
+    errorMessage: string;
+    nodePath: string;
+}
+
+export const getNodeTypeError = ({
+    errorMessage,
+    nodePath,
+    nodeType,
+}: GetNodeTypeErrorProps): FinalError =>
+    new FinalError(
+        `${errorMessage}According to the structure it should be a ${nodeType === "File" ? "folder" : "file"}.\nLocation = ${nodePath}\n\n`,
+    );

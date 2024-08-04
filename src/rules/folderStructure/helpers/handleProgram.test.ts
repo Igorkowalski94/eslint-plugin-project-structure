@@ -30,7 +30,7 @@ describe("validateImport", () => {
         expect(reportMock).toHaveBeenCalled();
     });
 
-    test("Should not call report when error !== FinalError ", () => {
+    test("Should throw random error when error !== FinalError ", () => {
         const reportMock = jest.fn();
 
         (getConfigPath as jest.Mock).mockReturnValue("configPath");
@@ -39,12 +39,12 @@ describe("validateImport", () => {
             throw "random error";
         });
 
-        handleProgram({
-            context: { report: reportMock, settings: {} },
-            importPath: "",
-            node: {},
-        } as unknown as HandleProgramProps);
-
-        expect(reportMock).not.toHaveBeenCalled();
+        expect(() =>
+            handleProgram({
+                context: { report: reportMock, settings: {} },
+                importPath: "",
+                node: {},
+            } as unknown as HandleProgramProps),
+        ).toThrow("random error");
     });
 });
