@@ -65,7 +65,7 @@ If you want to check extensions that are not supported by **`eslint`** like **`.
 Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
-> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
+> Remember to remove comments from the **`.eslintrc`**. file, otherwise the configuration will be incorrect.<br>
 > You can freely use comments inside **`folderStructure`** file.
 
 ```jsonc
@@ -122,7 +122,7 @@ Add the following lines to **`.eslintrc`**.
 Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
-> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
+> Remember to remove comments from the **`.eslintrc`**. file, otherwise the configuration will be incorrect.<br>
 > You can freely use comments inside **`folderStructure`** file.
 
 ```jsonc

@@ -64,7 +64,7 @@ npm i --dev eslint-plugin-independent-modules
 Add the following lines to **`.eslintrc`**.
 
 > [!CAUTION]
-> Remember to remove comments from the **`.eslintrc`**. file. Otherwise the configuration will be incorrect.<br>
+> Remember to remove comments from the **`.eslintrc`**. file, otherwise the configuration will be incorrect.<br>
 > You can freely use comments inside **`independentModules`** file.
 
 ```jsonc

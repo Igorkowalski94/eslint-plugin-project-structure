@@ -34,7 +34,8 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 
 ## **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 
-A key principle of a healthy project is to prevent the creation of a massive dependency tree,<br> where removing or editing one feature triggers a chain reaction that impacts the entire project.<br>
+A key principle of a healthy project is to prevent the creation of a massive dependency tree,<br>
+where removing or editing one feature triggers a chain reaction that impacts the entire project.<br>
 Create independent modules to keep your project scalable and easy to maintain.<br>
 Get rid of dependencies between modules and create truly independent functionalities.<br>
 
