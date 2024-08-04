@@ -10,7 +10,7 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 ✅ Inheriting the parent's name (The child inherits the name of the folder in which it is located).<br>
 ✅ Folder recursion (You can nest a given folder structure recursively).<br>
 ✅ Accurate and detailed error messages even with multiple nested folders (recursion).<br>
-✅ Forcing a nested/flat structure for a given folder.
+✅ Forcing a nested/flat structure for a given folder.<br>
 ✅ Support for all file extensions.<br>
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.

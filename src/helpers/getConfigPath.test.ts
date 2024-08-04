@@ -1,7 +1,13 @@
+import path from "path";
+
 import { getConfigPath } from "./getConfigPath";
 import { getMissingConfigFileError } from "../errors/getMissingConfigFileError";
 
 describe("getConfigPath", () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     it("should throw getMissingConfigFileError when config path is missing", () => {
         expect(() =>
             getConfigPath({ cwd: "src", key: "ruleKey", settings: {} }),
@@ -9,6 +15,10 @@ describe("getConfigPath", () => {
     });
 
     it("should return config path when settings contain config path - relative", () => {
+        jest.spyOn(path, "resolve").mockImplementation(
+            () => "C:\\relative\\src\\config.json",
+        );
+
         expect(
             getConfigPath({
                 cwd: "C:/relative/src",
@@ -19,6 +29,10 @@ describe("getConfigPath", () => {
     });
 
     it("should return config path when settings contain config path - absolute", () => {
+        jest.spyOn(path, "resolve").mockImplementation(
+            () => "D:\\relative\\src\\config.json",
+        );
+
         expect(
             getConfigPath({
                 cwd: "C:/absolute/src",

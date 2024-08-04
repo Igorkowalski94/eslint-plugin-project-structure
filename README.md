@@ -29,7 +29,7 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 ✅ Inheriting the parent's name (The child inherits the name of the folder in which it is located).<br>
 ✅ Folder recursion (You can nest a given folder structure recursively).<br>
 ✅ Accurate and detailed error messages even with multiple nested folders (recursion).<br>
-✅ Forcing a nested/flat structure for a given folder.
+✅ Forcing a nested/flat structure for a given folder.<br>
 ✅ Support for all file extensions.<br>
 
 ## **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
@@ -40,7 +40,7 @@ Get rid of dependencies between modules and create truly independent functionali
 
 #### Features:
 
-✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components etc. of one functionality cannot be imported into another functionality).<br>
+✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
 ✅ Reference {dirname} which allows you to decide about the current directory and its level in the pattern.<br>
 ✅ Reference {family} which finds the common part between a given import and the current file.<br>

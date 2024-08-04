@@ -7,7 +7,7 @@ Get rid of dependencies between modules and create truly independent functionali
 
 #### Features:
 
-✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components etc. of one functionality cannot be imported into another functionality).<br>
+✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
 ✅ Reference {dirname} which allows you to decide about the current directory and its level in the pattern.<br>
 ✅ Reference {family} which finds the common part between a given import and the current file.<br>
