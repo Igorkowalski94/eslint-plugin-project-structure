@@ -42,6 +42,54 @@ To:
 }
 ```
 
+If you used additional file extensions:
+
+From:
+
+```jsonc
+{
+    "overrides": [
+        {
+            "files": [
+                "*.css",
+                "*.sass",
+                "*.less",
+                "*.svg",
+                "*.png",
+                "*.jpg",
+                "*.ico",
+                "*.yml",
+                "*.json",
+            ],
+            "parser": "./node_modules/eslint-plugin-project-structure/dist/parser.js",
+        },
+    ],
+}
+```
+
+To:
+
+```jsonc
+{
+    "overrides": [
+        {
+            "files": [
+                "*.css",
+                "*.sass",
+                "*.less",
+                "*.svg",
+                "*.png",
+                "*.jpg",
+                "*.ico",
+                "*.yml",
+                "*.json",
+            ],
+            "parser": "eslint-plugin-project-structure/parser",
+        },
+    ],
+}
+```
+
 ### Changes for the projectStructure.json => folderStructure.json
 
 From:

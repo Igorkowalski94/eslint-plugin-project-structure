@@ -1,4 +1,6 @@
 dist/**
+parser.*
+!src/parser.ts
 node_modules/**
 coverage/**
 jestCache/**

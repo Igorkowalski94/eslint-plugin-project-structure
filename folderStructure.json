@@ -19,6 +19,9 @@
                     },
                     {
                         "name": "index.ts"
+                    },
+                    {
+                        "name": "parser.ts"
                     }
                 ]
             },

@@ -1,5 +1,6 @@
 *
 !dist/*
+!parser.*
 !folderStructure.schema.json
 !independentModules.schema.json
 !package.json

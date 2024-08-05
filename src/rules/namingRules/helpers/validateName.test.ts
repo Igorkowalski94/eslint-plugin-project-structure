@@ -26,7 +26,8 @@ describe("validateName", () => {
             validateName({
                 context: {
                     settings: {},
-                    filename: ".../src/features/Feature1/Feature1.tsx",
+                    cwd: "C:/somePath",
+                    filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
                     options: [
                         {
                             type: "VariableDeclarator",
@@ -56,7 +57,8 @@ describe("validateName", () => {
             validateName({
                 context: {
                     settings: {},
-                    filename: ".../src/features/Feature1/Feature1.tsx",
+                    cwd: "C:/somePath",
+                    filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
                     options: [
                         {
                             filePattern: "**/*.tsx",
@@ -98,7 +100,8 @@ describe("validateName", () => {
             validateName({
                 context: {
                     settings: {},
-                    filename: ".../src/features/Feature1/Feature1.tsx",
+                    cwd: "C:/somePath",
+                    filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
                     options: [
                         {
                             filePattern: "**/*.tsx",
@@ -143,7 +146,8 @@ describe("validateName", () => {
         validateName({
             context: {
                 settings: {},
-                filename: ".../src/features/Feature1/Feature1.tsx",
+                cwd: "C:/somePath",
+                filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
                 options: [
                     {
                         filePattern: "**/*.tsx",
@@ -194,7 +198,8 @@ describe("validateName", () => {
         validateName({
             context: {
                 settings: {},
-                filename: ".../src/features/Feature1/Feature1.tsx",
+                cwd: "C:/somePath",
+                filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
                 options: [
                     {
                         filePattern: "**/*.tsx",

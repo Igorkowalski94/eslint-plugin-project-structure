@@ -61,9 +61,6 @@ Add the following lines to **`.eslintrc`**.
     "rules": {
         "project-structure/naming-rules": "error", // warn | error
     },
-    "settings": {
-        "project-structure/naming-rules-root": "libs", // Optional, only if your root is other than "src".
-    },
 }
 ```
 

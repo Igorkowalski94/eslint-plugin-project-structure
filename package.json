@@ -1,24 +1,18 @@
 {
     "author": "Igor Kowalski (Igorkowalski94)",
     "name": "eslint-plugin-project-structure",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "license": "MIT",
     "description": "Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.",
     "keywords": [
         "eslint",
         "eslint-plugin",
-        "eslint plugin",
         "project structure",
-        "repo structure",
         "folder structure",
-        "nested structure",
-        "flat structure",
-        "project architecture",
         "file name validation",
         "folder name validation",
         "naming rules",
         "independent modules",
-        "modules",
         "import validation"
     ],
     "homepage": "https://github.com/Igorkowalski94/eslint-plugin-project-structure#readme",
@@ -36,8 +30,7 @@
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
     },
     "scripts": {
-        "clean": "del -rf dist",
-        "build": "tsc -p tsconfig.build.json && node esbuild.config.js",
+        "build": "tsup",
         "format": "prettier --write --config .prettierrc.json .",
         "format:check": "prettier --check --config .prettierrc.json .",
         "deadCode:check": "ts-prune --error",
@@ -63,8 +56,6 @@
         "@types/node": "^20.14.2",
         "@typescript-eslint/eslint-plugin": "^7.13.0",
         "@typescript-eslint/parser": "^7.13.0",
-        "esbuild": "^0.21.5",
-        "esbuild-node-externals": "^1.13.1",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-import": "^2.29.1",
@@ -76,6 +67,7 @@
         "ts-jest": "^29.1.4",
         "ts-node": "^10.9.2",
         "ts-prune": "^0.10.3",
+        "tsup": "^8.2.4",
         "typescript": "^5.4.5"
     }
 }

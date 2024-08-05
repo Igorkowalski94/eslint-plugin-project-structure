@@ -96,7 +96,7 @@ Add the following lines to **`.eslintrc`**.
 
                 // "no-irregular-whitespace": "off",
             },
-            "parser": "./node_modules/eslint-plugin-project-structure/dist/parser.js",
+            "parser": "eslint-plugin-project-structure/parser",
         },
          // Use @typescript-eslint/parser for the following file extensions.
         {

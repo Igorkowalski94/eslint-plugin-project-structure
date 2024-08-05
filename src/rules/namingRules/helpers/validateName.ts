@@ -1,10 +1,11 @@
+import path from "path";
+
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import micromatch from "micromatch";
 
 import { getAllowNamesWithCaseReferences } from "./getAllowNamesWithCaseReferences";
 import { getCurrentAllowNames } from "./getCurrentAllowNames";
-import { getFilenamePathWithoutRoot } from "./getFilenamePathWithoutRoot";
 import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
 import { isCorrectNameType } from "./isCorrectNameType";
 import { isNameValid } from "./isNameValid";
@@ -28,11 +29,11 @@ export interface ValidateNameProps {
 
 export const validateName = ({
     name,
-    context: { filename, report, options, settings },
+    context: { filename, report, options, cwd },
     node,
     nameType,
 }: ValidateNameProps): void => {
-    const filenamePath = getFilenamePathWithoutRoot({ filename, settings });
+    const filenamePath = path.resolve(cwd, filename);
 
     const fileRules = options.find(({ filePattern }) =>
         micromatch.every(filenamePath, filePattern),
