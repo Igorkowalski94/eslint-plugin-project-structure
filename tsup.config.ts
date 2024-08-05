@@ -1,7 +1,7 @@
 import { defineConfig, Options } from "tsup";
 
 const commonOptions: Options = {
-    format: ["cjs", "esm"],
+    format: "cjs",
     dts: true,
     cjsInterop: true,
 };
