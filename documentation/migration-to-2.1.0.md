@@ -12,10 +12,6 @@ A minor configuration fix will be required for version <= 1.4.7.
 
 ### Changes for the file .eslintrc
 
-> [!CAUTION]
-> Remember to remove comments from the **`.eslintrc`**. file, otherwise the configuration will be incorrect.<br>
-> You can freely use comments inside **`folderStructure`** file.
-
 From:
 
 ```jsonc

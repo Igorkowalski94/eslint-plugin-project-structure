@@ -64,23 +64,36 @@ If you want to check extensions that are not supported by **`eslint`** like **`.
 
 Add the following lines to **`.eslintrc`**.
 
-> [!CAUTION]
-> Remember to remove comments from the **`.eslintrc`**. file, otherwise the configuration will be incorrect.<br>
-> You can freely use comments inside **`folderStructure`** file.
-
 ```jsonc
- {
-    "parserOptions": {
-        "project": "./tsconfig.json",
+{
+    "env": {
+        "es2021": true,
+        "node": true,
     },
-    // Plugins rules that work with all parsers.
-    "extends": ["plugin:@typescript-eslint/recommended"],
-    // Rules that work with all parsers.
-    "rules": [],
+    "plugins": ["project-structure"],
+    "settings": {
+        "project-structure/folder-structure-config-path": "folderStructure.json",
+    },
     "overrides": [
-        // Use eslint-plugin-project-structure parser for the following file extensions. You can extend the list of extensions.
+        {
+            "files": ["*.ts", "*.tsx", ".js", ".jsx"],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "ecmaVersion": "latest",
+                "sourceType": "module",
+            },
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+            ],
+            "rules": {
+                "project-structure/folder-structure": "error",
+                // ... Your other rules.
+            },
+        },
         {
             "files": [
+                // You can expand the list with the file extensions you use.
                 "*.css",
                 "*.sass",
                 "*.less",
@@ -91,39 +104,16 @@ Add the following lines to **`.eslintrc`**.
                 "*.yml",
                 "*.json",
             ],
-            "rules":{
-                // Here you can disable rules that are not to be executed on additional file extensions or rules that require a different parser.
-
-                // "no-irregular-whitespace": "off",
-            },
+            "rules": { "project-structure/folder-structure": "error" },
             "parser": "eslint-plugin-project-structure/parser",
         },
-         // Use @typescript-eslint/parser for the following file extensions.
-        {
-            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-            "parser": "@typescript-eslint/parser",
-            "extends": [
-                // If multiple rules from a given plugin require @typescript-eslint/parser,
-                // you can extend the entire plugin here instead of disabling individual rules in the eslint-plugin-project-structure parser.
-
-                // "plugin:@typescript-eslint/recommended-requiring-type-checking",
-            ],
-            "rules": {
-                // Here you can add rules that require @typescript-eslint/parser.
-                // Then you don't have to disable them for the eslint-plugin-project-structure parser.
-            }
-        },
     ],
-};
+}
 ```
 
 ### Step 2
 
 Add the following lines to **`.eslintrc`**.
-
-> [!CAUTION]
-> Remember to remove comments from the **`.eslintrc`**. file, otherwise the configuration will be incorrect.<br>
-> You can freely use comments inside **`folderStructure`** file.
 
 ```jsonc
 {

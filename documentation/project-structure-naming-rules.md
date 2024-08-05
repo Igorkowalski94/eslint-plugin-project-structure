@@ -52,9 +52,6 @@ npm i --dev eslint-plugin-project-structure
 
 Add the following lines to **`.eslintrc`**.
 
-> [!CAUTION]
-> Remember to remove comments from the **`.eslintrc`**. file, otherwise the configuration will be incorrect.<br>
-
 ```jsonc
 {
     "plugins": ["project-structure"],
