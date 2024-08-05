@@ -76,22 +76,6 @@ Add the following lines to **`.eslintrc`**.
     },
     "overrides": [
         {
-            "files": ["*.ts", "*.tsx", ".js", ".jsx"],
-            "parser": "@typescript-eslint/parser",
-            "parserOptions": {
-                "ecmaVersion": "latest",
-                "sourceType": "module",
-            },
-            "extends": [
-                "eslint:recommended",
-                "plugin:@typescript-eslint/recommended",
-            ],
-            "rules": {
-                "project-structure/folder-structure": "error",
-                // ... Your other rules.
-            },
-        },
-        {
             "files": [
                 // You can expand the list with the file extensions you use.
                 "*.css",
@@ -106,6 +90,22 @@ Add the following lines to **`.eslintrc`**.
             ],
             "rules": { "project-structure/folder-structure": "error" },
             "parser": "eslint-plugin-project-structure/parser",
+        },
+        {
+            "files": ["*.ts", "*.tsx", ".js", ".jsx"],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "ecmaVersion": "latest",
+                "sourceType": "module",
+            },
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+            ],
+            "rules": {
+                "project-structure/folder-structure": "error",
+                // ... Your other rules.
+            },
         },
     ],
 }
