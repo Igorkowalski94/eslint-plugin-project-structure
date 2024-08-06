@@ -89,6 +89,8 @@ export default tseslint.config({
 
 #### Example:
 
+Create a **`namingRules.mjs`** in the root of your project.<br>
+
 ```mjs
 // @ts-check
 
