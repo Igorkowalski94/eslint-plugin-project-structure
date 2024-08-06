@@ -6,7 +6,7 @@ A minor configuration fix will be required for version <= 1.4.7.
 
 ### General changes:
 
--   The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+-   The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 -   New option for creating a configuration file in an .mjs file with TypeScript support.
 -   You can now use comments in folderStructure.json and independentModules.json files.
 -   Improved error messages for folder-structure.

@@ -62,10 +62,11 @@ npm i --dev eslint-plugin-project-structure
 Add the following lines to **`eslint.config.mjs`**.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
+
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import {
@@ -140,7 +141,7 @@ export default tseslint.config(
 Create a **`folderStructure.mjs`** in the root of your project.<br>
 
 > [!NOTE]  
->  **`folderStructure.json`** and **`folderStructure.yaml`** are also supported. See an example in the [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground).
+>  **`folderStructure.json`** and **`folderStructure.yaml`** are also supported. See an example in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 #### Simple example for the structure below:
 
