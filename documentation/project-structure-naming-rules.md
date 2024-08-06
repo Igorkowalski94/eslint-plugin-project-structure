@@ -94,7 +94,7 @@ export default tseslint.config({
 
 import { createNamingRules } from "eslint-plugin-project-structure";
 
-export const namingRulesConfig = createNamingRules(
+export const namingRulesConfig = createNamingRules([
     {
         filePattern: "**/*consts.ts", // Name rules for all files ending with .const.ts.
         rules: [
@@ -149,7 +149,7 @@ export const namingRulesConfig = createNamingRules(
             },
         ],
     },
-);
+]);
 ```
 
 ```ts
