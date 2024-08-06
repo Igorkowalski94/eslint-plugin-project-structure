@@ -28,7 +28,7 @@ interface ParserProps {
     parseForESLint: () => ParserReturn;
 }
 
-const parser: ParserProps = {
+export const parser: ParserProps = {
     parseForESLint: () => ({
         ast: {
             type: "Program",

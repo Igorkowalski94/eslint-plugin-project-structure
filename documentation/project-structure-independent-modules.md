@@ -33,7 +33,6 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 -   [Simple example](#simple-example-for-the-folder-structure-below)
 -   [Advanced example](#advanced-example-for-the-folder-structure-below)
 -   [API](#api)
-    -   [$schema](#schema)
     -   [root](#root)
     -   [extensions](#extensions)
     -   [modules](#modules)
@@ -61,33 +60,57 @@ npm i --dev eslint-plugin-independent-modules
 
 ### Step 1
 
-Add the following lines to **`.eslintrc`**.
+Add the following lines to **`eslint.config.mjs`**.
 
-```jsonc
-{
-    "plugins": ["project-structure"],
-    "rules": {
-        "project-structure/independent-modules": "error", // warn | error
+> [!NOTE]  
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure.
+
+```mjs
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import { projectStructurePlugin } from "eslint-plugin-project-structure";
+import { independentModulesConfig } from "./independentModules.mjs";
+
+export default tseslint.config({
+    extends: [...tseslint.configs.recommended],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    plugins: {
+        "project-structure": projectStructurePlugin,
     },
-    "settings": {
-        "project-structure/independent-modules-config-path": "independentModules.json", // json | yaml
+    rules: {
+        ...eslint.configs.recommended.rules,
+
+        // If you have many rules in a separate file.
+        "project-structure/independent-modules": [
+            "error",
+            independentModulesConfig,
+        ],
+        // If you have only a few rules.
+        "project-structure/independent-modules": [
+            "error",
+            {
+                // Config
+            },
+        ],
     },
-}
+});
 ```
 
 ### Step 2
 
-Create a **`independentModules.json`** or **`independentModules.yaml`** in the root of your project.<br>
+Create a **`independentModules.mjs`** in the root of your project.<br>
 
-> [!NOTE]
-> You can choose your own file name, just make sure it is the same as in **[Step 2](#step-2)**.
+> [!NOTE]  
+>  **`independentModules.json`** and **`independentModules.yaml`** are also supported. See an example in the [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground).
 
 #### Simple example for the folder structure below:
 
 ```
 .
 ├── ...
-├── 📄 independentModules.json
+├── 📄 independentModules.mjs
 └── 📂 src
     └── 📂 features
         ├── ...
@@ -106,15 +129,19 @@ Create a **`independentModules.json`** or **`independentModules.yaml`** in the r
             └── 📄 Feature2.tsx             Public.
 ```
 
-#### independentModules.json
+#### independentModules.mjs
 
-```jsonc
-{
-    "modules": [
+```mjs
+// @ts-check
+
+import { createIndependentModules } from "eslint-plugin-project-structure";
+
+export const independentModulesConfig = createIndependentModules({
+    modules: [
         {
-            "name": "Features",
-            "pattern": "features/**",
-            "allowImportsFrom": [
+            name: "Features",
+            pattern: "features/**",
+            allowImportsFrom: [
                 // /*  = wildcard for current directory.
                 // /** = wildcard for nested directories.
 
@@ -138,7 +165,7 @@ Create a **`independentModules.json`** or **`independentModules.yaml`** in the r
             ],
         },
     ],
-}
+});
 ```
 
 #### Advanced example for the folder structure below:
@@ -146,7 +173,7 @@ Create a **`independentModules.json`** or **`independentModules.yaml`** in the r
 ```
 .
 ├── ...
-├── 📄 independentModules.json
+├── 📄 independentModules.mjs
 └── 📂 src
     └── 📂 features
         ├── ...
@@ -165,16 +192,19 @@ Create a **`independentModules.json`** or **`independentModules.yaml`** in the r
 
 ```
 
-#### independentModules.json
+#### independentModules.mjs
 
-```jsonc
-{
-    "$schema": "node_modules/eslint-plugin-project-structure/independentModules.schema.json",
-    "modules": [
+```mjs
+// @ts-check
+
+import { createIndependentModules } from "eslint-plugin-project-structure";
+
+export const independentModulesConfig = createIndependentModules({
+    modules: [
         {
-            "name": "Features",
-            "pattern": "features/**",
-            "allowImportsFrom": [
+            name: "Features",
+            pattern: "features/**",
+            allowImportsFrom: [
                 // /*  = wildcard for current directory.
                 // /** = wildcard for nested directories.
 
@@ -213,23 +243,12 @@ Create a **`independentModules.json`** or **`independentModules.yaml`** in the r
             ],
         },
     ],
-}
+});
 ```
 
 ## API:
 
-### **`"$schema"`**: `<string | undefined>` <a id="schema"></a>
-
-Type checking for your **`independentModules.json`**. It helps to fill configuration correctly.
-
-```jsonc
-{
-    "$schema": "node_modules/eslint-plugin-project-structure/independentModules.schema.json",
-    // ...
-}
-```
-
-### **`"root"`**: `<string | undefined>` <a id="root"></a>
+### **`root`**: `<string | undefined>` <a id="root"></a>
 
 Root of your imports. The default value is **`src`**
 
@@ -247,7 +266,7 @@ import { Feature1 } from "features/Feature1";
 }
 ```
 
-### **`"extensions"`**: `<string[] | undefined>` <a id="extensions"></a>
+### **`extensions`**: `<string[] | undefined>` <a id="extensions"></a>
 
 If you use shortened imports without a file extension, the plugin will automatically assign the correct extension to it if it is in the list of available extensions.
 
@@ -269,7 +288,7 @@ If the extension you are using is not on the list, you can extend it.
 }
 ```
 
-### **`"modules"`**: `<Module[]>` <a id="modules"></a>
+### **`modules`**: `<Module[]>` <a id="modules"></a>
 
 A place where you can add your modules.<br>
 
@@ -332,7 +351,7 @@ After creation, each module will not be able to import anything except external 
 }
 ```
 
-### **`"name"`**: `<string>` <a id="name"></a>
+### **`name`**: `<string>` <a id="name"></a>
 
 The name of your module.
 
@@ -346,7 +365,7 @@ The name of your module.
 }
 ```
 
-### **`"pattern"`**: `<string | string[]>` <a id="pattern"></a>
+### **`pattern`**: `<string | string[]>` <a id="pattern"></a>
 
 Your module's pattern.<br>
 
@@ -366,7 +385,7 @@ You can use all **[micromatch.every](https://github.com/micromatch/micromatch?ta
 }
 ```
 
-### **`"allowImportsFrom"`**: `<(string | string[])[]>` <a id="allow-imports-from"></a>
+### **`allowImportsFrom`**: `<(string | string[])[]>` <a id="allow-imports-from"></a>
 
 The place where you specify what can be imported into your module.<br>
 
@@ -412,7 +431,7 @@ If at least **one** pattern in **`allowImportsFrom`** meets the condition, the i
 }
 ```
 
-### **`"errorMessage"`**: `<string | undefined>` <a id="error-message"></a>
+### **`errorMessage`**: `<string | undefined>` <a id="error-message"></a>
 
 Here, you can set your custom error for a given module.
 
@@ -426,7 +445,7 @@ Here, you can set your custom error for a given module.
 }
 ```
 
-### **`"allowExternalImports"`**: `<boolean | undefined>` <a id="allow-external-imports"></a>
+### **`allowExternalImports`**: `<boolean | undefined>` <a id="allow-external-imports"></a>
 
 Here you can enable/disable the ability to import external imports (node_modules) in a given module.<br>
 
@@ -444,11 +463,11 @@ The default value is true.
 }
 ```
 
-### **`"reusableImportPatterns"`**: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
+### **`reusableImportPatterns`**: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
 
 To avoid repetitions, you can create reusable import patterns. <br>
-By writing **`"{yourKey}"`** you refer to a particular key in the **`"reusableImportPatterns"`** object,<br>
-you can use this reference in **`"reusableImportPatterns"`** and in [**`"allowImportsFrom"`**](#allow-imports-from).<br>
+By writing **`"{yourKey}"`** you refer to a particular key in the **`reusableImportPatterns`** object,<br>
+you can use this reference in **`reusableImportPatterns`** and in [**`"allowImportsFrom"`**](#allow-imports-from).<br>
 
 The library will automatically inform you about all usage errors such as: Infinite recursion, too many array nests. e.t.c.
 
@@ -553,9 +572,9 @@ Current file    = "features/Feature1/Child1/hooks/useComplexHook1/useComplexHook
 {dirname_5}     = "features"
 ```
 
-### **`"debugMode"`**: `<boolean | undefined>` <a id="debug-mode"></a>
+### **`debugMode`**: `<boolean | undefined>` <a id="debug-mode"></a>
 
-Debug mode showing the current [**`"allowImportsFrom"`**](#allow-imports-from), [**`{family}`**](#family), and [**`{dirname}`**](#dirname) for a given import.<br>
+Debug mode showing the current [**`allowImportsFrom`**](#allow-imports-from), [**`{family}`**](#family), and [**`{dirname}`**](#dirname) for a given import.<br>
 The default value is `false`.
 
 ```jsonc

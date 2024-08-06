@@ -3,8 +3,8 @@ import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint/Rule";
 
 import { validateAll } from "./validateAll";
 import { finalErrorGuard } from "../../../errors/finalErrorGuard";
-import { getConfigPath } from "../../../helpers/getConfigPath";
-import { Context } from "../independentModules.types";
+import { readConfigFile } from "../../../helpers/readConfigFile";
+import { Context, IndependentModulesConfig } from "../independentModules.types";
 
 export interface ValidateImportProps {
     importPath: string;
@@ -19,13 +19,14 @@ export interface ValidateImportProps {
 
 export const validateImport = ({
     importPath,
-    context: { cwd, filename, report, settings },
+    context: { cwd, filename, report, settings, options },
     node,
 }: ValidateImportProps): void => {
-    const configPath = getConfigPath({
+    const config = readConfigFile<IndependentModulesConfig>({
         cwd,
         key: "project-structure/independent-modules-config-path",
         settings,
+        options,
     });
 
     try {
@@ -33,7 +34,7 @@ export const validateImport = ({
             filename,
             importPath,
             cwd,
-            configPath,
+            config,
         });
     } catch (error) {
         if (!finalErrorGuard(error)) throw error;

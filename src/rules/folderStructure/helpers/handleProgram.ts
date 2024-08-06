@@ -1,30 +1,29 @@
 import { TSESTree } from "@typescript-eslint/utils";
-import {
-    ReportDescriptor,
-    RuleContext,
-} from "@typescript-eslint/utils/dist/ts-eslint/Rule";
+import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint/Rule";
 
 import { validateFolderStructure } from "./validateFolderStructure/validateFolderStructure";
 import { finalErrorGuard } from "../../../errors/finalErrorGuard";
-import { getConfigPath } from "../../../helpers/getConfigPath";
+import { readConfigFile } from "../../../helpers/readConfigFile";
+import { Context, FolderStructureConfig } from "../folderStructure.types";
 
 export interface HandleProgramProps {
-    context: RuleContext<"error", []>;
+    context: Context;
     node: TSESTree.Program;
 }
 
 export const handleProgram = ({
-    context: { cwd, settings, filename, report },
+    context: { cwd, settings, filename, options, report },
     node,
 }: HandleProgramProps): void => {
-    const configPath = getConfigPath({
+    const config = readConfigFile<FolderStructureConfig>({
         cwd,
         key: "project-structure/folder-structure-config-path",
         settings,
+        options,
     });
 
     try {
-        validateFolderStructure({ configPath, filename, cwd });
+        validateFolderStructure({ filename, cwd, config });
     } catch (error) {
         if (!finalErrorGuard(error)) throw error;
 

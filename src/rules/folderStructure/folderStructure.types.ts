@@ -1,3 +1,5 @@
+import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
+
 export type NodeType = "File" | "Folder";
 export interface Rule {
     ruleId?: string;
@@ -13,3 +15,7 @@ export interface FolderStructureConfig {
     rules?: Record<string, Rule>;
     regexParameters?: RegexParameters;
 }
+
+export type Context = Readonly<
+    RuleContext<"error", [FolderStructureConfig] | []>
+>;

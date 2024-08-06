@@ -1,11 +1,12 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
+import { FolderStructureConfig } from "./folderStructure.types";
 import { handleProgram } from "./helpers/handleProgram";
 
 export const folderStructure = ESLintUtils.RuleCreator(
     () =>
         "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md",
-)({
+)<[FolderStructureConfig] | [], "error">({
     name: "project-structure-folder-structure",
     meta: {
         docs: {
@@ -14,9 +15,9 @@ export const folderStructure = ESLintUtils.RuleCreator(
             recommended: "recommended",
         },
         type: "problem",
-        schema: [],
+        schema: [{ type: "object", additionalProperties: true }],
         messages: {
-            error: `error`,
+            error: "error",
         },
     },
     defaultOptions: [],

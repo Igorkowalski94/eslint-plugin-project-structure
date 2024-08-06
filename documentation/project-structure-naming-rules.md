@@ -50,79 +50,105 @@ npm i --dev eslint-plugin-project-structure
 
 ## Getting started
 
-Add the following lines to **`.eslintrc`**.
+Add the following lines to **`eslint.config.mjs`**.
 
-```jsonc
-{
-    "plugins": ["project-structure"],
-    "rules": {
-        "project-structure/naming-rules": "error", // warn | error
+> [!NOTE]  
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure.
+
+```mjs
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import { projectStructurePlugin } from "eslint-plugin-project-structure";
+
+export default tseslint.config({
+    extends: [...tseslint.configs.recommended],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    plugins: {
+        "project-structure": projectStructurePlugin,
     },
-}
+    rules: {
+        ...eslint.configs.recommended.rules,
+        // If you have many rules in a separate file.
+        "project-structure/naming-rules": ["error", ...namingRulesConfig],
+        // If you have only a few rules.
+        "project-structure/naming-rules": [
+            "error",
+            {
+                // Rule1
+            },
+            {
+                // Rule2
+            },
+        ],
+    },
+});
 ```
 
 #### Example:
 
-```jsonc
-{
-    "project-structure/naming-rules": [
-        "error",
-        {
-            "filePattern": "**/*consts.ts", // Name rules for all files ending with .const.ts.
-            "rules": [
-                {
+```mjs
+// @ts-check
+
+import { createNamingRules } from "eslint-plugin-project-structure";
+
+export const createNamingRulesConfig = createNamingRules(
+    {
+        filePattern: "**/*consts.ts", // Name rules for all files ending with .const.ts.
+        rules: [
+            {
+                // nameTypes we are interested in.
+                nameType: "VariableDeclarator",
+                allowNames: [
+                    // All variables in the file should match SNAKE_CASE.
+                    "{SNAKE_CASE}",
+
+                    // or
+
+                    // All variables must have six uppercase letters.
+                    "[A-Z]{6}",
+                ],
+            },
+        ],
+    },
+    {
+        filePattern: ["**/*.ts", "!(**/index.ts)"], // Name rules for all .ts files except index.ts files.
+        rules: [
+            {
+                nameType: [
                     // nameTypes we are interested in.
-                    "nameType": "VariableDeclarator",
-                    "allowNames": [
-                        // All variables in the file should match SNAKE_CASE.
-                        "{SNAKE_CASE}",
+                    "ArrowFunctionExpression",
+                    "FunctionDeclaration",
+                ],
+                allowNamesFileRoot: [
+                    // Functions located at the root of the file (non-nested) should be named: Filename as camelCase.
+                    "{filename_camelCase}",
+                ],
+                allowNames: [
+                    // Nested functions in the file should match camelCase.
+                    "{camelCase}",
+                ],
+            },
+            {
+                nameType: [
+                    // nameTypes we are interested in.
+                    "TSInterfaceDeclaration",
+                    "TSTypeAliasDeclaration",
+                ],
+                allowNamesFileRoot: [
+                    // Interface or type located at the root of the file (non-nested) should be named: Filename as PascalCase + Props.
+                    "{filename_PascalCase}Props",
 
-                        // or
+                    //or
 
-                        // All variables must have six uppercase letters.
-                        "[A-Z]{6}",
-                    ],
-                },
-            ],
-        },
-        {
-            "filePattern": ["**/*.ts", "!(**/index.ts)"], // Name rules for all .ts files except index.ts files.
-            "rules": [
-                {
-                    "nameType": [
-                        // nameTypes we are interested in.
-                        "ArrowFunctionExpression",
-                        "FunctionDeclaration",
-                    ],
-                    "allowNamesFileRoot": [
-                        // Functions located at the root of the file (non-nested) should be named: Filename as camelCase.
-                        "{filename_camelCase}",
-                    ],
-                    "allowNames": [
-                        // Nested functions in the file should match camelCase.
-                        "{camelCase}",
-                    ],
-                },
-                {
-                    "nameType": [
-                        // nameTypes we are interested in.
-                        "TSInterfaceDeclaration",
-                        "TSTypeAliasDeclaration",
-                    ],
-                    "allowNamesFileRoot": [
-                        // Interface or type located at the root of the file (non-nested) should be named: Filename as PascalCase + Props.
-                        "{filename_PascalCase}Props",
-
-                        //or
-
-                        // Interface or type located at the root of the file (non-nested) should be named: Filename as SNAKE_CASE + _Return.
-                        "{filename_SNAKE_CASE}_Return",
-                    ],
-                },
-            ],
-        },
-    ],
-}
+                    // Interface or type located at the root of the file (non-nested) should be named: Filename as SNAKE_CASE + _Return.
+                    "{filename_SNAKE_CASE}_Return",
+                ],
+            },
+        ],
+    },
+);
 ```
 
 ```ts

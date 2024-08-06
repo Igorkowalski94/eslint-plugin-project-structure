@@ -32,7 +32,6 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 -   [Simple example](#simple-example-for-the-structure-below)
 -   [Advanced example](#advanced-example-for-the-structure-below-containing-all-key-features)
 -   [API](#api)
-    -   [$schema](#schema)
     -   [ignorePatterns](#ignore-patterns)
     -   [name](#name)
         -   [Fixed name](#fixed-name)
@@ -58,86 +57,98 @@ npm i --dev eslint-plugin-project-structure
 
 ## Getting started
 
-### Step 1 (optional)
+### Step 1
 
-If you want to check extensions that are not supported by **`eslint`** like **`.css`**, **`.sass`**, **`.less`**, **`.svg`**, **`.png`**, **`.jpg`**, **`.ico`**, **`.yml`**, **`.json`** etc., read the step below, if not go to the **[next step](#step-2)**.<br>
+Add the following lines to **`eslint.config.mjs`**.
 
-Add the following lines to **`.eslintrc`**.
+> [!NOTE]  
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure.
 
-```jsonc
-{
-    "env": {
-        "es2021": true,
-        "node": true,
-    },
-    "plugins": ["project-structure"],
-    "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.json",
-    },
-    "overrides": [
-        {
-            "files": [
-                // You can expand the list with the file extensions you use.
-                "*.css",
-                "*.sass",
-                "*.less",
-                "*.svg",
-                "*.png",
-                "*.jpg",
-                "*.ico",
-                "*.yml",
-                "*.json",
-            ],
-            "rules": { "project-structure/folder-structure": "error" },
-            "parser": "eslint-plugin-project-structure/parser",
+```mjs
+// @ts-check
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import {
+    projectStructureParser,
+    projectStructurePlugin,
+} from "eslint-plugin-project-structure";
+import { folderStructureConfig } from "./folderStructure.mjs";
+
+export default tseslint.config(
+    /**
+     *  Only for the project-structure/folder-structure rule,
+     *  which must use the projectStructureParser to check all file extensions not supported by ESLint.
+     *  If you don't care about validating other file extensions, you can remove this section.
+     */
+    {
+        files: [
+            // You can expand the list with the file extensions you use.
+            "**/*.css",
+            "**/*.sass",
+            "**/*.less",
+            "**/*.svg",
+            "**/*.png",
+            "**/*.jpg",
+            "**/*.ico",
+            "**/*.yml",
+            "**/*.json",
+        ],
+        languageOptions: {
+            parser: projectStructureParser,
         },
-        {
-            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-            "parser": "@typescript-eslint/parser",
-            "parserOptions": {
-                "ecmaVersion": "latest",
-                "sourceType": "module",
-            },
-            "extends": [
-                "eslint:recommended",
-                "plugin:@typescript-eslint/recommended",
-            ],
-            "rules": {
-                "project-structure/folder-structure": "error",
-                // ... Your other rules.
-            },
+        plugins: {
+            "project-structure": projectStructurePlugin,
         },
-    ],
-}
+        rules: {
+            "project-structure/folder-structure": [
+                "error",
+                folderStructureConfig,
+            ],
+        },
+    },
+
+    /**
+     *  Here you will add your normal rules, which use the default parser.
+     */
+    {
+        extends: [...tseslint.configs.recommended],
+        files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+        plugins: {
+            "project-structure": projectStructurePlugin,
+        },
+        rules: {
+            ...eslint.configs.recommended.rules,
+            // If you have many rules in a separate file.
+            "project-structure/folder-structure": [
+                "error",
+                folderStructureConfig,
+            ],
+            // If you have only a few rules.
+            "project-structure/folder-structure": [
+                "error",
+                {
+                    // Config
+                },
+            ],
+        },
+    },
+);
 ```
 
 ### Step 2
 
-Add the following lines to **`.eslintrc`**.
+Create a **`folderStructure.mjs`** in the root of your project.<br>
 
-```jsonc
-{
-    "plugins": ["project-structure"],
-    "rules": {
-        "project-structure/folder-structure": "error", // warn | error
-    },
-    "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.json", // json | yaml
-    },
-}
-```
-
-### Step 3
-
-Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of your project.<br>
+> [!NOTE]  
+>  **`folderStructure.json`** and **`folderStructure.yaml`** are also supported. See an example in the [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground).
 
 #### Simple example for the structure below:
 
 ```
 .
 ├── ...
-├── 📄 folderStructure.json
-├── 📄 .eslintrc.json
+├── 📄 folderStructure.mjs
+├── 📄 eslint.config.mjs
 └── 📂 src
     ├── 📄 index.tsx
     └── 📂 components
@@ -145,28 +156,32 @@ Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of
         └── 📄 ComponentName.tsx
 ```
 
-#### folderStructure.json
+#### folderStructure.mjs
 
-```jsonc
-{
-    "structure": {
-        "children": [
+```mjs
+// @ts-check
+
+import { createFolderStructure } from "eslint-plugin-project-structure";
+
+export const folderStructureConfig = createFolderStructure({
+    structure: {
+        children: [
             {
-                // Allow any files in the root of your project, like package.json, .eslintrc, etc. You can add rules for them separately.
+                // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
                 // You can also add exceptions like this: "(?!folderStructure)*"
-                "name": "*",
+                name: "*",
             },
             {
-                "name": "src",
-                "children": [
+                name: "src",
+                children: [
                     {
-                        "name": "index.tsx",
+                        name: "index.tsx",
                     },
                     {
-                        "name": "components",
-                        "children": [
+                        name: "components",
+                        children: [
                             {
-                                "name": "{PascalCase}.tsx",
+                                name: "{PascalCase}.tsx",
                             },
                         ],
                     },
@@ -174,21 +189,7 @@ Create a **`folderStructure.json`** or **`folderStructure.yaml`** in the root of
             },
         ],
     },
-}
-```
-
-#### folderStructure.yaml
-
-```yaml
-structure:
-    children:
-        - name: "*"
-        - name: src
-          children:
-              - name: index.tsx
-              - name: components
-                children:
-                    - name: "{PascalCase}.tsx"
+});
 ```
 
 #### Advanced example for the structure below, containing all key features:
@@ -196,8 +197,8 @@ structure:
 ```
 .
 ├── ...
-├── 📄 folderStructure.json
-├── 📄 .eslintrc.json
+├── 📄 folderStructure.mjs
+├── 📄 eslint.config.mjs
 └── 📂 src
     ├── 📂 hooks
     │   ├── ...
@@ -237,134 +238,88 @@ structure:
                     └── 📄 useComplexParentComponentHook.ts
 ```
 
-#### folderStructure.json
+#### folderStructure.mjs
 
-```jsonc
-{
-    "$schema": "node_modules/eslint-plugin-project-structure/folderStructure.schema.json",
-    "ignorePatterns": ["src/legacy/**"],
-    "structure": {
-        "children": [
+```mjs
+// @ts-check
+
+import { createFolderStructure } from "eslint-plugin-project-structure";
+
+export const folderStructureConfig = createFolderStructure({
+    ignorePatterns: ["src/legacy/**"],
+    structure: {
+        children: [
             {
-                // Allow any files in the root of your project, like package.json, .eslintrc, etc. You can add rules for them separately.
+                // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
                 // You can also add exceptions like this: "(?!folderStructure)*"
-                "name": "*",
+                name: "*",
             },
             {
-                "name": "src",
-                "children": [
+                name: "src",
+                children: [
                     {
-                        "ruleId": "hooks_folder",
+                        ruleId: "hooks_folder",
                     },
                     {
-                        "ruleId": "components_folder",
+                        ruleId: "components_folder",
                     },
                 ],
             },
         ],
     },
-    "rules": {
-        "hooks_folder": {
-            "name": "hooks",
-            "children": [
+    rules: {
+        hooks_folder: {
+            name: "hooks",
+            children: [
                 {
-                    "name": "use{PascalCase}",
-                    "children": [
+                    name: "use{PascalCase}",
+                    children: [
                         {
-                            "ruleId": "hooks_folder",
+                            ruleId: "hooks_folder",
                         },
                         {
-                            "name": "{parentName}(.(test|api|types))?.ts",
+                            name: "{parentName}(.(test|api|types))?.ts",
                         },
                     ],
                 },
                 {
-                    "name": "use{PascalCase}(.test)?.ts",
+                    name: "use{PascalCase}(.test)?.ts",
                 },
             ],
         },
-        "components_folder": {
-            "name": "components",
-            "children": [
+        components_folder: {
+            name: "components",
+            children: [
                 {
-                    "ruleId": "component_folder",
+                    ruleId: "component_folder",
                 },
             ],
         },
-        "component_folder": {
-            "name": "{PascalCase}",
-            "children": [
+        component_folder: {
+            name: "{PascalCase}",
+            children: [
                 {
-                    "ruleId": "components_folder",
+                    ruleId: "components_folder",
                 },
                 {
-                    "ruleId": "hooks_folder",
+                    ruleId: "hooks_folder",
                 },
                 {
-                    "name": "{parentName}{yourCustomRegexParameter}.ts",
+                    name: "{parentName}{yourCustomRegexParameter}.ts",
                 },
                 {
-                    "name": "{ParentName}(.test)?.tsx",
+                    name: "{ParentName}(.test)?.tsx",
                 },
             ],
         },
     },
-    "regexParameters": {
-        "yourCustomRegexParameter": ".(types|api)",
+    regexParameters: {
+        yourCustomRegexParameter: ".(types|api)",
     },
-}
+});
 ```
 
-#### folderStructure.yaml
-
-```yaml
-ignorePatterns:
-    - src/legacy/**
-structure:
-    children:
-        - name: "*"
-        - name: src
-          children:
-              - ruleId: hooks_folder
-              - ruleId: components_folder
-rules:
-    components_folder:
-        name: components
-        children:
-            - ruleId: component_folder
-    hooks_folder:
-        name: hooks
-        children:
-            - name: "use{PascalCase}"
-              children:
-                  - ruleId: hooks_folder
-                  - name: "{parentName}(.(test|api|types))?.ts"
-            - name: "use{PascalCase}(.test)?.ts"
-    component_folder:
-        name: "{PascalCase}"
-        children:
-            - ruleId: components_folder
-            - ruleId: hooks_folder
-            - name: "{parentName}{yourCustomRegexParameter}.ts"
-            - name: "{ParentName}(.(context|test))?.tsx"
-regexParameters:
-    yourCustomRegexParameter: ".(types|api)"
-```
-
-## API:
-
-### **`"$schema"`**: `<string | undefined>` <a id="schema"></a>
-
-Type checking for your **`folderStructure.json`**. It helps to fill configuration correctly.
-
-```jsonc
-{
-    "$schema": "node_modules/eslint-plugin-project-structure/folderStructure.schema.json",
-    // ...
-}
-```
-
-### **`"ignorePatterns"`**: `<string[] | undefined>` <a id="ignore-patterns"></a>
+### **`ignorePatterns`**: `<string[] | undefined>` <a id="ignore-patterns"></a>
 
 Here you can set the paths you want to ignore. You can use all **[micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some)** functionalities.
 
@@ -375,7 +330,7 @@ Here you can set the paths you want to ignore. You can use all **[micromatch.som
 }
 ```
 
-### **`"name"`**: `<string | undefined>` <a id="name"></a>
+### **`name`**: `<string | undefined>` <a id="name"></a>
 
 The name is treated as a `regex`.
 
@@ -406,7 +361,7 @@ When used without **[children](#children)** this will be the name of **`file`**.
 }
 ```
 
-### **`"regexParameters"`**: `<Record<string, string> | undefined>` <a id="regex-parameters"></a>
+### **`regexParameters`**: `<Record<string, string> | undefined>` <a id="regex-parameters"></a>
 
 A place where you can add your own regex parameters.<br>
 You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parent-name-lower)** and **[ParentName](#parent-name-upper)** overwriting them will be ignored.<br>
@@ -526,7 +481,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 }
 ```
 
-### **`"children"`**: `<Rule[] | undefined>` <a id="children"></a>
+### **`children`**: `<Rule[] | undefined>` <a id="children"></a>
 
 **`Folder`** children rules.<br>
 
@@ -543,7 +498,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 }
 ```
 
-### **`"structure"`**: `<Rule>` <a id="structure"></a>
+### **`structure`**: `<Rule>` <a id="structure"></a>
 
 The structure of your project and its rules.
 
@@ -578,7 +533,7 @@ The structure of your project and its rules.
                 ],
             },
             {
-                // Allow any files in the root of your project, like package.json, .eslintrc, etc. You can add rules for them separately.
+                // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
                 // You can also add exceptions like this: "(?!folderStructure)*"
                 "name": "*",
             },
@@ -590,9 +545,9 @@ The structure of your project and its rules.
 ```
 
 > [!WARNING]
-> Make sure your **`tsconfig`**/**`.eslintrc`** contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
+> Make sure your **`tsconfig`**/**`eslint.config.mjs`** contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
 
-### **`"rules"`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
+### **`rules`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
 A place where you can add your custom rules. This is useful when you want to avoid a lot of repetition in your **[structure](#structure)** or use **[folder recursion](#folder-recursion)** feature.<br>
 The key in the object will correspond to **[ruleId](#ruleid)**, which you can then use in many places.
@@ -612,7 +567,7 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
 }
 ```
 
-### **`"ruleId"`**: `<string | undefined>` <a id="ruleid"></a>
+### **`ruleId`**: `<string | undefined>` <a id="ruleid"></a>
 
 A reference to your custom rule.
 

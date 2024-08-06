@@ -1,21 +1,21 @@
 import { handleProgram, HandleProgramProps } from "./handleProgram";
 import { validateFolderStructure } from "./validateFolderStructure/validateFolderStructure";
 import { FinalError } from "../../../errors/FinalError";
-import { getConfigPath } from "../../../helpers/getConfigPath";
+import { readConfigFile } from "../../../helpers/readConfigFile";
 
 jest.mock("./validateFolderStructure/validateFolderStructure", () => ({
     validateFolderStructure: jest.fn(),
 }));
 
-jest.mock("../../../helpers/getConfigPath", () => ({
-    getConfigPath: jest.fn(),
+jest.mock("../../../helpers/readConfigFile", () => ({
+    readConfigFile: jest.fn(),
 }));
 
 describe("validateImport", () => {
     test("Should call report when error === FinalError ", () => {
         const reportMock = jest.fn();
 
-        (getConfigPath as jest.Mock).mockReturnValue("configPath");
+        (readConfigFile as jest.Mock).mockReturnValue({});
 
         (validateFolderStructure as jest.Mock).mockImplementation(() => {
             throw new FinalError("error");
@@ -33,7 +33,7 @@ describe("validateImport", () => {
     test("Should throw random error when error !== FinalError ", () => {
         const reportMock = jest.fn();
 
-        (getConfigPath as jest.Mock).mockReturnValue("configPath");
+        (readConfigFile as jest.Mock).mockReturnValue({});
 
         (validateFolderStructure as jest.Mock).mockImplementation(() => {
             throw "random error";

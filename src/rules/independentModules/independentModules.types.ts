@@ -10,7 +10,9 @@ export interface Module {
     allowExternalImports?: boolean;
 }
 
-export type Context = Readonly<RuleContext<"error", []>>;
+export type Context = Readonly<
+    RuleContext<"error", [IndependentModulesConfig] | []>
+>;
 
 export interface IndependentModulesConfig {
     root?: string | null;

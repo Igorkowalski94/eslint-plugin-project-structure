@@ -3,8 +3,6 @@ import { checkImportPath } from "./checkImportPath";
 import { convertImportPathToNonRelative } from "./convertImportPathToNonRelative";
 import { getCwdWithRoot } from "./getCwdWithRoot";
 import { removeCwdWithRootAndUnifySep } from "./removeCwdWithRootAndUnifySep";
-import { getInvalidConfigFileError } from "../../../errors/getInvalidConfigFileError";
-import { readConfigFile } from "../../../helpers/readConfigFile";
 import { validateConfig } from "../../../helpers/validateConfig";
 import { INDEPENDENT_MODULES_SCHEMA } from "../independentModules.consts";
 import { IndependentModulesConfig } from "../independentModules.types";
@@ -13,19 +11,15 @@ interface ValidateAllProps {
     filename: string;
     importPath: string;
     cwd: string;
-    configPath: string;
+    config: IndependentModulesConfig;
 }
 
 export const validateAll = ({
     filename,
     importPath,
     cwd,
-    configPath,
+    config,
 }: ValidateAllProps): void => {
-    const config = readConfigFile<IndependentModulesConfig>(configPath);
-
-    if (!config) throw getInvalidConfigFileError(configPath);
-
     validateConfig({ config, schema: INDEPENDENT_MODULES_SCHEMA });
 
     const { extensions, root } = config;
