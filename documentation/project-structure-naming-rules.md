@@ -61,6 +61,7 @@ Add the following lines to **`eslint.config.mjs`**.
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import { projectStructurePlugin } from "eslint-plugin-project-structure";
+import { namingRulesConfig } from "./namingRules.mjs";
 
 export default tseslint.config({
     extends: [...tseslint.configs.recommended],
@@ -93,7 +94,7 @@ export default tseslint.config({
 
 import { createNamingRules } from "eslint-plugin-project-structure";
 
-export const createNamingRulesConfig = createNamingRules(
+export const namingRulesConfig = createNamingRules(
     {
         filePattern: "**/*consts.ts", // Name rules for all files ending with .const.ts.
         rules: [
@@ -195,7 +196,7 @@ const MYNAME = "";
 
 ## API:
 
-### **`"filePattern"`**: `<string | string[]>` <a id="file-pattern"></a>
+### **`filePattern`**: `<string | string[]>` <a id="file-pattern"></a>
 
 Here you define which files should meet the rules. You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.
 
@@ -205,7 +206,7 @@ Here you define which files should meet the rules. You can use all **[micromatch
 }
 ```
 
-### **`"rules"`**: `<NamingRule[]>` <a id="rules"></a>
+### **`rules`**: `<NamingRule[]>` <a id="rules"></a>
 
 The place where you define the naming rules for a given file.
 
@@ -216,7 +217,7 @@ The place where you define the naming rules for a given file.
 },
 ```
 
-### **`"nameType"`**: `<NameType | NameType[]>` <a id="name-type"></a>
+### **`nameType`**: `<NameType | NameType[]>` <a id="name-type"></a>
 
 Here you define the name type you are interested in.<br>
 
@@ -246,7 +247,7 @@ Available types:<br>
 }
 ```
 
-### **`"filenamePartsToRemove"`**: `<string[] | undefined>` <a id="filename-parts-to-remove"></a>
+### **`filenamePartsToRemove`**: `<string[] | undefined>` <a id="filename-parts-to-remove"></a>
 
 Useful if you use prefixes in your filenames and don't want them to be part of the name.
 
@@ -266,7 +267,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 }
 ```
 
-### **`"allowNames"`**: `<string[] | undefined>` <a id="allow-names"></a>
+### **`allowNames`**: `<string[] | undefined>` <a id="allow-names"></a>
 
 If the name matches at least one regex, it will be considered valid.
 
@@ -275,7 +276,7 @@ The following improvements are automatically added to the regex:
 -   The name is wrapped in `^$`.
 
 > [!NOTE]
-> If you do not specify **`"allowNames"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
+> If you do not specify **`allowNames`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
 
 ```jsonc
 {
@@ -295,9 +296,9 @@ The following improvements are automatically added to the regex:
 }
 ```
 
-### **`"allowNamesFileRoot"`**: `<string[] | undefined>` <a id="allow-names-file-root"></a>
+### **`allowNamesFileRoot`**: `<string[] | undefined>` <a id="allow-names-file-root"></a>
 
-**`"allowNamesFileRoot"`** only takes into account [**`nameTypes`**](#name-type) that are in the root of a given file (not nested).
+**`allowNamesFileRoot`** only takes into account [**`nameTypes`**](#name-type) that are in the root of a given file (not nested).
 
 If the name matches at least one regex, it will be considered valid.
 
@@ -306,7 +307,7 @@ The following improvements are automatically added to the regex:
 -   The name is wrapped in `^$`.
 
 > [!NOTE]
-> If you do not specify **`"allowNamesFileRoot"`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
+> If you do not specify **`allowNamesFileRoot`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
 
 ```jsonc
 {
