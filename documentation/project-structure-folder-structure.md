@@ -475,9 +475,9 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 
 ```jsonc
 {
-    // YourParentName.hello_world.ts
-    // YourParentName.hello_world.test.ts
-    // YourParentName.hello_world.api.ts
+    // FileParentName.hello_world.ts
+    // FileParentName.hello_world.test.ts
+    // FileParentName.hello_world.api.ts
     "name": "{ParentName}.{snake_case}(.(test|api))?.ts",
 }
 ```
