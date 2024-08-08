@@ -1,6 +1,7 @@
-import { FinalError } from "../../../errors/FinalError";
-import { getDebugMessage } from "../helpers/getDebugMessage";
-import { Module } from "../independentModules.types";
+import { FinalError } from "errors/FinalError";
+
+import { getDebugMessage } from "rules/independentModules/helpers/getDebugMessage";
+import { Module } from "rules/independentModules/independentModules.types";
 
 interface GetExternalImportErrorProps {
     moduleName: string;

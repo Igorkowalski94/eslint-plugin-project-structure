@@ -1,6 +1,8 @@
-import { getInvalidRegexError } from "../../../errors/getInvalidRegexError";
-import { isRegexInvalid } from "../../../helpers/isRegexInvalid";
-import { NamingRule } from "../namingRules.types";
+import { getInvalidRegexError } from "errors/getInvalidRegexError";
+
+import { isRegexInvalid } from "helpers/isRegexInvalid";
+
+import { NamingRule } from "rules/namingRules/namingRules.types";
 
 interface IsNameValidProps {
     name: string;

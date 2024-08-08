@@ -1,7 +1,7 @@
 import { sep } from "path";
 
-import { DEFAULT_ROOT } from "../independentModules.consts";
-import { IndependentModulesConfig } from "../independentModules.types";
+import { DEFAULT_IMPORT_ROOT } from "rules/independentModules/independentModules.consts";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 export const getCwdWithRoot = (
     cwd: string,
@@ -9,5 +9,5 @@ export const getCwdWithRoot = (
 ): string => {
     if (root === null) return `${cwd}${sep}`;
 
-    return `${cwd}${sep}${root ?? DEFAULT_ROOT}${sep}`;
+    return `${cwd}${sep}${root ?? DEFAULT_IMPORT_ROOT}${sep}`;
 };

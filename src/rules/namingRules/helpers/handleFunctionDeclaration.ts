@@ -1,9 +1,9 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
-import { validateName } from "./validateName";
-import { ESLINT_ERRORS } from "../namingRules.consts";
-import { FileNamingRules } from "../namingRules.types";
+import { validateName } from "rules/namingRules/helpers/validateName";
+import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+import { FileNamingRules } from "rules/namingRules/namingRules.types";
 
 interface HandleFunctionDeclarationProps {
     node: TSESTree.FunctionDeclaration;

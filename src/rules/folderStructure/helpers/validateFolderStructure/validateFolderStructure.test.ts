@@ -1,17 +1,21 @@
-import { isIgnoredPathname } from "./helpers/isIgnoredPathname";
-import { validateFolderStructure } from "./validateFolderStructure";
-import { validateConfig } from "../../../../helpers/validateConfig";
-import { validatePath } from "../validatePath/validatePath";
+import { validateConfig } from "helpers/validateConfig";
 
-jest.mock("./helpers/isIgnoredPathname", () => ({
-    isIgnoredPathname: jest.fn(),
-}));
+import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
+import { validateFolderStructure } from "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure";
+import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
-jest.mock("../../../../helpers/validateConfig", () => ({
+jest.mock(
+    "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname",
+    () => ({
+        isIgnoredPathname: jest.fn(),
+    }),
+);
+
+jest.mock("helpers/validateConfig", () => ({
     validateConfig: jest.fn(),
 }));
 
-jest.mock("../validatePath/validatePath", () => ({
+jest.mock("rules/folderStructure/helpers/validatePath/validatePath", () => ({
     validatePath: jest.fn(),
 }));
 

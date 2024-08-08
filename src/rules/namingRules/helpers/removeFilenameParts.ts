@@ -1,4 +1,4 @@
-import { NamingRule } from "../namingRules.types";
+import { NamingRule } from "rules/namingRules/namingRules.types";
 
 interface RemoveFilenamePartsProps {
     filenameWithoutExtension: string;

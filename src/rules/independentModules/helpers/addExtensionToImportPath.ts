@@ -1,8 +1,8 @@
 import fs from "fs";
 
-import { getFullImportPathVariants } from "./getFullImportPathVariants";
-import { FILE_EXTENSIONS } from "../independentModules.consts";
-import { IndependentModulesConfig } from "../independentModules.types";
+import { getFullImportPathVariants } from "rules/independentModules/helpers/getFullImportPathVariants";
+import { FILE_EXTENSIONS } from "rules/independentModules/independentModules.consts";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 interface AddExtensionToImportPathProps {
     importPath: string;

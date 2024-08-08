@@ -1,4 +1,4 @@
-import { getDirnamePath } from "./getDirnamePath";
+import { getDirnamePath } from "rules/independentModules/helpers/getDirnamePath";
 
 describe("getDirnamePath", () => {
     test.each([

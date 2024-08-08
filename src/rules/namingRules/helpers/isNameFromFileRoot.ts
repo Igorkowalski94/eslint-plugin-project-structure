@@ -1,7 +1,7 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { ValidateNameProps } from "./validateName";
-import { NameType } from "../namingRules.types";
+import { ValidateNameProps } from "rules/namingRules/helpers/validateName";
+import { NameType } from "rules/namingRules/namingRules.types";
 
 export interface IsNameFromFileRootProps {
     nameType: NameType;

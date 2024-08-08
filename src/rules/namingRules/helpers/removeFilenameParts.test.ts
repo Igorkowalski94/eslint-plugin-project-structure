@@ -1,5 +1,5 @@
-import { removeFilenameParts } from "./removeFilenameParts";
-import { NamingRule } from "../namingRules.types";
+import { removeFilenameParts } from "rules/namingRules/helpers/removeFilenameParts";
+import { NamingRule } from "rules/namingRules/namingRules.types";
 
 describe("removeFilenameParts", () => {
     test.each<{

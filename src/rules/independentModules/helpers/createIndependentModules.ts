@@ -1,4 +1,4 @@
-import { IndependentModulesConfig } from "../independentModules.types";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 export const createIndependentModules = (
     config: IndependentModulesConfig,

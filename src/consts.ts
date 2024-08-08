@@ -1,9 +1,10 @@
-const SNAKE_CASE_LOWER_RE: RegExp = /((([a-z]|\d)+_)*([a-z]|\d)+)/;
-const SNAKE_CASE_UPPER_RE: RegExp = /((([A-Z]|\d)+_)*([A-Z]|\d)+)/;
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const SNAKE_CASE_LOWER_RE = /((([a-z]|\d)+_)*([a-z]|\d)+)/;
+const SNAKE_CASE_UPPER_RE = /((([A-Z]|\d)+_)*([A-Z]|\d)+)/;
 
-const KEBAB_CASE_RE: RegExp = /((([a-z]|\d)+-)*([a-z]|\d)+)/;
-const PASCAL_CASE_RE: RegExp = /[A-Z](([a-z0-9]+[A-Z]?)*)/;
-const CAMEL_CASE_RE: RegExp =
+const KEBAB_CASE_RE = /((([a-z]|\d)+-)*([a-z]|\d)+)/;
+const PASCAL_CASE_RE = /[A-Z](([a-z0-9]+[A-Z]?)*)/;
+const CAMEL_CASE_RE =
     /[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])/;
 
 export const SNAKE_CASE_LOWER = `${SNAKE_CASE_LOWER_RE}`.replace(/\//g, "");

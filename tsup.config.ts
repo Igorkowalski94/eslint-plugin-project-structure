@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-exports */
 import { defineConfig, Options } from "tsup";
 
 const commonOptions: Options = {
@@ -6,6 +7,7 @@ const commonOptions: Options = {
     cjsInterop: true,
 };
 
+// ts-prune-ignore-next
 export default defineConfig([
     {
         entry: ["src/index.ts"],

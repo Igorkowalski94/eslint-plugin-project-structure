@@ -1,10 +1,15 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint/Rule";
 
-import { validateFolderStructure } from "./validateFolderStructure/validateFolderStructure";
-import { finalErrorGuard } from "../../../errors/finalErrorGuard";
-import { readConfigFile } from "../../../helpers/readConfigFile";
-import { Context, FolderStructureConfig } from "../folderStructure.types";
+import { finalErrorGuard } from "errors/finalErrorGuard";
+
+import { readConfigFile } from "helpers/readConfigFile";
+
+import {
+    Context,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
+import { validateFolderStructure } from "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure";
 
 export interface HandleProgramProps {
     context: Context;

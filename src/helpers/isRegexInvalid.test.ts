@@ -1,4 +1,4 @@
-import { isRegexInvalid } from "./isRegexInvalid";
+import { isRegexInvalid } from "helpers/isRegexInvalid";
 
 describe("isRegexInvalid", () => {
     it("should return true when regex is invalid", () => {

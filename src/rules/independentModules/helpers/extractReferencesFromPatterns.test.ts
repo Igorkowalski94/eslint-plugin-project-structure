@@ -1,8 +1,8 @@
-import { extractReferencesFromPatterns } from "./extractReferencesFromPatterns";
-import { getInvalidReusableImportPatternsKeyError } from "../errors/getInvalidReusableImportPatternsKeyError";
-import { getRecursionLimitError } from "../errors/getRecursionLimitError";
-import { getReferenceAsPartOfPatternError } from "../errors/getReferenceAsPartOfPatternError";
-import { IndependentModulesConfig } from "../independentModules.types";
+import { getInvalidReusableImportPatternsKeyError } from "rules/independentModules/errors/getInvalidReusableImportPatternsKeyError";
+import { getRecursionLimitError } from "rules/independentModules/errors/getRecursionLimitError";
+import { getReferenceAsPartOfPatternError } from "rules/independentModules/errors/getReferenceAsPartOfPatternError";
+import { extractReferencesFromPatterns } from "rules/independentModules/helpers/extractReferencesFromPatterns";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 describe("extractReferencesFromPatterns", () => {
     const reusableImportPatterns: IndependentModulesConfig["reusableImportPatterns"] =

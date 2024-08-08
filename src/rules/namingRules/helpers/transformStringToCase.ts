@@ -1,4 +1,4 @@
-import { Cases } from "../namingRules.types";
+import { Cases } from "rules/namingRules/namingRules.types";
 
 export const transformStringToCase = (
     str: string,
@@ -6,7 +6,7 @@ export const transformStringToCase = (
 ): string => {
     const toCamelCase = (input: string): string =>
         input
-            .replace(/[-_](.)/g, (_, char) => char.toUpperCase())
+            .replace(/[-_](.)/g, (_, char: string) => char.toUpperCase())
             .replace(/^[A-Z]/, (char) => char.toLowerCase());
 
     const toPascalCase = (input: string): string => {

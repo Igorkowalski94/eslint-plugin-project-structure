@@ -1,9 +1,12 @@
-import { filterRulesByType } from "./helpers/filterRulesByType";
-import { getNextPathname } from "./helpers/getNextPathname";
-import { sortChildrenByNameType } from "./helpers/sortChildrenByNameType";
-import { validateRulesList } from "./helpers/validateRulesList";
-import { FolderStructureConfig, Rule } from "../../folderStructure.types";
-import { getRule } from "../getRule";
+import {
+    Rule,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
+import { getRule } from "rules/folderStructure/helpers/getRule";
+import { filterRulesByType } from "rules/folderStructure/helpers/validateChildren/helpers/filterRulesByType";
+import { getNextPathname } from "rules/folderStructure/helpers/validateChildren/helpers/getNextPathname";
+import { sortChildrenByNameType } from "rules/folderStructure/helpers/validateChildren/helpers/sortChildrenByNameType";
+import { validateRulesList } from "rules/folderStructure/helpers/validateChildren/helpers/validateRulesList";
 
 interface ValidateChildrenProps {
     pathname: string;

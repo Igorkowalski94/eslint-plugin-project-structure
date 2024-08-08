@@ -1,4 +1,4 @@
-import { getLvlFromPattern } from "./getLvlFromPattern";
+import { getLvlFromPattern } from "rules/independentModules/helpers/getLvlFromPattern";
 
 describe("getLvlFromPattern", () => {
     test.each([

@@ -1,7 +1,14 @@
-import { validateName, ValidateNameProps } from "./validateName";
-import { DOT_CHARACTER_REGEX, WILDCARD_REGEX } from "./validateName.consts";
-import { getInvalidRegexError } from "../../../../errors/getInvalidRegexError";
-import { getNameRegexError } from "../../errors/getNameRegexError";
+import { getInvalidRegexError } from "errors/getInvalidRegexError";
+
+import { getNameRegexError } from "rules/folderStructure/errors/getNameRegexError";
+import {
+    validateName,
+    ValidateNameProps,
+} from "rules/folderStructure/helpers/validateName/validateName";
+import {
+    WILDCARD_REGEX,
+    DOT_CHARACTER_REGEX,
+} from "rules/folderStructure/helpers/validateName/validateName.consts";
 
 describe("validateName", () => {
     it("should throw error when regex is invalid", () => {

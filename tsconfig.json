@@ -10,7 +10,18 @@
         "alwaysStrict": true,
         "noImplicitReturns": true,
         "noEmit": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "baseUrl": "src",
+        "allowJs": true
     },
-    "include": ["src/**/*"]
+    "include": [
+        "src",
+        "types",
+        "./jest.config.ts",
+        "./tsup.config.ts",
+        "./eslint.config.mjs",
+        "./folderStructure.mjs",
+        "./independentModules.mjs",
+        "./namingRules.mjs"
+    ]
 }

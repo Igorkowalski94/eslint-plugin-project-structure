@@ -1,4 +1,4 @@
-import { Pattern } from "../independentModules.types";
+import { Pattern } from "rules/independentModules/independentModules.types";
 
 export const getNestedArrayInPatternError = (
     patterns: Pattern[],

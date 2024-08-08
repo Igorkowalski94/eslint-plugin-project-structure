@@ -1,11 +1,14 @@
-import { validateRulesList } from "./validateRulesList";
-import { getAllowedNamesError } from "../../../errors/getAllowedNamesError";
-import { getBaseErrorEnd } from "../../../errors/getBaseErrorEnd";
-import { getBaseErrorStart } from "../../../errors/getBaseErrorStart";
-import { getIdRuleError } from "../../../errors/getIdRuleError";
-import { getNameRegexError } from "../../../errors/getNameRegexError";
-import { getNodeTypeError } from "../../../errors/getNodeTypeError";
-import { FolderStructureConfig, Rule } from "../../../folderStructure.types";
+import { getAllowedNamesError } from "rules/folderStructure/errors/getAllowedNamesError";
+import { getBaseErrorEnd } from "rules/folderStructure/errors/getBaseErrorEnd";
+import { getBaseErrorStart } from "rules/folderStructure/errors/getBaseErrorStart";
+import { getIdRuleError } from "rules/folderStructure/errors/getIdRuleError";
+import { getNameRegexError } from "rules/folderStructure/errors/getNameRegexError";
+import { getNodeTypeError } from "rules/folderStructure/errors/getNodeTypeError";
+import {
+    FolderStructureConfig,
+    Rule,
+} from "rules/folderStructure/folderStructure.types";
+import { validateRulesList } from "rules/folderStructure/helpers/validateChildren/helpers/validateRulesList";
 
 jest.mock("path", () => ({
     sep: "/",

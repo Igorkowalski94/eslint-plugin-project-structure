@@ -1,6 +1,6 @@
 import path from "path";
 
-import { convertImportPathToNonRelative } from "./convertImportPathToNonRelative";
+import { convertImportPathToNonRelative } from "rules/independentModules/helpers/convertImportPathToNonRelative";
 
 describe("convertImportPathToNonRelative", () => {
     test.each([

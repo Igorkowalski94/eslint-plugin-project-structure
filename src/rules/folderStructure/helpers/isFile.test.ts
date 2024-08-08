@@ -1,4 +1,4 @@
-import { isFile } from "./isFile";
+import { isFile } from "rules/folderStructure/helpers/isFile";
 
 describe("isFile", () => {
     it("should return false when pathname includes /", () => {

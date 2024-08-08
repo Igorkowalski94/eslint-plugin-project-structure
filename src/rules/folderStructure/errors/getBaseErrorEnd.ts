@@ -1,4 +1,4 @@
-import { FinalError } from "../../../errors/FinalError";
+import { FinalError } from "errors/FinalError";
 
 interface GetBaseErrorEndProps {
     errorMessage: string;

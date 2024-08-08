@@ -1,4 +1,4 @@
-import { FileNamingRules } from "../namingRules.types";
+import { FileNamingRules } from "rules/namingRules/namingRules.types";
 
 export const createNamingRules = (
     config: FileNamingRules[],

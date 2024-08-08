@@ -1,4 +1,7 @@
-import { FAMILY_REGEX, DIRNAME_REGEX } from "../independentModules.consts";
+import {
+    DIRNAME_REGEX,
+    FAMILY_REGEX,
+} from "rules/independentModules/independentModules.consts";
 
 export const extractPathReferencesFromPattern = (
     pattern: string,

@@ -1,6 +1,6 @@
 import path from "path";
 
-import { removeCwdWithRootAndUnifySep } from "./removeCwdWithRootAndUnifySep";
+import { removeCwdWithRootAndUnifySep } from "rules/independentModules/helpers/removeCwdWithRootAndUnifySep";
 
 interface ConvertImportPathToNonRelativeProps {
     importPath: string;

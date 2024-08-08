@@ -1,9 +1,9 @@
-import { getCurrentAllowNames } from "./getCurrentAllowNames";
-import { isNameFromFileRoot } from "./isNameFromFileRoot";
-import { ValidateNameProps } from "./validateName";
-import { NamingRule } from "../namingRules.types";
+import { getCurrentAllowNames } from "rules/namingRules/helpers/getCurrentAllowNames";
+import { isNameFromFileRoot } from "rules/namingRules/helpers/isNameFromFileRoot";
+import { ValidateNameProps } from "rules/namingRules/helpers/validateName";
+import { NamingRule } from "rules/namingRules/namingRules.types";
 
-jest.mock("./isNameFromFileRoot", () => ({
+jest.mock("rules/namingRules/helpers/isNameFromFileRoot", () => ({
     isNameFromFileRoot: jest.fn(),
 }));
 

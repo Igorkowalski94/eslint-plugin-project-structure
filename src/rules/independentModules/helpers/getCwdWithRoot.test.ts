@@ -1,4 +1,4 @@
-import { getCwdWithRoot } from "./getCwdWithRoot";
+import { getCwdWithRoot } from "rules/independentModules/helpers/getCwdWithRoot";
 
 jest.mock("path", () => ({
     sep: "/",

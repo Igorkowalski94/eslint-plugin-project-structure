@@ -1,13 +1,16 @@
-import { getNodePath } from "./getNodePath";
-import { getAllowedNamesError } from "../../../errors/getAllowedNamesError";
-import { getBaseErrorEnd } from "../../../errors/getBaseErrorEnd";
-import { getBaseErrorStart } from "../../../errors/getBaseErrorStart";
-import { getNodeTypeError } from "../../../errors/getNodeTypeError";
-import { ruleErrorGuard } from "../../../errors/ruleErrorGuard";
-import { Rule, FolderStructureConfig } from "../../../folderStructure.types";
-import { getNodeName } from "../../getNodeName";
-import { getNodeType } from "../../getNodeType";
-import { validatePath } from "../../validatePath/validatePath";
+import { getAllowedNamesError } from "rules/folderStructure/errors/getAllowedNamesError";
+import { getBaseErrorEnd } from "rules/folderStructure/errors/getBaseErrorEnd";
+import { getBaseErrorStart } from "rules/folderStructure/errors/getBaseErrorStart";
+import { getNodeTypeError } from "rules/folderStructure/errors/getNodeTypeError";
+import { ruleErrorGuard } from "rules/folderStructure/errors/ruleErrorGuard";
+import {
+    Rule,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
+import { getNodeName } from "rules/folderStructure/helpers/getNodeName";
+import { getNodeType } from "rules/folderStructure/helpers/getNodeType";
+import { getNodePath } from "rules/folderStructure/helpers/validateChildren/helpers/getNodePath";
+import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
 interface ValidateRulesListProps {
     pathname: string;

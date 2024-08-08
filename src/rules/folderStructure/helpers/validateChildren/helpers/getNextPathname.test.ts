@@ -1,4 +1,4 @@
-import { getNextPathname } from "./getNextPathname";
+import { getNextPathname } from "rules/folderStructure/helpers/validateChildren/helpers/getNextPathname";
 
 describe("getNextPathname", () => {
     it("should return correct next path", () => {

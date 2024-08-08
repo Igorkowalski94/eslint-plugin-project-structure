@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-exports */
 import type { JestConfigWithTsJest } from "ts-jest";
 
 const jestConfig: JestConfigWithTsJest = {
@@ -11,6 +12,7 @@ const jestConfig: JestConfigWithTsJest = {
             },
         ],
     },
+    moduleDirectories: ["node_modules", "src"],
     cacheDirectory: "<rootDir>/jestCache",
     collectCoverage: false,
     collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
@@ -23,4 +25,5 @@ const jestConfig: JestConfigWithTsJest = {
     },
 };
 
+// ts-prune-ignore-next
 export default jestConfig;

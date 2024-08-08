@@ -1,5 +1,6 @@
-import { isNameValid } from "./isNameValid";
-import { getInvalidRegexError } from "../../../errors/getInvalidRegexError";
+import { getInvalidRegexError } from "errors/getInvalidRegexError";
+
+import { isNameValid } from "rules/namingRules/helpers/isNameValid";
 
 describe("isNameValid", () => {
     test("Should throw getInvalidRegexError when regex is invalid", () => {

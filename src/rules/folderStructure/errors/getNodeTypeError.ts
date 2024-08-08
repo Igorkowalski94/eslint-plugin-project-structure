@@ -1,5 +1,6 @@
-import { FinalError } from "../../../errors/FinalError";
-import { NodeType } from "../folderStructure.types";
+import { FinalError } from "errors/FinalError";
+
+import { NodeType } from "rules/folderStructure/folderStructure.types";
 
 interface GetNodeTypeErrorProps {
     nodeType: NodeType;

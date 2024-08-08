@@ -1,7 +1,7 @@
 export const isRegexInvalid = (regex: string): boolean => {
     try {
         new RegExp(regex);
-    } catch (e) {
+    } catch (_e) {
         return true;
     }
 

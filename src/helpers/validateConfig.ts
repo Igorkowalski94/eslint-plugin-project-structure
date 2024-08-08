@@ -1,7 +1,7 @@
 import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 import { validate } from "jsonschema";
 
-import { getInvalidConfigError } from "../errors/getInvalidConfigError";
+import { getInvalidConfigError } from "errors/getInvalidConfigError";
 
 interface ValidateConfigProps<T> {
     config: T;

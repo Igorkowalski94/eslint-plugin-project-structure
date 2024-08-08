@@ -1,7 +1,8 @@
 import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 
-import { validateConfig } from "./validateConfig";
-import { getInvalidConfigError } from "../errors/getInvalidConfigError";
+import { getInvalidConfigError } from "errors/getInvalidConfigError";
+
+import { validateConfig } from "helpers/validateConfig";
 
 describe("validateConfig", () => {
     const schema: JSONSchema4 = {

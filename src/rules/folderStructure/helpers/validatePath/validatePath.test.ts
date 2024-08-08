@@ -1,15 +1,18 @@
-import { validatePath } from "./validatePath";
-import { Rule } from "../../folderStructure.types";
-import { validateChildren } from "../validateChildren/validateChildren";
-import { validateName } from "../validateName/validateName";
+import { Rule } from "rules/folderStructure/folderStructure.types";
+import { validateChildren } from "rules/folderStructure/helpers/validateChildren/validateChildren";
+import { validateName } from "rules/folderStructure/helpers/validateName/validateName";
+import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
-jest.mock("../validateName/validateName", () => ({
+jest.mock("rules/folderStructure/helpers/validateName/validateName", () => ({
     validateName: jest.fn(),
 }));
 
-jest.mock("../validateChildren/validateChildren", () => ({
-    validateChildren: jest.fn(),
-}));
+jest.mock(
+    "rules/folderStructure/helpers/validateChildren/validateChildren",
+    () => ({
+        validateChildren: jest.fn(),
+    }),
+);
 
 describe("validatePath", () => {
     it("should call validateName when name is string", () => {

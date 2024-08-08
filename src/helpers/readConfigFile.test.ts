@@ -2,9 +2,10 @@ import { readFileSync } from "fs";
 
 import { load } from "js-yaml";
 
-import { getConfigPath } from "./getConfigPath";
-import { readConfigFile } from "./readConfigFile";
-import { getInvalidConfigFileError } from "../errors/getInvalidConfigFileError";
+import { getInvalidConfigFileError } from "errors/getInvalidConfigFileError";
+
+import { getConfigPath } from "helpers/getConfigPath";
+import { readConfigFile } from "helpers/readConfigFile";
 
 jest.mock("fs", () => ({
     readFileSync: jest.fn(),
@@ -14,7 +15,7 @@ jest.mock("js-yaml", () => ({
     load: jest.fn(),
 }));
 
-jest.mock("./getConfigPath", () => ({
+jest.mock("helpers/getConfigPath", () => ({
     getConfigPath: jest.fn(),
 }));
 

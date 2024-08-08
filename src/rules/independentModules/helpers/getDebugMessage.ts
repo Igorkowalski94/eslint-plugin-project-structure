@@ -1,7 +1,7 @@
-import { convertReferencesToPath } from "./convertReferencesToPath";
-import { getDirnamePath } from "./getDirnamePath";
-import { getFamilyPath } from "./getFamilyPath";
-import { Module } from "../independentModules.types";
+import { convertReferencesToPath } from "rules/independentModules/helpers/convertReferencesToPath";
+import { getDirnamePath } from "rules/independentModules/helpers/getDirnamePath";
+import { getFamilyPath } from "rules/independentModules/helpers/getFamilyPath";
+import { Module } from "rules/independentModules/independentModules.types";
 
 interface GetDebugMessageProps {
     allowImportsFromExtracted: Module["allowImportsFrom"];
@@ -14,14 +14,17 @@ export const getDebugMessage = ({
     filename,
     importPath,
 }: GetDebugMessageProps): string => {
-    const referencesMode = allowImportsFromExtracted.reduce((acc, pattern) => {
-        const newPattern = convertReferencesToPath({
-            pattern,
-            importPath,
-            filename,
-        });
-        return (acc = `${acc}${JSON.stringify(newPattern)}\n`);
-    }, "allowImportsFrom:\n");
+    const referencesMode = allowImportsFromExtracted.reduce<string>(
+        (acc, pattern) => {
+            const newPattern = convertReferencesToPath({
+                pattern,
+                importPath,
+                filename,
+            });
+            return (acc = `${acc}${JSON.stringify(newPattern)}\n`);
+        },
+        "allowImportsFrom:\n",
+    );
 
     return `\n\nFile path   = "${filename}"\nImport path = "${importPath}"\n{family}    = "${getFamilyPath({ filename, importPath, pattern: "{family}" })}"\n{dirname}   = "${getDirnamePath(filename, "{dirname}")}"\n\n${referencesMode}\n`;
 };

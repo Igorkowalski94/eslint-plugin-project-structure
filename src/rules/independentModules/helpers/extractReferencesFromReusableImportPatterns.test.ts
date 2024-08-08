@@ -1,7 +1,7 @@
-import { extractReferencesFromReusableImportPatterns } from "./extractReferencesFromReusableImportPatterns";
-import { getNestedArrayInPatternError } from "../errors/getNestedArrayInPatternError";
-import { getRecursionLimitError } from "../errors/getRecursionLimitError";
-import { IndependentModulesConfig } from "../independentModules.types";
+import { getNestedArrayInPatternError } from "rules/independentModules/errors/getNestedArrayInPatternError";
+import { getRecursionLimitError } from "rules/independentModules/errors/getRecursionLimitError";
+import { extractReferencesFromReusableImportPatterns } from "rules/independentModules/helpers/extractReferencesFromReusableImportPatterns";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 describe("extractReferencesFromReusableImportPatterns", () => {
     const reusableImportPatterns: IndependentModulesConfig["reusableImportPatterns"] =

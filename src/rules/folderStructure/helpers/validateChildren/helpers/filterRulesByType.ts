@@ -1,6 +1,9 @@
-import { FolderStructureConfig, Rule } from "../../../folderStructure.types";
-import { getRule } from "../../getRule";
-import { isFile as isFileFn } from "../../isFile";
+import {
+    Rule,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
+import { getRule } from "rules/folderStructure/helpers/getRule";
+import { isFile as isFileFn } from "rules/folderStructure/helpers/isFile";
 
 interface FilterRulesByTypeProps {
     pathname: string;

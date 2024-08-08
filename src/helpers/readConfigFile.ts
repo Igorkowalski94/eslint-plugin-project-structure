@@ -4,8 +4,9 @@ import { SharedConfigurationSettings } from "@typescript-eslint/utils/dist/ts-es
 import { parse } from "comment-json";
 import { load } from "js-yaml";
 
-import { getConfigPath } from "./getConfigPath";
-import { getInvalidConfigFileError } from "../errors/getInvalidConfigFileError";
+import { getInvalidConfigFileError } from "errors/getInvalidConfigFileError";
+
+import { getConfigPath } from "helpers/getConfigPath";
 
 interface ReadConfigFileProps<T> {
     key: string;

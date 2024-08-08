@@ -1,13 +1,14 @@
-import { getLowerCaseFirstLetter } from "./getLowerCaseFirstLetter";
-import { getUpperCaseFirstLetter } from "./getUpperCaseFirstLetter";
 import {
-    CAMEL_CASE,
-    KEBAB_CASE,
     PASCAL_CASE,
+    CAMEL_CASE,
     SNAKE_CASE_LOWER,
     SNAKE_CASE_UPPER,
-} from "../../../../../consts";
-import { RegexParameters } from "../../../folderStructure.types";
+    KEBAB_CASE,
+} from "consts";
+
+import { RegexParameters } from "rules/folderStructure/folderStructure.types";
+import { getLowerCaseFirstLetter } from "rules/folderStructure/helpers/validateName/helpers/getLowerCaseFirstLetter";
+import { getUpperCaseFirstLetter } from "rules/folderStructure/helpers/validateName/helpers/getUpperCaseFirstLetter";
 
 interface GetDefaultRegexParametersProps {
     parentName: string;

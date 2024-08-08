@@ -1,4 +1,4 @@
-import { sortChildrenByNameType } from "./sortChildrenByNameType";
+import { sortChildrenByNameType } from "rules/folderStructure/helpers/validateChildren/helpers/sortChildrenByNameType";
 
 describe("sortChildrenByNameType", () => {
     const children = [

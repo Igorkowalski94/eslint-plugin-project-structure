@@ -1,11 +1,12 @@
-import { replaceReferencesWithData } from "./replaceReferencesWithData";
 import {
     CAMEL_CASE,
     PASCAL_CASE,
     SNAKE_CASE_LOWER,
     SNAKE_CASE_UPPER,
-} from "../../../consts";
-import { NamingRule } from "../namingRules.types";
+} from "consts";
+
+import { replaceReferencesWithData } from "rules/namingRules/helpers/replaceReferencesWithData";
+import { NamingRule } from "rules/namingRules/namingRules.types";
 
 describe("replaceReferencesWithData", () => {
     test.each<{
@@ -15,7 +16,7 @@ describe("replaceReferencesWithData", () => {
     }>([
         {
             filenameWithoutParts: "component-name",
-            expected: [`${CAMEL_CASE}`, `${PASCAL_CASE}`],
+            expected: [CAMEL_CASE, PASCAL_CASE],
         },
 
         {
@@ -27,10 +28,10 @@ describe("replaceReferencesWithData", () => {
                 "{SNAKE_CASE}",
             ],
             expected: [
-                `${PASCAL_CASE}`,
-                `${CAMEL_CASE}`,
-                `${SNAKE_CASE_LOWER}`,
-                `${SNAKE_CASE_UPPER}`,
+                PASCAL_CASE,
+                CAMEL_CASE,
+                SNAKE_CASE_LOWER,
+                SNAKE_CASE_UPPER,
             ],
         },
         {

@@ -1,6 +1,9 @@
-import { getRule } from "./getRule";
-import { getIdRuleError } from "../errors/getIdRuleError";
-import { FolderStructureConfig, Rule } from "../folderStructure.types";
+import { getIdRuleError } from "rules/folderStructure/errors/getIdRuleError";
+import {
+    Rule,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
+import { getRule } from "rules/folderStructure/helpers/getRule";
 
 describe("getRule", () => {
     const testRule: Rule = {

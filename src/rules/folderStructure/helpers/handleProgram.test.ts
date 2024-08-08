@@ -1,13 +1,21 @@
-import { handleProgram, HandleProgramProps } from "./handleProgram";
-import { validateFolderStructure } from "./validateFolderStructure/validateFolderStructure";
-import { FinalError } from "../../../errors/FinalError";
-import { readConfigFile } from "../../../helpers/readConfigFile";
+import { FinalError } from "errors/FinalError";
 
-jest.mock("./validateFolderStructure/validateFolderStructure", () => ({
-    validateFolderStructure: jest.fn(),
-}));
+import { readConfigFile } from "helpers/readConfigFile";
 
-jest.mock("../../../helpers/readConfigFile", () => ({
+import {
+    handleProgram,
+    HandleProgramProps,
+} from "rules/folderStructure/helpers/handleProgram";
+import { validateFolderStructure } from "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure";
+
+jest.mock(
+    "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure",
+    () => ({
+        validateFolderStructure: jest.fn(),
+    }),
+);
+
+jest.mock("helpers/readConfigFile", () => ({
     readConfigFile: jest.fn(),
 }));
 
@@ -36,7 +44,7 @@ describe("validateImport", () => {
         (readConfigFile as jest.Mock).mockReturnValue({});
 
         (validateFolderStructure as jest.Mock).mockImplementation(() => {
-            throw "random error";
+            throw new Error("random error");
         });
 
         expect(() =>
@@ -45,6 +53,6 @@ describe("validateImport", () => {
                 importPath: "",
                 node: {},
             } as unknown as HandleProgramProps),
-        ).toThrow("random error");
+        ).toThrow(new Error("random error"));
     });
 });

@@ -1,10 +1,10 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { handleExportNamedDeclaration } from "./handleExportNamedDeclaration";
-import { validateImport } from "./validateImport";
-import { Context } from "../independentModules.types";
+import { handleExportNamedDeclaration } from "rules/independentModules/helpers/handleExportNamedDeclaration";
+import { validateImport } from "rules/independentModules/helpers/validateImport";
+import { Context } from "rules/independentModules/independentModules.types";
 
-jest.mock("./validateImport", () => ({
+jest.mock("rules/independentModules/helpers/validateImport", () => ({
     validateImport: jest.fn(),
 }));
 

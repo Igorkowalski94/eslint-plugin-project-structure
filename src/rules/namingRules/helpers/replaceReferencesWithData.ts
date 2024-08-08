@@ -1,12 +1,16 @@
-import { transformStringToCase } from "./transformStringToCase";
 import {
-    CAMEL_CASE,
     PASCAL_CASE,
+    CAMEL_CASE,
     SNAKE_CASE_LOWER,
     SNAKE_CASE_UPPER,
-} from "../../../consts";
-import { DEFAULT_ALLOW_NAMES, REFERENCES } from "../namingRules.consts";
-import { NamingRule } from "../namingRules.types";
+} from "consts";
+
+import { transformStringToCase } from "rules/namingRules/helpers/transformStringToCase";
+import {
+    DEFAULT_ALLOW_NAMES,
+    REFERENCES,
+} from "rules/namingRules/namingRules.consts";
+import { NamingRule } from "rules/namingRules/namingRules.types";
 
 interface ReplaceReferencesWithDataProps {
     filenameWithoutParts: string;
@@ -17,7 +21,7 @@ export const replaceReferencesWithData = ({
     allowNames,
     filenameWithoutParts,
 }: ReplaceReferencesWithDataProps): string[] =>
-    (allowNames ?? DEFAULT_ALLOW_NAMES)?.map((pattern) =>
+    (allowNames ?? DEFAULT_ALLOW_NAMES).map((pattern) =>
         pattern
             .replaceAll(REFERENCES.PascalCase, PASCAL_CASE)
             .replaceAll(REFERENCES.camelCase, CAMEL_CASE)

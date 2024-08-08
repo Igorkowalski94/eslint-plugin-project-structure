@@ -1,4 +1,4 @@
-import { NodeType } from "../folderStructure.types";
+import { NodeType } from "rules/folderStructure/folderStructure.types";
 
 interface GetBaseErrorStartProps {
     nodeType: NodeType;

@@ -272,10 +272,10 @@ If you use shortened imports without a file extension, the plugin will automatic
 
 ```ts
 // "helpers/myHelper.ts"
-import { myHelper } from "helpers/myHelper"; // The plugin will know that it is .ts
+import { myHelper } from "helpers/myHelper"; // The plugin will recognize the file as a .ts file and consider this when validating the glob pattern.
 ```
 
-Default values ​​are **`".js"`**, **`".jsx"`**, **`".d.ts"`**, **`".ts"`**, **`".tsx"`**, **`".json"`**, **`".svg"`**, **`".css"`**, **`".sass"`**, **`".less"`**, **`".png"`**, **`".jpg"`**, **`".ico"`**, **`".yml"`**.
+Default values ​​are **`".js"`**, **`".jsx"`**, **`".mjs"`**, **`".cjs"`** **`".d.ts"`**, **`".ts"`**, **`".tsx"`**, **`".vue"`**, **`".svelte"`**, **`".json"`**, **`".jsonc"`**, **`".yml"`**, **`".yaml"`**, **`".svg"`**, **`".png"`**, **`".jpg"`**, **`".ico"`**, **`".css"`**, **`".sass"`**, **`".scss"`**, **`".less"`**, **`".html"`**,
 
 If the extension you are using is not on the list, you can extend it.
 

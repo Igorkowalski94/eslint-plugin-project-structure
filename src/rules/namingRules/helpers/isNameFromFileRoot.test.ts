@@ -1,10 +1,10 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 import {
-    IsNameFromFileRootProps,
     isNameFromFileRoot,
-} from "./isNameFromFileRoot";
-import { NameType } from "../namingRules.types";
+    IsNameFromFileRootProps,
+} from "rules/namingRules/helpers/isNameFromFileRoot";
+import { NameType } from "rules/namingRules/namingRules.types";
 
 describe("isNameFromFileRoot", () => {
     test.each<{

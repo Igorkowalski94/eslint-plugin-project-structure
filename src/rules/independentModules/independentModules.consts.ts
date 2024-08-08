@@ -1,28 +1,40 @@
 import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 
-export const DIRNAME_REGEX: RegExp = /{dirname(_\d+)?}/g;
-export const FAMILY_REGEX: RegExp = /{family(_\d+)?}/g;
+export const DIRNAME_REGEX = /{dirname(_\d+)?}/g;
+export const FAMILY_REGEX = /{family(_\d+)?}/g;
 
-export const DEFAULT_ROOT = "src";
+export const DEFAULT_IMPORT_ROOT = "src";
 export const NO_FAMILY = "NO_FAMILY";
 
 export const FILE_EXTENSIONS = [
     ".js",
     ".jsx",
+    ".mjs",
+    ".cjs",
 
     ".d.ts",
     ".ts",
     ".tsx",
 
+    ".vue",
+    ".svelte",
+
     ".json",
+    ".jsonc",
+    ".yml",
+    ".yaml",
+
     ".svg",
-    ".css",
-    ".sass",
-    ".less",
     ".png",
     ".jpg",
     ".ico",
-    ".yml",
+
+    ".css",
+    ".scss",
+    ".sass",
+    ".less",
+
+    ".html",
 ];
 
 export const INDEPENDENT_MODULES_SCHEMA: JSONSchema4 = {

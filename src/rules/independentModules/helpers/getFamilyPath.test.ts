@@ -1,5 +1,5 @@
-import { getFamilyPath } from "./getFamilyPath";
-import { NO_FAMILY } from "../independentModules.consts";
+import { getFamilyPath } from "rules/independentModules/helpers/getFamilyPath";
+import { NO_FAMILY } from "rules/independentModules/independentModules.consts";
 
 describe("getFamilyPath", () => {
     test.each([

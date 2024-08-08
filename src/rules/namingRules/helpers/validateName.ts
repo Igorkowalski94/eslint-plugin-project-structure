@@ -4,15 +4,15 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import micromatch from "micromatch";
 
-import { getAllowNamesWithCaseReferences } from "./getAllowNamesWithCaseReferences";
-import { getCurrentAllowNames } from "./getCurrentAllowNames";
-import { getFileNameWithoutExtension } from "./getFileNameWithoutExtension";
-import { isCorrectNameType } from "./isCorrectNameType";
-import { isNameValid } from "./isNameValid";
-import { removeFilenameParts } from "./removeFilenameParts";
-import { replaceReferencesWithData } from "./replaceReferencesWithData";
-import { ESLINT_ERRORS } from "../namingRules.consts";
-import { FileNamingRules, NameType } from "../namingRules.types";
+import { getAllowNamesWithCaseReferences } from "rules/namingRules/helpers/getAllowNamesWithCaseReferences";
+import { getCurrentAllowNames } from "rules/namingRules/helpers/getCurrentAllowNames";
+import { getFileNameWithoutExtension } from "rules/namingRules/helpers/getFileNameWithoutExtension";
+import { isCorrectNameType } from "rules/namingRules/helpers/isCorrectNameType";
+import { isNameValid } from "rules/namingRules/helpers/isNameValid";
+import { removeFilenameParts } from "rules/namingRules/helpers/removeFilenameParts";
+import { replaceReferencesWithData } from "rules/namingRules/helpers/replaceReferencesWithData";
+import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+import { FileNamingRules, NameType } from "rules/namingRules/namingRules.types";
 
 export interface ValidateNameProps {
     name: string;
@@ -29,6 +29,7 @@ export interface ValidateNameProps {
 
 export const validateName = ({
     name,
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     context: { filename, report, options, cwd },
     node,
     nameType,

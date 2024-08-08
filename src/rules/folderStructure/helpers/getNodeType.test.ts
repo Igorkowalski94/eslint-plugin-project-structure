@@ -1,4 +1,4 @@
-import { getNodeType } from "./getNodeType";
+import { getNodeType } from "rules/folderStructure/helpers/getNodeType";
 
 describe("getNodeType", () => {
     it("should return 'file' when nodeName do not includes /", () => {

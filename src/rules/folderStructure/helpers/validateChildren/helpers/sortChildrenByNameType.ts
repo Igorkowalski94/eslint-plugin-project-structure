@@ -1,5 +1,5 @@
-import { isRegex } from "./isRegex";
-import { Rule } from "../../../folderStructure.types";
+import { Rule } from "rules/folderStructure/folderStructure.types";
+import { isRegex } from "rules/folderStructure/helpers/validateChildren/helpers/isRegex";
 
 /**
  * To avoid fixed name/regex overlap.

@@ -1,6 +1,6 @@
 import path from "path";
 
-import { getLvlFromPattern } from "./getLvlFromPattern";
+import { getLvlFromPattern } from "rules/independentModules/helpers/getLvlFromPattern";
 
 export const getDirnamePath = (fileName: string, pattern: string): string => {
     const lvl = getLvlFromPattern(pattern, 1);

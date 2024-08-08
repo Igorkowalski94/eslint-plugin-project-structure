@@ -1,9 +1,5 @@
-import { isCorrectNameType } from "./isCorrectNameType";
-import { NameType, NamingRule } from "../namingRules.types";
-
-jest.mock("./isNameFromFileRoot", () => ({
-    isNameFromFileRoot: jest.fn(),
-}));
+import { isCorrectNameType } from "rules/namingRules/helpers/isCorrectNameType";
+import { NamingRule, NameType } from "rules/namingRules/namingRules.types";
 
 describe("isCorrectNameType", () => {
     test.each<{

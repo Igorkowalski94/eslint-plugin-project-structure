@@ -1,11 +1,12 @@
-import { addExtensionToImportPath } from "./addExtensionToImportPath";
-import { checkImportPath } from "./checkImportPath";
-import { convertImportPathToNonRelative } from "./convertImportPathToNonRelative";
-import { getCwdWithRoot } from "./getCwdWithRoot";
-import { removeCwdWithRootAndUnifySep } from "./removeCwdWithRootAndUnifySep";
-import { validateConfig } from "../../../helpers/validateConfig";
-import { INDEPENDENT_MODULES_SCHEMA } from "../independentModules.consts";
-import { IndependentModulesConfig } from "../independentModules.types";
+import { validateConfig } from "helpers/validateConfig";
+
+import { addExtensionToImportPath } from "rules/independentModules/helpers/addExtensionToImportPath";
+import { checkImportPath } from "rules/independentModules/helpers/checkImportPath";
+import { convertImportPathToNonRelative } from "rules/independentModules/helpers/convertImportPathToNonRelative";
+import { getCwdWithRoot } from "rules/independentModules/helpers/getCwdWithRoot";
+import { removeCwdWithRootAndUnifySep } from "rules/independentModules/helpers/removeCwdWithRootAndUnifySep";
+import { INDEPENDENT_MODULES_SCHEMA } from "rules/independentModules/independentModules.consts";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 interface ValidateAllProps {
     filename: string;

@@ -1,9 +1,12 @@
-import { hasNestedArray } from "./hasNestedArray";
-import { getInvalidReusableImportPatternsKeyError } from "../errors/getInvalidReusableImportPatternsKeyError";
-import { getNestedArrayInPatternError } from "../errors/getNestedArrayInPatternError";
-import { getRecursionLimitError } from "../errors/getRecursionLimitError";
-import { getReferenceAsPartOfPatternError } from "../errors/getReferenceAsPartOfPatternError";
-import { IndependentModulesConfig, Pattern } from "../independentModules.types";
+import { getInvalidReusableImportPatternsKeyError } from "rules/independentModules/errors/getInvalidReusableImportPatternsKeyError";
+import { getNestedArrayInPatternError } from "rules/independentModules/errors/getNestedArrayInPatternError";
+import { getRecursionLimitError } from "rules/independentModules/errors/getRecursionLimitError";
+import { getReferenceAsPartOfPatternError } from "rules/independentModules/errors/getReferenceAsPartOfPatternError";
+import { hasNestedArray } from "rules/independentModules/helpers/hasNestedArray";
+import {
+    Pattern,
+    IndependentModulesConfig,
+} from "rules/independentModules/independentModules.types";
 
 interface ExtractReferencesFromPatternsProps {
     patterns: Pattern[];
@@ -22,6 +25,8 @@ export const extractReferencesFromPatterns = ({
 
     if (recursionLimit === 0) throw getRecursionLimitError(patterns);
 
+    // TODO: Refactor
+    // eslint-disable-next-line complexity
     return patterns.reduce<Pattern[]>((acc, pattern) => {
         if (Array.isArray(pattern))
             return [
@@ -41,11 +46,15 @@ export const extractReferencesFromPatterns = ({
             .filter((pattern) => !forbiddenPattern.test(pattern));
         const referenceKey = referenceKeys?.[0];
         const referenceAsPartOfPattern = patternMatch?.[0]
-            ? pattern.replace(patternMatch?.[0], "")
+            ? pattern.replace(patternMatch[0], "")
             : undefined;
 
         if (!referenceKey) return [...acc, pattern];
 
+        /**
+         * user can provide random referenceKey.
+         */
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!reusableImportPatterns[referenceKey])
             throw getInvalidReusableImportPatternsKeyError(referenceKey);
 

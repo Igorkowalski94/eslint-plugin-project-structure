@@ -1,9 +1,12 @@
-import { validateRulesList } from "./helpers/validateRulesList";
-import { validateChildren } from "./validateChildren";
+import { validateRulesList } from "rules/folderStructure/helpers/validateChildren/helpers/validateRulesList";
+import { validateChildren } from "rules/folderStructure/helpers/validateChildren/validateChildren";
 
-jest.mock("./helpers/validateRulesList", () => ({
-    validateRulesList: jest.fn(),
-}));
+jest.mock(
+    "rules/folderStructure/helpers/validateChildren/helpers/validateRulesList",
+    () => ({
+        validateRulesList: jest.fn(),
+    }),
+);
 
 describe("validateChildren", () => {
     it("should call validateRulesList when children are not empty", () => {

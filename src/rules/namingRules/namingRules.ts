@@ -1,10 +1,13 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import { handleClassDeclaration } from "./helpers/handleClassDeclaration";
-import { handleFunctionDeclaration } from "./helpers/handleFunctionDeclaration";
-import { handleVariableDeclarator } from "./helpers/handleVariableDeclarator";
-import { validateName } from "./helpers/validateName";
-import { ESLINT_ERRORS, NAMING_RULES_SCHEMA } from "./namingRules.consts";
+import { handleClassDeclaration } from "rules/namingRules/helpers/handleClassDeclaration";
+import { handleFunctionDeclaration } from "rules/namingRules/helpers/handleFunctionDeclaration";
+import { handleVariableDeclarator } from "rules/namingRules/helpers/handleVariableDeclarator";
+import { validateName } from "rules/namingRules/helpers/validateName";
+import {
+    NAMING_RULES_SCHEMA,
+    ESLINT_ERRORS,
+} from "rules/namingRules/namingRules.consts";
 
 export const namingRules = ESLintUtils.RuleCreator(
     () =>
@@ -13,8 +16,8 @@ export const namingRules = ESLintUtils.RuleCreator(
     name: "project-structure-naming-rules",
     meta: {
         docs: {
+            url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md",
             description: "Enforce complex naming rules.",
-            recommended: "recommended",
         },
         type: "problem",
         schema: NAMING_RULES_SCHEMA,

@@ -1,7 +1,7 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { validateImport } from "./validateImport";
-import { Context } from "../independentModules.types";
+import { validateImport } from "rules/independentModules/helpers/validateImport";
+import { Context } from "rules/independentModules/independentModules.types";
 
 export const handleExportNamedDeclaration = (
     node: TSESTree.ExportNamedDeclaration,

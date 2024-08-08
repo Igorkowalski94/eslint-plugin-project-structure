@@ -1,6 +1,6 @@
-import { isNameFromFileRoot } from "./isNameFromFileRoot";
-import { ValidateNameProps } from "./validateName";
-import { NameType, NamingRule } from "../namingRules.types";
+import { isNameFromFileRoot } from "rules/namingRules/helpers/isNameFromFileRoot";
+import { ValidateNameProps } from "rules/namingRules/helpers/validateName";
+import { NameType, NamingRule } from "rules/namingRules/namingRules.types";
 
 interface GetCurrentAllowNamesProps {
     nameType: NameType;

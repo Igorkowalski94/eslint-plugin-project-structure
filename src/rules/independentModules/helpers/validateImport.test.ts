@@ -1,13 +1,18 @@
-import { validateAll } from "./validateAll";
-import { ValidateImportProps, validateImport } from "./validateImport";
-import { FinalError } from "../../../errors/FinalError";
-import { readConfigFile } from "../../../helpers/readConfigFile";
+import { FinalError } from "errors/FinalError";
 
-jest.mock("./validateAll", () => ({
+import { readConfigFile } from "helpers/readConfigFile";
+
+import { validateAll } from "rules/independentModules/helpers/validateAll";
+import {
+    validateImport,
+    ValidateImportProps,
+} from "rules/independentModules/helpers/validateImport";
+
+jest.mock("rules/independentModules/helpers/validateAll", () => ({
     validateAll: jest.fn(),
 }));
 
-jest.mock("../../../helpers/readConfigFile", () => ({
+jest.mock("helpers/readConfigFile", () => ({
     readConfigFile: jest.fn(),
 }));
 
@@ -36,7 +41,7 @@ describe("validateImport", () => {
         (readConfigFile as jest.Mock).mockReturnValue({});
 
         (validateAll as jest.Mock).mockImplementation(() => {
-            throw "random error";
+            throw new Error("random error");
         });
 
         expect(() =>
@@ -45,6 +50,6 @@ describe("validateImport", () => {
                 importPath: "",
                 node: {},
             } as unknown as ValidateImportProps),
-        ).toThrow("random error");
+        ).toThrow(new Error("random error"));
     });
 });

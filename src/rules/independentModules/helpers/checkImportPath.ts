@@ -1,13 +1,13 @@
 import micromatch from "micromatch";
 
-import { extractReferencesFromPatterns } from "./extractReferencesFromPatterns";
-import { extractReferencesFromReusableImportPatterns } from "./extractReferencesFromReusableImportPatterns";
-import { findModuleConfig } from "./findModuleConfig";
-import { isExternalImport } from "./isExternalImport";
-import { validateImportPath } from "./validateImportPath";
-import { getExternalImportError } from "../errors/getExternalImportError";
-import { getImportError } from "../errors/getImportError";
-import { IndependentModulesConfig } from "../independentModules.types";
+import { getExternalImportError } from "rules/independentModules/errors/getExternalImportError";
+import { getImportError } from "rules/independentModules/errors/getImportError";
+import { extractReferencesFromPatterns } from "rules/independentModules/helpers/extractReferencesFromPatterns";
+import { extractReferencesFromReusableImportPatterns } from "rules/independentModules/helpers/extractReferencesFromReusableImportPatterns";
+import { findModuleConfig } from "rules/independentModules/helpers/findModuleConfig";
+import { isExternalImport } from "rules/independentModules/helpers/isExternalImport";
+import { validateImportPath } from "rules/independentModules/helpers/validateImportPath";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 interface CheckImportPathProps {
     importPath: string;

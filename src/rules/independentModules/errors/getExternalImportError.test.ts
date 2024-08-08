@@ -1,6 +1,7 @@
-import { getExternalImportError } from "./getExternalImportError";
-import { FinalError } from "../../../errors/FinalError";
-import { getDebugMessage } from "../helpers/getDebugMessage";
+import { FinalError } from "errors/FinalError";
+
+import { getExternalImportError } from "rules/independentModules/errors/getExternalImportError";
+import { getDebugMessage } from "rules/independentModules/helpers/getDebugMessage";
 
 describe("getExternalImportError", () => {
     test.each([

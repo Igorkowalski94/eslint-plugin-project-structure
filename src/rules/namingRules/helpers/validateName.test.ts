@@ -1,21 +1,21 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
-import { getCurrentAllowNames } from "./getCurrentAllowNames";
-import { isCorrectNameType } from "./isCorrectNameType";
-import { validateName } from "./validateName";
-import { ESLINT_ERRORS } from "../namingRules.consts";
-import { FileNamingRules } from "../namingRules.types";
+import { getCurrentAllowNames } from "rules/namingRules/helpers/getCurrentAllowNames";
+import { isCorrectNameType } from "rules/namingRules/helpers/isCorrectNameType";
+import { validateName } from "rules/namingRules/helpers/validateName";
+import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+import { FileNamingRules } from "rules/namingRules/namingRules.types";
 
-jest.mock("./isCorrectNameType", () => ({
+jest.mock("rules/namingRules/helpers/isCorrectNameType", () => ({
     isCorrectNameType: jest.fn(),
 }));
 
-jest.mock("./getCurrentAllowNames", () => ({
+jest.mock("rules/namingRules/helpers/getCurrentAllowNames", () => ({
     getCurrentAllowNames: jest.fn(),
 }));
 
-jest.mock("path", () => ({
+jest.mock("path", (): typeof import("path") => ({
     ...jest.requireActual("path"),
     sep: "/",
 }));
@@ -34,7 +34,7 @@ describe("validateName", () => {
                             filePattern: "**/*.ts",
                         },
                     ],
-                    report: () => {},
+                    report: () => undefined,
                 } as unknown as RuleContext<
                     keyof typeof ESLINT_ERRORS,
                     FileNamingRules[]
@@ -70,7 +70,7 @@ describe("validateName", () => {
                             ],
                         },
                     ],
-                    report: () => {},
+                    report: () => undefined,
                 } as unknown as RuleContext<
                     keyof typeof ESLINT_ERRORS,
                     FileNamingRules[]
@@ -113,7 +113,7 @@ describe("validateName", () => {
                             ],
                         },
                     ],
-                    report: () => {},
+                    report: () => undefined,
                 } as unknown as RuleContext<
                     keyof typeof ESLINT_ERRORS,
                     FileNamingRules[]

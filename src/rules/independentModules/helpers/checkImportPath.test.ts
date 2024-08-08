@@ -1,24 +1,27 @@
-import { checkImportPath } from "./checkImportPath";
-import { extractReferencesFromPatterns } from "./extractReferencesFromPatterns";
-import { findModuleConfig } from "./findModuleConfig";
-import { isExternalImport } from "./isExternalImport";
-import { validateImportPath } from "./validateImportPath";
-import { getExternalImportError } from "../errors/getExternalImportError";
-import { getImportError } from "../errors/getImportError";
+import { getExternalImportError } from "rules/independentModules/errors/getExternalImportError";
+import { getImportError } from "rules/independentModules/errors/getImportError";
+import { checkImportPath } from "rules/independentModules/helpers/checkImportPath";
+import { extractReferencesFromPatterns } from "rules/independentModules/helpers/extractReferencesFromPatterns";
+import { findModuleConfig } from "rules/independentModules/helpers/findModuleConfig";
+import { isExternalImport } from "rules/independentModules/helpers/isExternalImport";
+import { validateImportPath } from "rules/independentModules/helpers/validateImportPath";
 
-jest.mock("./findModuleConfig", () => ({
+jest.mock("rules/independentModules/helpers/findModuleConfig", () => ({
     findModuleConfig: jest.fn(),
 }));
 
-jest.mock("./extractReferencesFromPatterns", () => ({
-    extractReferencesFromPatterns: jest.fn(),
-}));
+jest.mock(
+    "rules/independentModules/helpers/extractReferencesFromPatterns",
+    () => ({
+        extractReferencesFromPatterns: jest.fn(),
+    }),
+);
 
-jest.mock("./isExternalImport", () => ({
+jest.mock("rules/independentModules/helpers/isExternalImport", () => ({
     isExternalImport: jest.fn(),
 }));
 
-jest.mock("./validateImportPath", () => ({
+jest.mock("rules/independentModules/helpers/validateImportPath", () => ({
     validateImportPath: jest.fn(),
 }));
 

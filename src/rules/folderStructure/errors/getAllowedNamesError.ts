@@ -1,4 +1,4 @@
-import { RuleError } from "./RuleError";
+import { RuleError } from "rules/folderStructure/errors/RuleError";
 
 interface GetAllowedNamesErrorProps {
     error: RuleError;

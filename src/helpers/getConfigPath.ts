@@ -2,7 +2,7 @@ import path from "path";
 
 import { SharedConfigurationSettings } from "@typescript-eslint/utils/dist/ts-eslint";
 
-import { getMissingConfigFileError } from "../errors/getMissingConfigFileError";
+import { getMissingConfigFileError } from "errors/getMissingConfigFileError";
 
 interface GetConfigPathProps {
     cwd: string;

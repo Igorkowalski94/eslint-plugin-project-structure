@@ -1,5 +1,8 @@
-import { filterRulesByType } from "./filterRulesByType";
-import { FolderStructureConfig, Rule } from "../../../folderStructure.types";
+import {
+    Rule,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
+import { filterRulesByType } from "rules/folderStructure/helpers/validateChildren/helpers/filterRulesByType";
 
 describe("filterRulesByType", () => {
     const fileRule: Rule = {

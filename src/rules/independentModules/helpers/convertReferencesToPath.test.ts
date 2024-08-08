@@ -1,4 +1,4 @@
-import { convertReferencesToPath } from "./convertReferencesToPath";
+import { convertReferencesToPath } from "rules/independentModules/helpers/convertReferencesToPath";
 
 describe("convertReferencesToPath", () => {
     test.each([

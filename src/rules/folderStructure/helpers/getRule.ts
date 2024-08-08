@@ -1,5 +1,8 @@
-import { getIdRuleError } from "../errors/getIdRuleError";
-import { FolderStructureConfig, Rule } from "../folderStructure.types";
+import { getIdRuleError } from "rules/folderStructure/errors/getIdRuleError";
+import {
+    Rule,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
 
 interface GetRuleProps {
     rule: Rule;
@@ -13,6 +16,10 @@ export const getRule = ({ rule, rules = {} }: GetRuleProps): Rule => {
 
     const ruleIdData = rules[ruleId];
 
+    /**
+     * User can provide random ruleId.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (ruleIdData) return { ...ruleIdData, ...ruleWithoutRuleId };
 
     throw getIdRuleError(ruleId);

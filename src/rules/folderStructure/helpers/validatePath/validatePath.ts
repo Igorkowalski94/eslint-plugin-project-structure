@@ -1,8 +1,11 @@
-import { Rule, FolderStructureConfig } from "../../folderStructure.types";
-import { getNodeName } from "../getNodeName";
-import { getRule } from "../getRule";
-import { validateChildren } from "../validateChildren/validateChildren";
-import { validateName } from "../validateName/validateName";
+import {
+    Rule,
+    FolderStructureConfig,
+} from "rules/folderStructure/folderStructure.types";
+import { getNodeName } from "rules/folderStructure/helpers/getNodeName";
+import { getRule } from "rules/folderStructure/helpers/getRule";
+import { validateChildren } from "rules/folderStructure/helpers/validateChildren/validateChildren";
+import { validateName } from "rules/folderStructure/helpers/validateName/validateName";
 
 interface ValidatePathProps {
     pathname: string;

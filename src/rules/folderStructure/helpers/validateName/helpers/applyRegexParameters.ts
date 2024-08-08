@@ -1,5 +1,5 @@
-import { getDefaultRegexParameters } from "./getDefaultRegexParameters";
-import { RegexParameters } from "../../../folderStructure.types";
+import { RegexParameters } from "rules/folderStructure/folderStructure.types";
+import { getDefaultRegexParameters } from "rules/folderStructure/helpers/validateName/helpers/getDefaultRegexParameters";
 
 interface ApplyRegexParametersProps {
     regex: string;

@@ -1,7 +1,7 @@
 import micromatch from "micromatch";
 
-import { convertReferencesToPath } from "./convertReferencesToPath";
-import { Pattern } from "../independentModules.types";
+import { convertReferencesToPath } from "rules/independentModules/helpers/convertReferencesToPath";
+import { Pattern } from "rules/independentModules/independentModules.types";
 
 interface ValidateImportPathProps {
     allowImportsFrom: Pattern[];

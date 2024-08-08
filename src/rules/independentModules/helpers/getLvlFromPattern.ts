@@ -1,4 +1,4 @@
-import { extractPathReferencesFromPattern } from "./extractPathReferencesFromPattern";
+import { extractPathReferencesFromPattern } from "rules/independentModules/helpers/extractPathReferencesFromPattern";
 
 export const getLvlFromPattern = (
     pattern: string,

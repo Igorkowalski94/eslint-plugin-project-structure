@@ -1,7 +1,8 @@
 import path from "path";
 
-import { getConfigPath } from "./getConfigPath";
-import { getMissingConfigFileError } from "../errors/getMissingConfigFileError";
+import { getMissingConfigFileError } from "errors/getMissingConfigFileError";
+
+import { getConfigPath } from "helpers/getConfigPath";
 
 describe("getConfigPath", () => {
     afterEach(() => {

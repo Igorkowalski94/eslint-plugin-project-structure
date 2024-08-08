@@ -1,10 +1,11 @@
 import {
-    CAMEL_CASE,
     PASCAL_CASE,
+    CAMEL_CASE,
     SNAKE_CASE_LOWER,
     SNAKE_CASE_UPPER,
-} from "../../../consts";
-import { REFERENCES } from "../namingRules.consts";
+} from "consts";
+
+import { REFERENCES } from "rules/namingRules/namingRules.consts";
 
 export const getAllowNamesWithCaseReferences = (
     allowNamesWithoutReferences: string[],

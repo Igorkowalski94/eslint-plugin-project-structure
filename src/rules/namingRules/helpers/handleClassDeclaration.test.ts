@@ -1,12 +1,12 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
-import { handleClassDeclaration } from "./handleClassDeclaration";
-import { validateName } from "./validateName";
-import { ESLINT_ERRORS } from "../namingRules.consts";
-import { FileNamingRules } from "../namingRules.types";
+import { handleClassDeclaration } from "rules/namingRules/helpers/handleClassDeclaration";
+import { validateName } from "rules/namingRules/helpers/validateName";
+import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+import { FileNamingRules } from "rules/namingRules/namingRules.types";
 
-jest.mock("./validateName", () => ({
+jest.mock("rules/namingRules/helpers/validateName", () => ({
     validateName: jest.fn(),
 }));
 
@@ -24,8 +24,9 @@ describe("handleClassDeclaration", () => {
                 keyof typeof ESLINT_ERRORS,
                 FileNamingRules[]
             >,
-        }),
-            expect(validateNameMock).toHaveBeenCalled();
+        });
+
+        expect(validateNameMock).toHaveBeenCalled();
     });
 
     test("Should not call validateName when !name", () => {
@@ -39,7 +40,8 @@ describe("handleClassDeclaration", () => {
                 keyof typeof ESLINT_ERRORS,
                 FileNamingRules[]
             >,
-        }),
-            expect(validateNameMock).not.toHaveBeenCalled();
+        });
+
+        expect(validateNameMock).not.toHaveBeenCalled();
     });
 });

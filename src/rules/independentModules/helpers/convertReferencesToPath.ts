@@ -1,7 +1,10 @@
-import { getDirnamePath } from "./getDirnamePath";
-import { getFamilyPath } from "./getFamilyPath";
-import { FAMILY_REGEX, DIRNAME_REGEX } from "../independentModules.consts";
-import { Pattern } from "../independentModules.types";
+import { getDirnamePath } from "rules/independentModules/helpers/getDirnamePath";
+import { getFamilyPath } from "rules/independentModules/helpers/getFamilyPath";
+import {
+    DIRNAME_REGEX,
+    FAMILY_REGEX,
+} from "rules/independentModules/independentModules.consts";
+import { Pattern } from "rules/independentModules/independentModules.types";
 
 interface ConvertReferencesToPathProps {
     pattern: Pattern;

@@ -1,5 +1,5 @@
-import { extractReferencesFromPatterns } from "./extractReferencesFromPatterns";
-import { IndependentModulesConfig } from "../independentModules.types";
+import { extractReferencesFromPatterns } from "rules/independentModules/helpers/extractReferencesFromPatterns";
+import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 export const extractReferencesFromReusableImportPatterns = (
     reusableImportPatterns: IndependentModulesConfig["reusableImportPatterns"],

@@ -1,4 +1,4 @@
-import { NameType } from "../namingRules.types";
+import { NameType } from "rules/namingRules/namingRules.types";
 
 interface IsCorrectNameTypeProps {
     ruleNameType: NameType | NameType[];

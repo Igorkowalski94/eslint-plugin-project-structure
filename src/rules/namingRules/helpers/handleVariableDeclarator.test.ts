@@ -1,12 +1,12 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
-import { handleVariableDeclarator } from "./handleVariableDeclarator";
-import { validateName } from "./validateName";
-import { ESLINT_ERRORS } from "../namingRules.consts";
-import { FileNamingRules } from "../namingRules.types";
+import { handleVariableDeclarator } from "rules/namingRules/helpers/handleVariableDeclarator";
+import { validateName } from "rules/namingRules/helpers/validateName";
+import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+import { FileNamingRules } from "rules/namingRules/namingRules.types";
 
-jest.mock("./validateName", () => ({
+jest.mock("rules/namingRules/helpers/validateName", () => ({
     validateName: jest.fn(),
 }));
 
@@ -24,8 +24,9 @@ describe("handleVariableDeclarator", () => {
                 keyof typeof ESLINT_ERRORS,
                 FileNamingRules[]
             >,
-        }),
-            expect(validateNameMock).not.toHaveBeenCalled();
+        });
+
+        expect(validateNameMock).not.toHaveBeenCalled();
     });
 
     test.each([
@@ -84,8 +85,9 @@ describe("handleVariableDeclarator", () => {
                     keyof typeof ESLINT_ERRORS,
                     FileNamingRules[]
                 >,
-            }),
-                expect(validateNameMock).toHaveBeenCalledWith(expected);
+            });
+
+            expect(validateNameMock).toHaveBeenCalledWith(expected);
         },
     );
 });

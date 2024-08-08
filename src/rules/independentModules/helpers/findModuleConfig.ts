@@ -1,6 +1,9 @@
 import micromatch from "micromatch";
 
-import { IndependentModulesConfig, Module } from "../independentModules.types";
+import {
+    IndependentModulesConfig,
+    Module,
+} from "rules/independentModules/independentModules.types";
 
 export const findModuleConfig = (
     fileName: string,

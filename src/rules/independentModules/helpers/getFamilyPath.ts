@@ -1,5 +1,5 @@
-import { getLvlFromPattern } from "./getLvlFromPattern";
-import { NO_FAMILY } from "../independentModules.consts";
+import { getLvlFromPattern } from "rules/independentModules/helpers/getLvlFromPattern";
+import { NO_FAMILY } from "rules/independentModules/independentModules.consts";
 
 interface GetFamilyPathProps {
     importPath: string;

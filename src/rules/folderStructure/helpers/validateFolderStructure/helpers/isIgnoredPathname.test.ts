@@ -1,4 +1,4 @@
-import { isIgnoredPathname } from "./isIgnoredPathname";
+import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
 
 describe("isIgnoredPathname", () => {
     it("should return false when ignorePatterns === undefined", () => {

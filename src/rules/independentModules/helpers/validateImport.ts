@@ -1,10 +1,15 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint/Rule";
 
-import { validateAll } from "./validateAll";
-import { finalErrorGuard } from "../../../errors/finalErrorGuard";
-import { readConfigFile } from "../../../helpers/readConfigFile";
-import { Context, IndependentModulesConfig } from "../independentModules.types";
+import { finalErrorGuard } from "errors/finalErrorGuard";
+
+import { readConfigFile } from "helpers/readConfigFile";
+
+import { validateAll } from "rules/independentModules/helpers/validateAll";
+import {
+    Context,
+    IndependentModulesConfig,
+} from "rules/independentModules/independentModules.types";
 
 export interface ValidateImportProps {
     importPath: string;
