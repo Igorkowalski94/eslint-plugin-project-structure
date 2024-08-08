@@ -175,7 +175,7 @@ describe("validateName", () => {
             node: {},
             messageId: "invalidName",
             data: {
-                allowNamesWithoutReferences: JSON.stringify(["{camelCase}"]),
+                allowNamesWithoutReferences: "{camelCase}",
             },
         });
     });
