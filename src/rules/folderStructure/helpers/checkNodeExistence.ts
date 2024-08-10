@@ -31,6 +31,8 @@ export const checkNodeExistence = ({
         0,
         nodeName.lastIndexOf("."),
     );
+    const currentDirname =
+        nodeNameType === "File" ? nodeNameDirname : nodeNamePath;
 
     const enforcedNodeNames = enforceExistence
         .map((enforcedNodeName) => {
@@ -43,9 +45,6 @@ export const checkNodeExistence = ({
                     REFERENCES.name,
                     getLowerCaseFirstLetter(nodeNameWithoutExtension),
                 );
-
-            const currentDirname =
-                nodeNameType === "File" ? nodeNameDirname : nodeNamePath;
 
             const enforcedNodeFullPath = path.join(
                 cwd,
