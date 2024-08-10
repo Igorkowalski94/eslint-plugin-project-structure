@@ -6,7 +6,7 @@ Eslint plugin with rules that will help you achieve a project structure that is 
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
-If you have any questions **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
+If you have any questions or need help creating a configuration that meets your requirements **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
 
 ### Documentation:
 
