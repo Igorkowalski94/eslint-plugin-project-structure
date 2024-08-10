@@ -556,6 +556,12 @@ In `enforceExistence`, two references are available for use:
 
 The structure of your project and its rules.
 
+> [!WARNING]
+> Make sure your **`tsconfig`**/**`eslint.config.mjs`** and the script to run ESLint, contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
+
+> [!TIP]
+> I recommend creating reusable **[rules](#rules)** for each folder and using the **[ruleId](#ruleid)** in the **[structure](#structure)** for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground/blob/main/folderStructure.mjs)
+
 ```
 .
 ├── 📂 libs
@@ -598,18 +604,15 @@ The structure of your project and its rules.
 }
 ```
 
-> [!WARNING]
-> Make sure your **`tsconfig`**/**`eslint.config.mjs`** and the script to run ESLint, contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
-
 ### **`rules`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 
-A place where you can add your custom rules. This is useful when you want to avoid a lot of repetition in your **[structure](#structure)** or use **[folder recursion](#folder-recursion)** feature.<br>
+A place where you can add your reusable rules. This is useful when you want to avoid a lot of repetition in your **[structure](#structure)** or use **[folder recursion](#folder-recursion)** feature.<br>
 The key in the object will correspond to **[ruleId](#ruleid)**, which you can then use in many places.
 
 ```jsonc
 {
     "rules": {
-        "yourCustomRule": {
+        "yourReusableRule": {
             "name": "ComponentName",
             "children": [
                 // ...
@@ -623,16 +626,16 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
 
 ### **`ruleId`**: `<string | undefined>` <a id="ruleid"></a>
 
-A reference to your custom rule.
+A reference to your reusable rule.
 
 ```jsonc
 {
-    "ruleId": "yourCustomRule",
+    "ruleId": "yourReusableRule",
     // ...
 }
 ```
 
-You can use it with other keys like **[name](#name)** and **[children](#children)** but remember that they will **override** the keys from your custom rule.<br>
+You can use it with other keys like **[name](#name)** and **[children](#children)** but remember that they will **override** the keys from your reusable rule.<br>
 This is useful if you want to get rid of a lot of repetition in your structure, for example, **`folders`** have different **[name](#name)**, but the same **[children](#children)**.
 
 ```
