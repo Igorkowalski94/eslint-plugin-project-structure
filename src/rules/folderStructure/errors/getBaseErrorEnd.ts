@@ -9,4 +9,4 @@ export const getBaseErrorEnd = ({
     errorMessage,
     nodePath,
 }: GetBaseErrorEndProps): FinalError =>
-    new FinalError(`${errorMessage}\nLocation      = ${nodePath} \n\n`);
+    new FinalError(`${errorMessage}\nError location = ./${nodePath} \n\n`);

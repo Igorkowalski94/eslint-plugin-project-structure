@@ -9,11 +9,11 @@ Get rid of dependencies between modules and create truly independent functionali
 
 ✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
-✅ Reference {dirname} which allows you to decide about the current directory and its level in the pattern.<br>
-✅ Reference {family} which finds the common part between a given import and the current file.<br>
 ✅ Non-relative/relative imports support. <br>
 ✅ Support for imports without extension. <br>
 ✅ Reusable import patterns. <br>
+✅ Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.<br>
+✅ An option to create a separate configuration file with TypeScript support.<br>
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -33,7 +33,8 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
 -   [Simple example](#simple-example-for-the-folder-structure-below)
 -   [Advanced example](#advanced-example-for-the-folder-structure-below)
 -   [API](#api)
-    -   [root](#root)
+    -   [tsconfigPath](#tsconfig-path)
+    -   [pathAliases](#path-aliases)
     -   [extensions](#extensions)
     -   [modules](#modules)
         -   [name](#name)
@@ -248,43 +249,55 @@ export const independentModulesConfig = createIndependentModules({
 
 ## API:
 
-### **`root`**: `<string | undefined>` <a id="root"></a>
+### **`tsconfigPath`**: `<string | undefined>` <a id="tsconfig-path"></a>
 
-Root of your imports. The default value is **`src`**
+The path to your `tsconfig.json`.<br>
+If your `tsconfig` is located in the root of your project, the plugin will automatically detect it.<br>
+If your `tsconfig` is located elsewhere, you can specify its location here.
+
+```jsonc
+{
+    "tsconfigPath": "./tsconfig.json",
+}
+```
+
+### **`pathAliases`**: `<{ baseUrl: string; paths: Record<string, string[]>; } | undefined>` <a id="path-aliases"></a>
+
+The plugin automatically takes `baseUrl` and `paths` from your `tsconfig.json`.<br>
+However, if you are using another tool for path aliases, such as `Webpack` or `Babel`, you can configure the appropriate path aliases here.
 
 ```ts
-// "src/features/Feature1"
-import { Feature1 } from "features/Feature1";
+// "src/components/Component.tsx"
+import { Component } from "@components/Component";
 ```
 
 ```jsonc
 {
-    "root": "src",
-    "modules": [
-        // ...
-    ],
+    "pathAliases": {
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["src/components/*"],
+        },
+    },
 }
 ```
 
 ### **`extensions`**: `<string[] | undefined>` <a id="extensions"></a>
 
-If you use shortened imports without a file extension, the plugin will automatically assign the correct extension to it if it is in the list of available extensions.
+If you use shortened imports without a file extension, the plugin will automatically assign the correct extension from the list of available extensions.
 
 ```ts
 // "helpers/myHelper.ts"
 import { myHelper } from "helpers/myHelper"; // The plugin will recognize the file as a .ts file and consider this when validating the glob pattern.
 ```
 
-Default values ​​are **`".js"`**, **`".jsx"`**, **`".mjs"`**, **`".cjs"`** **`".d.ts"`**, **`".ts"`**, **`".tsx"`**, **`".vue"`**, **`".svelte"`**, **`".json"`**, **`".jsonc"`**, **`".yml"`**, **`".yaml"`**, **`".svg"`**, **`".png"`**, **`".jpg"`**, **`".ico"`**, **`".css"`**, **`".sass"`**, **`".scss"`**, **`".less"`**, **`".html"`**,
+Available extensions: **`".js"`**, **`".jsx"`**, **`".mjs"`**, **`".cjs"`** **`".d.ts"`**, **`".ts"`**, **`".tsx"`**, **`".vue"`**, **`".svelte"`**, **`".json"`**, **`".jsonc"`**, **`".yml"`**, **`".yaml"`**, **`".svg"`**, **`".png"`**, **`".jpg"`**, **`".ico"`**, **`".css"`**, **`".sass"`**, **`".scss"`**, **`".less"`**, **`".html"`**,
 
 If the extension you are using is not on the list, you can extend it.
 
 ```jsonc
 {
     "extensions": [".yourFancyExtension"],
-    "modules": [
-        // ...
-    ],
 }
 ```
 

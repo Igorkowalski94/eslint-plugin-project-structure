@@ -18,6 +18,7 @@ interface ValidateRulesListProps {
     parentName: string;
     nodesList: Rule[];
     config: FolderStructureConfig;
+    cwd: string;
 }
 
 export const validateRulesList = ({
@@ -26,6 +27,7 @@ export const validateRulesList = ({
     parentName,
     nodesList,
     config,
+    cwd,
 }: ValidateRulesListProps): void => {
     const nodeName = getNodeName(pathname);
     const nodeType = getNodeType(pathname);
@@ -45,6 +47,7 @@ export const validateRulesList = ({
                 parentName,
                 rule: childNode,
                 config,
+                cwd,
             });
             return;
         } catch (error) {

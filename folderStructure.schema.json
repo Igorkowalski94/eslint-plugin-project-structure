@@ -19,6 +19,13 @@
                     "items": {
                         "$ref": "#/definitions/Rule"
                     }
+                },
+                "enforceExistence": {
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    }
                 }
             },
             "additionalProperties": false

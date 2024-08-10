@@ -14,5 +14,5 @@ export const getNodeTypeError = ({
     nodeType,
 }: GetNodeTypeErrorProps): FinalError =>
     new FinalError(
-        `${errorMessage}According to the structure it should be a ${nodeType === "File" ? "folder" : "file"}.\nLocation = ${nodePath}\n\n`,
+        `${errorMessage}According to the structure it should be a ${nodeType === "File" ? "folder" : "file"}.\nError location = ./${nodePath}\n\n`,
     );

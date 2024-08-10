@@ -20,6 +20,7 @@ describe("validateChildren", () => {
             pathname: "src/features/ComponentName.tsx",
             filenameWithoutCwd: "src/features/ComponentName.tsx",
             nodeName: "src/features",
+            cwd: "...",
             children: [
                 {
                     children: [
@@ -49,6 +50,7 @@ describe("validateChildren", () => {
         validateChildren({
             pathname: "src/features/ComponentName.tsx",
             filenameWithoutCwd: "src/features/ComponentName.tsx",
+            cwd: "...",
             nodeName: "src/features",
             children: [],
             config: {

@@ -29,6 +29,7 @@ export const validateFolderStructure = ({
     validatePath({
         pathname,
         filenameWithoutCwd,
+        cwd,
         parentName: "structure",
         rule: structure,
         config,

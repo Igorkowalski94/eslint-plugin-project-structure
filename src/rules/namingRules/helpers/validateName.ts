@@ -85,6 +85,7 @@ export const validateName = ({
             node,
             messageId: "invalidName",
             data: {
+                nameType,
                 allowNamesWithoutReferences:
                     allowNamesWithCaseReferences.join(", "),
             },

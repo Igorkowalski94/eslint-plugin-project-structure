@@ -3,6 +3,8 @@ import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 export const REFERENCES = {
     parentName: "{parentName}",
     ParentName: "{ParentName}",
+    name: "{name}",
+    Name: "{Name}",
 };
 
 export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
@@ -25,6 +27,13 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
                     default: [],
                     items: {
                         $ref: "#/definitions/Rule",
+                    },
+                },
+                enforceExistence: {
+                    type: "array",
+                    default: [],
+                    items: {
+                        type: "string",
                     },
                 },
             },

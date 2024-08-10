@@ -2,6 +2,7 @@ import {
     Rule,
     FolderStructureConfig,
 } from "rules/folderStructure/folderStructure.types";
+import { checkNodeExistence } from "rules/folderStructure/helpers/checkNodeExistence";
 import { getNodeName } from "rules/folderStructure/helpers/getNodeName";
 import { getRule } from "rules/folderStructure/helpers/getRule";
 import { validateChildren } from "rules/folderStructure/helpers/validateChildren/validateChildren";
@@ -13,6 +14,7 @@ interface ValidatePathProps {
     parentName: string;
     rule: Rule;
     config: FolderStructureConfig;
+    cwd: string;
 }
 
 export const validatePath = ({
@@ -21,11 +23,12 @@ export const validatePath = ({
     parentName,
     rule,
     config,
+    cwd,
 }: ValidatePathProps): void => {
     const nodeName = getNodeName(pathname);
     const nodeRule = getRule({ rule, rules: config.rules });
 
-    const { name, children } = nodeRule;
+    const { name, children, enforceExistence } = nodeRule;
 
     if (name)
         validateName({
@@ -35,6 +38,14 @@ export const validatePath = ({
             regexParameters: config.regexParameters,
         });
 
+    if (enforceExistence)
+        checkNodeExistence({
+            enforceExistence,
+            nodeName,
+            cwd,
+            filenameWithoutCwd,
+        });
+
     if (children)
         validateChildren({
             pathname,
@@ -42,5 +53,6 @@ export const validatePath = ({
             nodeName,
             children,
             config,
+            cwd,
         });
 };

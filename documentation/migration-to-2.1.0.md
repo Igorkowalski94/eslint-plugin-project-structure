@@ -8,6 +8,7 @@ A minor configuration fix will be required for version <= 1.4.7.
 
 -   The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 -   New option for creating a configuration file in an .mjs file with TypeScript support.
+-   Enforcing the existence of a file/folder when a specific file/folder exists. For example, if src/Component.tsx exists, then src/Component.test.tsx and src/stories/Component.stories.tsx must also exist.
 -   You can now use comments in folderStructure.json and independentModules.json files.
 -   Improved error messages for folder-structure.
 -   Easier configuration of folder-structure. The "extension" key has been removed, now the file extension will be part of the "name". You don't need to add /^$/ to your regex, they will be added automatically and other improvements.
@@ -188,11 +189,11 @@ Get rid of dependencies between modules and create truly independent functionali
 
 ✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).<br>
 ✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
-✅ Reference {dirname} which allows you to decide about the current directory and its level in the pattern.<br>
-✅ Reference {family} which finds the common part between a given import and the current file.<br>
 ✅ Non-relative/relative imports support. <br>
 ✅ Support for imports without extension. <br>
 ✅ Reusable import patterns. <br>
+✅ Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.<br>
+✅ An option to create a separate configuration file with TypeScript support.<br>
 
 ## **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
@@ -203,8 +204,8 @@ Enforce complex naming rules.
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Naming rules only for name types located in the root of the file (not nested).<br>
-✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
-✅ Deleting parts of a file name. <br>
+✅ Inheriting the file name as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a file name.<br>
 ✅ Different name rules for different files.<br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
+✅ An option to create a separate configuration file with TypeScript support.<br>

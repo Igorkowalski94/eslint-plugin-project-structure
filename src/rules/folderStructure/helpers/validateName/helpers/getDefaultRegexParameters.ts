@@ -7,8 +7,8 @@ import {
 } from "consts";
 
 import { RegexParameters } from "rules/folderStructure/folderStructure.types";
-import { getLowerCaseFirstLetter } from "rules/folderStructure/helpers/validateName/helpers/getLowerCaseFirstLetter";
-import { getUpperCaseFirstLetter } from "rules/folderStructure/helpers/validateName/helpers/getUpperCaseFirstLetter";
+import { getLowerCaseFirstLetter } from "rules/folderStructure/helpers/getLowerCaseFirstLetter";
+import { getUpperCaseFirstLetter } from "rules/folderStructure/helpers/getUpperCaseFirstLetter";
 
 interface GetDefaultRegexParametersProps {
     parentName: string;

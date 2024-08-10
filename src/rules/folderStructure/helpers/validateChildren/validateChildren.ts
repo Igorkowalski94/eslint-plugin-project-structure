@@ -5,6 +5,7 @@ import {
 import { getRule } from "rules/folderStructure/helpers/getRule";
 import { filterRulesByType } from "rules/folderStructure/helpers/validateChildren/helpers/filterRulesByType";
 import { getNextPathname } from "rules/folderStructure/helpers/validateChildren/helpers/getNextPathname";
+import { removeRuleReplicatesFromChildren } from "rules/folderStructure/helpers/validateChildren/helpers/removeRuleReplicatesFromChildren";
 import { sortChildrenByNameType } from "rules/folderStructure/helpers/validateChildren/helpers/sortChildrenByNameType";
 import { validateRulesList } from "rules/folderStructure/helpers/validateChildren/helpers/validateRulesList";
 
@@ -14,6 +15,7 @@ interface ValidateChildrenProps {
     nodeName: string;
     children: Rule[];
     config: FolderStructureConfig;
+    cwd: string;
 }
 
 export const validateChildren = ({
@@ -22,9 +24,13 @@ export const validateChildren = ({
     nodeName,
     children,
     config,
+    cwd,
 }: ValidateChildrenProps): void => {
+    const childrenWithoutReplicatedRules =
+        removeRuleReplicatesFromChildren(children);
+
     const nextPathname = getNextPathname({ pathname, nodeName });
-    const childrenWithRules = children.map((rule) =>
+    const childrenWithRules = childrenWithoutReplicatedRules.map((rule) =>
         getRule({ rule, rules: config.rules }),
     );
     const sortedChildren = sortChildrenByNameType(childrenWithRules);
@@ -45,5 +51,6 @@ export const validateChildren = ({
         parentName: nodeName,
         nodesList: childrenByFileType,
         config,
+        cwd,
     });
 };

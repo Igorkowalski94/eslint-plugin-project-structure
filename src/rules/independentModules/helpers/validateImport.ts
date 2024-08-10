@@ -5,6 +5,7 @@ import { finalErrorGuard } from "errors/finalErrorGuard";
 
 import { readConfigFile } from "helpers/readConfigFile";
 
+import { getPathAliases } from "rules/independentModules/helpers/getPathAliases";
 import { validateAll } from "rules/independentModules/helpers/validateAll";
 import {
     Context,
@@ -34,12 +35,14 @@ export const validateImport = ({
         options,
     });
 
+    const pathAliases = getPathAliases({ cwd, config });
+
     try {
         validateAll({
             filename,
             importPath,
             cwd,
-            config,
+            config: { ...config, pathAliases },
         });
     } catch (error) {
         if (!finalErrorGuard(error)) throw error;

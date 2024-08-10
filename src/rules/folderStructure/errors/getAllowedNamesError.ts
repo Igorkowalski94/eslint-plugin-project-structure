@@ -9,7 +9,7 @@ export const getAllowedNamesError = ({
     allowedNamesCount,
     error,
 }: GetAllowedNamesErrorProps): string => {
-    if (allowedNamesCount === 0) return `Allowed names = ${error.message}`;
+    if (allowedNamesCount === 0) return `Allowed names  = ${error.message}`;
 
     return `, ${error.message}`;
 };

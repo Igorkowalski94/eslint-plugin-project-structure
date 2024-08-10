@@ -5,9 +5,9 @@ import { isRegexInvalid } from "helpers/isRegexInvalid";
 import { getNameRegexError } from "rules/folderStructure/errors/getNameRegexError";
 import { REFERENCES } from "rules/folderStructure/folderStructure.consts";
 import { RegexParameters } from "rules/folderStructure/folderStructure.types";
+import { getLowerCaseFirstLetter } from "rules/folderStructure/helpers/getLowerCaseFirstLetter";
+import { getUpperCaseFirstLetter } from "rules/folderStructure/helpers/getUpperCaseFirstLetter";
 import { applyRegexParameters } from "rules/folderStructure/helpers/validateName/helpers/applyRegexParameters";
-import { getLowerCaseFirstLetter } from "rules/folderStructure/helpers/validateName/helpers/getLowerCaseFirstLetter";
-import { getUpperCaseFirstLetter } from "rules/folderStructure/helpers/validateName/helpers/getUpperCaseFirstLetter";
 import {
     DOT_CHARACTER_REGEX,
     WILDCARD_REGEX,

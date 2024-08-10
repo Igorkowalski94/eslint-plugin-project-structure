@@ -3,7 +3,8 @@ import { validateConfig } from "helpers/validateConfig";
 import { addExtensionToImportPath } from "rules/independentModules/helpers/addExtensionToImportPath";
 import { checkImportPath } from "rules/independentModules/helpers/checkImportPath";
 import { convertImportPathToNonRelative } from "rules/independentModules/helpers/convertImportPathToNonRelative";
-import { getCwdWithRoot } from "rules/independentModules/helpers/getCwdWithRoot";
+import { getCwdWithBaseUrl } from "rules/independentModules/helpers/getCwdWithBaseUrl";
+import { getImportPaths } from "rules/independentModules/helpers/getImportPaths";
 import { removeCwdWithRootAndUnifySep } from "rules/independentModules/helpers/removeCwdWithRootAndUnifySep";
 import { INDEPENDENT_MODULES_SCHEMA } from "rules/independentModules/independentModules.consts";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
@@ -23,32 +24,41 @@ export const validateAll = ({
 }: ValidateAllProps): void => {
     validateConfig({ config, schema: INDEPENDENT_MODULES_SCHEMA });
 
-    const { extensions, root } = config;
+    const { extensions, pathAliases } = config;
 
-    const cwdWithRoot = getCwdWithRoot(cwd, root);
+    const cwdWithRoot = getCwdWithBaseUrl({
+        cwd,
+        baseUrl: pathAliases?.baseUrl,
+    });
+    const importPaths = getImportPaths({
+        importPath,
+        paths: pathAliases?.paths,
+    });
 
     const filenameWithoutCwdWithRoot = removeCwdWithRootAndUnifySep(
         filename,
         cwdWithRoot,
     );
 
-    const importPathNonRelative = convertImportPathToNonRelative({
-        importPath,
-        filename,
-        cwdWithRoot,
-    });
+    importPaths.forEach((currentImportPath) => {
+        const importPathNonRelative = convertImportPathToNonRelative({
+            importPath: currentImportPath,
+            filename,
+            cwdWithRoot,
+        });
 
-    const importPathWithExtension = addExtensionToImportPath({
-        importPath: importPathNonRelative,
-        cwdWithRoot,
-        extensions,
-        cwd,
-    });
+        const importPathWithExtension = addExtensionToImportPath({
+            importPath: importPathNonRelative,
+            cwdWithRoot,
+            extensions,
+            cwd,
+        });
 
-    checkImportPath({
-        importPath: importPathWithExtension,
-        filename: filenameWithoutCwdWithRoot,
-        config,
-        cwd,
+        checkImportPath({
+            importPath: importPathWithExtension,
+            filename: filenameWithoutCwdWithRoot,
+            config,
+            cwd,
+        });
     });
 };

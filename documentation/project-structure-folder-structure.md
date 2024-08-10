@@ -4,14 +4,17 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 
 #### Features:
 
-✅ Validation of folder structure (Any files/folders outside the structure will be considered an error).<br>
-✅ File/Folders name regex validation.<br>
+✅ Validation of folder structure. Any files/folders outside the structure will be considered an error.<br>
+✅ File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.<br>
 ✅ Build in case validation.<br>
-✅ Inheriting the parent's name (The child inherits the name of the folder in which it is located).<br>
-✅ Folder recursion (You can nest a given folder structure recursively).<br>
-✅ Accurate and detailed error messages even with multiple nested folders (recursion).<br>
+✅ Inheriting the parent's name. The child inherits the name of the folder in which it is located.<br>
+✅ Enforcing the existence of a file/folder when a specific file/folder exists. For example, if src/Component.tsx exists, then src/Component.test.tsx and src/stories/Component.stories.tsx must also exist.<br>
+✅ Reusable rules for folder structures.<br>
+✅ An option to create a separate configuration file with TypeScript support.<br>
 ✅ Forcing a nested/flat structure for a given folder.<br>
 ✅ Support for all file extensions.<br>
+✅ Folder recursion. You can nest a given folder structure recursively.<br>
+✅ Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.<br>
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -40,6 +43,7 @@ If you have any questions **[click here](https://github.com/Igorkowalski94/eslin
         -   [Built-in regex parameters](#built-in-regex-parameters)
         -   [Regex parameters mix example](#regex-parameters-mix-example)
     -   [children](#children)
+    -   [enforceExistence](#enforce-existence)
     -   [structure](#structure)
     -   [rules](#rules)
     -   [ruleId](#ruleid)
@@ -486,6 +490,9 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 
 **`Folder`** children rules.<br>
 
+> [!WARNING]
+> Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
+
 ```jsonc
 {
     "children": [
@@ -496,6 +503,52 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
         // ...
     ],
     // ...
+}
+```
+
+### **`enforceExistence`**: `<string[] | undefined>` <a id="enforce-existence"></a>
+
+Enforce the existence of other folders/files when a given folder/file exists.
+
+In `enforceExistence`, two references are available for use:
+
+-   `{name}` - Take the name of the current file or folder and change its first letter to lowercase.
+-   `{Name}` - Take the name of the current file or folder and change its first letter to uppercase.
+
+> [!WARNING]
+> Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
+
+```jsonc
+{
+    "structure": {
+        "children": [
+            {
+                "name": "src",
+                "children": [
+                    {
+                        "name": "{PascalCase}.tsx",
+                        // If src/ComponentName.tsx exist:
+                        "enforceExistence": [
+                            "{Name}.test.tsx", // src/ComponentName.test.tsx must exist.
+                            "stories/{name}.stories.tsx", // src/stories/componentName.stories.tsx must exist.
+                        ],
+                    },
+                    {
+                        "name": "components",
+                        "children": [],
+                    },
+                ],
+            },
+            {
+                "name": "*",
+                // If any file exists in the root directory of the project.
+                "enforceExistence": [
+                    "src", // ./src must exist.
+                    "src/components", // ./src/components must exist.
+                ],
+            },
+        ],
+    },
 }
 ```
 
@@ -546,7 +599,7 @@ The structure of your project and its rules.
 ```
 
 > [!WARNING]
-> Make sure your **`tsconfig`**/**`eslint.config.mjs`** contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
+> Make sure your **`tsconfig`**/**`eslint.config.mjs`** and the script to run ESLint, contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
 
 ### **`rules`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
 

@@ -1,4 +1,5 @@
 import { Rule } from "rules/folderStructure/folderStructure.types";
+import { checkNodeExistence } from "rules/folderStructure/helpers/checkNodeExistence";
 import { validateChildren } from "rules/folderStructure/helpers/validateChildren/validateChildren";
 import { validateName } from "rules/folderStructure/helpers/validateName/validateName";
 import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
@@ -14,6 +15,10 @@ jest.mock(
     }),
 );
 
+jest.mock("rules/folderStructure/helpers/checkNodeExistence", () => ({
+    checkNodeExistence: jest.fn(),
+}));
+
 describe("validatePath", () => {
     it("should call validateName when name is string", () => {
         const validateNameMock = jest.fn();
@@ -22,6 +27,7 @@ describe("validatePath", () => {
         validatePath({
             pathname: "ComponentName.tsx",
             filenameWithoutCwd: "ComponentName.tsx",
+            cwd: "...",
             parentName: "parentName",
             rule: {
                 name: "test",
@@ -43,6 +49,7 @@ describe("validatePath", () => {
         validatePath({
             pathname: "ComponentName.tsx",
             filenameWithoutCwd: "ComponentName.tsx",
+            cwd: "...",
             parentName: "parentName",
             rule: {
                 name: undefined,
@@ -66,6 +73,7 @@ describe("validatePath", () => {
         validatePath({
             pathname: "src/ComponentName",
             filenameWithoutCwd: "ComponentName.tsx",
+            cwd: "...",
             parentName: "parentName",
             rule: {
                 children: [{ name: "componentName" }],
@@ -89,6 +97,7 @@ describe("validatePath", () => {
         validatePath({
             pathname: "ComponentName.tsx",
             filenameWithoutCwd: "ComponentName.tsx",
+            cwd: "...",
             parentName: "parentName",
             rule: {
                 name: "ComponentName",
@@ -101,5 +110,54 @@ describe("validatePath", () => {
         });
 
         expect(validateChildrenMock).not.toHaveBeenCalled();
+    });
+
+    it("should call checkNodeExistence when nodeRule includes enforceExistence", () => {
+        const checkNodeExistenceMock = jest.fn();
+        (checkNodeExistence as jest.Mock).mockImplementation(
+            checkNodeExistenceMock,
+        );
+
+        validatePath({
+            pathname: "src/ComponentName",
+            filenameWithoutCwd: "ComponentName.tsx",
+            cwd: "...",
+            parentName: "parentName",
+            rule: {
+                name: "ComponentName",
+                enforceExistence: ["test.ts"],
+            },
+            config: {
+                structure: {
+                    name: "src",
+                },
+            },
+        });
+
+        expect(checkNodeExistenceMock).toHaveBeenCalled();
+    });
+
+    it("should not call checkNodeExistence when nodeRule do not includes enforceExistence", () => {
+        const checkNodeExistenceMock = jest.fn();
+        (checkNodeExistence as jest.Mock).mockImplementation(
+            checkNodeExistenceMock,
+        );
+
+        validatePath({
+            pathname: "ComponentName.tsx",
+            filenameWithoutCwd: "ComponentName.tsx",
+            cwd: "...",
+            parentName: "parentName",
+            rule: {
+                name: "ComponentName",
+            },
+            config: {
+                structure: {
+                    name: "src",
+                },
+            },
+        });
+
+        expect(checkNodeExistenceMock).not.toHaveBeenCalled();
     });
 });

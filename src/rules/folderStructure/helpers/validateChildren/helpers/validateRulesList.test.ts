@@ -59,6 +59,7 @@ describe("validateRulesList", () => {
                 filenameWithoutCwd: "src/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList: [],
+                cwd: "...",
                 config,
             }),
         ).toThrow(
@@ -80,6 +81,7 @@ describe("validateRulesList", () => {
                 filenameWithoutCwd: "src/folderName/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList: [],
+                cwd: "...",
                 config,
             }),
         ).toThrow(
@@ -101,6 +103,7 @@ describe("validateRulesList", () => {
                 filenameWithoutCwd: "src/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList,
+                cwd: "...",
                 config,
             }),
         ).not.toThrow();
@@ -113,6 +116,7 @@ describe("validateRulesList", () => {
                 filenameWithoutCwd: "src/ComponentName.tsx",
                 parentName: "ComponentName",
                 nodesList,
+                cwd: "...",
                 config,
             }),
         ).toThrow(
@@ -130,6 +134,7 @@ describe("validateRulesList", () => {
                 filenameWithoutCwd: "src/componentName.api.ts",
                 parentName: "ComponentName",
                 nodesList: nodesListRuleIdNotExist,
+                cwd: "...",
                 config,
             }),
         ).toThrow(getIdRuleError("test"));

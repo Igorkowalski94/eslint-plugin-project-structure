@@ -48,6 +48,7 @@ describe("validateFolderStructure", () => {
         expect(validatePathMock).toHaveBeenCalledWith({
             pathname: "structure/src/features/ComponentName.tsx",
             filenameWithoutCwd: "src/features/ComponentName.tsx",
+            cwd: "",
             parentName: "structure",
             rule: {},
             config: { structure: {} },

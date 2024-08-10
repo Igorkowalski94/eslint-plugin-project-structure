@@ -7,11 +7,11 @@ Enforce complex naming rules.
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Naming rules only for name types located in the root of the file (not nested).<br>
-✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes or changing the case).<br>
-✅ Deleting parts of a file name. <br>
+✅ Inheriting the file name as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a file name.<br>
 ✅ Different name rules for different files.<br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>
+✅ An option to create a separate configuration file with TypeScript support.<br>
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
