@@ -30,6 +30,7 @@
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
     },
     "scripts": {
+        "clean": "del /f ./parser.js ./parser.d.ts",
         "build": "tsup",
         "format": "prettier --write --config .prettierrc.json .",
         "format:check": "prettier --check --config .prettierrc.json .",

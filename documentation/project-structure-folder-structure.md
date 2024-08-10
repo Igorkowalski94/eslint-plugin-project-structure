@@ -530,7 +530,8 @@ In `enforceExistence`, two references are available for use:
                         // If src/ComponentName.tsx exist:
                         "enforceExistence": [
                             "{Name}.test.tsx", // src/ComponentName.test.tsx must exist.
-                            "stories/{name}.stories.tsx", // src/stories/componentName.stories.tsx must exist.
+                            "stories/{name}.stories.tsx", // src/stories/componentName.stories.tsx must exist.c
+                            "../hello.ts", // ./hello.ts must exist.
                         ],
                     },
                     {
