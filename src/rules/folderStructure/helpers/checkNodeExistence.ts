@@ -44,16 +44,16 @@ export const checkNodeExistence = ({
                     getLowerCaseFirstLetter(nodeNameWithoutExtension),
                 );
 
+            const currentDirname =
+                nodeNameType === "File" ? nodeNameDirname : nodeNamePath;
+
             const enforcedNodeFullPath = path.join(
                 cwd,
-                nodeNameDirname,
+                currentDirname,
                 enforcedNodeNameWithoutRef,
             );
 
             if (fs.existsSync(enforcedNodeFullPath)) return;
-
-            const currentDirname =
-                nodeNameType === "File" ? nodeNameDirname : nodeNamePath;
 
             return (
                 "./" +

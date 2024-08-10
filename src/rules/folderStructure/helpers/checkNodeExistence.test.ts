@@ -13,7 +13,7 @@ describe("checkNodeExistence", () => {
         jest.restoreAllMocks();
     });
 
-    it("should not throw when nodes exist", () => {
+    it("should not throw when nodes exist file", () => {
         jest.spyOn(fs, "existsSync").mockImplementation(
             (filepath) =>
                 filepath ===
@@ -34,6 +34,23 @@ describe("checkNodeExistence", () => {
                 enforceExistence: ["{name}.stories.tsx", "test.ts"],
                 nodeName: "Feature1.tsx",
                 filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
+            }),
+        ).not.toThrow();
+    });
+
+    it("should not throw when nodes exist folder", () => {
+        jest.spyOn(fs, "existsSync").mockImplementation(
+            (filepath) =>
+                filepath ===
+                path.join("...", "src", "features", "Feature1", "test.ts"),
+        );
+
+        expect(() =>
+            checkNodeExistence({
+                cwd: "...",
+                enforceExistence: ["test.ts"],
+                nodeName: "Feature1",
+                filenameWithoutCwd: "src/features/Feature1",
             }),
         ).not.toThrow();
     });
