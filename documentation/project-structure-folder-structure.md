@@ -526,12 +526,19 @@ In `enforceExistence`, two references are available for use:
                 "name": "src",
                 "children": [
                     {
+                        "name": "stories",
+                        "children": [{ "name": "{camelCase}.tsx" }],
+                    },
+                    {
+                        "name": "{PascalCase}.test.tsx",
+                    },
+                    {
                         "name": "{PascalCase}.tsx",
                         // If src/ComponentName.tsx exist:
                         "enforceExistence": [
                             "{Name}.test.tsx", // src/ComponentName.test.tsx must exist.
-                            "stories/{name}.stories.tsx", // src/stories/componentName.stories.tsx must exist.c
-                            "../hello.ts", // ./hello.ts must exist.
+                            "stories/{name}.stories.tsx", // src/stories/componentName.stories.tsx must exist.
+                            "../cats.ts", // ./cats.ts must exist.
                         ],
                     },
                     {
