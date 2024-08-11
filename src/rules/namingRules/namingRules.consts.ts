@@ -35,13 +35,13 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
         NameType: {
             type: "string",
             enum: [
-                "ClassDeclaration",
-                "VariableDeclarator",
-                "FunctionDeclaration",
-                "ArrowFunctionExpression",
-                "TSTypeAliasDeclaration",
-                "TSInterfaceDeclaration",
-                "TSEnumDeclaration",
+                "class",
+                "variable",
+                "function",
+                "arrowFunction",
+                "type",
+                "interface",
+                "enum",
             ],
         },
         NamingRule: {
