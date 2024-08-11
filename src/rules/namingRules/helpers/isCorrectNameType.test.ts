@@ -8,22 +8,22 @@ describe("isCorrectNameType", () => {
         expected: boolean;
     }>([
         {
-            ruleNameType: "ArrowFunctionExpression",
+            ruleNameType: "arrowFunction",
             nameType: "ArrowFunctionExpression",
             expected: true,
         },
         {
-            ruleNameType: ["ArrowFunctionExpression"],
+            ruleNameType: ["arrowFunction"],
             nameType: "ArrowFunctionExpression",
             expected: true,
         },
         {
-            ruleNameType: "ClassDeclaration",
+            ruleNameType: "class",
             nameType: "ArrowFunctionExpression",
             expected: false,
         },
         {
-            ruleNameType: ["ClassDeclaration"],
+            ruleNameType: ["class"],
             nameType: "ArrowFunctionExpression",
             expected: false,
         },

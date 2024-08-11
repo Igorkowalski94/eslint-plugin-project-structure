@@ -1,5 +1,7 @@
 import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 
+import { NameTypes } from "rules/namingRules/namingRules.types";
+
 export const REFERENCES = {
     filename_PascalCase: "{filename_PascalCase}",
     filename_camelCase: "{filename_camelCase}",
@@ -16,6 +18,16 @@ export const DEFAULT_ALLOW_NAMES = [
     REFERENCES.camelCase,
     REFERENCES.PascalCase,
 ];
+
+export const NAME_TYPES: NameTypes = {
+    VariableDeclarator: "variable",
+    ClassDeclaration: "class",
+    FunctionDeclaration: "function",
+    ArrowFunctionExpression: "arrowFunction",
+    TSEnumDeclaration: "enum",
+    TSInterfaceDeclaration: "interface",
+    TSTypeAliasDeclaration: "type",
+};
 
 export const NAMING_RULES_SCHEMA: JSONSchema4 = {
     $schema: "http://json-schema.org/draft-07/schema#",

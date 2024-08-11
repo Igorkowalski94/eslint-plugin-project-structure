@@ -102,7 +102,7 @@ export const namingRulesConfig = createNamingRules([
         rules: [
             {
                 // nameTypes we are interested in.
-                nameType: "VariableDeclarator",
+                nameType: "variable",
                 allowNames: [
                     // All variables in the file should match SNAKE_CASE.
                     "{SNAKE_CASE}",
@@ -121,8 +121,8 @@ export const namingRulesConfig = createNamingRules([
             {
                 nameType: [
                     // nameTypes we are interested in.
-                    "ArrowFunctionExpression",
-                    "FunctionDeclaration",
+                    "arrowFunction",
+                    "function",
                 ],
                 allowNamesFileRoot: [
                     // Functions located at the root of the file (non-nested) should be named: Filename as camelCase.
@@ -136,8 +136,8 @@ export const namingRulesConfig = createNamingRules([
             {
                 nameType: [
                     // nameTypes we are interested in.
-                    "TSInterfaceDeclaration",
-                    "TSTypeAliasDeclaration",
+                    "interface",
+                    "type",
                 ],
                 allowNamesFileRoot: [
                     // Interface or type located at the root of the file (non-nested) should be named: Filename as PascalCase + Props.
@@ -225,24 +225,24 @@ Here you define the name type you are interested in.<br>
 
 Available types:<br>
 
--   **`"ClassDeclaration"`**<br>
--   **`"VariableDeclarator"`**<br>
--   **`"FunctionDeclaration"`**<br>
--   **`"ArrowFunctionExpression"`**<br>
--   **`"TSTypeAliasDeclaration"`**<br>
--   **`"TSInterfaceDeclaration"`**<br>
--   **`"TSEnumDeclaration"`**<br>
+-   **`"class"`**<br>
+-   **`"variable"`**<br>
+-   **`"function"`**<br>
+-   **`"arrowFunction"`**<br>
+-   **`"type"`**<br>
+-   **`"interface"`**<br>
+-   **`"enum"`**<br>
 
 ```jsonc
 {
     "filePattern": "**/*.tsx",
     "rules": [
         {
-            "nameType": ["FunctionDeclaration", "ArrowFunctionExpression"],
+            "nameType": ["function", "arrowFunction"],
             "allowNames": [],
         },
         {
-            "nameType": "VariableDeclarator",
+            "nameType": "variable",
             "allowNames": [],
         },
     ],
@@ -261,7 +261,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
     "filePattern": "**/*.tsx",
     "rules": [
         {
-            "nameType": "ArrowFunctionExpression",
+            "nameType": "arrowFunction",
             "filenamePartsToRemove": [".react"], // ComponentName.react.tsx => ComponentName.tsx
             "allowNamesFileRoot": ["{filename_PascalCase}"],
         },
@@ -285,12 +285,12 @@ The following improvements are automatically added to the regex:
     "filePattern": "**/*.tsx",
     "rules": [
         {
-            "nameType": "ArrowFunctionExpression",
+            "nameType": "arrowFunction",
             // Arrow functions in .tsx files should meet camelCase or PascalCase.
             "allowNames": ["{camelCase}", "{PascalCase}"],
         },
         {
-            "nameType": "VariableDeclarator",
+            "nameType": "variable",
             // Variables in .tsx files should meet SNAKE_CASE.
             "allowNames": ["{SNAKE_CASE}"],
         },
@@ -316,12 +316,12 @@ The following improvements are automatically added to the regex:
     "filePattern": "**/*.tsx",
     "rules": [
         {
-            "nameType": ["ArrowFunctionExpression", "FunctionDeclaration"],
+            "nameType": ["arrowFunction", "function"],
             // Arrow function or function located at the root of the file (not nested) should meet the name: filename as PascalCase.
             "allowNamesFileRoot": ["{filename_PascalCase}"],
         },
         {
-            "nameType": ["TSInterfaceDeclaration", "TSTypeAliasDeclaration"],
+            "nameType": ["interface", "type"],
             "allowNamesFileRoot": [
                 // Interface or type located at the root of the file (non-nested) should meet the name: filename as PascalCase + Props.
                 "{filename_PascalCase}Props",

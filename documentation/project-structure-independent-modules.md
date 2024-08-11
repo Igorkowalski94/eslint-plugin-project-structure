@@ -523,7 +523,7 @@ The library will automatically inform you about all usage errors such as: Infini
 ### **`{family}`** <a id="family"></a>
 
 **`{family}`** reference finds the common part between the import and the current file. <br>
-By default, at least **two** common parts are required, [**`root`**](#root) is not taken into account.<br>
+By default, at least **two** common parts are required, [`baseUrl`](#path-aliases) is not taken into account.<br>
 This will make your rule work **recursively**/apply to all nestings.<br>
 You can change the number of parts required, **`{family_1}`** at least one, **`{family_3}`** at least three common part etc.<br>
 
