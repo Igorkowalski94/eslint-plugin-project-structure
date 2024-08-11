@@ -8,7 +8,7 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 ✅ File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.<br>
 ✅ Build in case validation.<br>
 ✅ Inheriting the parent's name. The child inherits the name of the folder in which it is located.<br>
-✅ Enforcing the existence of a file/folder when a specific file/folder exists. For example, if src/Component.tsx exists, then src/Component.test.tsx and src/stories/Component.stories.tsx must also exist.<br>
+✅ Enforcing the existence of a file/folder when a specific file/folder exists. For example, if ./src/Component.tsx exists, then ./src/Component.test.tsx and ./src/stories/Component.stories.tsx must also exist.<br>
 ✅ Reusable rules for folder structures.<br>
 ✅ An option to create a separate configuration file with TypeScript support.<br>
 ✅ Forcing a nested/flat structure for a given folder.<br>
@@ -534,10 +534,10 @@ In `enforceExistence`, two references are available for use:
                     },
                     {
                         "name": "{PascalCase}.tsx",
-                        // If src/ComponentName.tsx exist:
+                        // If ./src/ComponentName.tsx exist:
                         "enforceExistence": [
-                            "{Name}.test.tsx", // src/ComponentName.test.tsx must exist.
-                            "stories/{name}.stories.tsx", // src/stories/componentName.stories.tsx must exist.
+                            "{Name}.test.tsx", // ./src/ComponentName.test.tsx must exist.
+                            "stories/{name}.stories.tsx", // ./src/stories/componentName.stories.tsx must exist.
                             "../cats.ts", // ./cats.ts must exist.
                         ],
                     },
@@ -568,7 +568,7 @@ The structure of your project and its rules.
 > Make sure your **`tsconfig`**/**`eslint.config.mjs`** and the script to run ESLint, contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
 
 > [!TIP]
-> I recommend creating reusable **[rules](#rules)** for each folder and using the **[ruleId](#ruleid)** in the **[structure](#structure)** for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground/blob/main/folderStructure.mjs)
+> I recommend creating reusable **[rules](#rules)** for each folder and using the **[ruleId](#ruleid)** in the **[structure](#structure)** for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground/blob/main/folderStructure.mjs).
 
 ```
 .

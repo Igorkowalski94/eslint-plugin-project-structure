@@ -1,6 +1,7 @@
 # eslint-plugin-project-structure
 
-Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.
+Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.<br>
+Whether you're working alone or with a small or large team, save time by automating the reviews of key principles for a healthy project!
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
