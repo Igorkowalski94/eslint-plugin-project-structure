@@ -1,30 +1,30 @@
 import { isCorrectNameType } from "rules/namingRules/helpers/isCorrectNameType";
-import { NamingRule, NameType } from "rules/namingRules/namingRules.types";
+import { NameTypeRule, NamingRule } from "rules/namingRules/namingRules.types";
 
 describe("isCorrectNameType", () => {
     test.each<{
         ruleNameType: NamingRule["nameType"];
-        nameType: NameType;
+        nameType: NameTypeRule;
         expected: boolean;
     }>([
         {
             ruleNameType: "arrowFunction",
-            nameType: "ArrowFunctionExpression",
+            nameType: "arrowFunction",
             expected: true,
         },
         {
             ruleNameType: ["arrowFunction"],
-            nameType: "ArrowFunctionExpression",
+            nameType: "arrowFunction",
             expected: true,
         },
         {
             ruleNameType: "class",
-            nameType: "ArrowFunctionExpression",
+            nameType: "arrowFunction",
             expected: false,
         },
         {
             ruleNameType: ["class"],
-            nameType: "ArrowFunctionExpression",
+            nameType: "arrowFunction",
             expected: false,
         },
     ])(

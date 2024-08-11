@@ -11,7 +11,10 @@ import { isCorrectNameType } from "rules/namingRules/helpers/isCorrectNameType";
 import { isNameValid } from "rules/namingRules/helpers/isNameValid";
 import { removeFilenameParts } from "rules/namingRules/helpers/removeFilenameParts";
 import { replaceReferencesWithData } from "rules/namingRules/helpers/replaceReferencesWithData";
-import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+import {
+    ESLINT_ERRORS,
+    NAME_TYPES,
+} from "rules/namingRules/namingRules.consts";
 import { FileNamingRules, NameType } from "rules/namingRules/namingRules.types";
 
 export interface ValidateNameProps {
@@ -39,11 +42,17 @@ export const validateName = ({
     const fileRules = options.find(({ filePattern }) =>
         micromatch.every(filenamePath, filePattern),
     );
+    const nameTypeConverted = NAME_TYPES[nameType];
 
     if (!fileRules) return;
 
     fileRules.rules.forEach((rule) => {
-        if (!isCorrectNameType({ nameType, ruleNameType: rule.nameType }))
+        if (
+            !isCorrectNameType({
+                nameType: nameTypeConverted,
+                ruleNameType: rule.nameType,
+            })
+        )
             return;
 
         const { allowNames, allowNamesFileRoot, filenamePartsToRemove } = rule;
@@ -85,7 +94,7 @@ export const validateName = ({
             node,
             messageId: "invalidName",
             data: {
-                nameType,
+                nameType: nameTypeConverted,
                 allowNamesWithoutReferences:
                     allowNamesWithCaseReferences.join(", "),
             },

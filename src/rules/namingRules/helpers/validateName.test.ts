@@ -175,7 +175,7 @@ describe("validateName", () => {
             node: {},
             messageId: "invalidName",
             data: {
-                nameType: "VariableDeclarator",
+                nameType: "variable",
                 allowNamesWithoutReferences: "{camelCase}",
             },
         });
