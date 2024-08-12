@@ -4,6 +4,9 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import micromatch from "micromatch";
 
+import { readConfigFile } from "helpers/readConfigFile";
+import { validateConfig } from "helpers/validateConfig";
+
 import { getAllowNamesWithCaseReferences } from "rules/namingRules/helpers/getAllowNamesWithCaseReferences";
 import { getCurrentAllowNames } from "rules/namingRules/helpers/getCurrentAllowNames";
 import { getFileNameWithoutExtension } from "rules/namingRules/helpers/getFileNameWithoutExtension";
@@ -14,6 +17,7 @@ import { replaceReferencesWithData } from "rules/namingRules/helpers/replaceRefe
 import {
   ESLINT_ERRORS,
   NAME_TYPES,
+  NAMING_RULES_SCHEMA,
 } from "rules/namingRules/namingRules.consts";
 import { FileNamingRules, NameType } from "rules/namingRules/namingRules.types";
 
@@ -33,13 +37,22 @@ export interface ValidateNameProps {
 export const validateName = ({
   name,
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  context: { filename, report, options, cwd },
+  context: { filename, report, options, cwd, settings },
   node,
   nameType,
 }: ValidateNameProps): void => {
+  const config = readConfigFile<FileNamingRules[]>({
+    cwd,
+    key: "project-structure/naming-rules-config-path",
+    settings,
+    options: options.length ? options : undefined,
+  });
+
+  validateConfig({ config, schema: NAMING_RULES_SCHEMA });
+
   const filenamePath = path.resolve(cwd, filename);
 
-  const fileRules = options.find(({ filePattern }) =>
+  const fileRules = config.find(({ filePattern }) =>
     micromatch.every(filenamePath, filePattern),
   );
   const nameTypeConverted = NAME_TYPES[nameType];

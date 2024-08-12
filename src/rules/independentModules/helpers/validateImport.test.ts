@@ -27,7 +27,7 @@ describe("validateImport", () => {
     });
 
     validateImport({
-      context: { report: reportMock, settings: {}, cwd: "" },
+      context: { report: reportMock, settings: {}, cwd: "", options: [] },
       importPath: "",
       node: {},
     } as unknown as ValidateImportProps);
@@ -46,7 +46,7 @@ describe("validateImport", () => {
 
     expect(() =>
       validateImport({
-        context: { report: reportMock, settings: {}, cwd: "" },
+        context: { report: reportMock, settings: {}, cwd: "", options: [] },
         importPath: "",
         node: {},
       } as unknown as ValidateImportProps),

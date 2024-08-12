@@ -32,7 +32,7 @@ export const validateImport = ({
     cwd,
     key: "project-structure/independent-modules-config-path",
     settings,
-    options,
+    options: options[0],
   });
 
   const pathAliases = getPathAliases({ cwd, config });

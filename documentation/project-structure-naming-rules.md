@@ -91,6 +91,9 @@ export default tseslint.config({
 
 Create a **`namingRules.mjs`** in the root of your project.<br>
 
+> [!NOTE]  
+>  **`namingRules.json`** and **`namingRules.yaml`** are also supported. See an example in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+
 > [!WARNING]  
 > Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 

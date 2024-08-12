@@ -24,7 +24,7 @@ export const handleProgram = ({
     cwd,
     key: "project-structure/folder-structure-config-path",
     settings,
-    options,
+    options: options[0],
   });
 
   try {

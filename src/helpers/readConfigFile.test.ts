@@ -36,9 +36,11 @@ describe("readConfigFile", () => {
         options: [{ name: "options" }],
         settings: {},
       }),
-    ).toEqual({
-      name: "options",
-    });
+    ).toEqual([
+      {
+        name: "options",
+      },
+    ]);
   });
 
   it("should return config from json", () => {
@@ -49,7 +51,7 @@ describe("readConfigFile", () => {
       readConfigFile({
         cwd: "",
         key: "",
-        options: [],
+        options: undefined,
         settings: {},
       }),
     ).toEqual({
@@ -65,7 +67,7 @@ describe("readConfigFile", () => {
       readConfigFile({
         cwd: "",
         key: "",
-        options: [],
+        options: undefined,
         settings: {},
       }),
     ).toEqual({
@@ -80,7 +82,7 @@ describe("readConfigFile", () => {
       readConfigFile({
         cwd: "",
         key: "",
-        options: [],
+        options: undefined,
         settings: {},
       }),
     ).toThrow(getInvalidConfigFileError("config.error"));

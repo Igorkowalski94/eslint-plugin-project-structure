@@ -513,10 +513,7 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
 ```jsonc
 {
   "rules": {
-    "yourReusableRule": {
-      "name": "ComponentName",
-      "children": [],
-    },
+    "yourReusableRule": { "name": "ComponentName", "children": [] },
   },
 }
 ```
@@ -563,10 +560,7 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
           {
             "name": "folder1",
             "children": [
-              {
-                "name": "{PascalCase}",
-                "ruleId": "shared_children",
-              },
+              { "name": "{PascalCase}", "ruleId": "shared_children" },
             ],
           },
           {

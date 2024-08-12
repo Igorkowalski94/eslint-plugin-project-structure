@@ -1,6 +1,8 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
+import { readConfigFile } from "helpers/readConfigFile";
+
 import { getCurrentAllowNames } from "rules/namingRules/helpers/getCurrentAllowNames";
 import { isCorrectNameType } from "rules/namingRules/helpers/isCorrectNameType";
 import { validateName } from "rules/namingRules/helpers/validateName";
@@ -9,6 +11,10 @@ import { FileNamingRules } from "rules/namingRules/namingRules.types";
 
 jest.mock("rules/namingRules/helpers/isCorrectNameType", () => ({
   isCorrectNameType: jest.fn(),
+}));
+
+jest.mock("helpers/readConfigFile", () => ({
+  readConfigFile: jest.fn(),
 }));
 
 jest.mock("rules/namingRules/helpers/getCurrentAllowNames", () => ({
@@ -21,7 +27,49 @@ jest.mock("path", (): typeof import("path") => ({
 }));
 
 describe("validateName", () => {
-  test("Should return undefined if !fileRule", () => {
+  test("Should return undefined if !fileRule from config", () => {
+    (readConfigFile as jest.Mock).mockReturnValue([
+      {
+        filePattern: "**/*.ts",
+        rules: [
+          {
+            nameType: "variable",
+          },
+        ],
+      },
+    ]);
+
+    expect(
+      validateName({
+        context: {
+          settings: {},
+          cwd: "C:/somePath",
+          filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
+          options: [],
+          report: () => undefined,
+        } as unknown as RuleContext<
+          keyof typeof ESLINT_ERRORS,
+          FileNamingRules[]
+        >,
+        name: "componentName",
+        node: {} as TSESTree.VariableDeclarator,
+        nameType: "VariableDeclarator",
+      }),
+    ).toEqual(undefined);
+  });
+
+  test("Should return undefined if !fileRule from options", () => {
+    (readConfigFile as jest.Mock).mockReturnValue([
+      {
+        filePattern: "**/*.ts",
+        rules: [
+          {
+            nameType: "variable",
+          },
+        ],
+      },
+    ]);
+
     expect(
       validateName({
         context: {
@@ -30,7 +78,11 @@ describe("validateName", () => {
           filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
           options: [
             {
-              type: "VariableDeclarator",
+              rules: [
+                {
+                  nameType: "variable",
+                },
+              ],
               filePattern: "**/*.ts",
             },
           ],
@@ -51,23 +103,25 @@ describe("validateName", () => {
 
     (isCorrectNameType as jest.Mock).mockImplementation(isCorrectNameTypeMock);
 
+    (readConfigFile as jest.Mock).mockReturnValue([
+      {
+        filePattern: "**/*.tsx",
+        rules: [
+          {
+            nameType: "variable",
+            allowNames: ["{camelCase}"],
+          },
+        ],
+      },
+    ]);
+
     expect(
       validateName({
         context: {
           settings: {},
           cwd: "C:/somePath",
           filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
-          options: [
-            {
-              filePattern: "**/*.tsx",
-              rules: [
-                {
-                  nameType: "VariableDeclarator",
-                  allowNames: ["{camelCase}"],
-                },
-              ],
-            },
-          ],
+          options: [],
           report: () => undefined,
         } as unknown as RuleContext<
           keyof typeof ESLINT_ERRORS,
@@ -91,6 +145,17 @@ describe("validateName", () => {
     (getCurrentAllowNames as jest.Mock).mockImplementation(
       getCurrentAllowNamesMock,
     );
+    (readConfigFile as jest.Mock).mockReturnValue([
+      {
+        filePattern: "**/*.tsx",
+        rules: [
+          {
+            nameType: "variable",
+            allowNames: ["{camelCase}"],
+          },
+        ],
+      },
+    ]);
 
     expect(
       validateName({
@@ -98,17 +163,7 @@ describe("validateName", () => {
           settings: {},
           cwd: "C:/somePath",
           filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
-          options: [
-            {
-              filePattern: "**/*.tsx",
-              rules: [
-                {
-                  nameType: "VariableDeclarator",
-                  allowNames: ["{camelCase}"],
-                },
-              ],
-            },
-          ],
+          options: [],
           report: () => undefined,
         } as unknown as RuleContext<
           keyof typeof ESLINT_ERRORS,
@@ -135,22 +190,24 @@ describe("validateName", () => {
       getCurrentAllowNamesMock,
     );
 
+    (readConfigFile as jest.Mock).mockReturnValue([
+      {
+        filePattern: "**/*.tsx",
+        rules: [
+          {
+            nameType: "variable",
+            allowNames: ["{camelCase}"],
+          },
+        ],
+      },
+    ]);
+
     validateName({
       context: {
         settings: {},
         cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
-        options: [
-          {
-            filePattern: "**/*.tsx",
-            rules: [
-              {
-                nameType: "VariableDeclarator",
-                allowNames: ["{camelCase}"],
-              },
-            ],
-          },
-        ],
+        options: [],
         report: reportMock,
       } as unknown as RuleContext<
         keyof typeof ESLINT_ERRORS,
@@ -184,22 +241,24 @@ describe("validateName", () => {
       getCurrentAllowNamesMock,
     );
 
+    (readConfigFile as jest.Mock).mockReturnValue([
+      {
+        filePattern: "**/*.tsx",
+        rules: [
+          {
+            nameType: "variable",
+            allowNames: ["{camelCase}"],
+          },
+        ],
+      },
+    ]);
+
     validateName({
       context: {
         settings: {},
         cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
-        options: [
-          {
-            filePattern: "**/*.tsx",
-            rules: [
-              {
-                nameType: "VariableDeclarator",
-                allowNames: ["{camelCase}"],
-              },
-            ],
-          },
-        ],
+        options: [],
         report: reportMock,
       } as unknown as RuleContext<
         keyof typeof ESLINT_ERRORS,

@@ -5,8 +5,8 @@ import { handleFunctionDeclaration } from "rules/namingRules/helpers/handleFunct
 import { handleVariableDeclarator } from "rules/namingRules/helpers/handleVariableDeclarator";
 import { validateName } from "rules/namingRules/helpers/validateName";
 import {
-  NAMING_RULES_SCHEMA,
   ESLINT_ERRORS,
+  NAMING_RULES_SCHEMA,
 } from "rules/namingRules/namingRules.consts";
 
 export const namingRules = ESLintUtils.RuleCreator(

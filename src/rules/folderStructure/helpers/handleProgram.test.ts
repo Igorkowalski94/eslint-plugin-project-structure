@@ -30,7 +30,7 @@ describe("validateImport", () => {
     });
 
     handleProgram({
-      context: { report: reportMock, settings: {} },
+      context: { report: reportMock, settings: {}, options: [] },
       importPath: "",
       node: {},
     } as unknown as HandleProgramProps);
@@ -49,7 +49,7 @@ describe("validateImport", () => {
 
     expect(() =>
       handleProgram({
-        context: { report: reportMock, settings: {} },
+        context: { report: reportMock, settings: {}, options: [] },
         importPath: "",
         node: {},
       } as unknown as HandleProgramProps),
