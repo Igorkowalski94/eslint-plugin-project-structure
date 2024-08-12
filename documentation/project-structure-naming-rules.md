@@ -208,7 +208,10 @@ Here you define which files should meet the rules. You can use all **[micromatch
 The place where you define the naming rules for a given file.
 
 ```jsonc
-{ "rules": [] }
+{
+  "filePattern": "*",
+  "rules": [],
+}
 ```
 
 ### **`nameType`**: `<NameType | NameType[]>` <a id="name-type"></a>
@@ -231,11 +234,9 @@ Available types:<br>
   "rules": [
     {
       "nameType": ["function", "arrowFunction"],
-      "allowNames": [],
     },
     {
       "nameType": "variable",
-      "allowNames": [],
     },
   ],
 }
