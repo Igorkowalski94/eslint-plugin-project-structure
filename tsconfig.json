@@ -1,27 +1,27 @@
 {
-    "compilerOptions": {
-        "esModuleInterop": true,
-        "target": "ESNext",
-        "module": "ESNext",
-        "lib": ["ESNext"],
-        "moduleResolution": "Node",
-        "removeComments": true,
-        "strict": true,
-        "alwaysStrict": true,
-        "noImplicitReturns": true,
-        "noEmit": true,
-        "skipLibCheck": true,
-        "baseUrl": "src",
-        "allowJs": true
-    },
-    "include": [
-        "src",
-        "types",
-        "./jest.config.ts",
-        "./tsup.config.ts",
-        "./eslint.config.mjs",
-        "./folderStructure.mjs",
-        "./independentModules.mjs",
-        "./namingRules.mjs"
-    ]
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+    "removeComments": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitReturns": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "baseUrl": "src",
+    "allowJs": true
+  },
+  "include": [
+    "src",
+    "types",
+    "./jest.config.ts",
+    "./tsup.config.ts",
+    "./eslint.config.mjs",
+    "./folderStructure.mjs",
+    "./independentModules.mjs",
+    "./namingRules.mjs"
+  ]
 }

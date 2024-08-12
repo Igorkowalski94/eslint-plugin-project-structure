@@ -24,30 +24,30 @@ If you have any questions or need help creating a configuration that meets your 
 
 ### Documentation:
 
--   **[Migration guide to 2.1.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.1.0.md)**
--   **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
--   **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
+- **[Migration guide to 2.1.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.1.0.md)**
+- **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
+- **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
 ### Go to:
 
--   [Installation](#installation)
--   [Getting started](#getting-started)
--   [Simple example](#simple-example-for-the-structure-below)
--   [Advanced example](#advanced-example-for-the-structure-below-containing-all-key-features)
--   [API](#api)
-    -   [ignorePatterns](#ignore-patterns)
-    -   [name](#name)
-        -   [Fixed name](#fixed-name)
-        -   [Regex](#regex)
-    -   [regexParameters](#regex-parameters)
-        -   [Built-in regex parameters](#built-in-regex-parameters)
-        -   [Regex parameters mix example](#regex-parameters-mix-example)
-    -   [children](#children)
-    -   [enforceExistence](#enforce-existence)
-    -   [structure](#structure)
-    -   [rules](#rules)
-    -   [ruleId](#ruleid)
--   [Folder recursion](#folder-recursion)
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [Simple example](#simple-example-for-the-structure-below)
+- [Advanced example](#advanced-example-for-the-structure-below-containing-all-key-features)
+- [API](#api)
+  - [ignorePatterns](#ignore-patterns)
+  - [name](#name)
+    - [Fixed name](#fixed-name)
+    - [Regex](#regex)
+  - [regexParameters](#regex-parameters)
+    - [Built-in regex parameters](#built-in-regex-parameters)
+    - [Regex parameters mix example](#regex-parameters-mix-example)
+  - [children](#children)
+  - [enforceExistence](#enforce-existence)
+  - [structure](#structure)
+  - [rules](#rules)
+  - [ruleId](#ruleid)
+- [Folder recursion](#folder-recursion)
 
 ## Installation
 
@@ -74,69 +74,61 @@ Add the following lines to **`eslint.config.mjs`**.
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import {
-    projectStructureParser,
-    projectStructurePlugin,
+  projectStructureParser,
+  projectStructurePlugin,
 } from "eslint-plugin-project-structure";
 import { folderStructureConfig } from "./folderStructure.mjs";
 
 export default tseslint.config(
-    /**
-     *  Only for the project-structure/folder-structure rule,
-     *  which must use the projectStructureParser to check all file extensions not supported by ESLint.
-     *  If you don't care about validating other file extensions, you can remove this section.
-     */
-    {
-        files: [
-            // You can expand the list with the file extensions you use.
-            "**/*.css",
-            "**/*.sass",
-            "**/*.less",
-            "**/*.svg",
-            "**/*.png",
-            "**/*.jpg",
-            "**/*.ico",
-            "**/*.yml",
-            "**/*.json",
-        ],
-        languageOptions: {
-            parser: projectStructureParser,
-        },
-        plugins: {
-            "project-structure": projectStructurePlugin,
-        },
-        rules: {
-            "project-structure/folder-structure": [
-                "error",
-                folderStructureConfig,
-            ],
-        },
+  /**
+   *  Only for the project-structure/folder-structure rule,
+   *  which must use the projectStructureParser to check all file extensions not supported by ESLint.
+   *  If you don't care about validating other file extensions, you can remove this section.
+   */
+  {
+    files: [
+      // You can expand the list with the file extensions you use.
+      "**/*.css",
+      "**/*.sass",
+      "**/*.less",
+      "**/*.svg",
+      "**/*.png",
+      "**/*.jpg",
+      "**/*.ico",
+      "**/*.yml",
+      "**/*.json",
+    ],
+    languageOptions: { parser: projectStructureParser },
+    plugins: {
+      "project-structure": projectStructurePlugin,
     },
+    rules: {
+      "project-structure/folder-structure": ["error", folderStructureConfig],
+    },
+  },
 
-    /**
-     *  Here you will add your normal rules, which use the default parser.
-     */
-    {
-        extends: [...tseslint.configs.recommended],
-        files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-        plugins: {
-            "project-structure": projectStructurePlugin,
-        },
-        rules: {
-            ...eslint.configs.recommended.rules,
-            // If you have many rules in a separate file.
-            "project-structure/folder-structure": [
-                "error",
-                folderStructureConfig,
-            ],
-            // If you have only a few rules.
-            "project-structure/folder-structure": [
-                "error",
-                {
-                    // Config
-                },
-            ],
-        },
+  /**
+   *  Here you will add your normal rules, which use the default parser.
+   */
+  {
+    extends: [...tseslint.configs.recommended],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    plugins: {
+      "project-structure": projectStructurePlugin,
     },
+    rules: {
+      ...eslint.configs.recommended.rules,
+      // If you have many rules in a separate file.
+      "project-structure/folder-structure": ["error", folderStructureConfig],
+      // If you have only a few rules.
+      "project-structure/folder-structure": [
+        "error",
+        {
+          // Config
+        },
+      ],
+    },
+  },
 );
 ```
 
@@ -163,37 +155,29 @@ Create a **`folderStructure.mjs`** in the root of your project.<br>
 
 #### folderStructure.mjs
 
+> [!WARNING]  
+> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
+
 ```mjs
 // @ts-check
 
 import { createFolderStructure } from "eslint-plugin-project-structure";
 
 export const folderStructureConfig = createFolderStructure({
-    structure: {
+  structure: {
+    children: [
+      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+      // You can also add exceptions like this: "(?!folderStructure)*"
+      { name: "*" },
+      {
+        name: "src",
         children: [
-            {
-                // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
-                // You can also add exceptions like this: "(?!folderStructure)*"
-                name: "*",
-            },
-            {
-                name: "src",
-                children: [
-                    {
-                        name: "index.tsx",
-                    },
-                    {
-                        name: "components",
-                        children: [
-                            {
-                                name: "{PascalCase}.tsx",
-                            },
-                        ],
-                    },
-                ],
-            },
+          { name: "index.tsx" },
+          { name: "components", children: [{ name: "{PascalCase}.tsx" }] },
         ],
-    },
+      },
+    ],
+  },
 });
 ```
 
@@ -245,82 +229,58 @@ export const folderStructureConfig = createFolderStructure({
 
 #### folderStructure.mjs
 
+> [!WARNING]  
+> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
+
 ```mjs
 // @ts-check
 
 import { createFolderStructure } from "eslint-plugin-project-structure";
 
 export const folderStructureConfig = createFolderStructure({
-    ignorePatterns: ["src/legacy/**"],
-    structure: {
-        children: [
-            {
-                // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
-                // You can also add exceptions like this: "(?!folderStructure)*"
-                name: "*",
-            },
-            {
-                name: "src",
-                children: [
-                    {
-                        ruleId: "hooks_folder",
-                    },
-                    {
-                        ruleId: "components_folder",
-                    },
-                ],
-            },
-        ],
-    },
-    rules: {
-        hooks_folder: {
-            name: "hooks",
-            children: [
-                {
-                    name: "use{PascalCase}",
-                    children: [
-                        {
-                            ruleId: "hooks_folder",
-                        },
-                        {
-                            name: "{parentName}(.(test|api|types))?.ts",
-                        },
-                    ],
-                },
-                {
-                    name: "use{PascalCase}(.test)?.ts",
-                },
-            ],
+  ignorePatterns: ["src/legacy/**"],
+  structure: {
+    children: [
+      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+      // You can also add exceptions like this: "(?!folderStructure)*"
+      { name: "*" },
+      {
+        name: "src",
+        children: [{ ruleId: "hooks_folder" }, { ruleId: "components_folder" }],
+      },
+    ],
+  },
+  rules: {
+    hooks_folder: {
+      name: "hooks",
+      children: [
+        {
+          name: "use{PascalCase}",
+          children: [
+            { ruleId: "hooks_folder" },
+            { name: "{parentName}(.(test|api|types))?.ts" },
+          ],
         },
-        components_folder: {
-            name: "components",
-            children: [
-                {
-                    ruleId: "component_folder",
-                },
-            ],
-        },
-        component_folder: {
-            name: "{PascalCase}",
-            children: [
-                {
-                    ruleId: "components_folder",
-                },
-                {
-                    ruleId: "hooks_folder",
-                },
-                {
-                    name: "{parentName}{yourRegexParameter}.ts",
-                },
-                {
-                    name: "{ParentName}(.test)?.tsx",
-                },
-            ],
-        },
+        { name: "use{PascalCase}(.test)?.ts" },
+      ],
     },
-    regexParameters: {
-        yourRegexParameter: ".(types|api)",
+    components_folder: {
+      name: "components",
+      children: [{ ruleId: "component_folder" }],
     },
+    component_folder: {
+      name: "{PascalCase}",
+      children: [
+        { ruleId: "components_folder" },
+        { ruleId: "hooks_folder" },
+        { name: "{parentName}{yourRegexParameter}.ts" },
+        { name: "{ParentName}(.test)?.tsx" },
+      ],
+    },
+  },
+  regexParameters: {
+    yourRegexParameter: ".(types|api)",
+  },
 });
 ```
 
@@ -329,10 +289,7 @@ export const folderStructureConfig = createFolderStructure({
 Here you can set the paths you want to ignore. You can use all **[micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some)** functionalities.
 
 ```jsonc
-{
-    "ignorePatterns": ["src/legacy/**"],
-    // ...
-}
+{ "ignorePatterns": ["src/legacy/**"] }
 ```
 
 ### **`name`**: `<string | undefined>` <a id="name"></a>
@@ -341,11 +298,11 @@ The name is treated as a `regex`.
 
 The following improvements are automatically added to the regex:
 
--   The name is wrapped in `^$`.
--   All `.` characters (any character except newline) will be converted to `\\.` (dot as a character).
-    If you want original behavior, use the following notation `..`.
--   All `*` characters will be converted to `(([^/]*)+)` (wildcard).
-    If you want original behavior, use the following notation `**`.
+- The name is wrapped in `^$`.
+- All `.` characters (any character except newline) will be converted to `\\.` (dot as a character).
+  If you want original behavior, use the following notation `..`.
+- All `*` characters will be converted to `(([^/]*)+)` (wildcard).
+  If you want original behavior, use the following notation `**`.
 
 When used with **[children](#children)** this will be the name of **`folder`**.<br>
 When used without **[children](#children)** this will be the name of **`file`**.<br>
@@ -354,16 +311,11 @@ When used without **[children](#children)** this will be the name of **`file`**.
 > If you only care about the name of the **`folder`** without rules for its **[children](#children)**, leave the **[children](#children)** as **`[]`**.
 
 ```jsonc
-{
-    "name": "fileName.*",
-}
+{ "name": "fileName.*" }
 ```
 
 ```jsonc
-{
-    "name": "folderName",
-    "children": [],
-}
+{ "name": "folderName", "children": [] }
 ```
 
 ### **`regexParameters`**: `<Record<string, string> | undefined>` <a id="regex-parameters"></a>
@@ -374,24 +326,19 @@ You can freely mix regex parameters together see **[example](#regex-parameters-m
 
 ```jsonc
 {
-    "regexParameters": {
-        "yourRegexParameter": "(Regex logic)",
-        "camelCase": "(Regex logic)", // Override built-in camelCase.
-        "parentName": "(Regex logic)", // Overwriting will be ignored.
-        "ParentName": "(Regex logic)", // Overwriting will be ignored.
-        // ...
-    },
-    // ...
+  "regexParameters": {
+    "yourRegexParameter": "(Regex logic)",
+    "camelCase": "(Regex logic)", // Override built-in camelCase.
+    "parentName": "(Regex logic)", // Overwriting will be ignored.
+    "ParentName": "(Regex logic)", // Overwriting will be ignored.
+  },
 }
 ```
 
 Then you can use them in **[name](#name)** with the following notation **`{yourRegexParameter}`**.
 
 ```jsonc
-{
-    "name": "{yourRegexParameter}",
-    // ...
-}
+{ "name": "{yourRegexParameter}" }
 ```
 
 #### Built-in regex parameters
@@ -400,18 +347,14 @@ Then you can use them in **[name](#name)** with the following notation **`{yourR
 The child inherits the name of the **`folder`** in which it is located and sets its **first letter** to **`lowercase`**.
 
 ```jsonc
-{
-    "name": "{parentName}",
-}
+{ "name": "{parentName}" }
 ```
 
 **`{ParentName}`**<a id="parent-name-upper"></a><br>
 The child inherits the name of the **`folder`** in which it is located and sets its **first letter** to **`uppercase`**.
 
 ```jsonc
-{
-    "name": "{ParentName}",
-}
+{ "name": "{ParentName}" }
 ```
 
 **`{PascalCase}`**<br>
@@ -419,9 +362,7 @@ Add **`PascalCase`** validation to your regex.<br>
 The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 
 ```jsonc
-{
-    "name": "{PascalCase}",
-}
+{ "name": "{PascalCase}" }
 ```
 
 **`{camelCase}`**<br>
@@ -429,9 +370,7 @@ Add **`camelCase`** validation to your regex.<br>
 The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`**.
 
 ```jsonc
-{
-    "name": "{camelCase}",
-}
+{ "name": "{camelCase}" }
 ```
 
 **`{snake_case}`**<br>
@@ -439,9 +378,7 @@ Add **`snake_case`** validation to your regex.<br>
 The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 
 ```jsonc
-{
-    "name": "{snake_case}",
-}
+{ "name": "{snake_case}" }
 ```
 
 **`{SNAKE_CASE}`**<br>
@@ -449,9 +386,7 @@ Add **`SNAKE_CASE`** validation to your regex.<br>
 The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
-{
-    "name": "{SNAKE_CASE}",
-}
+{ "name": "{SNAKE_CASE}" }
 ```
 
 **`{kebab-case}`**<br>
@@ -459,9 +394,7 @@ Add **`kebab-case`** validation to your regex.<br>
 The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 
 ```jsonc
-{
-    "name": "{kebab-case}",
-}
+{ "name": "{kebab-case}" }
 ```
 
 #### Regex parameters mix example <a id="regex-parameters-mix-example"></a>
@@ -469,21 +402,17 @@ The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 Here are some examples of how easy it is to combine **[regex parameters](#regex-parameters)**.
 
 ```jsonc
-{
-    // useNiceHook.ts
-    // useNiceHook.api.ts
-    // useNiceHook.test.ts
-    "name": "use{PascalCase}(.(test|api))?.ts",
-}
+// useNiceHook.ts
+// useNiceHook.api.ts
+// useNiceHook.test.ts
+{ "name": "use{PascalCase}(.(test|api))?.ts" }
 ```
 
 ```jsonc
-{
-    // FileParentName.hello_world.ts
-    // FileParentName.hello_world.test.ts
-    // FileParentName.hello_world.api.ts
-    "name": "{ParentName}.{snake_case}(.(test|api))?.ts",
-}
+// FileParentName.hello_world.ts
+// FileParentName.hello_world.test.ts
+// FileParentName.hello_world.api.ts
+{ "name": "{ParentName}.{snake_case}(.(test|api))?.ts" }
 ```
 
 ### **`children`**: `<Rule[] | undefined>` <a id="children"></a>
@@ -494,16 +423,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 > Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
 
 ```jsonc
-{
-    "children": [
-        {
-            "name": "Child",
-            // ...
-        },
-        // ...
-    ],
-    // ...
-}
+{ "children": [{ "name": "Child" }] }
 ```
 
 ### **`enforceExistence`**: `<string[] | undefined>` <a id="enforce-existence"></a>
@@ -512,51 +432,43 @@ Enforce the existence of other folders/files when a given folder/file exists.
 
 In `enforceExistence`, two references are available for use:
 
--   `{name}` - Take the name of the current file or folder and change its first letter to lowercase.
--   `{Name}` - Take the name of the current file or folder and change its first letter to uppercase.
+- `{name}` - Take the name of the current file or folder and change its first letter to lowercase.
+- `{Name}` - Take the name of the current file or folder and change its first letter to uppercase.
 
 > [!WARNING]
 > Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
 
 ```jsonc
 {
-    "structure": {
+  "structure": {
+    "children": [
+      {
+        "name": "src",
         "children": [
-            {
-                "name": "src",
-                "children": [
-                    {
-                        "name": "stories",
-                        "children": [{ "name": "{camelCase}.tsx" }],
-                    },
-                    {
-                        "name": "{PascalCase}.test.tsx",
-                    },
-                    {
-                        "name": "{PascalCase}.tsx",
-                        // If ./src/ComponentName.tsx exist:
-                        "enforceExistence": [
-                            "{Name}.test.tsx", // ./src/ComponentName.test.tsx must exist.
-                            "stories/{name}.stories.tsx", // ./src/stories/componentName.stories.tsx must exist.
-                            "../cats.ts", // ./cats.ts must exist.
-                        ],
-                    },
-                    {
-                        "name": "components",
-                        "children": [],
-                    },
-                ],
-            },
-            {
-                "name": "*",
-                // If any file exists in the root directory of the project.
-                "enforceExistence": [
-                    "src", // ./src must exist.
-                    "src/components", // ./src/components must exist.
-                ],
-            },
+          { "name": "stories", "children": [{ "name": "{camelCase}.tsx" }] },
+          { "name": "{PascalCase}.test.tsx" },
+          { "name": "components", "children": [] },
+          {
+            "name": "{PascalCase}.tsx",
+            // If ./src/ComponentName.tsx exist:
+            "enforceExistence": [
+              "{Name}.test.tsx", // ./src/ComponentName.test.tsx must exist.
+              "stories/{name}.stories.tsx", // ./src/stories/componentName.stories.tsx must exist.
+              "../cats.ts", // ./cats.ts must exist.
+            ],
+          },
         ],
-    },
+      },
+      {
+        "name": "*",
+        // If any file exists in the root directory of the project.
+        "enforceExistence": [
+          "src", // ./src must exist.
+          "src/components", // ./src/components must exist.
+        ],
+      },
+    ],
+  },
 }
 ```
 
@@ -580,35 +492,16 @@ The structure of your project and its rules.
 
 ```jsonc
 {
-    "structure": {
-        "children": [
-            {
-                "name": "libs",
-                "children": [
-                    // ...
-                ],
-            },
-            {
-                "name": "src",
-                "children": [
-                    // ...
-                ],
-            },
-            {
-                "name": "yourCoolFolderName",
-                "children": [
-                    // ...
-                ],
-            },
-            {
-                // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
-                // You can also add exceptions like this: "(?!folderStructure)*"
-                "name": "*",
-            },
-            // ...
-        ],
-    },
-    // ...
+  "structure": {
+    "children": [
+      { "name": "libs", "children": [] },
+      { "name": "src", "children": [] },
+      { "name": "yourCoolFolderName", "children": [] },
+      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+      // You can also add exceptions like this: "(?!folderStructure)*"
+      { "name": "*" },
+    ],
+  },
 }
 ```
 
@@ -619,16 +512,12 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
 
 ```jsonc
 {
-    "rules": {
-        "yourReusableRule": {
-            "name": "ComponentName",
-            "children": [
-                // ...
-            ],
-        },
-        // ...
+  "rules": {
+    "yourReusableRule": {
+      "name": "ComponentName",
+      "children": [],
     },
-    // ...
+  },
 }
 ```
 
@@ -637,10 +526,7 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
 A reference to your reusable rule.
 
 ```jsonc
-{
-    "ruleId": "yourReusableRule",
-    // ...
-}
+{ "ruleId": "yourReusableRule" }
 ```
 
 You can use it with other keys like **[name](#name)** and **[children](#children)** but remember that they will **override** the keys from your reusable rule.<br>
@@ -669,48 +555,41 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 
 ```jsonc
 {
-    "structure": {
+  "structure": {
+    "children": [
+      {
+        "name": "src",
         "children": [
-            {
-                "name": "src",
-                "children": [
-                    {
-                        "name": "folder1",
-                        "children": [
-                            {
-                                "name": "{PascalCase}",
-                                "ruleId": "shared_children",
-                            },
-                        ],
-                    },
-                    {
-                        "name": "folder2",
-                        "children": [
-                            {
-                                "name": "(subFolder1|subFolder2)",
-                                "ruleId": "shared_children",
-                            },
-                        ],
-                    },
-                ],
-            },
-            // ...
-        ],
-    },
-    "rules": {
-        "shared_children": {
+          {
+            "name": "folder1",
             "children": [
-                {
-                    "name": "{PascalCase}.tsx",
-                },
-                {
-                    "name": "{camelCase}.ts",
-                },
+              {
+                "name": "{PascalCase}",
+                "ruleId": "shared_children",
+              },
             ],
-        },
-        // ...
+          },
+          {
+            "name": "folder2",
+            "children": [
+              {
+                "name": "(subFolder1|subFolder2)",
+                "ruleId": "shared_children",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  "rules": {
+    "shared_children": {
+      "children": [
+        { "name": "{PascalCase}.tsx" },
+        { "name": "{camelCase}.ts" },
+      ],
     },
-    // ...
+  },
 }
 ```
 
@@ -736,37 +615,24 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
 
 ```jsonc
 {
-    "structure": {
-        "children": [
-            {
-                "name": "src",
-                "children": [
-                    {
-                        "ruleId": "yourReusableRule",
-                    },
-                ],
-            },
-            // ...
-        ],
-    },
-    "rules": {
-        "yourReusableRule": {
-            "name": "{PascalCase}",
-            "children": [
-                {
-                    "name": "components",
-                    "children": [
-                        {
-                            "ruleId": "yourReusableRule",
-                        },
-                        // ...
-                    ],
-                },
-                // ...
-            ],
+  "structure": {
+    "children": [
+      {
+        "name": "src",
+        "children": [{ "ruleId": "yourReusableRule" }],
+      },
+    ],
+  },
+  "rules": {
+    "yourReusableRule": {
+      "name": "{PascalCase}",
+      "children": [
+        {
+          "name": "components",
+          "children": [{ "ruleId": "yourReusableRule" }],
         },
-        // ...
+      ],
     },
-    // ...
+  },
 }
 ```

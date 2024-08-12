@@ -1,281 +1,278 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 import {
-    isNameFromFileRoot,
-    IsNameFromFileRootProps,
+  isNameFromFileRoot,
+  IsNameFromFileRootProps,
 } from "rules/namingRules/helpers/isNameFromFileRoot";
 import { NameType } from "rules/namingRules/namingRules.types";
 
 describe("isNameFromFileRoot", () => {
-    test.each<{
-        nameType: NameType;
-        node:
-            | TSESTree.VariableDeclarator
-            | TSESTree.ClassDeclaration
-            | TSESTree.FunctionDeclaration
-            | TSESTree.TSTypeAliasDeclaration
-            | TSESTree.TSInterfaceDeclaration
-            | TSESTree.TSEnumDeclaration
-            | TSESTree.BlockStatement;
+  test.each<{
+    nameType: NameType;
+    node:
+      | TSESTree.VariableDeclarator
+      | TSESTree.ClassDeclaration
+      | TSESTree.FunctionDeclaration
+      | TSESTree.TSTypeAliasDeclaration
+      | TSESTree.TSInterfaceDeclaration
+      | TSESTree.TSEnumDeclaration
+      | TSESTree.BlockStatement;
 
-        expected: boolean;
-    }>([
-        {
-            nameType: "ClassDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.Program },
-            } as TSESTree.ClassDeclaration,
-            expected: true,
+    expected: boolean;
+  }>([
+    {
+      nameType: "ClassDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.Program },
+      } as TSESTree.ClassDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "ClassDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
         },
-        {
-            nameType: "ClassDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-                },
-            } as TSESTree.ClassDeclaration,
-            expected: true,
+      } as TSESTree.ClassDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "ClassDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
         },
-        {
-            nameType: "ClassDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
-                },
-            } as TSESTree.ClassDeclaration,
-            expected: true,
+      } as TSESTree.ClassDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "FunctionDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.Program },
+      } as TSESTree.FunctionDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "FunctionDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
         },
-        {
-            nameType: "FunctionDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.Program },
-            } as TSESTree.FunctionDeclaration,
-            expected: true,
+      } as TSESTree.FunctionDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "FunctionDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
         },
-        {
-            nameType: "FunctionDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-                },
-            } as TSESTree.FunctionDeclaration,
-            expected: true,
+      } as TSESTree.FunctionDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "TSEnumDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.Program },
+      } as TSESTree.TSEnumDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "TSEnumDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
         },
-        {
-            nameType: "FunctionDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
-                },
-            } as TSESTree.FunctionDeclaration,
-            expected: true,
+      } as TSESTree.TSEnumDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "TSEnumDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
         },
-        {
-            nameType: "TSEnumDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.Program },
-            } as TSESTree.TSEnumDeclaration,
-            expected: true,
-        },
-        {
-            nameType: "TSEnumDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-                },
-            } as TSESTree.TSEnumDeclaration,
-            expected: true,
-        },
-        {
-            nameType: "TSEnumDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
-                },
-            } as TSESTree.TSEnumDeclaration,
-            expected: true,
-        },
+      } as TSESTree.TSEnumDeclaration,
+      expected: true,
+    },
 
-        {
-            nameType: "TSInterfaceDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.Program },
-            } as TSESTree.TSInterfaceDeclaration,
-            expected: true,
+    {
+      nameType: "TSInterfaceDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.Program },
+      } as TSESTree.TSInterfaceDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "TSInterfaceDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
         },
-        {
-            nameType: "TSInterfaceDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-                },
-            } as TSESTree.TSInterfaceDeclaration,
-            expected: true,
+      } as TSESTree.TSInterfaceDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "TSInterfaceDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
         },
-        {
-            nameType: "TSInterfaceDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
-                },
-            } as TSESTree.TSInterfaceDeclaration,
-            expected: true,
-        },
+      } as TSESTree.TSInterfaceDeclaration,
+      expected: true,
+    },
 
-        {
-            nameType: "TSTypeAliasDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.Program },
-            } as TSESTree.TSTypeAliasDeclaration,
-            expected: true,
+    {
+      nameType: "TSTypeAliasDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.Program },
+      } as TSESTree.TSTypeAliasDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "TSTypeAliasDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
         },
-        {
-            nameType: "TSTypeAliasDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-                },
-            } as TSESTree.TSTypeAliasDeclaration,
-            expected: true,
+      } as TSESTree.TSTypeAliasDeclaration,
+      expected: true,
+    },
+    {
+      nameType: "TSTypeAliasDeclaration",
+      node: {
+        parent: {
+          type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
         },
-        {
-            nameType: "TSTypeAliasDeclaration",
-            node: {
-                parent: {
-                    type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
-                },
-            } as TSESTree.TSTypeAliasDeclaration,
-            expected: true,
-        },
+      } as TSESTree.TSTypeAliasDeclaration,
+      expected: true,
+    },
 
-        {
-            nameType: "ArrowFunctionExpression",
-            node: {
-                parent: { parent: { type: TSESTree.AST_NODE_TYPES.Program } },
-            } as TSESTree.VariableDeclarator,
-            expected: true,
+    {
+      nameType: "ArrowFunctionExpression",
+      node: {
+        parent: { parent: { type: TSESTree.AST_NODE_TYPES.Program } },
+      } as TSESTree.VariableDeclarator,
+      expected: true,
+    },
+    {
+      nameType: "ArrowFunctionExpression",
+      node: {
+        parent: {
+          parent: {
+            type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
+          },
         },
-        {
-            nameType: "ArrowFunctionExpression",
-            node: {
-                parent: {
-                    parent: {
-                        type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-                    },
-                },
-            } as TSESTree.VariableDeclarator,
-            expected: true,
+      } as TSESTree.VariableDeclarator,
+      expected: true,
+    },
+    {
+      nameType: "ArrowFunctionExpression",
+      node: {
+        parent: {
+          parent: {
+            type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
+          },
         },
-        {
-            nameType: "ArrowFunctionExpression",
-            node: {
-                parent: {
-                    parent: {
-                        type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
-                    },
-                },
-            } as TSESTree.VariableDeclarator,
-            expected: true,
-        },
+      } as TSESTree.VariableDeclarator,
+      expected: true,
+    },
 
-        {
-            nameType: "VariableDeclarator",
-            node: {
-                parent: { parent: { type: TSESTree.AST_NODE_TYPES.Program } },
-            } as TSESTree.VariableDeclarator,
-            expected: true,
+    {
+      nameType: "VariableDeclarator",
+      node: {
+        parent: { parent: { type: TSESTree.AST_NODE_TYPES.Program } },
+      } as TSESTree.VariableDeclarator,
+      expected: true,
+    },
+    {
+      nameType: "VariableDeclarator",
+      node: {
+        parent: {
+          parent: {
+            type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
+          },
         },
-        {
-            nameType: "VariableDeclarator",
-            node: {
-                parent: {
-                    parent: {
-                        type: TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-                    },
-                },
-            } as TSESTree.VariableDeclarator,
-            expected: true,
+      } as TSESTree.VariableDeclarator,
+      expected: true,
+    },
+    {
+      nameType: "VariableDeclarator",
+      node: {
+        parent: {
+          parent: {
+            type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
+          },
         },
-        {
-            nameType: "VariableDeclarator",
-            node: {
-                parent: {
-                    parent: {
-                        type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
-                    },
-                },
-            } as TSESTree.VariableDeclarator,
-            expected: true,
-        },
+      } as TSESTree.VariableDeclarator,
+      expected: true,
+    },
 
-        {
-            nameType: "ClassDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
-            } as TSESTree.BlockStatement,
-            expected: false,
-        },
+    {
+      nameType: "ClassDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
+      } as TSESTree.BlockStatement,
+      expected: false,
+    },
 
-        {
-            nameType: "FunctionDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
-            } as TSESTree.BlockStatement,
-            expected: false,
-        },
+    {
+      nameType: "FunctionDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
+      } as TSESTree.BlockStatement,
+      expected: false,
+    },
 
-        {
-            nameType: "TSEnumDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
-            } as TSESTree.BlockStatement,
-            expected: false,
-        },
+    {
+      nameType: "TSEnumDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
+      } as TSESTree.BlockStatement,
+      expected: false,
+    },
 
-        {
-            nameType: "TSInterfaceDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
-            } as TSESTree.BlockStatement,
-            expected: false,
-        },
+    {
+      nameType: "TSInterfaceDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
+      } as TSESTree.BlockStatement,
+      expected: false,
+    },
 
-        {
-            nameType: "TSTypeAliasDeclaration",
-            node: {
-                parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
-            } as TSESTree.BlockStatement,
-            expected: false,
-        },
+    {
+      nameType: "TSTypeAliasDeclaration",
+      node: {
+        parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
+      } as TSESTree.BlockStatement,
+      expected: false,
+    },
 
-        {
-            nameType: "ArrowFunctionExpression",
-            node: {
-                parent: {
-                    parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
-                },
-            } as TSESTree.BlockStatement,
-            expected: false,
+    {
+      nameType: "ArrowFunctionExpression",
+      node: {
+        parent: {
+          parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
         },
+      } as TSESTree.BlockStatement,
+      expected: false,
+    },
 
-        {
-            nameType: "VariableDeclarator",
-            node: {
-                parent: {
-                    parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
-                },
-            } as TSESTree.BlockStatement,
-            expected: false,
+    {
+      nameType: "VariableDeclarator",
+      node: {
+        parent: {
+          parent: { type: TSESTree.AST_NODE_TYPES.BlockStatement },
         },
-    ])(
-        "Should return correct value for = %o",
-        ({ nameType, node, expected }) => {
-            expect(
-                isNameFromFileRoot({
-                    nameType,
-                    node: node as IsNameFromFileRootProps["node"],
-                }),
-            ).toEqual(expected);
-        },
-    );
+      } as TSESTree.BlockStatement,
+      expected: false,
+    },
+  ])("Should return correct value for = %o", ({ nameType, node, expected }) => {
+    expect(
+      isNameFromFileRoot({
+        nameType,
+        node: node as IsNameFromFileRootProps["node"],
+      }),
+    ).toEqual(expected);
+  });
 });

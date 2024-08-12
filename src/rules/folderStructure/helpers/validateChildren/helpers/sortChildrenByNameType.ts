@@ -22,9 +22,9 @@ import { isRegex } from "rules/folderStructure/helpers/validateChildren/helpers/
  * }
  */
 export const sortChildrenByNameType = (children: Rule[]): Rule[] =>
-    children.sort(({ name: nameA }, { name: nameB }) => {
-        if (isRegex(nameA) && !isRegex(nameB)) return 1;
-        if (!nameA && !isRegex(nameB)) return 1;
+  children.sort(({ name: nameA }, { name: nameB }) => {
+    if (isRegex(nameA) && !isRegex(nameB)) return 1;
+    if (!nameA && !isRegex(nameB)) return 1;
 
-        return -1;
-    });
+    return -1;
+  });

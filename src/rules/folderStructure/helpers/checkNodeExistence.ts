@@ -8,66 +8,66 @@ import { getLowerCaseFirstLetter } from "rules/folderStructure/helpers/getLowerC
 import { getUpperCaseFirstLetter } from "rules/folderStructure/helpers/getUpperCaseFirstLetter";
 
 interface CheckNodeExistenceProps {
-    cwd: string;
-    nodeName: string;
-    enforceExistence: string[];
-    filenameWithoutCwd: string;
+  cwd: string;
+  nodeName: string;
+  enforceExistence: string[];
+  filenameWithoutCwd: string;
 }
 
 export const checkNodeExistence = ({
-    enforceExistence,
-    filenameWithoutCwd,
-    nodeName,
-    cwd,
+  enforceExistence,
+  filenameWithoutCwd,
+  nodeName,
+  cwd,
 }: CheckNodeExistenceProps): void => {
-    const nodeNameType: NodeType = nodeName.includes(".") ? "File" : "Folder";
-    const nodeNamePathIndex = filenameWithoutCwd.split("/").indexOf(nodeName);
-    const nodeNamePath = filenameWithoutCwd
-        .split("/")
-        .slice(0, nodeNamePathIndex + 1)
-        .join("/");
-    const nodeNameDirname = path.dirname(nodeNamePath);
-    const nodeNameWithoutExtension = nodeName.substring(
-        0,
-        nodeName.lastIndexOf("."),
-    );
-    const currentDirname =
-        nodeNameType === "File" ? nodeNameDirname : nodeNamePath;
+  const nodeNameType: NodeType = nodeName.includes(".") ? "File" : "Folder";
+  const nodeNamePathIndex = filenameWithoutCwd.split("/").indexOf(nodeName);
+  const nodeNamePath = filenameWithoutCwd
+    .split("/")
+    .slice(0, nodeNamePathIndex + 1)
+    .join("/");
+  const nodeNameDirname = path.dirname(nodeNamePath);
+  const nodeNameWithoutExtension = nodeName.substring(
+    0,
+    nodeName.lastIndexOf("."),
+  );
+  const currentDirname =
+    nodeNameType === "File" ? nodeNameDirname : nodeNamePath;
 
-    const enforcedNodeNames = enforceExistence
-        .map((enforcedNodeName) => {
-            const enforcedNodeNameWithoutRef = enforcedNodeName
-                .replace(
-                    REFERENCES.Name,
-                    getUpperCaseFirstLetter(nodeNameWithoutExtension),
-                )
-                .replace(
-                    REFERENCES.name,
-                    getLowerCaseFirstLetter(nodeNameWithoutExtension),
-                );
+  const enforcedNodeNames = enforceExistence
+    .map((enforcedNodeName) => {
+      const enforcedNodeNameWithoutRef = enforcedNodeName
+        .replace(
+          REFERENCES.Name,
+          getUpperCaseFirstLetter(nodeNameWithoutExtension),
+        )
+        .replace(
+          REFERENCES.name,
+          getLowerCaseFirstLetter(nodeNameWithoutExtension),
+        );
 
-            const enforcedNodeFullPath = path.join(
-                cwd,
-                currentDirname,
-                enforcedNodeNameWithoutRef,
-            );
+      const enforcedNodeFullPath = path.join(
+        cwd,
+        currentDirname,
+        enforcedNodeNameWithoutRef,
+      );
 
-            if (fs.existsSync(enforcedNodeFullPath)) return;
+      if (fs.existsSync(enforcedNodeFullPath)) return;
 
-            return (
-                "./" +
-                path
-                    .join(currentDirname, enforcedNodeNameWithoutRef)
-                    .replaceAll(sep, "/")
-            );
-        })
-        .filter((v): v is string => v !== undefined);
+      return (
+        "./" +
+        path
+          .join(currentDirname, enforcedNodeNameWithoutRef)
+          .replaceAll(sep, "/")
+      );
+    })
+    .filter((v): v is string => v !== undefined);
 
-    if (!enforcedNodeNames.length) return;
+  if (!enforcedNodeNames.length) return;
 
-    throw getNodeExistenceError({
-        enforcedNodeNames,
-        nodeName,
-        nodeNamePath,
-    });
+  throw getNodeExistenceError({
+    enforcedNodeNames,
+    nodeName,
+    nodeNamePath,
+  });
 };

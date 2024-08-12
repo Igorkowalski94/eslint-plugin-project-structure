@@ -1,11 +1,11 @@
 export class FinalError extends Error {
-    message: string;
-    type: string;
+  message: string;
+  type: string;
 
-    constructor(message: string) {
-        super(message);
+  constructor(message: string) {
+    super(message);
 
-        this.message = message;
-        this.type = "final";
-    }
+    this.message = message;
+    this.type = "final";
+  }
 }

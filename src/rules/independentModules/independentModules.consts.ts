@@ -7,136 +7,136 @@ export const DEFAULT_BASE_URL = ".";
 export const NO_FAMILY = "NO_FAMILY";
 
 export const FILE_EXTENSIONS = [
-    ".js",
-    ".jsx",
-    ".mjs",
-    ".cjs",
+  ".js",
+  ".jsx",
+  ".mjs",
+  ".cjs",
 
-    ".d.ts",
-    ".ts",
-    ".tsx",
+  ".d.ts",
+  ".ts",
+  ".tsx",
 
-    ".vue",
-    ".svelte",
+  ".vue",
+  ".svelte",
 
-    ".json",
-    ".jsonc",
-    ".yml",
-    ".yaml",
+  ".json",
+  ".jsonc",
+  ".yml",
+  ".yaml",
 
-    ".svg",
-    ".png",
-    ".jpg",
-    ".ico",
+  ".svg",
+  ".png",
+  ".jpg",
+  ".ico",
 
-    ".css",
-    ".scss",
-    ".sass",
-    ".less",
+  ".css",
+  ".scss",
+  ".sass",
+  ".less",
 
-    ".html",
+  ".html",
 ];
 
 export const INDEPENDENT_MODULES_SCHEMA: JSONSchema4 = {
-    $schema: "http://json-schema.org/draft-07/schema#",
-    type: "object",
-    properties: {
-        tsconfigPath: {
-            type: "string",
+  $schema: "http://json-schema.org/draft-07/schema#",
+  type: "object",
+  properties: {
+    tsconfigPath: {
+      type: "string",
+    },
+    pathAliases: {
+      type: "object",
+      properties: {
+        baseUrl: {
+          type: "string",
         },
-        pathAliases: {
-            type: "object",
-            properties: {
-                baseUrl: {
-                    type: "string",
-                },
-                paths: {
-                    type: "object",
-                    additionalProperties: {
-                        type: "array",
-                        items: {
-                            type: "string",
-                        },
-                    },
-                },
-            },
-            required: ["baseUrl", "paths"],
-        },
-        extensions: {
+        paths: {
+          type: "object",
+          additionalProperties: {
             type: "array",
             items: {
-                type: "string",
+              type: "string",
             },
+          },
         },
-        reusableImportPatterns: {
-            type: "object",
-            additionalProperties: {
+      },
+      required: ["baseUrl", "paths"],
+    },
+    extensions: {
+      type: "array",
+      items: {
+        type: "string",
+      },
+    },
+    reusableImportPatterns: {
+      type: "object",
+      additionalProperties: {
+        type: "array",
+        items: {
+          anyOf: [
+            {
+              type: "string",
+            },
+            {
+              type: "array",
+              items: {
+                type: "string",
+              },
+            },
+          ],
+        },
+      },
+    },
+    modules: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+          },
+          pattern: {
+            anyOf: [
+              {
+                type: "string",
+              },
+              {
                 type: "array",
                 items: {
-                    anyOf: [
-                        {
-                            type: "string",
-                        },
-                        {
-                            type: "array",
-                            items: {
-                                type: "string",
-                            },
-                        },
-                    ],
+                  type: "string",
                 },
-            },
-        },
-        modules: {
+              },
+            ],
+          },
+          errorMessage: {
+            type: "string",
+          },
+          allowImportsFrom: {
             type: "array",
             items: {
-                type: "object",
-                properties: {
-                    name: {
-                        type: "string",
-                    },
-                    pattern: {
-                        anyOf: [
-                            {
-                                type: "string",
-                            },
-                            {
-                                type: "array",
-                                items: {
-                                    type: "string",
-                                },
-                            },
-                        ],
-                    },
-                    errorMessage: {
-                        type: "string",
-                    },
-                    allowImportsFrom: {
-                        type: "array",
-                        items: {
-                            anyOf: [
-                                {
-                                    type: "string",
-                                },
-                                {
-                                    type: "array",
-                                    items: {
-                                        type: "string",
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                    allowExternalImports: {
-                        type: "boolean",
-                    },
+              anyOf: [
+                {
+                  type: "string",
                 },
-                required: ["name", "pattern", "allowImportsFrom"],
+                {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                },
+              ],
             },
-        },
-        debugMode: {
+          },
+          allowExternalImports: {
             type: "boolean",
+          },
         },
+        required: ["name", "pattern", "allowImportsFrom"],
+      },
     },
-    required: ["modules"],
+    debugMode: {
+      type: "boolean",
+    },
+  },
+  required: ["modules"],
 };

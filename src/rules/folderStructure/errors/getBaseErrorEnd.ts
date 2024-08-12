@@ -1,12 +1,12 @@
 import { FinalError } from "errors/FinalError";
 
 interface GetBaseErrorEndProps {
-    errorMessage: string;
-    nodePath: string;
+  errorMessage: string;
+  nodePath: string;
 }
 
 export const getBaseErrorEnd = ({
-    errorMessage,
-    nodePath,
+  errorMessage,
+  nodePath,
 }: GetBaseErrorEndProps): FinalError =>
-    new FinalError(`${errorMessage}\nError location = ./${nodePath} \n\n`);
+  new FinalError(`${errorMessage}\nError location = ./${nodePath} \n\n`);

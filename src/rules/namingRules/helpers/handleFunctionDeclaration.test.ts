@@ -7,41 +7,35 @@ import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
 import { FileNamingRules } from "rules/namingRules/namingRules.types";
 
 jest.mock("rules/namingRules/helpers/validateName", () => ({
-    validateName: jest.fn(),
+  validateName: jest.fn(),
 }));
 
 describe("handleFunctionDeclaration", () => {
-    test("Should call validateName when !!name", () => {
-        const validateNameMock = jest.fn();
+  test("Should call validateName when !!name", () => {
+    const validateNameMock = jest.fn();
 
-        (validateName as jest.Mock).mockImplementation(validateNameMock);
+    (validateName as jest.Mock).mockImplementation(validateNameMock);
 
-        handleFunctionDeclaration({
-            node: {
-                id: { name: "className" },
-            } as TSESTree.FunctionDeclaration,
-            context: {} as RuleContext<
-                keyof typeof ESLINT_ERRORS,
-                FileNamingRules[]
-            >,
-        });
-
-        expect(validateNameMock).toHaveBeenCalled();
+    handleFunctionDeclaration({
+      node: {
+        id: { name: "className" },
+      } as TSESTree.FunctionDeclaration,
+      context: {} as RuleContext<keyof typeof ESLINT_ERRORS, FileNamingRules[]>,
     });
 
-    test("Should not call validateName when !name", () => {
-        const validateNameMock = jest.fn();
+    expect(validateNameMock).toHaveBeenCalled();
+  });
 
-        (validateName as jest.Mock).mockImplementation(validateNameMock);
+  test("Should not call validateName when !name", () => {
+    const validateNameMock = jest.fn();
 
-        handleFunctionDeclaration({
-            node: {} as TSESTree.FunctionDeclaration,
-            context: {} as RuleContext<
-                keyof typeof ESLINT_ERRORS,
-                FileNamingRules[]
-            >,
-        });
+    (validateName as jest.Mock).mockImplementation(validateNameMock);
 
-        expect(validateNameMock).not.toHaveBeenCalled();
+    handleFunctionDeclaration({
+      node: {} as TSESTree.FunctionDeclaration,
+      context: {} as RuleContext<keyof typeof ESLINT_ERRORS, FileNamingRules[]>,
     });
+
+    expect(validateNameMock).not.toHaveBeenCalled();
+  });
 });

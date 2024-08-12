@@ -6,35 +6,35 @@ import { finalErrorGuard } from "errors/finalErrorGuard";
 import { readConfigFile } from "helpers/readConfigFile";
 
 import {
-    Context,
-    FolderStructureConfig,
+  Context,
+  FolderStructureConfig,
 } from "rules/folderStructure/folderStructure.types";
 import { validateFolderStructure } from "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure";
 
 export interface HandleProgramProps {
-    context: Context;
-    node: TSESTree.Program;
+  context: Context;
+  node: TSESTree.Program;
 }
 
 export const handleProgram = ({
-    context: { cwd, settings, filename, options, report },
-    node,
+  context: { cwd, settings, filename, options, report },
+  node,
 }: HandleProgramProps): void => {
-    const config = readConfigFile<FolderStructureConfig>({
-        cwd,
-        key: "project-structure/folder-structure-config-path",
-        settings,
-        options,
-    });
+  const config = readConfigFile<FolderStructureConfig>({
+    cwd,
+    key: "project-structure/folder-structure-config-path",
+    settings,
+    options,
+  });
 
-    try {
-        validateFolderStructure({ filename, cwd, config });
-    } catch (error) {
-        if (!finalErrorGuard(error)) throw error;
+  try {
+    validateFolderStructure({ filename, cwd, config });
+  } catch (error) {
+    if (!finalErrorGuard(error)) throw error;
 
-        report({
-            node,
-            message: error.message,
-        } as unknown as ReportDescriptor<"error">);
-    }
+    report({
+      node,
+      message: error.message,
+    } as unknown as ReportDescriptor<"error">);
+  }
 };

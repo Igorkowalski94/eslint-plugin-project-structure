@@ -1,66 +1,66 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "definitions": {
-        "Rule": {
-            "type": "object",
-            "default": { "name": "" },
-            "properties": {
-                "ruleId": {
-                    "type": "string",
-                    "default": ""
-                },
-                "name": {
-                    "type": "string",
-                    "default": ""
-                },
-                "children": {
-                    "type": "array",
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/Rule"
-                    }
-                },
-                "enforceExistence": {
-                    "type": "array",
-                    "default": [],
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            },
-            "additionalProperties": false
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Rule": {
+      "type": "object",
+      "default": { "name": "" },
+      "properties": {
+        "ruleId": {
+          "type": "string",
+          "default": ""
         },
-        "RegexParameters": {
-            "type": "object",
-            "default": {},
-            "additionalProperties": {
-                "type": "string"
-            }
-        }
-    },
-    "type": "object",
-    "properties": {
-        "ignorePatterns": {
-            "type": "array",
-            "default": [],
-            "items": {
-                "type": "string"
-            }
+        "name": {
+          "type": "string",
+          "default": ""
         },
-        "structure": {
+        "children": {
+          "type": "array",
+          "default": [],
+          "items": {
             "$ref": "#/definitions/Rule"
+          }
         },
-        "rules": {
-            "type": "object",
-            "default": {},
-            "additionalProperties": {
-                "$ref": "#/definitions/Rule"
-            }
-        },
-        "regexParameters": {
-            "$ref": "#/definitions/RegexParameters"
+        "enforceExistence": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
         }
+      },
+      "additionalProperties": false
     },
-    "required": ["structure"],
-    "additionalProperties": false
+    "RegexParameters": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "ignorePatterns": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "structure": {
+      "$ref": "#/definitions/Rule"
+    },
+    "rules": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": {
+        "$ref": "#/definitions/Rule"
+      }
+    },
+    "regexParameters": {
+      "$ref": "#/definitions/RegexParameters"
+    }
+  },
+  "required": ["structure"],
+  "additionalProperties": false
 }

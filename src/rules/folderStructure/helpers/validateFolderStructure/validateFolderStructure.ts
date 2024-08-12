@@ -7,31 +7,31 @@ import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderS
 import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
 interface ValidateFolderStructureProps {
-    filename: string;
-    cwd: string;
-    config: FolderStructureConfig;
+  filename: string;
+  cwd: string;
+  config: FolderStructureConfig;
 }
 
 export const validateFolderStructure = ({
-    filename,
-    cwd,
-    config,
+  filename,
+  cwd,
+  config,
 }: ValidateFolderStructureProps): void => {
-    validateConfig({ config, schema: FOLDER_STRUCTURE_SCHEMA });
+  validateConfig({ config, schema: FOLDER_STRUCTURE_SCHEMA });
 
-    const { structure, ignorePatterns } = config;
+  const { structure, ignorePatterns } = config;
 
-    const { filenameWithoutCwd, pathname } = getPaths({ cwd, filename });
+  const { filenameWithoutCwd, pathname } = getPaths({ cwd, filename });
 
-    if (isIgnoredPathname({ pathname: filenameWithoutCwd, ignorePatterns }))
-        return;
+  if (isIgnoredPathname({ pathname: filenameWithoutCwd, ignorePatterns }))
+    return;
 
-    validatePath({
-        pathname,
-        filenameWithoutCwd,
-        cwd,
-        parentName: "structure",
-        rule: structure,
-        config,
-    });
+  validatePath({
+    pathname,
+    filenameWithoutCwd,
+    cwd,
+    parentName: "structure",
+    rule: structure,
+    config,
+  });
 };

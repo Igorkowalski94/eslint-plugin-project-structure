@@ -23,29 +23,29 @@ If you have any questions or need help creating a configuration that meets your 
 
 ### Documentation:
 
--   **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
--   **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
+- **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
+- **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
 ### Go to:
 
--   [Installation](#installation)
--   [Getting started](#getting-started)
--   [Simple example](#simple-example-for-the-folder-structure-below)
--   [Advanced example](#advanced-example-for-the-folder-structure-below)
--   [API](#api)
-    -   [tsconfigPath](#tsconfig-path)
-    -   [pathAliases](#path-aliases)
-    -   [extensions](#extensions)
-    -   [modules](#modules)
-        -   [name](#name)
-        -   [pattern](#pattern)
-        -   [allowImportsFrom](#allow-imports-from)
-        -   [errorMessage](#error-message)
-        -   [allowExternalImports](#allow-external-imports)
-    -   [reusableImportPatterns](#reusable-import-patterns)
-    -   [{family}](#family)
-    -   [{dirname}](#dirname)
-    -   [debugMode](#debug-mode)
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [Simple example](#simple-example-for-the-folder-structure-below)
+- [Advanced example](#advanced-example-for-the-folder-structure-below)
+- [API](#api)
+  - [tsconfigPath](#tsconfig-path)
+  - [pathAliases](#path-aliases)
+  - [extensions](#extensions)
+  - [modules](#modules)
+    - [name](#name)
+    - [pattern](#pattern)
+    - [allowImportsFrom](#allow-imports-from)
+    - [errorMessage](#error-message)
+    - [allowExternalImports](#allow-external-imports)
+  - [reusableImportPatterns](#reusable-import-patterns)
+  - [{family}](#family)
+  - [{dirname}](#dirname)
+  - [debugMode](#debug-mode)
 
 ## Installation
 
@@ -75,27 +75,27 @@ import { projectStructurePlugin } from "eslint-plugin-project-structure";
 import { independentModulesConfig } from "./independentModules.mjs";
 
 export default tseslint.config({
-    extends: [...tseslint.configs.recommended],
-    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-    plugins: {
-        "project-structure": projectStructurePlugin,
-    },
-    rules: {
-        ...eslint.configs.recommended.rules,
+  extends: [...tseslint.configs.recommended],
+  files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  plugins: {
+    "project-structure": projectStructurePlugin,
+  },
+  rules: {
+    ...eslint.configs.recommended.rules,
 
-        // If you have many rules in a separate file.
-        "project-structure/independent-modules": [
-            "error",
-            independentModulesConfig,
-        ],
-        // If you have only a few rules.
-        "project-structure/independent-modules": [
-            "error",
-            {
-                // Config
-            },
-        ],
-    },
+    // If you have many rules in a separate file.
+    "project-structure/independent-modules": [
+      "error",
+      independentModulesConfig,
+    ],
+    // If you have only a few rules.
+    "project-structure/independent-modules": [
+      "error",
+      {
+        // Config
+      },
+    ],
+  },
 });
 ```
 
@@ -132,40 +132,43 @@ Create a **`independentModules.mjs`** in the root of your project.<br>
 
 #### independentModules.mjs
 
+> [!WARNING]  
+> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
+
 ```mjs
 // @ts-check
 
 import { createIndependentModules } from "eslint-plugin-project-structure";
 
 export const independentModulesConfig = createIndependentModules({
-    modules: [
-        {
-            name: "Features",
-            pattern: "features/**",
-            allowImportsFrom: [
-                // /*  = wildcard for current directory.
-                // /** = wildcard for nested directories.
+  modules: [
+    {
+      name: "Features",
+      pattern: "features/**",
+      allowImportsFrom: [
+        // /*  = wildcard for current directory.
+        // /** = wildcard for nested directories.
 
-                // Let's assume we are in the "features/Feature1/Feature1.tsx".
-                // In this case we will be able to import:
-                // "features/Feature2/Feature2.tsx"
-                // But we won't be able to import Feature1 private files and folders.
-                "features/*/*.tsx",
+        // Let's assume we are in the "features/Feature1/Feature1.tsx".
+        // In this case we will be able to import:
+        // "features/Feature2/Feature2.tsx"
+        // But we won't be able to import Feature1 private files and folders.
+        "features/*/*.tsx",
 
-                // {family} reference finds the common part between the import and the current file.
-                // By default, at least two common path parts are required, root is not taken into account.
-                // This will make your rule work recursively/apply to all nestings.
-                // You can change the number of common path parts required, {family_1} at least 1, {family_3} at least 3 common part etc.
+        // {family} reference finds the common part between the import and the current file.
+        // By default, at least two common path parts are required, root is not taken into account.
+        // This will make your rule work recursively/apply to all nestings.
+        // You can change the number of common path parts required, {family_1} at least 1, {family_3} at least 3 common part etc.
 
-                "{family}/**",
-                // Let's assume we are in the "features/Feature1/Feature1.tsx".
-                // In this case we will be able to import:
-                // "features/Feature1/feature1.types.ts"             ({family} === "features/Feature1")
-                // "features/Feature1/feature1.api.ts"               ({family} === "features/Feature1")
-                // "features/Feature1/components/SimpleComponent.tsx" ({family} === "features/Feature1")
-            ],
-        },
-    ],
+        "{family}/**",
+        // Let's assume we are in the "features/Feature1/Feature1.tsx".
+        // In this case we will be able to import:
+        // "features/Feature1/feature1.types.ts"             ({family} === "features/Feature1")
+        // "features/Feature1/feature1.api.ts"               ({family} === "features/Feature1")
+        // "features/Feature1/components/SimpleComponent.tsx" ({family} === "features/Feature1")
+      ],
+    },
+  ],
 });
 ```
 
@@ -195,55 +198,58 @@ export const independentModulesConfig = createIndependentModules({
 
 #### independentModules.mjs
 
+> [!WARNING]  
+> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
+
 ```mjs
 // @ts-check
 
 import { createIndependentModules } from "eslint-plugin-project-structure";
 
 export const independentModulesConfig = createIndependentModules({
-    modules: [
-        {
-            name: "Features",
-            pattern: "features/**",
-            allowImportsFrom: [
-                // /*  = wildcard for current directory.
-                // /** = wildcard for nested directories.
+  modules: [
+    {
+      name: "Features",
+      pattern: "features/**",
+      allowImportsFrom: [
+        // /*  = wildcard for current directory.
+        // /** = wildcard for nested directories.
 
-                // Let's assume we are in the "features/Feature2/Feature2.tsx"
-                // In this case we will be able to import:
-                // "feature/Feature1/Feature1.tsx"
-                // But we won't be able to import Feature1 private files and folders.
-                "features/*/*.tsx",
+        // Let's assume we are in the "features/Feature2/Feature2.tsx"
+        // In this case we will be able to import:
+        // "feature/Feature1/Feature1.tsx"
+        // But we won't be able to import Feature1 private files and folders.
+        "features/*/*.tsx",
 
-                // {family} reference finds the common part between the import and the current file.
-                // By default, at least two common path parts are required, root is not taken into account.
-                // This will make your rule work recursively/apply to all nestings.
-                // You can change the number of common path parts required, {family_1} at least 1, {family_3} at least 3 common part etc.
+        // {family} reference finds the common part between the import and the current file.
+        // By default, at least two common path parts are required, root is not taken into account.
+        // This will make your rule work recursively/apply to all nestings.
+        // You can change the number of common path parts required, {family_1} at least 1, {family_3} at least 3 common part etc.
 
-                "{family}/*",
-                // Let's assume we are in the "features/Feature2/Feature2.tsx"
-                // In this case we will be able to import:
-                // "features/Feature2/feature2.api.ts"      ({family} === "features/Feature2")
-                // "features/Feature2/feature2.types.ts"    ({family} === "features/Feature2")
+        "{family}/*",
+        // Let's assume we are in the "features/Feature2/Feature2.tsx"
+        // In this case we will be able to import:
+        // "features/Feature2/feature2.api.ts"      ({family} === "features/Feature2")
+        // "features/Feature2/feature2.types.ts"    ({family} === "features/Feature2")
 
-                [
-                    "{family}/components/*/*",
-                    "!{family}/components/*/*.(types|api|types).ts",
-                ],
-                // Let's assume we are in the "features/Feature2/Feature2.tsx"
-                // In this case we will be able to import:
-                // "features/Feature2/components/SimpleComponent.tsx                    ({family} === "features/Feature2")
-                // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2")
-                // But we won't be able to import ComplexComponent private files.
+        [
+          "{family}/components/*/*",
+          "!{family}/components/*/*.(types|api|types).ts",
+        ],
+        // Let's assume we are in the "features/Feature2/Feature2.tsx"
+        // In this case we will be able to import:
+        // "features/Feature2/components/SimpleComponent.tsx                    ({family} === "features/Feature2")
+        // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2")
+        // But we won't be able to import ComplexComponent private files.
 
-                ["{family}/*/*", "!{family}/*/*.(types|api|types).ts"],
-                // Let's assume we are in the "features/Feature2/components/SimpleComponent.tsx"
-                // In this case we will be able to import:
-                // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2/components")
-                // But we won't be able to import ComplexComponent private files.
-            ],
-        },
-    ],
+        ["{family}/*/*", "!{family}/*/*.(types|api|types).ts"],
+        // Let's assume we are in the "features/Feature2/components/SimpleComponent.tsx"
+        // In this case we will be able to import:
+        // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2/components")
+        // But we won't be able to import ComplexComponent private files.
+      ],
+    },
+  ],
 });
 ```
 
@@ -256,9 +262,7 @@ If your `tsconfig` is located in the root of your project, the plugin will autom
 If your `tsconfig` is located elsewhere, you can specify its location here.
 
 ```jsonc
-{
-    "tsconfigPath": "./tsconfig.json",
-}
+{ "tsconfigPath": "./tsconfig.json" }
 ```
 
 ### **`pathAliases`**: `<{ baseUrl: string; paths: Record<string, string[]>; } | undefined>` <a id="path-aliases"></a>
@@ -273,12 +277,12 @@ import { Component } from "@components/Component";
 
 ```jsonc
 {
-    "pathAliases": {
-        "baseUrl": ".",
-        "paths": {
-            "@components/*": ["src/components/*"],
-        },
+  "pathAliases": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
     },
+  },
 }
 ```
 
@@ -296,9 +300,7 @@ Available extensions: **`".js"`**, **`".jsx"`**, **`".mjs"`**, **`".cjs"`** **`"
 If the extension you are using is not on the list, you can extend it.
 
 ```jsonc
-{
-    "extensions": [".yourFancyExtension"],
-}
+{ "extensions": [".yourFancyExtension"] }
 ```
 
 ### **`modules`**: `<Module[]>` <a id="modules"></a>
@@ -312,55 +314,55 @@ After creation, each module will not be able to import anything except external 
 
 ```jsonc
 {
-    "modules": [
-        {
-            "name": "Module 1",
-            "pattern": "*",
-            "allowImportsFrom": [],
-        },
-        // Module 2 with "features/**" will not be taken into account because Module 1 with "*" meets the condition.
-        {
-            "name": "Module 2",
-            "pattern": "features/**",
-            "allowImportsFrom": [],
-        },
-    ],
+  "modules": [
+    {
+      "name": "Module 1",
+      "pattern": "*",
+      "allowImportsFrom": [],
+    },
+    // Module 2 with "features/**" will not be taken into account because Module 1 with "*" meets the condition.
+    {
+      "name": "Module 2",
+      "pattern": "features/**",
+      "allowImportsFrom": [],
+    },
+  ],
 }
 ```
 
 ```jsonc
 {
-    "modules": [
-        // Module 2 with "features/**" will be taken into account because Module 1 with "*" is below Module 2.
-        {
-            "name": "Module 2",
-            "pattern": "features/**",
-            "allowImportsFrom": [],
-        },
-        {
-            "name": "Module 1",
-            "pattern": "*",
-            "allowImportsFrom": [],
-        },
-    ],
+  "modules": [
+    // Module 2 with "features/**" will be taken into account because Module 1 with "*" is below Module 2.
+    {
+      "name": "Module 2",
+      "pattern": "features/**",
+      "allowImportsFrom": [],
+    },
+    {
+      "name": "Module 1",
+      "pattern": "*",
+      "allowImportsFrom": [],
+    },
+  ],
 }
 ```
 
 ```jsonc
 {
-    "modules": [
-        {
-            "name": "Module 1",
-            "pattern": ["*", "!features/**"],
-            "allowImportsFrom": [],
-        },
-        // Module 2 with "features/**" will be taken into account because Module 1 with ["*", "!features/**"] ignores "features/**" pattern.
-        {
-            "name": "Module 2",
-            "pattern": "features/**",
-            "allowImportsFrom": [],
-        },
-    ],
+  "modules": [
+    {
+      "name": "Module 1",
+      "pattern": ["*", "!features/**"],
+      "allowImportsFrom": [],
+    },
+    // Module 2 with "features/**" will be taken into account because Module 1 with ["*", "!features/**"] ignores "features/**" pattern.
+    {
+      "name": "Module 2",
+      "pattern": "features/**",
+      "allowImportsFrom": [],
+    },
+  ],
 }
 ```
 
@@ -369,13 +371,7 @@ After creation, each module will not be able to import anything except external 
 The name of your module.
 
 ```jsonc
-{
-    "modules": [
-        {
-            "name": "features",
-        },
-    ],
-}
+{ "modules": [{ "name": "features" }] }
 ```
 
 ### **`pattern`**: `<string | string[]>` <a id="pattern"></a>
@@ -386,15 +382,11 @@ You can use all **[micromatch.every](https://github.com/micromatch/micromatch?ta
 
 ```jsonc
 {
-    "modules": [
-        {
-            "pattern": "features/**",
-        },
-        {
-            // Everything from the helpers folder except the index.ts and .js files.
-            "pattern": ["helpers/**", "!(**/index.ts)", "!(**/*.js)"],
-        },
-    ],
+  "modules": [
+    { "pattern": "features/**" },
+    // Everything from the helpers folder except the index.ts and .js files.
+    { "pattern": ["helpers/**", "!(**/index.ts)", "!(**/*.js)"] },
+  ],
 }
 ```
 
@@ -411,36 +403,36 @@ If at least **one** pattern in **`allowImportsFrom`** meets the condition, the i
 
 ```jsonc
 {
-    "modules": [
-        {
-            "allowImportsFrom": [
-                // All files from the first directory of the helpers folder.
-                "helpers/*",
+  "modules": [
+    {
+      "allowImportsFrom": [
+        // All files from the first directory of the helpers folder.
+        "helpers/*",
 
-                // All files from the types folder. All directories/nestings.
-                "types/**",
+        // All files from the types folder. All directories/nestings.
+        "types/**",
 
-                // All nested files in hooks folder except *.types.ts
-                ["hooks/**", "!hooks/**/*.types.ts"],
+        // All nested files in hooks folder except *.types.ts
+        ["hooks/**", "!hooks/**/*.types.ts"],
 
-                // All nested files in the components folder except files in the helpers folders.
-                ["components/**", "!components/**/helpers/**"],
+        // All nested files in the components folder except files in the helpers folders.
+        ["components/**", "!components/**/helpers/**"],
 
-                // All nested .js files in the helpers folder except index.js
-                ["helpers/**/*.js", "!helpers/**/index.js"],
-            ],
-        },
-        {
-            "allowImportsFrom": [
-                // All nested .js files in the helpers folder
-                "helpers/**/*.js",
+        // All nested .js files in the helpers folder except index.js
+        ["helpers/**/*.js", "!helpers/**/index.js"],
+      ],
+    },
+    {
+      "allowImportsFrom": [
+        // All nested .js files in the helpers folder
+        "helpers/**/*.js",
 
-                // It will not be taken into account because "helpers/**/*.js" met the condition.
-                // Not index.js files in the helpers folder.
-                "!helpers/**/index.js",
-            ],
-        },
-    ],
+        // It will not be taken into account because "helpers/**/*.js" met the condition.
+        // Not index.js files in the helpers folder.
+        "!helpers/**/index.js",
+      ],
+    },
+  ],
 }
 ```
 
@@ -449,13 +441,7 @@ If at least **one** pattern in **`allowImportsFrom`** meets the condition, the i
 Here, you can set your custom error for a given module.
 
 ```jsonc
-{
-    "modules": [
-        {
-            "errorMessage": "My custom module error.",
-        },
-    ],
-}
+{ "modules": [{ "errorMessage": "My custom module error." }] }
 ```
 
 ### **`allowExternalImports`**: `<boolean | undefined>` <a id="allow-external-imports"></a>
@@ -466,13 +452,13 @@ The default value is true.
 
 ```jsonc
 {
-    "modules": [
-        {
-            "allowExternalImports": false,
-            //You can specify exceptions via allowImportsFrom.
-            "allowImportsFrom": ["react"],
-        },
-    ],
+  "modules": [
+    {
+      "allowExternalImports": false,
+      //You can specify exceptions via allowImportsFrom.
+      "allowImportsFrom": ["react"],
+    },
+  ],
 }
 ```
 
@@ -486,37 +472,37 @@ The library will automatically inform you about all usage errors such as: Infini
 
 ```jsonc
 {
-    "reusableImportPatterns": {
-        "pattern1": ["pattern1_a"],
-        "pattern2": ["pattern2_a", "pattern2_b"],
-        "pattern3": ["pattern3_a", "pattern3_b", ["pattern3_c", "pattern3_d"]],
+  "reusableImportPatterns": {
+    "pattern1": ["pattern1_a"],
+    "pattern2": ["pattern2_a", "pattern2_b"],
+    "pattern3": ["pattern3_a", "pattern3_b", ["pattern3_c", "pattern3_d"]],
 
-        "pattern4": ["pattern4_a", "{pattern1}"],
-        //          ["pattern4_a", "pattern1_a"]
+    "pattern4": ["pattern4_a", "{pattern1}"],
+    //          ["pattern4_a", "pattern1_a"]
 
-        "pattern5": ["pattern5_a", ["{pattern1}"]],
-        //          ["pattern5_a", ["pattern1_a"]]
+    "pattern5": ["pattern5_a", ["{pattern1}"]],
+    //          ["pattern5_a", ["pattern1_a"]]
 
-        "pattern6": ["pattern6_a", "**/{pattern1}/**"],
-        //          ["pattern6_a", "**/pattern1_a/**"]
+    "pattern6": ["pattern6_a", "**/{pattern1}/**"],
+    //          ["pattern6_a", "**/pattern1_a/**"]
 
-        "pattern7": ["pattern7_a", "{pattern2}"],
-        //          ["pattern7_a", "pattern2_a", "pattern2_b"]
+    "pattern7": ["pattern7_a", "{pattern2}"],
+    //          ["pattern7_a", "pattern2_a", "pattern2_b"]
 
-        "pattern8": ["pattern8_a", ["{pattern2}"]],
-        //          ["pattern8_a", ["pattern2_a", "pattern2_b"]]
+    "pattern8": ["pattern8_a", ["{pattern2}"]],
+    //          ["pattern8_a", ["pattern2_a", "pattern2_b"]]
 
-        "pattern9": ["pattern9_a", "{pattern3}"],
-        //          ["pattern9_a", "pattern3_a", "pattern3_b", ["pattern3_c", "pattern3_d"]]
+    "pattern9": ["pattern9_a", "{pattern3}"],
+    //          ["pattern9_a", "pattern3_a", "pattern3_b", ["pattern3_c", "pattern3_d"]]
+  },
+  "modules": [
+    {
+      "name": "Some Module",
+      "pattern": "*",
+      "allowImportsFrom": ["{pattern1}/*.ts", "{pattern9}"],
+      //                  ["pattern1_a/*.ts", "pattern9_a", "pattern3_a", "pattern3_b", ["pattern3_c", "pattern3_d"]]
     },
-    "modules": [
-        {
-            "name": "Some Module",
-            "pattern": "*",
-            "allowImportsFrom": ["{pattern1}/*.ts", "{pattern9}"],
-            //                  ["pattern1_a/*.ts", "pattern9_a", "pattern3_a", "pattern3_b", ["pattern3_c", "pattern3_d"]]
-        },
-    ],
+  ],
 }
 ```
 
@@ -591,7 +577,5 @@ Debug mode showing the current [**`allowImportsFrom`**](#allow-imports-from), [*
 The default value is `false`.
 
 ```jsonc
-{
-    "debugMode": true,
-}
+{ "debugMode": true }
 ```

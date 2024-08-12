@@ -4,19 +4,19 @@ import { validate } from "jsonschema";
 import { getInvalidConfigError } from "errors/getInvalidConfigError";
 
 interface ValidateConfigProps<T> {
-    config: T;
-    schema: JSONSchema4;
+  config: T;
+  schema: JSONSchema4;
 }
 
 export const validateConfig = <T>({
-    config,
-    schema,
+  config,
+  schema,
 }: ValidateConfigProps<T>): void => {
-    const errors = validate(config, schema, {
-        nestedErrors: true,
-    }).errors.filter(({ stack }) => !stack.includes("$schema"));
+  const errors = validate(config, schema, {
+    nestedErrors: true,
+  }).errors.filter(({ stack }) => !stack.includes("$schema"));
 
-    if (!errors.length) return;
+  if (!errors.length) return;
 
-    throw getInvalidConfigError(errors.map(({ stack }) => stack));
+  throw getInvalidConfigError(errors.map(({ stack }) => stack));
 };

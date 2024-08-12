@@ -6,12 +6,12 @@ A minor configuration fix will be required for version <= 1.4.7.
 
 ### General changes:
 
--   The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
--   New option for creating a configuration file in an .mjs file with TypeScript support.
--   Enforcing the existence of a file/folder when a specific file/folder exists. For example, if src/Component.tsx exists, then src/Component.test.tsx and src/stories/Component.stories.tsx must also exist.
--   You can now use comments in folderStructure.json and independentModules.json files.
--   Improved error messages for folder-structure.
--   Easier configuration of folder-structure. The "extension" key has been removed, now the file extension will be part of the "name". You don't need to add /^$/ to your regex, they will be added automatically and other improvements.
+- The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+- New option for creating a configuration file in an .mjs file with TypeScript support.
+- Enforcing the existence of a file/folder when a specific file/folder exists. For example, if src/Component.tsx exists, then src/Component.test.tsx and src/stories/Component.stories.tsx must also exist.
+- You can now use comments in folderStructure.json and independentModules.json files.
+- Improved error messages for folder-structure.
+- Easier configuration of folder-structure. The "extension" key has been removed, now the file extension will be part of the "name". You don't need to add /^$/ to your regex, they will be added automatically and other improvements.
 
 ### Changes for the file .eslintrc
 
@@ -19,12 +19,12 @@ From:
 
 ```jsonc
 {
-    "rules": {
-        "project-structure/file-structure": "error", // warn | error
-    },
-    "settings": {
-        "project-structure/config-path": "projectStructure.json", // json | yaml
-    },
+  "rules": {
+    "project-structure/file-structure": "error", // warn | error
+  },
+  "settings": {
+    "project-structure/config-path": "projectStructure.json", // json | yaml
+  },
 }
 ```
 
@@ -32,12 +32,12 @@ To:
 
 ```jsonc
 {
-    "rules": {
-        "project-structure/folder-structure": "error", // warn | error
-    },
-    "settings": {
-        "project-structure/folder-structure-config-path": "folderStructure.json", // json | yaml
-    },
+  "rules": {
+    "project-structure/folder-structure": "error", // warn | error
+  },
+  "settings": {
+    "project-structure/folder-structure-config-path": "folderStructure.json", // json | yaml
+  },
 }
 ```
 
@@ -47,22 +47,22 @@ From:
 
 ```jsonc
 {
-    "overrides": [
-        {
-            "files": [
-                "*.css",
-                "*.sass",
-                "*.less",
-                "*.svg",
-                "*.png",
-                "*.jpg",
-                "*.ico",
-                "*.yml",
-                "*.json",
-            ],
-            "parser": "./node_modules/eslint-plugin-project-structure/dist/parser.js",
-        },
-    ],
+  "overrides": [
+    {
+      "files": [
+        "*.css",
+        "*.sass",
+        "*.less",
+        "*.svg",
+        "*.png",
+        "*.jpg",
+        "*.ico",
+        "*.yml",
+        "*.json",
+      ],
+      "parser": "./node_modules/eslint-plugin-project-structure/dist/parser.js",
+    },
+  ],
 }
 ```
 
@@ -70,22 +70,22 @@ To:
 
 ```jsonc
 {
-    "overrides": [
-        {
-            "files": [
-                "*.css",
-                "*.sass",
-                "*.less",
-                "*.svg",
-                "*.png",
-                "*.jpg",
-                "*.ico",
-                "*.yml",
-                "*.json",
-            ],
-            "parser": "eslint-plugin-project-structure/parser",
-        },
-    ],
+  "overrides": [
+    {
+      "files": [
+        "*.css",
+        "*.sass",
+        "*.less",
+        "*.svg",
+        "*.png",
+        "*.jpg",
+        "*.ico",
+        "*.yml",
+        "*.json",
+      ],
+      "parser": "eslint-plugin-project-structure/parser",
+    },
+  ],
 }
 ```
 
@@ -95,7 +95,7 @@ From:
 
 ```jsonc
 {
-    "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
+  "$schema": "node_modules/eslint-plugin-project-structure/projectStructure.schema.json",
 }
 ```
 
@@ -103,7 +103,7 @@ To:
 
 ```jsonc
 {
-    "$schema": "node_modules/eslint-plugin-project-structure/folderStructure.schema.json",
+  "$schema": "node_modules/eslint-plugin-project-structure/folderStructure.schema.json",
 }
 ```
 
@@ -113,17 +113,17 @@ The name is treated as a `regex`.
 
 The following improvements are automatically added to the regex:
 
--   The name is wrapped in `^$`.
--   All `.` characters (any character except newline) will be converted to `\\.` (dot as a character).
-    If you want original behavior, use the following notation `..`.
--   All `*` characters will be converted to `(([^/]*)+)` (wildcard).
-    If you want original behavior, use the following notation `**`.
+- The name is wrapped in `^$`.
+- All `.` characters (any character except newline) will be converted to `\\.` (dot as a character).
+  If you want original behavior, use the following notation `..`.
+- All `*` characters will be converted to `(([^/]*)+)` (wildcard).
+  If you want original behavior, use the following notation `**`.
 
 From: ${{key}}
 
 ```jsonc
 {
-    "name": "/^${{parentName}}$/",
+  "name": "/^${{parentName}}$/",
 }
 ```
 
@@ -131,7 +131,7 @@ To: {key}
 
 ```jsonc
 {
-    "name": "{parentName}",
+  "name": "{parentName}",
 }
 ```
 
@@ -155,10 +155,10 @@ You can go back to the old settings via [regexParameters](https://github.com/Igo
 
 ```jsonc
 {
-    "regexParameters": {
-        "PascalCase": "((([A-Z]|\\d){1}([a-z]|\\d)*)*([A-Z]|\\d){1}([a-z]|\\d)*)",
-        "camelCase": "(([a-z]|\\d)+(([A-Z]|\\d){1}([a-z]|\\d)*)*)",
-    },
+  "regexParameters": {
+    "PascalCase": "((([A-Z]|\\d){1}([a-z]|\\d)*)*([A-Z]|\\d){1}([a-z]|\\d)*)",
+    "camelCase": "(([a-z]|\\d)+(([A-Z]|\\d){1}([a-z]|\\d)*)*)",
+  },
 }
 ```
 
@@ -170,7 +170,7 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
 {
-    "name": "{SNAKE_CASE}",
+  "name": "{SNAKE_CASE}",
 }
 ```
 

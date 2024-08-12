@@ -4,12 +4,12 @@ import { validateImport } from "rules/independentModules/helpers/validateImport"
 import { Context } from "rules/independentModules/independentModules.types";
 
 export const handleExportNamedDeclaration = (
-    node: TSESTree.ExportNamedDeclaration,
-    context: Context,
+  node: TSESTree.ExportNamedDeclaration,
+  context: Context,
 ): void => {
-    const importPath = node.source?.value;
+  const importPath = node.source?.value;
 
-    if (!importPath) return;
+  if (!importPath) return;
 
-    validateImport({ importPath, context, node });
+  validateImport({ importPath, context, node });
 };

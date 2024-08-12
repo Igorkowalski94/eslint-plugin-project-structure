@@ -5,42 +5,42 @@ import { parse } from "comment-json";
 
 import { DEFAULT_BASE_URL } from "rules/independentModules/independentModules.consts";
 import {
-    IndependentModulesConfig,
-    PathAliases,
-    TsConfigJson,
+  IndependentModulesConfig,
+  PathAliases,
+  TsConfigJson,
 } from "rules/independentModules/independentModules.types";
 
 interface GetPathAliasesProps {
-    cwd: string;
-    config: IndependentModulesConfig;
+  cwd: string;
+  config: IndependentModulesConfig;
 }
 
 export const getPathAliases = ({
-    cwd,
-    config,
+  cwd,
+  config,
 }: GetPathAliasesProps): PathAliases | undefined => {
-    const { pathAliases } = config;
+  const { pathAliases } = config;
 
-    if (pathAliases) return pathAliases;
+  if (pathAliases) return pathAliases;
 
-    const tsconfigPath = config.tsconfigPath ?? path.join(cwd, "tsconfig.json");
+  const tsconfigPath = config.tsconfigPath ?? path.join(cwd, "tsconfig.json");
 
-    let tsconfig: TsConfigJson | undefined;
+  let tsconfig: TsConfigJson | undefined;
 
-    try {
-        tsconfig = parse(
-            readFileSync(tsconfigPath, "utf-8"),
-        ) as unknown as TsConfigJson;
-    } catch (_e) {
-        return undefined;
-    }
+  try {
+    tsconfig = parse(
+      readFileSync(tsconfigPath, "utf-8"),
+    ) as unknown as TsConfigJson;
+  } catch (_e) {
+    return undefined;
+  }
 
-    const {
-        compilerOptions: { baseUrl = DEFAULT_BASE_URL, paths = {} },
-    } = tsconfig;
+  const {
+    compilerOptions: { baseUrl = DEFAULT_BASE_URL, paths = {} },
+  } = tsconfig;
 
-    return {
-        baseUrl,
-        paths,
-    };
+  return {
+    baseUrl,
+    paths,
+  };
 };

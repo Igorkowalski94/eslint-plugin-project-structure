@@ -4,52 +4,52 @@ import { readConfigFile } from "helpers/readConfigFile";
 
 import { validateAll } from "rules/independentModules/helpers/validateAll";
 import {
-    validateImport,
-    ValidateImportProps,
+  validateImport,
+  ValidateImportProps,
 } from "rules/independentModules/helpers/validateImport";
 
 jest.mock("rules/independentModules/helpers/validateAll", () => ({
-    validateAll: jest.fn(),
+  validateAll: jest.fn(),
 }));
 
 jest.mock("helpers/readConfigFile", () => ({
-    readConfigFile: jest.fn(),
+  readConfigFile: jest.fn(),
 }));
 
 describe("validateImport", () => {
-    test("Should call report when error === FinalError ", () => {
-        const reportMock = jest.fn();
+  test("Should call report when error === FinalError ", () => {
+    const reportMock = jest.fn();
 
-        (readConfigFile as jest.Mock).mockReturnValue({});
+    (readConfigFile as jest.Mock).mockReturnValue({});
 
-        (validateAll as jest.Mock).mockImplementation(() => {
-            throw new FinalError("error");
-        });
-
-        validateImport({
-            context: { report: reportMock, settings: {}, cwd: "" },
-            importPath: "",
-            node: {},
-        } as unknown as ValidateImportProps);
-
-        expect(reportMock).toHaveBeenCalled();
+    (validateAll as jest.Mock).mockImplementation(() => {
+      throw new FinalError("error");
     });
 
-    test("Should not call report when error !== FinalError ", () => {
-        const reportMock = jest.fn();
+    validateImport({
+      context: { report: reportMock, settings: {}, cwd: "" },
+      importPath: "",
+      node: {},
+    } as unknown as ValidateImportProps);
 
-        (readConfigFile as jest.Mock).mockReturnValue({});
+    expect(reportMock).toHaveBeenCalled();
+  });
 
-        (validateAll as jest.Mock).mockImplementation(() => {
-            throw new Error("random error");
-        });
+  test("Should not call report when error !== FinalError ", () => {
+    const reportMock = jest.fn();
 
-        expect(() =>
-            validateImport({
-                context: { report: reportMock, settings: {}, cwd: "" },
-                importPath: "",
-                node: {},
-            } as unknown as ValidateImportProps),
-        ).toThrow(new Error("random error"));
+    (readConfigFile as jest.Mock).mockReturnValue({});
+
+    (validateAll as jest.Mock).mockImplementation(() => {
+      throw new Error("random error");
     });
+
+    expect(() =>
+      validateImport({
+        context: { report: reportMock, settings: {}, cwd: "" },
+        importPath: "",
+        node: {},
+      } as unknown as ValidateImportProps),
+    ).toThrow(new Error("random error"));
+  });
 });

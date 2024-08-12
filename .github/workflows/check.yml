@@ -3,52 +3,52 @@ name: Check code
 on: [push]
 
 jobs:
-    test:
-        name: Check code
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  test:
+    name: Check code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Setup node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: "20.4.0"
-                  registry-url: "https://registry.npmjs.org"
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.4.0"
+          registry-url: "https://registry.npmjs.org"
 
-            - name: Enable Corepack
-              run: corepack enable
+      - name: Enable Corepack
+        run: corepack enable
 
-            - name: Set Yarn version
-              run: corepack prepare yarn@3.6.3 --activate
+      - name: Set Yarn version
+        run: corepack prepare yarn@3.6.3 --activate
 
-            - name: Cache Yarn dependencies
-              uses: actions/cache@v2
-              with:
-                  path: |
-                      ~/.yarn
-                      .yarn/cache
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-yarn-
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.yarn
+            .yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-            - name: Install dependencies
-              run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-            - name: deadCode:check
-              run: yarn deadCode:check
+      - name: deadCode:check
+        run: yarn deadCode:check
 
-            - name: lint:check
-              run: yarn lint:check
+      - name: lint:check
+        run: yarn lint:check
 
-            - name: types:check
-              run: yarn types:check
+      - name: types:check
+        run: yarn types:check
 
-            - name: format:check
-              run: yarn format:check
+      - name: format:check
+        run: yarn format:check
 
-            - name: test:check
-              run: yarn test:check
+      - name: test:check
+        run: yarn test:check
 
-            - name: build
-              run: yarn build
+      - name: build
+        run: yarn build

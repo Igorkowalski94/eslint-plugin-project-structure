@@ -9,11 +9,11 @@ import { namingRules } from "rules/namingRules/namingRules";
 
 // ts-prune-ignore-next
 export const projectStructurePlugin = {
-    rules: {
-        "folder-structure": folderStructure,
-        "naming-rules": namingRules,
-        "independent-modules": independentModules,
-    },
+  rules: {
+    "folder-structure": folderStructure,
+    "naming-rules": namingRules,
+    "independent-modules": independentModules,
+  },
 };
 // ts-prune-ignore-next
 export { parser as projectStructureParser } from "parser";
@@ -25,15 +25,15 @@ export { createFolderStructure } from "rules/folderStructure/helpers/createFolde
 export { createNamingRules } from "rules/namingRules/helpers/createNamingRules";
 
 module.exports = {
-    projectStructurePlugin,
-    projectStructureParser: parser,
-    createIndependentModules,
-    createFolderStructure,
-    createNamingRules,
-    // For old eslint config
-    rules: {
-        "folder-structure": folderStructure,
-        "naming-rules": namingRules,
-        "independent-modules": independentModules,
-    },
+  projectStructurePlugin,
+  projectStructureParser: parser,
+  createIndependentModules,
+  createFolderStructure,
+  createNamingRules,
+  // For old eslint config
+  rules: {
+    "folder-structure": folderStructure,
+    "naming-rules": namingRules,
+    "independent-modules": independentModules,
+  },
 };

@@ -1,15 +1,15 @@
 import micromatch from "micromatch";
 
 interface IsIgnoredPathnameProps {
-    pathname: string;
-    ignorePatterns?: string[];
+  pathname: string;
+  ignorePatterns?: string[];
 }
 
 export const isIgnoredPathname = ({
-    pathname,
-    ignorePatterns,
+  pathname,
+  ignorePatterns,
 }: IsIgnoredPathnameProps): boolean => {
-    if (!ignorePatterns) return false;
+  if (!ignorePatterns) return false;
 
-    return micromatch.some(pathname, ignorePatterns);
+  return micromatch.some(pathname, ignorePatterns);
 };

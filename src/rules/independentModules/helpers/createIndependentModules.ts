@@ -1,5 +1,5 @@
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 export const createIndependentModules = (
-    config: IndependentModulesConfig,
+  config: IndependentModulesConfig,
 ): IndependentModulesConfig => config;

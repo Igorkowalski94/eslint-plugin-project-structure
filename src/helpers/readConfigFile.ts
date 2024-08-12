@@ -9,35 +9,35 @@ import { getInvalidConfigFileError } from "errors/getInvalidConfigFileError";
 import { getConfigPath } from "helpers/getConfigPath";
 
 interface ReadConfigFileProps<T> {
-    key: string;
-    cwd: string;
-    settings: SharedConfigurationSettings;
-    options: [T] | [];
+  key: string;
+  cwd: string;
+  settings: SharedConfigurationSettings;
+  options: [T] | [];
 }
 
 export const readConfigFile = <T>({
+  cwd,
+  key,
+  settings,
+  options,
+}: ReadConfigFileProps<T>): T => {
+  if (options.length) return options[0];
+
+  const configPath = getConfigPath({
     cwd,
     key,
     settings,
-    options,
-}: ReadConfigFileProps<T>): T => {
-    if (options.length) return options[0];
+  });
 
-    const configPath = getConfigPath({
-        cwd,
-        key,
-        settings,
-    });
+  let config = undefined;
 
-    let config = undefined;
+  if (configPath.endsWith("json")) {
+    config = parse(readFileSync(configPath, "utf-8")) as T;
+  } else {
+    config = load(readFileSync(configPath, "utf8")) as T;
+  }
 
-    if (configPath.endsWith("json")) {
-        config = parse(readFileSync(configPath, "utf-8")) as T;
-    } else {
-        config = load(readFileSync(configPath, "utf8")) as T;
-    }
+  if (!config) throw getInvalidConfigFileError(configPath);
 
-    if (!config) throw getInvalidConfigFileError(configPath);
-
-    return config;
+  return config;
 };
