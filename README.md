@@ -1,7 +1,7 @@
 # eslint-plugin-project-structure
 
 Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.<br>
-Whether you're working alone or with a small or large team, save time by automating the reviews of key principles for a healthy project!
+Whether you're working alone, with a small or large team, save time by automating the reviews of key principles for a healthy project!
 
 [**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -33,7 +33,7 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 ✅ An option to create a separate configuration file with TypeScript support.<br>
 ✅ Forcing a nested/flat structure for a given folder.<br>
 ✅ Support for all file extensions.<br>
-✅ Folder recursion (You can nest a given folder structure recursively).<br>
+✅ Folder recursion. You can nest a given folder structure recursively.<br>
 ✅ Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.<br>
 
 ## **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
@@ -62,7 +62,7 @@ Enforce complex naming rules.
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Naming rules only for name types located in the root of the file (not nested).<br>
-✅ Inheriting the file name as the name (Option of adding your own prefixes/suffixes, changing the case or deleting parts of a file name).<br>
+✅ Inheriting the file name as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a file name.<br>
 ✅ Different name rules for different files.<br>
 ✅ Regex validation<br>
 ✅ Build in case validation.<br>

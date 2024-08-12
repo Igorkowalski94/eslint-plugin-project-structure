@@ -310,7 +310,7 @@ export const folderStructureConfig = createFolderStructure({
                     ruleId: "hooks_folder",
                 },
                 {
-                    name: "{parentName}{yourCustomRegexParameter}.ts",
+                    name: "{parentName}{yourRegexParameter}.ts",
                 },
                 {
                     name: "{ParentName}(.test)?.tsx",
@@ -319,7 +319,7 @@ export const folderStructureConfig = createFolderStructure({
         },
     },
     regexParameters: {
-        yourCustomRegexParameter: ".(types|api)",
+        yourRegexParameter: ".(types|api)",
     },
 });
 ```
@@ -375,7 +375,7 @@ You can freely mix regex parameters together see **[example](#regex-parameters-m
 ```jsonc
 {
     "regexParameters": {
-        "yourCustomRegexParameter": "(Regex logic)",
+        "yourRegexParameter": "(Regex logic)",
         "camelCase": "(Regex logic)", // Override built-in camelCase.
         "parentName": "(Regex logic)", // Overwriting will be ignored.
         "ParentName": "(Regex logic)", // Overwriting will be ignored.
@@ -385,11 +385,11 @@ You can freely mix regex parameters together see **[example](#regex-parameters-m
 }
 ```
 
-Then you can use them in **[name](#name)** with the following notation **`{yourCustomRegexParameter}`**.
+Then you can use them in **[name](#name)** with the following notation **`{yourRegexParameter}`**.
 
 ```jsonc
 {
-    "name": "{yourCustomRegexParameter}",
+    "name": "{yourRegexParameter}",
     // ...
 }
 ```
@@ -742,7 +742,7 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
                 "name": "src",
                 "children": [
                     {
-                        "ruleId": "yourCustomRule",
+                        "ruleId": "yourReusableRule",
                     },
                 ],
             },
@@ -750,14 +750,14 @@ Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rul
         ],
     },
     "rules": {
-        "yourCustomRule": {
+        "yourReusableRule": {
             "name": "{PascalCase}",
             "children": [
                 {
                     "name": "components",
                     "children": [
                         {
-                            "ruleId": "yourCustomRule",
+                            "ruleId": "yourReusableRule",
                         },
                         // ...
                     ],
