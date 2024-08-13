@@ -7,6 +7,7 @@ Enforce complex naming rules.
 ✅ Naming validation. <br>
 ✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Naming rules only for name types located in the root of the file (not nested).<br>
+✅ Naming rules only for exported name types (export, export default).<br>
 ✅ Inheriting the file name as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a file name.<br>
 ✅ Enforcing a maximum of one main function/class per file.<br>
 ✅ Different name rules for different files.<br>
@@ -37,6 +38,7 @@ If you have any questions or need help creating a configuration that meets your 
     - [filenamePartsToRemove](#filename-parts-to-remove)
     - [allowNames](#allow-names)
     - [allowNamesFileRoot](#allow-names-file-root)
+    - [allowNamesExport](#allow-names-export)
     - [references](#references)
 
 ## Installation
@@ -110,15 +112,10 @@ export const namingRulesConfig = createNamingRules([
       {
         // nameTypes we are interested in.
         nameType: "variable",
-        allowNames: [
-          // All variables in the file should match SNAKE_CASE.
-          "{SNAKE_CASE}",
-
-          // or
-
-          // All variables must have six uppercase letters.
-          "[A-Z]{6}",
-        ],
+        // All exported variables in the file should match SNAKE_CASE.
+        allowNamesExport: ["{SNAKE_CASE}"],
+        // Other variables in the file should match camelCase.
+        allowNames: ["{camelCase}"],
       },
     ],
   },
@@ -154,26 +151,26 @@ export const namingRulesConfig = createNamingRules([
 ```ts
 // File transformUserData.ts
 
-// Satisfies regex "{filename_PascalCase}Props"
+// Satisfies allowNamesFileRoot = ["{filename_PascalCase}Props"]
 interface TransformUserDataProps {
   name: number;
   surname: number;
   email: string;
 }
 
-// Satisfies regex "{filename_snake_case}_return"
+// Satisfies allowNamesFileRoot = ["{filename_snake_case}_return"]
 interface transform_user_data_return {
   fullName: string;
   email: string;
 }
 
-// Satisfies regex "{filename_camelCase}"
+// Satisfies allowNamesFileRoot = ["{filename_camelCase}"]
 const transformUserData = ({
   name,
   surname,
   email,
 }: TransformUserDataProps): transform_user_data_return => {
-  // Satisfies regex "{camelCase}",
+  // Satisfies allowNames = ["{camelCase}"]
   const nestedFunction = () => {};
 
   return {
@@ -186,11 +183,11 @@ const transformUserData = ({
 ```ts
 // File transformUserData.consts.ts
 
-// Satisfies regex "{SNAKE_CASE}"
-const IMPORTANT_VARIABLE_1 = "";
+// Satisfies allowNames = ["{camelCase}"]
+const variable1 = "";
 
-// Satisfies regex "[A-Z]{6}"
-const MYNAME = "";
+// Satisfies allowNamesExport = ["{SNAKE_CASE}"]
+export const VARIABLE_2 = "";
 ```
 
 ## API:
@@ -330,6 +327,44 @@ The following improvements are automatically added to the regex:
 }
 ```
 
+### **`allowNamesExport`**: `<string[] | undefined>` <a id="allow-names-export"></a>
+
+**`allowNamesExport`** only takes into account exported [**`nameTypes`**](#name-type).
+
+If the name matches at least one regex, it will be considered valid.
+
+The following improvements are automatically added to the regex:
+
+- The name is wrapped in `^$`.
+
+> [!NOTE]
+> If you do not specify **`allowNamesExport`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
+
+```jsonc
+{
+  "filePattern": "**/*.tsx",
+  "rules": [
+    {
+      "nameType": ["arrowFunction", "function"],
+      // Exported arrow function or function should meet the name: filename as PascalCase.
+      "allowNamesExport": ["{filename_PascalCase}"],
+    },
+    {
+      "nameType": ["interface", "type"],
+      "allowNamesExport": [
+        // Exported interface or type should meet the name: filename as PascalCase + Props.
+        "{filename_PascalCase}Props",
+
+        // or
+
+        // Interface or type should meet the name: filename as PascalCase + Return
+        "{filename_PascalCase}Return",
+      ],
+    },
+  ],
+}
+```
+
 #### References
 
 **`{filename_camelCase}`**<br>
@@ -339,6 +374,7 @@ Take the name of the file you are currently in and change it to **`camelCase`**.
 {
   "allowNames": ["{filename_camelCase}"],
   "allowNamesFileRoot": ["{filename_camelCase}"],
+  "allowNamesExport": ["{filename_camelCase}"],
 }
 ```
 
@@ -349,6 +385,7 @@ Take the name of the file you are currently in and change it to **`PascalCase`**
 {
   "allowNames": ["{filename_PascalCase}"],
   "allowNamesFileRoot": ["{filename_PascalCase}"],
+  "allowNamesExport": ["{filename_PascalCase}"],
 }
 ```
 
@@ -359,6 +396,7 @@ Take the name of the file you are currently in and change it to **`snake_case`**
 {
   "allowNames": ["{filename_snake_case}"],
   "allowNamesFileRoot": ["{filename_snake_case}"],
+  "allowNamesExport": ["{filename_snake_case}"],
 }
 ```
 
@@ -369,6 +407,7 @@ Take the name of the file you are currently in and change it to **`SNAKE_CASE`**
 {
   "allowNames": ["{filename_SNAKE_CASE}"],
   "allowNamesFileRoot": ["{filename_SNAKE_CASE}"],
+  "allowNamesExport": ["{filename_SNAKE_CASE}"],
 }
 ```
 
@@ -380,6 +419,7 @@ The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[
 {
   "allowNames": ["{camelCase}"],
   "allowNamesFileRoot": ["{camelCase}"],
+  "allowNamesExport": ["{camelCase}"],
 }
 ```
 
@@ -391,6 +431,7 @@ The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 {
   "allowNames": ["{PascalCase}"],
   "allowNamesFileRoot": ["{PascalCase}"],
+  "allowNamesExport": ["{PascalCase}"],
 }
 ```
 
@@ -402,6 +443,7 @@ The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 {
   "allowNames": ["{snake_case}"],
   "allowNamesFileRoot": ["{snake_case}"],
+  "allowNamesExport": ["{snake_case}"],
 }
 ```
 
@@ -413,5 +455,6 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 {
   "allowNames": ["{SNAKE_CASE}"],
   "allowNamesFileRoot": ["{SNAKE_CASE}"],
+  "allowNamesExport": ["{SNAKE_CASE}"],
 }
 ```

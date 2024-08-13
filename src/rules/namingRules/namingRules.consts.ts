@@ -64,6 +64,10 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
           type: "array",
           items: { type: "string" },
         },
+        allowNamesExport: {
+          type: "array",
+          items: { type: "string" },
+        },
         allowNames: {
           type: "array",
           items: { type: "string" },

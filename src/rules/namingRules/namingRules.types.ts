@@ -24,6 +24,7 @@ export interface NamingRule {
   nameType: NameTypeRule | NameTypeRule[];
   filenamePartsToRemove?: string[];
   allowNamesFileRoot?: string[];
+  allowNamesExport?: string[];
   allowNames?: string[];
 }
 

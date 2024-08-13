@@ -68,11 +68,17 @@ export const validateName = ({
     )
       return;
 
-    const { allowNames, allowNamesFileRoot, filenamePartsToRemove } = rule;
+    const {
+      allowNames,
+      allowNamesFileRoot,
+      allowNamesExport,
+      filenamePartsToRemove,
+    } = rule;
 
     const currentAllowNames = getCurrentAllowNames({
       allowNames,
       allowNamesFileRoot,
+      allowNamesExport,
       nameType,
       node,
     });
