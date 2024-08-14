@@ -1,4 +1,4 @@
-import { isCorrectNameType } from "rules/namingRules/helpers/isCorrectNameType";
+import { isCorrectNameType } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/isCorrectNameType";
 import { NameTypeRule, NamingRule } from "rules/namingRules/namingRules.types";
 
 describe("isCorrectNameType", () => {

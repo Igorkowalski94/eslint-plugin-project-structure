@@ -3,11 +3,8 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 import { handleClassDeclaration } from "rules/namingRules/helpers/handleClassDeclaration";
 import { handleFunctionDeclaration } from "rules/namingRules/helpers/handleFunctionDeclaration";
 import { handleVariableDeclarator } from "rules/namingRules/helpers/handleVariableDeclarator";
-import { validateName } from "rules/namingRules/helpers/validateName";
-import {
-  ESLINT_ERRORS,
-  NAMING_RULES_SCHEMA,
-} from "rules/namingRules/namingRules.consts";
+import { validateName } from "rules/namingRules/helpers/validateName/validateName";
+import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
 
 export const namingRules = ESLintUtils.RuleCreator(
   () =>
@@ -20,7 +17,7 @@ export const namingRules = ESLintUtils.RuleCreator(
       description: "Enforce complex naming rules.",
     },
     type: "problem",
-    schema: NAMING_RULES_SCHEMA,
+    schema: { type: "array" },
     messages: ESLINT_ERRORS,
   },
   defaultOptions: [],

@@ -1,3 +1,7 @@
+import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
+
+import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+
 export type Cases = "camelCase" | "PascalCase" | "snake_case" | "SNAKE_CASE";
 
 export type NameType =
@@ -32,3 +36,7 @@ export interface FileNamingRules {
   filePattern: string | string[];
   rules: NamingRule[];
 }
+
+export type Context = Readonly<
+  RuleContext<keyof typeof ESLINT_ERRORS, FileNamingRules[]>
+>;

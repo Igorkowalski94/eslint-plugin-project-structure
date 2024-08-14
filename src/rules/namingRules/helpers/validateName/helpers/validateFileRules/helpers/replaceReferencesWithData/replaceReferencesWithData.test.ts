@@ -5,7 +5,7 @@ import {
   SNAKE_CASE_UPPER,
 } from "consts";
 
-import { replaceReferencesWithData } from "rules/namingRules/helpers/replaceReferencesWithData";
+import { replaceReferencesWithData } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/replaceReferencesWithData/replaceReferencesWithData";
 import { NamingRule } from "rules/namingRules/namingRules.types";
 
 describe("replaceReferencesWithData", () => {

@@ -3,7 +3,7 @@ import { TSESTree } from "@typescript-eslint/utils";
 import {
   isNameFromFileRoot,
   IsNameFromFileRootProps,
-} from "rules/namingRules/helpers/isNameFromFileRoot";
+} from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/getCurrentData/helpers/isNameFromFileRoot";
 import { NameType } from "rules/namingRules/namingRules.types";
 
 describe("isNameFromFileRoot", () => {
@@ -17,7 +17,6 @@ describe("isNameFromFileRoot", () => {
       | TSESTree.TSInterfaceDeclaration
       | TSESTree.TSEnumDeclaration
       | TSESTree.BlockStatement;
-
     expected: boolean;
   }>([
     {

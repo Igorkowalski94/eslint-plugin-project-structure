@@ -1,4 +1,4 @@
-import { removeFilenameParts } from "rules/namingRules/helpers/removeFilenameParts";
+import { removeFilenameParts } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/removeFilenameParts";
 import { NamingRule } from "rules/namingRules/namingRules.types";
 
 describe("removeFilenameParts", () => {

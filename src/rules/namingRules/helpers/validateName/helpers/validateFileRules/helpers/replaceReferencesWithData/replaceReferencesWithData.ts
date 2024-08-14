@@ -5,7 +5,7 @@ import {
   SNAKE_CASE_UPPER,
 } from "consts";
 
-import { transformStringToCase } from "rules/namingRules/helpers/transformStringToCase";
+import { transformStringToCase } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/replaceReferencesWithData/helpers/transformStringToCase";
 import {
   DEFAULT_ALLOW_NAMES,
   REFERENCES,
