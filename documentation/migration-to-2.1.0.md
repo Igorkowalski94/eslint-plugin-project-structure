@@ -202,9 +202,9 @@ Enforce complex naming rules.
 #### Features:
 
 ✅ Naming validation. <br>
-✅ Support for classes, types, interfaces, enums, variables, functions, arrow function.<br>
+✅ Supported name types: Classes, types, interfaces, enums, variables, functions, arrow function.<br>
 ✅ Naming rules only for name types located in the root of the file (not nested).<br>
-✅ Naming rules only for exported name types (export, export default).<br>
+✅ Naming rules only for exported name types.<br>
 ✅ Inheriting the file name as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a file name.<br>
 ✅ Enforcing a maximum of one main function/class per file.<br>
 ✅ Different name rules for different files.<br>
