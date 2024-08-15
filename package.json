@@ -39,7 +39,7 @@
     "lint:check": "eslint . --max-warnings 0",
     "test:check": "jest --coverage --watchAll=false --bail",
     "test": "jest --coverage --watch",
-    "checkAll": "yarn deadCode:check && yarn format:check && yarn lint:check && yarn test:check",
+    "checkAll": "yarn deadCode:check && yarn types:check && yarn format:check && yarn lint:check && yarn test:check",
     "husky:prepare": "husky install"
   },
   "dependencies": {
