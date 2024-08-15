@@ -1,3 +1,5 @@
+import { validateReferences } from "helpers/validateReferences/validateReferences";
+
 import { RegexParameters } from "rules/folderStructure/folderStructure.types";
 import { getDefaultRegexParameters } from "rules/folderStructure/helpers/validateName/helpers/getDefaultRegexParameters";
 
@@ -19,7 +21,14 @@ export const applyRegexParameters = ({
     regexParameters,
   });
 
-  Object.keys(defaultRegexParameters).forEach(
+  const regexParametersKeys = Object.keys(defaultRegexParameters);
+
+  validateReferences({
+    pattern: regex,
+    allowedReferences: regexParametersKeys,
+  });
+
+  regexParametersKeys.forEach(
     (key) =>
       (currentRegex = currentRegex.replaceAll(
         `{${key}}`,

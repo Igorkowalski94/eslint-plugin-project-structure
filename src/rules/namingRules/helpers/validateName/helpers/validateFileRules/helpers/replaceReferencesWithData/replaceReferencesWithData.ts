@@ -5,6 +5,8 @@ import {
   SNAKE_CASE_UPPER,
 } from "consts";
 
+import { validateReferences } from "helpers/validateReferences/validateReferences";
+
 import { transformStringToCase } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/replaceReferencesWithData/helpers/transformStringToCase";
 import {
   DEFAULT_ALLOW_NAMES,
@@ -21,8 +23,10 @@ export const replaceReferencesWithData = ({
   allowNames,
   filenameWithoutParts,
 }: ReplaceReferencesWithDataProps): string[] =>
-  (allowNames ?? DEFAULT_ALLOW_NAMES).map((pattern) =>
-    pattern
+  (allowNames ?? DEFAULT_ALLOW_NAMES).map((pattern) => {
+    validateReferences({ pattern, allowedReferences: Object.keys(REFERENCES) });
+
+    return pattern
       .replaceAll(REFERENCES.PascalCase, PASCAL_CASE)
       .replaceAll(REFERENCES.camelCase, CAMEL_CASE)
       .replaceAll(REFERENCES.snake_case, SNAKE_CASE_LOWER)
@@ -42,5 +46,5 @@ export const replaceReferencesWithData = ({
       .replaceAll(
         REFERENCES.filename_camelCase,
         transformStringToCase(filenameWithoutParts, "camelCase"),
-      ),
-  );
+      );
+  });
