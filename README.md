@@ -28,7 +28,7 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 ✅ File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.<br>
 ✅ Build in case validation.<br>
 ✅ Inheriting the parent's name. The child inherits the name of the folder in which it is located.<br>
-✅ Enforcing the existence of a file/folder when a specific file/folder exists. For example, if ./src/Component.tsx exists, then ./src/Component.test.tsx and ./src/stories/Component.stories.tsx must also exist.<br>
+✅ Enforcing the existence of a file/folder when a specific file/folder exists. For example, if `./src/Component.tsx exists`, then `./src/Component.test.tsx` and `./src/stories/Component.stories.tsx` must also exist.<br>
 ✅ Reusable rules for folder structures.<br>
 ✅ An option to create a separate configuration file with TypeScript support.<br>
 ✅ Forcing a nested/flat structure for a given folder.<br>
