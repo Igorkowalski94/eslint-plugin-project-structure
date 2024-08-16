@@ -589,43 +589,36 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 
 ## Folder recursion
 
-You can easily create recursions when you refer to the same **[ruleId](#ruleid)** that your rule has.<br><br>
-Suppose your **`folder`** is named **`ComponentFolder`** which satisfies the rule **`{PascalCase}`** and your next **`folder`** will be
-**`NextComponentFolder`** which also satisfies the rule **`{PascalCase}`**. In this case, the recursion will look like this:
+You can easily create recursions when you refer to the same **[ruleId](#ruleid)** that your rule has.<br>
+Let's assume you want all files in the `src` folder to follow `{PascalCase}` with any file extension, and all folders to follow `{camelCase}`.<br>
+In this case, the recursion will look like this:<br>
 
 ```
 .
 ├── ...
 └── 📂 src
-    └── 📂 ComponentFolder
+    └── 📂 folder1
         ├── ...
-        └── 📂 components
+        ├── 📄 File1.js
+        └── 📂 folder2
             ├── ...
-            └── 📁 NextComponentFolder
+            ├── 📄 File2.ts
+            └── 📁 folder3
                 ├── ...
-                └── 📂 components
+                ├── 📄 File3.tsx
+                └── 📂 folder4
                     └── ... (recursion)
 ```
 
 ```jsonc
 {
   "structure": {
-    "children": [
-      {
-        "name": "src",
-        "children": [{ "ruleId": "yourReusableRule" }],
-      },
-    ],
+    "children": [{ "name": "src", "ruleId": "folderRule" }],
   },
   "rules": {
-    "yourReusableRule": {
-      "name": "{PascalCase}",
-      "children": [
-        {
-          "name": "components",
-          "children": [{ "ruleId": "yourReusableRule" }],
-        },
-      ],
+    "folderRule": {
+      "name": "{camelCase}",
+      "children": [{ "name": "{PascalCase}.*" }, { "ruleId": "folderRule" }],
     },
   },
 }

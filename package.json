@@ -7,13 +7,24 @@
   "keywords": [
     "eslint",
     "eslint-plugin",
+    "conventions",
     "project structure",
     "folder structure",
+    "project architecture",
+    "independent modules",
+    "naming rules",
     "filename validation",
     "folder name validation",
-    "naming rules",
-    "independent modules",
-    "import validation"
+    "filename folder name match",
+    "filename export match",
+    "enforce file existence",
+    "enforce folder existence",
+    "complex naming rules",
+    "single main class per file",
+    "single main function per file",
+    "healthy project",
+    "project-principles",
+    "project-rules"
   ],
   "homepage": "https://github.com/Igorkowalski94/eslint-plugin-project-structure#readme",
   "repository": {
