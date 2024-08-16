@@ -598,16 +598,16 @@ In this case, the recursion will look like this:<br>
 ├── ...
 └── 📂 src
     ├── ...
-    ├── 📄 File1.js
+    ├── 📄 File1.tsx
     └── 📂 folder1
         ├── ...
-        ├── 📄 File2.js
+        ├── 📄 File2.ts
         └── 📂 folder2
             ├── ...
-            ├── 📄 File3.ts
+            ├── 📄 File3.js
             └── 📁 folder3
                 ├── ...
-                ├── 📄 File4.tsx
+                ├── 📄 File4.jsx
                 └── 📂 folder4
                     └── ... (recursion)
 ```
