@@ -28,6 +28,7 @@ describe("isExportDefault", () => {
           },
         } as unknown as IsExportDefaultReturn["currentNode"],
         isExportDefault: false,
+        currentName: "className",
       },
     },
 
@@ -56,6 +57,7 @@ describe("isExportDefault", () => {
           name: "className",
         } as unknown as IsExportDefaultReturn["currentNode"],
         isExportDefault: true,
+        currentName: "className",
       },
     },
 
@@ -81,6 +83,10 @@ describe("isExportDefault", () => {
                         type: TSESTree.AST_NODE_TYPES.Identifier,
                         name: "className",
                       },
+                      key: {
+                        type: TSESTree.AST_NODE_TYPES.Identifier,
+                        name: "className2",
+                      },
                     },
                   ],
                 },
@@ -92,9 +98,10 @@ describe("isExportDefault", () => {
       expected: {
         currentNode: {
           type: TSESTree.AST_NODE_TYPES.Identifier,
-          name: "className",
+          name: "className2",
         } as unknown as IsExportDefaultReturn["currentNode"],
         isExportDefault: true,
+        currentName: "className2",
       },
     },
 
@@ -129,6 +136,7 @@ describe("isExportDefault", () => {
           name: "className",
         } as unknown as IsExportDefaultReturn["currentNode"],
         isExportDefault: true,
+        currentName: "className",
       },
     },
   ])("Should return correct value for = %o", ({ props, expected }) => {

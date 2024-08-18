@@ -410,6 +410,7 @@ describe("IsExportName", () => {
     (isExportDefault as jest.Mock).mockReturnValue({
       isExportDefault: true,
       currentNode: { type: "exportDefault" },
+      currentName: "newName",
     });
     (isNamedExport as jest.Mock).mockReturnValue({ isNamedExport: false });
 
@@ -417,12 +418,14 @@ describe("IsExportName", () => {
       isExportedName({
         name: "",
         nameType: "ArrowFunctionExpression",
-        node: {} as ValidateNameProps["node"],
+        node: {
+          parent: { parent: { type: TSESTree.AST_NODE_TYPES.Identifier } },
+        } as ValidateNameProps["node"],
       }),
     ).toEqual({
       isExportName: true,
       currentNode: { type: "exportDefault" },
-      currentName: "",
+      currentName: "newName",
     });
   });
 
@@ -440,7 +443,9 @@ describe("IsExportName", () => {
       isExportedName({
         name: "",
         nameType: "ArrowFunctionExpression",
-        node: {} as ValidateNameProps["node"],
+        node: {
+          parent: { parent: { type: TSESTree.AST_NODE_TYPES.Identifier } },
+        } as ValidateNameProps["node"],
       }),
     ).toEqual({
       isExportName: true,

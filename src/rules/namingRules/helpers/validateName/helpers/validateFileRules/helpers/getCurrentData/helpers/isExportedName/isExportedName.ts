@@ -22,15 +22,32 @@ export const isExportedName = ({
   node,
   name,
 }: IsExportedNameProps): IsExportedNameReturn => {
-  const exportDefault = isExportDefault({ name, node });
-  const namedExport = isNamedExport({ name, node });
-
-  if (exportDefault.isExportDefault)
+  if (
+    ((nameType === "ArrowFunctionExpression" ||
+      nameType === "VariableDeclarator") &&
+      node.parent.parent?.type ===
+        TSESTree.AST_NODE_TYPES.ExportNamedDeclaration) ||
+    node.parent.parent?.type ===
+      TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration
+  )
     return {
       isExportName: true,
-      currentNode: exportDefault.currentNode,
+      currentNode: node,
       currentName: name,
     };
+
+  if (
+    node.parent.type === TSESTree.AST_NODE_TYPES.ExportNamedDeclaration ||
+    node.parent.type === TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration
+  )
+    return {
+      isExportName: true,
+      currentNode: node,
+      currentName: name,
+    };
+
+  const namedExport = isNamedExport({ name, node });
+  const exportDefault = isExportDefault({ name, node });
 
   if (namedExport.isNamedExport)
     return {
@@ -39,25 +56,16 @@ export const isExportedName = ({
       currentName: namedExport.currentName,
     };
 
-  if (
-    nameType === "ArrowFunctionExpression" ||
-    nameType === "VariableDeclarator"
-  )
+  if (exportDefault.isExportDefault)
     return {
-      isExportName:
-        node.parent.parent?.type ===
-          TSESTree.AST_NODE_TYPES.ExportNamedDeclaration ||
-        node.parent.parent?.type ===
-          TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-      currentNode: node,
-      currentName: name,
+      isExportName: true,
+      currentNode: exportDefault.currentNode,
+      currentName: exportDefault.currentName,
     };
 
   return {
-    isExportName:
-      node.parent.type === TSESTree.AST_NODE_TYPES.ExportNamedDeclaration ||
-      node.parent.type === TSESTree.AST_NODE_TYPES.ExportDefaultDeclaration,
-    currentNode: node,
+    isExportName: false,
     currentName: name,
+    currentNode: node,
   };
 };

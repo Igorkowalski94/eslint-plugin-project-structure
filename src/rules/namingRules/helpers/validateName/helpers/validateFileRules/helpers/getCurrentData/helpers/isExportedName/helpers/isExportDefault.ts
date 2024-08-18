@@ -11,6 +11,7 @@ export interface IsExportDefaultProps {
 export interface IsExportDefaultReturn {
   isExportDefault: boolean;
   currentNode: ValidateNameProps["node"];
+  currentName: string;
 }
 
 export const isExportDefault = ({
@@ -18,6 +19,7 @@ export const isExportDefault = ({
   node,
 }: IsExportDefaultProps): IsExportDefaultReturn => {
   let currentNode = node;
+  let currentName = name;
   let isExportDefault = false;
 
   getProgramFromNode(node).body.forEach((node) => {
@@ -41,11 +43,13 @@ export const isExportDefault = ({
         // export default { variable1: variable2 }
         // export default { variable }
         if (
+          property.key.type === TSESTree.AST_NODE_TYPES.Identifier &&
           property.value.type === TSESTree.AST_NODE_TYPES.Identifier &&
           property.value.name === name
         ) {
           isExportDefault = true;
-          currentNode = property.value;
+          currentNode = property.key;
+          currentName = property.key.name;
           return;
         }
       });
@@ -72,5 +76,6 @@ export const isExportDefault = ({
   return {
     isExportDefault,
     currentNode,
+    currentName,
   };
 };
