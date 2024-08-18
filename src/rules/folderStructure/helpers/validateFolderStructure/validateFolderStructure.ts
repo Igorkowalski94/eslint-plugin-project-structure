@@ -1,9 +1,12 @@
+import { sep } from "path";
+
 import { validateConfig } from "helpers/validateConfig";
 
-import { FOLDER_STRUCTURE_SCHEMA } from "rules/folderStructure/folderStructure.consts";
 import { FolderStructureConfig } from "rules/folderStructure/folderStructure.types";
 import { getPaths } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getPaths";
+import { getRootRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRootRule";
 import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
+import { FOLDER_STRUCTURE_SCHEMA } from "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure.consts";
 import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
 interface ValidateFolderStructureProps {
@@ -21,7 +24,14 @@ export const validateFolderStructure = ({
 
   const { structure, ignorePatterns } = config;
 
-  const { filenameWithoutCwd, pathname } = getPaths({ cwd, filename });
+  const rootRule = getRootRule(structure);
+  const rootFolderName = cwd.split(sep).reverse()[0];
+
+  const { filenameWithoutCwd, pathname } = getPaths({
+    cwd,
+    filename,
+    rootFolderName,
+  });
 
   if (isIgnoredPathname({ pathname: filenameWithoutCwd, ignorePatterns }))
     return;
@@ -30,8 +40,8 @@ export const validateFolderStructure = ({
     pathname,
     filenameWithoutCwd,
     cwd,
-    parentName: "structure",
-    rule: structure,
+    parentName: rootFolderName,
+    rule: rootRule,
     config,
   });
 };

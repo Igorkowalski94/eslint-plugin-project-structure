@@ -8,7 +8,7 @@ Enforce rules on folder structure to keep your project consistent, orderly and w
 ✅ File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.<br>
 ✅ Build in case validation.<br>
 ✅ Inheriting the folder's name. The file/folder inherits the name of the folder in which it is located. Option of adding your own prefixes/suffixes or changing the case.<br>
-✅ Enforcing the existence of a file/folder when a specific file/folder exists. For example, if `./src/Component.tsx` exists, then `./src/Component.test.tsx` and `./src/stories/Component.stories.tsx` must also exist.<br>
+✅ Enforcing the existence of a files/folders when a specific file/folder exists. For example, if `./src/Component.tsx` exists, then `./src/Component.test.tsx` and `./src/stories/Component.stories.tsx` must also exist.<br>
 ✅ Reusable rules for folder structures.<br>
 ✅ An option to create a separate configuration file with TypeScript support.<br>
 ✅ Forcing a nested/flat structure for a given folder.<br>
@@ -164,20 +164,18 @@ Create a **`folderStructure.mjs`** in the root of your project.<br>
 import { createFolderStructure } from "eslint-plugin-project-structure";
 
 export const folderStructureConfig = createFolderStructure({
-  structure: {
-    children: [
-      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
-      // You can also add exceptions like this: "(?!folderStructure)*"
-      { name: "*" },
-      {
-        name: "src",
-        children: [
-          { name: "index.tsx" },
-          { name: "components", children: [{ name: "{PascalCase}.tsx" }] },
-        ],
-      },
-    ],
-  },
+  structure: [
+    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+    // You can also add exceptions like this: "(?!folderStructure)*"
+    { name: "*" },
+    {
+      name: "src",
+      children: [
+        { name: "index.tsx" },
+        { name: "components", children: [{ name: "{PascalCase}.tsx" }] },
+      ],
+    },
+  ],
 });
 ```
 
@@ -239,17 +237,15 @@ import { createFolderStructure } from "eslint-plugin-project-structure";
 
 export const folderStructureConfig = createFolderStructure({
   ignorePatterns: ["src/legacy/**"],
-  structure: {
-    children: [
-      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
-      // You can also add exceptions like this: "(?!folderStructure)*"
-      { name: "*" },
-      {
-        name: "src",
-        children: [{ ruleId: "hooks_folder" }, { ruleId: "components_folder" }],
-      },
-    ],
-  },
+  structure: [
+    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+    // You can also add exceptions like this: "(?!folderStructure)*"
+    { name: "*" },
+    {
+      name: "src",
+      children: [{ ruleId: "hooks_folder" }, { ruleId: "components_folder" }],
+    },
+  ],
   rules: {
     hooks_folder: {
       name: "hooks",
@@ -441,7 +437,13 @@ In `enforceExistence`, two references are available for use:
 ```jsonc
 {
   "structure": {
+    // If root directory exists.
+    "enforceExistence": [
+      "src", // ./src must exist.
+      "src/components", // ./src/components must exist.
+    ],
     "children": [
+      { "name": "*" },
       {
         "name": "src",
         "children": [
@@ -459,20 +461,12 @@ In `enforceExistence`, two references are available for use:
           },
         ],
       },
-      {
-        "name": "*",
-        // If any file exists in the root directory of the project.
-        "enforceExistence": [
-          "src", // ./src must exist.
-          "src/components", // ./src/components must exist.
-        ],
-      },
     ],
   },
 }
 ```
 
-### **`structure`**: `<Rule>` <a id="structure"></a>
+### **`structure`**: `<Rule> | <Rule>[]` <a id="structure"></a>
 
 The structure of your project and its rules.
 
@@ -492,7 +486,23 @@ The structure of your project and its rules.
 
 ```jsonc
 {
+  "structure": [
+    { "name": "libs", "children": [] },
+    { "name": "src", "children": [] },
+    { "name": "yourCoolFolderName", "children": [] },
+    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+    // You can also add exceptions like this: "(?!folderStructure)*"
+    { "name": "*" },
+  ],
+}
+```
+
+or
+
+```jsonc
+{
   "structure": {
+    "enforceExistence": ["src"],
     "children": [
       { "name": "libs", "children": [] },
       { "name": "src", "children": [] },

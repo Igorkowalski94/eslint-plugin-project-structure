@@ -7,7 +7,7 @@ import {
 export const createFolderStructure = <
   R extends Record<string, Rule<keyof R & string>>,
 >(config: {
-  structure: Rule<keyof R & string>;
+  structure: Rule<keyof R & string> | Rule<keyof R & string>[];
   rules?: R;
   ignorePatterns?: string[];
   regexParameters?: RegexParameters;

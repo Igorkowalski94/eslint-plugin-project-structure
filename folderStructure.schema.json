@@ -48,7 +48,17 @@
       }
     },
     "structure": {
-      "$ref": "#/definitions/Rule"
+      "oneOf": [
+        {
+          "$ref": "#/definitions/Rule"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Rule"
+          }
+        }
+      ]
     },
     "rules": {
       "type": "object",

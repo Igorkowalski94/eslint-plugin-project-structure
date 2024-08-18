@@ -13,7 +13,7 @@ export type RegexParameters = Record<string, string>;
 
 export interface FolderStructureConfig<T extends string = string> {
   ignorePatterns?: string[];
-  structure: Rule<T>;
+  structure: Rule<T> | Rule<T>[];
   rules?: Record<T, Rule<T>>;
   regexParameters?: RegexParameters;
 }

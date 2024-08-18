@@ -1,3 +1,5 @@
+import path from "path";
+
 import { validateConfig } from "helpers/validateConfig";
 
 import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
@@ -25,9 +27,15 @@ describe("validateFolderStructure", () => {
 
     expect(
       validateFolderStructure({
-        cwd: "",
+        cwd: path.join("C:", "rootFolderName"),
         config: { structure: {} },
-        filename: "src/features/ComponentName.tsx",
+        filename: path.join(
+          "C:",
+          "rootFolderName",
+          "src",
+          "features",
+          "ComponentName.tsx",
+        ),
       }),
     ).toEqual(undefined);
   });
@@ -40,16 +48,22 @@ describe("validateFolderStructure", () => {
     (validateConfig as jest.Mock).mockImplementation();
 
     validateFolderStructure({
-      cwd: "",
+      cwd: path.join("C:", "rootFolderName"),
       config: { structure: {} },
-      filename: "src/features/ComponentName.tsx",
+      filename: path.join(
+        "C:",
+        "rootFolderName",
+        "src",
+        "features",
+        "ComponentName.tsx",
+      ),
     });
 
     expect(validatePathMock).toHaveBeenCalledWith({
-      pathname: "structure/src/features/ComponentName.tsx",
+      pathname: "rootFolderName/src/features/ComponentName.tsx",
       filenameWithoutCwd: "src/features/ComponentName.tsx",
-      cwd: "",
-      parentName: "structure",
+      cwd: path.join("C:", "rootFolderName"),
+      parentName: "rootFolderName",
       rule: {},
       config: { structure: {} },
     });

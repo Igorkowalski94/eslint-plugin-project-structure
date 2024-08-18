@@ -6,9 +6,12 @@ A minor configuration fix will be required for version <= 1.4.7.
 
 ### General changes:
 
-- The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+- A shorter notation option for [structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#structure).
+- New build-in {SNAKE_CASE} regexParameter.
+- Improvements for {PascalCase} and {camelCase} regexParameters.
+- The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 - New option for creating a configuration file in an .mjs file with TypeScript support.
-- Enforcing the existence of a file/folder when a specific file/folder exists. For example, if `src/Component.tsx` exists, then `src/Component.test.tsx` and `src/stories/Component.stories.tsx` must also exist.
+- [Enforcing the existence](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#enforce-existence) of a files/folders when a specific file/folder exists. For example, if `src/Component.tsx` exists, then `src/Component.test.tsx` and `src/stories/Component.stories.tsx` must also exist.
 - You can now use comments in folderStructure.json and independentModules.json files.
 - Improved error messages for folder-structure.
 - Easier configuration of folder-structure. The "extension" key has been removed, now the file extension will be part of the "name". You don't need to add /^$/ to your regex, they will be added automatically and other improvements.
@@ -122,17 +125,13 @@ The following improvements are automatically added to the regex:
 From: ${{key}}
 
 ```jsonc
-{
-  "name": "/^${{parentName}}$/",
-}
+{ "name": "/^${{parentName}}$/" }
 ```
 
 To: {key}
 
 ```jsonc
-{
-  "name": "{parentName}",
-}
+{ "name": "{parentName}" }
 ```
 
 ### Changes for build-in PascalCase
@@ -169,9 +168,7 @@ Add **`SNAKE_CASE`** validation to your regex.<br>
 The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
-{
-  "name": "{SNAKE_CASE}",
-}
+{ "name": "{SNAKE_CASE}" }
 ```
 
 ### New rules:

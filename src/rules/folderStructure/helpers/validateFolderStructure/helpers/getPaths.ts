@@ -3,6 +3,7 @@ import path, { sep } from "path";
 interface GetPathsProps {
   cwd: string;
   filename: string;
+  rootFolderName: string;
 }
 
 interface GetPathsReturn {
@@ -10,11 +11,15 @@ interface GetPathsReturn {
   filenameWithoutCwd: string;
 }
 
-export const getPaths = ({ cwd, filename }: GetPathsProps): GetPathsReturn => {
+export const getPaths = ({
+  cwd,
+  filename,
+  rootFolderName,
+}: GetPathsProps): GetPathsReturn => {
   const filenameWithoutCwd = path.relative(cwd, filename).replaceAll(sep, "/");
 
   const pathname = path
-    .join("structure", filenameWithoutCwd)
+    .join(rootFolderName, filenameWithoutCwd)
     .replaceAll(sep, "/");
 
   return {
