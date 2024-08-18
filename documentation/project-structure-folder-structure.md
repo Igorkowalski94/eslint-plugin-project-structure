@@ -562,30 +562,26 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 
 ```jsonc
 {
-  "structure": {
-    "children": [
-      {
-        "name": "src",
-        "children": [
-          {
-            "name": "folder1",
-            "children": [
-              { "name": "{PascalCase}", "ruleId": "shared_children" },
-            ],
-          },
-          {
-            "name": "folder2",
-            "children": [
-              {
-                "name": "(subFolder1|subFolder2)",
-                "ruleId": "shared_children",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
+  "structure": [
+    {
+      "name": "src",
+      "children": [
+        {
+          "name": "folder1",
+          "children": [{ "name": "{PascalCase}", "ruleId": "shared_children" }],
+        },
+        {
+          "name": "folder2",
+          "children": [
+            {
+              "name": "(subFolder1|subFolder2)",
+              "ruleId": "shared_children",
+            },
+          ],
+        },
+      ],
+    },
+  ],
   "rules": {
     "shared_children": {
       "children": [
@@ -624,9 +620,7 @@ In this case, the recursion will look like this:<br>
 
 ```jsonc
 {
-  "structure": {
-    "children": [{ "name": "src", "ruleId": "folderRule" }],
-  },
+  "structure": [{ "name": "src", "ruleId": "folderRule" }],
   "rules": {
     "folderRule": {
       "name": "{camelCase}",
