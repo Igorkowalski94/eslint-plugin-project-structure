@@ -11,7 +11,7 @@ Enforce complex naming rules.
 ✅ Inheriting the filename as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a filename.<br>
 ✅ Enforcing a maximum of one main function/class per file.<br>
 ✅ Different name rules for different files.<br>
-✅ Regex validation<br>
+✅ Regex validation.<br>
 ✅ Build in case validation.<br>
 ✅ An option to create a separate configuration file with TypeScript support.<br>
 
