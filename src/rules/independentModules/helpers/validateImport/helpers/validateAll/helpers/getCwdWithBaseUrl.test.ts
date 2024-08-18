@@ -1,6 +1,6 @@
 import path, { sep } from "path";
 
-import { getCwdWithBaseUrl } from "rules/independentModules/helpers/getCwdWithBaseUrl";
+import { getCwdWithBaseUrl } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getCwdWithBaseUrl";
 
 describe("getCwdWithBaseUrl", () => {
   test.each([

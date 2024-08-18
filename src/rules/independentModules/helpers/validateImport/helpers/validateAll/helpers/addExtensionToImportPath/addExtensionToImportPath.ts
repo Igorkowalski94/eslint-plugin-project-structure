@@ -1,7 +1,7 @@
 import fs from "fs";
 
-import { getFullImportPathVariants } from "rules/independentModules/helpers/getFullImportPathVariants";
-import { FILE_EXTENSIONS } from "rules/independentModules/independentModules.consts";
+import { FILE_EXTENSIONS } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/addExtensionToImportPath/addExtensionToImportPath.consts";
+import { getFullImportPathVariants } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getFullImportPathVariants";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 interface AddExtensionToImportPathProps {

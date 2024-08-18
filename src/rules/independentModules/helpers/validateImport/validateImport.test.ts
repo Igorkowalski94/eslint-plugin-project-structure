@@ -2,15 +2,18 @@ import { FinalError } from "errors/FinalError";
 
 import { readConfigFile } from "helpers/readConfigFile";
 
-import { validateAll } from "rules/independentModules/helpers/validateAll";
+import { validateAll } from "rules/independentModules/helpers/validateImport/helpers/validateAll/validateAll";
 import {
   validateImport,
   ValidateImportProps,
-} from "rules/independentModules/helpers/validateImport";
+} from "rules/independentModules/helpers/validateImport/validateImport";
 
-jest.mock("rules/independentModules/helpers/validateAll", () => ({
-  validateAll: jest.fn(),
-}));
+jest.mock(
+  "rules/independentModules/helpers/validateImport/helpers/validateAll/validateAll",
+  () => ({
+    validateAll: jest.fn(),
+  }),
+);
 
 jest.mock("helpers/readConfigFile", () => ({
   readConfigFile: jest.fn(),

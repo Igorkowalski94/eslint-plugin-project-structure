@@ -3,7 +3,7 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 import { handleCallExpression } from "rules/independentModules/helpers/handleCallExpression";
 import { handleExportNamedDeclaration } from "rules/independentModules/helpers/handleExportNamedDeclaration";
 import { handleImportExpression } from "rules/independentModules/helpers/handleImportExpression";
-import { validateImport } from "rules/independentModules/helpers/validateImport";
+import { validateImport } from "rules/independentModules/helpers/validateImport/validateImport";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 export const independentModules = ESLintUtils.RuleCreator(

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import { isExternalImport } from "rules/independentModules/helpers/isExternalImport";
+import { isExternalImport } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isExternalImport";
 
 describe("isExternalImport", () => {
   afterEach(() => {

@@ -1,7 +1,7 @@
 import { getInvalidReusableImportPatternsKeyError } from "rules/independentModules/errors/getInvalidReusableImportPatternsKeyError";
 import { getRecursionLimitError } from "rules/independentModules/errors/getRecursionLimitError";
 import { getReferenceAsPartOfPatternError } from "rules/independentModules/errors/getReferenceAsPartOfPatternError";
-import { extractReferencesFromPatterns } from "rules/independentModules/helpers/extractReferencesFromPatterns";
+import { extractReferencesFromPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/extractReferencesFromPatterns";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 describe("extractReferencesFromPatterns", () => {

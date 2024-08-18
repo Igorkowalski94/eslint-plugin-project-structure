@@ -1,4 +1,4 @@
-import { getImportPaths } from "rules/independentModules/helpers/getImportPaths";
+import { getImportPaths } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getImportPaths";
 import { Paths } from "rules/independentModules/independentModules.types";
 
 describe("getImportPaths", () => {

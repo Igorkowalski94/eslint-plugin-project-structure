@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 
-import { validateImport } from "rules/independentModules/helpers/validateImport";
+import { validateImport } from "rules/independentModules/helpers/validateImport/validateImport";
 import { Context } from "rules/independentModules/independentModules.types";
 
 export const handleCallExpression = (

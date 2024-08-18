@@ -5,7 +5,7 @@ import {
   SNAKE_CASE_UPPER,
 } from "consts";
 
-import { REFERENCES } from "rules/namingRules/namingRules.consts";
+import { REFERENCES } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/validateFileRules.consts";
 
 export const getAllowNamesWithCaseReferences = (
   allowNamesWithoutReferences: string[],

@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import { getFullImportPathVariants } from "rules/independentModules/helpers/getFullImportPathVariants";
+import { getFullImportPathVariants } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getFullImportPathVariants";
 
 export const isExternalImport = (importPath: string, cwd: string): boolean => {
   const {

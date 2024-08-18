@@ -8,10 +8,8 @@ import {
 import { validateReferences } from "helpers/validateReferences/validateReferences";
 
 import { transformStringToCase } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/replaceReferencesWithData/helpers/transformStringToCase";
-import {
-  DEFAULT_ALLOW_NAMES,
-  REFERENCES,
-} from "rules/namingRules/namingRules.consts";
+import { DEFAULT_ALLOW_NAMES } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/replaceReferencesWithData/replaceReferencesWithData.consts";
+import { REFERENCES } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/validateFileRules.consts";
 import { NamingRule } from "rules/namingRules/namingRules.types";
 
 interface ReplaceReferencesWithDataProps {

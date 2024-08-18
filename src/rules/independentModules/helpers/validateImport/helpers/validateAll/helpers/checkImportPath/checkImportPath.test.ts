@@ -1,29 +1,38 @@
 import { getExternalImportError } from "rules/independentModules/errors/getExternalImportError";
 import { getImportError } from "rules/independentModules/errors/getImportError";
-import { checkImportPath } from "rules/independentModules/helpers/checkImportPath";
-import { extractReferencesFromPatterns } from "rules/independentModules/helpers/extractReferencesFromPatterns";
-import { findModuleConfig } from "rules/independentModules/helpers/findModuleConfig";
-import { isExternalImport } from "rules/independentModules/helpers/isExternalImport";
-import { validateImportPath } from "rules/independentModules/helpers/validateImportPath";
-
-jest.mock("rules/independentModules/helpers/findModuleConfig", () => ({
-  findModuleConfig: jest.fn(),
-}));
+import { checkImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/checkImportPath";
+import { extractReferencesFromPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/extractReferencesFromPatterns";
+import { findModuleConfig } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/findModuleConfig";
+import { isExternalImport } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isExternalImport";
+import { validateImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/validateImportPath";
 
 jest.mock(
-  "rules/independentModules/helpers/extractReferencesFromPatterns",
+  "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/findModuleConfig",
+  () => ({
+    findModuleConfig: jest.fn(),
+  }),
+);
+
+jest.mock(
+  "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/extractReferencesFromPatterns",
   () => ({
     extractReferencesFromPatterns: jest.fn(),
   }),
 );
 
-jest.mock("rules/independentModules/helpers/isExternalImport", () => ({
-  isExternalImport: jest.fn(),
-}));
+jest.mock(
+  "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isExternalImport",
+  () => ({
+    isExternalImport: jest.fn(),
+  }),
+);
 
-jest.mock("rules/independentModules/helpers/validateImportPath", () => ({
-  validateImportPath: jest.fn(),
-}));
+jest.mock(
+  "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/validateImportPath",
+  () => ({
+    validateImportPath: jest.fn(),
+  }),
+);
 
 describe("checkImportPath", () => {
   test("Should not call extractReusableImportPatterns when moduleConfig === undefined", () => {

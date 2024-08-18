@@ -1,12 +1,12 @@
 import { validateConfig } from "helpers/validateConfig";
 
-import { addExtensionToImportPath } from "rules/independentModules/helpers/addExtensionToImportPath";
-import { checkImportPath } from "rules/independentModules/helpers/checkImportPath";
-import { convertImportPathToNonRelative } from "rules/independentModules/helpers/convertImportPathToNonRelative";
-import { getCwdWithBaseUrl } from "rules/independentModules/helpers/getCwdWithBaseUrl";
-import { getImportPaths } from "rules/independentModules/helpers/getImportPaths";
-import { removeCwdWithRootAndUnifySep } from "rules/independentModules/helpers/removeCwdWithRootAndUnifySep";
-import { INDEPENDENT_MODULES_SCHEMA } from "rules/independentModules/independentModules.consts";
+import { addExtensionToImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/addExtensionToImportPath/addExtensionToImportPath";
+import { checkImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/checkImportPath";
+import { convertImportPathToNonRelative } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/convertImportPathToNonRelative";
+import { getCwdWithBaseUrl } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getCwdWithBaseUrl";
+import { getImportPaths } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getImportPaths";
+import { removeCwdWithRootAndUnifySep } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/removeCwdWithRootAndUnifySep";
+import { INDEPENDENT_MODULES_SCHEMA } from "rules/independentModules/helpers/validateImport/helpers/validateAll/validateAll.consts";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 interface ValidateAllProps {

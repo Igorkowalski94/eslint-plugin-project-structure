@@ -5,8 +5,8 @@ import { isCorrectNameType } from "rules/namingRules/helpers/validateName/helper
 import { isNameValid } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/isNameValid";
 import { removeFilenameParts } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/removeFilenameParts";
 import { replaceReferencesWithData } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/helpers/replaceReferencesWithData/replaceReferencesWithData";
+import { NAME_TYPES } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/validateFileRules.consts";
 import { ValidateNameProps } from "rules/namingRules/helpers/validateName/validateName";
-import { NAME_TYPES } from "rules/namingRules/namingRules.consts";
 import {
   Context,
   FileNamingRules,

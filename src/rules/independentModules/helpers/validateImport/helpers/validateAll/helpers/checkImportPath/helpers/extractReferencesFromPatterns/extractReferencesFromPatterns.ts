@@ -2,7 +2,7 @@ import { getInvalidReusableImportPatternsKeyError } from "rules/independentModul
 import { getNestedArrayInPatternError } from "rules/independentModules/errors/getNestedArrayInPatternError";
 import { getRecursionLimitError } from "rules/independentModules/errors/getRecursionLimitError";
 import { getReferenceAsPartOfPatternError } from "rules/independentModules/errors/getReferenceAsPartOfPatternError";
-import { hasNestedArray } from "rules/independentModules/helpers/hasNestedArray";
+import { hasNestedArray } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/helpers/hasNestedArray";
 import {
   Pattern,
   IndependentModulesConfig,

@@ -7,7 +7,7 @@ import { readConfigFile } from "helpers/readConfigFile";
 import { validateConfig } from "helpers/validateConfig";
 
 import { validateFileRules } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/validateFileRules";
-import { NAMING_RULES_SCHEMA } from "rules/namingRules/namingRules.consts";
+import { NAMING_RULES_SCHEMA } from "rules/namingRules/helpers/validateName/validateName.consts";
 import {
   Context,
   FileNamingRules,

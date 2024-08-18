@@ -2,11 +2,11 @@ import micromatch from "micromatch";
 
 import { getExternalImportError } from "rules/independentModules/errors/getExternalImportError";
 import { getImportError } from "rules/independentModules/errors/getImportError";
-import { extractReferencesFromPatterns } from "rules/independentModules/helpers/extractReferencesFromPatterns";
-import { extractReferencesFromReusableImportPatterns } from "rules/independentModules/helpers/extractReferencesFromReusableImportPatterns";
-import { findModuleConfig } from "rules/independentModules/helpers/findModuleConfig";
-import { isExternalImport } from "rules/independentModules/helpers/isExternalImport";
-import { validateImportPath } from "rules/independentModules/helpers/validateImportPath";
+import { extractReferencesFromPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/extractReferencesFromPatterns";
+import { extractReferencesFromReusableImportPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromReusableImportPatterns";
+import { findModuleConfig } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/findModuleConfig";
+import { isExternalImport } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isExternalImport";
+import { validateImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/validateImportPath";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
 interface CheckImportPathProps {
