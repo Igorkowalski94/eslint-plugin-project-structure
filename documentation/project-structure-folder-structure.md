@@ -280,7 +280,7 @@ export const folderStructureConfig = createFolderStructure({
 });
 ```
 
-### **`ignorePatterns`**: `<string[] | undefined>` <a id="ignore-patterns"></a>
+### **`ignorePatterns`**: `string[] | undefined` <a id="ignore-patterns"></a>
 
 Here you can set the paths you want to ignore. You can use all **[micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some)** functionalities.
 
@@ -288,7 +288,7 @@ Here you can set the paths you want to ignore. You can use all **[micromatch.som
 { "ignorePatterns": ["src/legacy/**"] }
 ```
 
-### **`name`**: `<string | undefined>` <a id="name"></a>
+### **`name`**: `string | undefined` <a id="name"></a>
 
 The name is treated as a `regex`.
 
@@ -314,7 +314,7 @@ When used without **[children](#children)** this will be the name of **`file`**.
 { "name": "folderName", "children": [] }
 ```
 
-### **`regexParameters`**: `<Record<string, string> | undefined>` <a id="regex-parameters"></a>
+### **`regexParameters`**: `Record<string, string> | undefined` <a id="regex-parameters"></a>
 
 A place where you can add your own regex parameters.<br>
 You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parent-name-lower)** and **[ParentName](#parent-name-upper)** overwriting them will be ignored.<br>
@@ -411,7 +411,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 { "name": "{ParentName}.{snake_case}(.(test|api))?.ts" }
 ```
 
-### **`children`**: `<Rule[] | undefined>` <a id="children"></a>
+### **`children`**: `Rule[] | undefined` <a id="children"></a>
 
 **`Folder`** children rules.<br>
 
@@ -422,7 +422,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 { "children": [{ "name": "Child" }] }
 ```
 
-### **`enforceExistence`**: `<string[] | undefined>` <a id="enforce-existence"></a>
+### **`enforceExistence`**: `string[] | undefined` <a id="enforce-existence"></a>
 
 Enforce the existence of other folders/files when a given folder/file exists.
 
@@ -466,7 +466,7 @@ In `enforceExistence`, two references are available for use:
 }
 ```
 
-### **`structure`**: `<Rule> | <Rule>[]` <a id="structure"></a>
+### **`structure`**: `Rule | Rule[]` <a id="structure"></a>
 
 The structure of your project and its rules.
 
@@ -515,7 +515,7 @@ or
 }
 ```
 
-### **`rules`**: `<Record<string, Rule> | undefined>` <a id="rules"></a>
+### **`rules`**: `Record<string, Rule> | undefined` <a id="rules"></a>
 
 A place where you can add your reusable rules. This is useful when you want to avoid a lot of repetition in your **[structure](#structure)** or use **[folder recursion](#folder-recursion)** feature.<br>
 The key in the object will correspond to **[ruleId](#ruleid)**, which you can then use in many places.
@@ -528,7 +528,7 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
 }
 ```
 
-### **`ruleId`**: `<string | undefined>` <a id="ruleid"></a>
+### **`ruleId`**: `string | undefined` <a id="ruleid"></a>
 
 A reference to your reusable rule.
 

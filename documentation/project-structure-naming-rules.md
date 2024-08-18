@@ -192,7 +192,7 @@ export const VARIABLE_2 = "";
 
 ## API:
 
-### **`filePattern`**: `<string | string[]>` <a id="file-pattern"></a>
+### **`filePattern`**: `string | string[]` <a id="file-pattern"></a>
 
 Here you define which files should meet the rules. You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.
 
@@ -201,7 +201,7 @@ Here you define which files should meet the rules. You can use all **[micromatch
 { "filePattern": ["**/*.ts", "!(**/index.ts)"] }
 ```
 
-### **`rules`**: `<NamingRule[]>` <a id="rules"></a>
+### **`rules`**: `NamingRule[]` <a id="rules"></a>
 
 The place where you define the naming rules for a given file.
 
@@ -212,7 +212,7 @@ The place where you define the naming rules for a given file.
 }
 ```
 
-### **`nameType`**: `<NameType | NameType[]>` <a id="name-type"></a>
+### **`nameType`**: `NameType | NameType[]` <a id="name-type"></a>
 
 Here you define the name type you are interested in.<br>
 
@@ -240,7 +240,7 @@ Available types:<br>
 }
 ```
 
-### **`filenamePartsToRemove`**: `<string[] | undefined>` <a id="filename-parts-to-remove"></a>
+### **`filenamePartsToRemove`**: `string[] | undefined` <a id="filename-parts-to-remove"></a>
 
 Useful if you use prefixes in your filenames and don't want them to be part of the name.
 
@@ -260,7 +260,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 }
 ```
 
-### **`allowNames`**: `<string[] | undefined>` <a id="allow-names"></a>
+### **`allowNames`**: `string[] | undefined` <a id="allow-names"></a>
 
 If the name matches at least one regex, it will be considered valid.
 
@@ -289,7 +289,7 @@ The following improvements are automatically added to the regex:
 }
 ```
 
-### **`allowNamesFileRoot`**: `<string[] | undefined>` <a id="allow-names-file-root"></a>
+### **`allowNamesFileRoot`**: `string[] | undefined` <a id="allow-names-file-root"></a>
 
 **`allowNamesFileRoot`** only takes into account [**`nameTypes`**](#name-type) that are in the root of a given file (not nested).
 
@@ -327,7 +327,7 @@ The following improvements are automatically added to the regex:
 }
 ```
 
-### **`allowNamesExport`**: `<string[] | undefined>` <a id="allow-names-export"></a>
+### **`allowNamesExport`**: `string[] | undefined` <a id="allow-names-export"></a>
 
 **`allowNamesExport`** only takes into account exported [**`nameTypes`**](#name-type).
 
