@@ -43,9 +43,9 @@ If you have any questions or need help creating a configuration that meets your 
     - [errorMessage](#error-message)
     - [allowExternalImports](#allow-external-imports)
   - [reusableImportPatterns](#reusable-import-patterns)
-  - [{family}](#family)
-  - [{dirname}](#dirname)
   - [debugMode](#debug-mode)
+- [{family}](#family)
+- [{dirname}](#dirname)
 
 ## Installation
 
@@ -156,7 +156,7 @@ export const independentModulesConfig = createIndependentModules({
         "features/*/*.tsx",
 
         // {family} reference finds the common part between the import and the current file.
-        // By default, at least two common path parts are required, root is not taken into account.
+        // By default, at least two common path parts are required, baseUrl is not taken into account.
         // This will make your rule work recursively/apply to all nestings.
         // You can change the number of common path parts required, {family_1} at least 1, {family_3} at least 3 common part etc.
 
@@ -222,7 +222,7 @@ export const independentModulesConfig = createIndependentModules({
         "features/*/*.tsx",
 
         // {family} reference finds the common part between the import and the current file.
-        // By default, at least two common path parts are required, root is not taken into account.
+        // By default, at least two common path parts are required, baseUrl is not taken into account.
         // This will make your rule work recursively/apply to all nestings.
         // You can change the number of common path parts required, {family_1} at least 1, {family_3} at least 3 common part etc.
 
@@ -506,6 +506,15 @@ The library will automatically inform you about all usage errors such as: Infini
 }
 ```
 
+### **`debugMode`**: `boolean | undefined` <a id="debug-mode"></a>
+
+Debug mode showing the current [**`allowImportsFrom`**](#allow-imports-from), [**`{family}`**](#family), and [**`{dirname}`**](#dirname) for a given import.<br>
+The default value is `false`.
+
+```jsonc
+{ "debugMode": true }
+```
+
 ### **`{family}`** <a id="family"></a>
 
 **`{family}`** reference finds the common part between the import and the current file. <br>
@@ -569,13 +578,4 @@ Current file    = "features/Feature1/Feature1.tsx"
 Example 4
 Current file    = "features/Feature1/Child1/hooks/useComplexHook1/useComplexHook1.ts"
 {dirname_5}     = "features"
-```
-
-### **`debugMode`**: `boolean | undefined` <a id="debug-mode"></a>
-
-Debug mode showing the current [**`allowImportsFrom`**](#allow-imports-from), [**`{family}`**](#family), and [**`{dirname}`**](#dirname) for a given import.<br>
-The default value is `false`.
-
-```jsonc
-{ "debugMode": true }
 ```
