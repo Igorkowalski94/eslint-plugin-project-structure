@@ -239,7 +239,8 @@ import { createFolderStructure } from "eslint-plugin-project-structure";
 export const folderStructureConfig = createFolderStructure({
   ignorePatterns: ["src/legacy/**"],
   structure: [
-    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
+    // You can add rules for them separately.
     // You can also add exceptions like this: "(?!folderStructure)*"
     { name: "*" },
     {
@@ -491,7 +492,8 @@ The structure of your project and its rules.
     { "name": "libs", "children": [] },
     { "name": "src", "children": [] },
     { "name": "yourCoolFolderName", "children": [] },
-    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
+    // You can add rules for them separately.
     // You can also add exceptions like this: "(?!folderStructure)*"
     { "name": "*" },
   ],
@@ -508,7 +510,8 @@ or
       { "name": "libs", "children": [] },
       { "name": "src", "children": [] },
       { "name": "yourCoolFolderName", "children": [] },
-      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc. You can add rules for them separately.
+      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
+      // You can add rules for them separately.
       // You can also add exceptions like this: "(?!folderStructure)*"
       { "name": "*" },
     ],
