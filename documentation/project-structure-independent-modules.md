@@ -243,10 +243,7 @@ export const independentModulesConfig = createIndependentModules({
         // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2")
         // But we won't be able to import ComplexComponent private files.
 
-        [
-          "{family}/components/*",
-          "!{family}/components/*.(types|api|types).ts",
-        ],
+        ["{family}/*/*", "!{family}/*/*.(types|api|types).ts"],
         // Let's assume we are in the "features/Feature2/Feature2.tsx"
         // In this case we will be able to import:
         // "features/Feature2/components/SimpleComponent.tsx  ({family} === "features/Feature2")
