@@ -146,14 +146,15 @@ export const independentModulesConfig = createIndependentModules({
       name: "Features",
       pattern: "features/**",
       allowImportsFrom: [
-        // /*  = wildcard for current directory.
-        // /** = wildcard for nested directories.
+        // /*  = wildcard.
+        // /*/  = wildcard for current directory.
+        // /**/ = wildcard for nested directories.
 
+        "features/*/*.tsx",
         // Let's assume we are in the "features/Feature1/Feature1.tsx".
         // In this case we will be able to import:
         // "features/Feature2/Feature2.tsx"
         // But we won't be able to import Feature1 private files and folders.
-        "features/*/*.tsx",
 
         // {family} reference finds the common part between the import and the current file.
         // By default, at least two common path parts are required, baseUrl is not taken into account.
@@ -212,14 +213,15 @@ export const independentModulesConfig = createIndependentModules({
       name: "Features",
       pattern: "features/**",
       allowImportsFrom: [
-        // /*  = wildcard for current directory.
-        // /** = wildcard for nested directories.
+        // /*  = wildcard.
+        // /*/  = wildcard for current directory.
+        // /**/ = wildcard for nested directories.
 
+        "features/*/*.tsx",
         // Let's assume we are in the "features/Feature2/Feature2.tsx"
         // In this case we will be able to import:
         // "feature/Feature1/Feature1.tsx"
         // But we won't be able to import Feature1 private files and folders.
-        "features/*/*.tsx",
 
         // {family} reference finds the common part between the import and the current file.
         // By default, at least two common path parts are required, baseUrl is not taken into account.
@@ -238,15 +240,16 @@ export const independentModulesConfig = createIndependentModules({
         ],
         // Let's assume we are in the "features/Feature2/Feature2.tsx"
         // In this case we will be able to import:
-        // "features/Feature2/components/SimpleComponent.tsx                    ({family} === "features/Feature2")
         // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2")
         // But we won't be able to import ComplexComponent private files.
 
-        ["{family}/*/*", "!{family}/*/*.(types|api|types).ts"],
-        // Let's assume we are in the "features/Feature2/components/SimpleComponent.tsx"
+        [
+          "{family}/components/*",
+          "!{family}/components/*.(types|api|types).ts",
+        ],
+        // Let's assume we are in the "features/Feature2/Feature2.tsx"
         // In this case we will be able to import:
-        // "features/Feature2/components/ComplexComponent/ComplexComponent.tsx  ({family} === "features/Feature2/components")
-        // But we won't be able to import ComplexComponent private files.
+        // "features/Feature2/components/SimpleComponent.tsx  ({family} === "features/Feature2")
       ],
     },
   ],

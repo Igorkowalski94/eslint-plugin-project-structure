@@ -15,7 +15,7 @@ export const independentModules = ESLintUtils.RuleCreator(
     docs: {
       url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md",
       description:
-        "Create independent modules to keep your repository scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.",
+        "A key principle of a healthy project is to prevent the creation of a massive dependency tree, where removing or editing one feature triggers a chain reaction that impacts the entire project. Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.",
     },
     type: "problem",
     schema: [{ type: "object", additionalProperties: true }],
