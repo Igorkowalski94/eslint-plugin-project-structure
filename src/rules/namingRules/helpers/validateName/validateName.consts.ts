@@ -3,7 +3,7 @@ import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 export const NAMING_RULES_SCHEMA: JSONSchema4 = {
   $schema: "http://json-schema.org/draft-07/schema#",
   definitions: {
-    NameType: {
+    Selector: {
       type: "string",
       enum: [
         "class",
@@ -18,12 +18,12 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
     NamingRule: {
       type: "object",
       properties: {
-        nameType: {
+        selector: {
           oneOf: [
-            { $ref: "#/definitions/NameType" },
+            { $ref: "#/definitions/Selector" },
             {
               type: "array",
-              items: { $ref: "#/definitions/NameType" },
+              items: { $ref: "#/definitions/Selector" },
             },
           ],
         },
@@ -31,20 +31,37 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
           type: "array",
           items: { type: "string" },
         },
-        allowNamesFileRoot: {
-          type: "array",
-          items: { type: "string" },
-        },
-        allowNamesExport: {
-          type: "array",
-          items: { type: "string" },
-        },
-        allowNames: {
+        format: {
           type: "array",
           items: { type: "string" },
         },
       },
-      required: ["nameType"],
+      required: ["selector"],
+      additionalProperties: false,
+    },
+    NamingRuleObject: {
+      type: "object",
+      properties: {
+        allowOnlySpecifiedSelectors: { type: "boolean" },
+        errors: {
+          type: "object",
+          properties: {
+            class: { type: "string" },
+            variable: { type: "string" },
+            function: { type: "string" },
+            arrowFunction: { type: "string" },
+            type: { type: "string" },
+            interface: { type: "string" },
+            enum: { type: "string" },
+          },
+          additionalProperties: false,
+        },
+        rules: {
+          type: "array",
+          items: { $ref: "#/definitions/NamingRule" },
+        },
+      },
+      required: ["rules"],
       additionalProperties: false,
     },
     FileNamingRules: {
@@ -59,12 +76,35 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
             },
           ],
         },
-        rules: {
-          type: "array",
-          items: { $ref: "#/definitions/NamingRule" },
+        fileRootRules: {
+          oneOf: [
+            {
+              type: "array",
+              items: { $ref: "#/definitions/NamingRule" },
+            },
+            { $ref: "#/definitions/NamingRuleObject" },
+          ],
+        },
+        fileExportsRules: {
+          oneOf: [
+            {
+              type: "array",
+              items: { $ref: "#/definitions/NamingRule" },
+            },
+            { $ref: "#/definitions/NamingRuleObject" },
+          ],
+        },
+        fileRules: {
+          oneOf: [
+            {
+              type: "array",
+              items: { $ref: "#/definitions/NamingRule" },
+            },
+            { $ref: "#/definitions/NamingRuleObject" },
+          ],
         },
       },
-      required: ["filePattern", "rules"],
+      required: ["filePattern"],
       additionalProperties: false,
     },
   },

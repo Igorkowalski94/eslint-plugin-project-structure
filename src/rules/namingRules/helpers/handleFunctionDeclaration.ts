@@ -18,6 +18,6 @@ export const handleFunctionDeclaration = ({
     node,
     context,
     name: node.id.name,
-    nameType: "FunctionDeclaration",
+    nodeType: "FunctionDeclaration",
   });
 };

@@ -37,7 +37,7 @@ export const namingRules = ESLintUtils.RuleCreator(
           node,
           context,
           name: node.id.name,
-          nameType: "TSTypeAliasDeclaration",
+          nodeType: "TSTypeAliasDeclaration",
         });
       },
       TSInterfaceDeclaration(node): void {
@@ -45,7 +45,7 @@ export const namingRules = ESLintUtils.RuleCreator(
           node,
           context,
           name: node.id.name,
-          nameType: "TSInterfaceDeclaration",
+          nodeType: "TSInterfaceDeclaration",
         });
       },
       TSEnumDeclaration(node): void {
@@ -53,7 +53,7 @@ export const namingRules = ESLintUtils.RuleCreator(
           node,
           context,
           name: node.id.name,
-          nameType: "TSEnumDeclaration",
+          nodeType: "TSEnumDeclaration",
         });
       },
     };

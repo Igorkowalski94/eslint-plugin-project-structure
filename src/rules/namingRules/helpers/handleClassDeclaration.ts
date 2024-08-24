@@ -18,6 +18,6 @@ export const handleClassDeclaration = ({
     node,
     context,
     name: node.id.name,
-    nameType: "ClassDeclaration",
+    nodeType: "ClassDeclaration",
   });
 };

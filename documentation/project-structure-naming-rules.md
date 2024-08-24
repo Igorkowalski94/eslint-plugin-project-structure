@@ -1,13 +1,14 @@
 # project-structure/naming-rules
 
-Enforce complex naming rules.
+Enforce complex naming rules and prohibit the use of given selectors in a given file.<br>
+Have full control over what your file can contain and the naming conventions it must follow.<br>
 
 #### Features:
 
-✅ Naming validation. <br>
-✅ Supported name types: Classes, types, interfaces, enums, variables, functions, arrow function.<br>
-✅ Naming rules only for name types located in the root of the file (not nested).<br>
-✅ Naming rules only for exported name types.<br>
+✅ Naming validation.<br>
+✅ Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.<br>
+✅ Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.<br>
+✅ Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.<br>
 ✅ Inheriting the filename as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a filename.<br>
 ✅ Enforcing a maximum of one main function/class per file.<br>
 ✅ Different name rules for different files.<br>
@@ -33,12 +34,12 @@ If you have any questions or need help creating a configuration that meets your 
 - [Example](#example)
 - [API](#api)
   - [filePattern](#file-pattern)
-  - [rules](#rules)
-    - [nameType](#name-type)
+  - [fileExportsRules, fileRootRules, fileRules](#file-rules)
+    - [allowOnlySpecifiedSelectors](#allow-only-specified-selectors)
+    - [errors](#errors)
+    - [selector](#selector)
     - [filenamePartsToRemove](#filename-parts-to-remove)
-    - [allowNames](#allow-names)
-    - [allowNamesFileRoot](#allow-names-file-root)
-    - [allowNamesExport](#allow-names-export)
+    - [format](#format)
     - [references](#references)
 
 ## Installation
@@ -106,71 +107,102 @@ Create a **`namingRules.mjs`** in the root of your project.<br>
 import { createNamingRules } from "eslint-plugin-project-structure";
 
 export const namingRulesConfig = createNamingRules([
+  // In this example, we want all `.consts.ts` files to adhere to the following rules:
+  // - They may only export variables that adhere to `{SNAKE_CASE}`.
+  // - The file may contain all other selectors, but non-exported variables must adhere to `{camelCase}`.
   {
-    filePattern: "**/*.consts.ts", // Name rules for all files ending with .const.ts.
-    rules: [
+    filePattern: "**/*.consts.ts",
+    fileExportsRules: {
+      allowOnlySpecifiedSelectors: true,
+      rules: [
+        {
+          selector: "variable",
+          format: ["{SNAKE_CASE}"],
+        },
+      ],
+    },
+    fileRules: [
       {
-        // nameTypes we are interested in.
-        nameType: "variable",
-        // All exported variables in the file should match SNAKE_CASE.
-        allowNamesExport: ["{SNAKE_CASE}"],
-        // Other variables in the file should match camelCase.
-        allowNames: ["{camelCase}"],
+        selector: ["variable"],
+        format: ["{camelCase}"],
       },
     ],
   },
+  // In this example, we want all `.ts` files, except `index.ts`, to adhere to the following rules:
+  // - They may contain at most one arrowFunction that follows `{filename_camelCase}`.
+  // - They may include at most two types or interfaces that match `{filename_PascalCase}Props` or `{filename_PascalCase}Return`.
+  // - All nested arrowFunctions and variables must follow `{camelCase}`.
+  // - If a variable is used at the root of our file, an error will appear indicating that it should be moved to a `.consts.ts` file.
+  // - All other selectors not specified in the rules for this file are prohibited.
   {
-    filePattern: ["**/*.ts", "!(**/index.ts)"], // Name rules for all .ts files except index.ts files.
-    rules: [
-      {
-        // nameTypes we are interested in.
-        nameType: ["arrowFunction", "function"],
-        // Functions located at the root of the file (non-nested) should be named: Filename as camelCase.
-        allowNamesFileRoot: ["{filename_camelCase}"],
-        // Nested functions in the file should match camelCase.
-        allowNames: ["{camelCase}"],
+    filePattern: ["**/*.ts", "!(**/index.ts)"],
+    fileRootRules: {
+      allowOnlySpecifiedSelectors: true,
+      errors: {
+        variable: "Move all variables to .consts.ts file.",
       },
-      {
-        // nameTypes we are interested in.
-        nameType: ["interface", "type"],
-        allowNamesFileRoot: [
-          // Interface or type located at the root of the file (non-nested) should be named: Filename as PascalCase + Props.
-          "{filename_PascalCase}Props",
+      rules: [
+        {
+          selector: "arrowFunction",
+          format: ["{filename_camelCase}"],
+        },
+        {
+          selector: ["interface", "type"],
+          format: ["{filename_PascalCase}Props", "{filename_PascalCase}Return"],
+        },
+      ],
+    },
+    fileRules: {
+      allowOnlySpecifiedSelectors: true,
+      rules: [
+        {
+          selector: "arrowFunction",
+          format: ["{camelCase}"],
+        },
 
-          //or
-
-          // Interface or type located at the root of the file (non-nested) should be named: Filename as SNAKE_CASE + _Return.
-          "{filename_SNAKE_CASE}_Return",
-        ],
-      },
-    ],
+        {
+          selector: ["variable"],
+          format: ["{camelCase}"],
+        },
+      ],
+    },
   },
 ]);
 ```
 
 ```ts
+// File transformUserData.consts.ts
+
+// Satisfies fileRules format = "{camelCase}"
+const variable1 = "";
+
+// Satisfies fileExportsRules format = "{SNAKE_CASE}"
+export const VARIABLE_2 = "";
+```
+
+```ts
 // File transformUserData.ts
 
-// Satisfies allowNamesFileRoot = ["{filename_PascalCase}Props"]
+// Satisfies fileRootRules format = "{filename_PascalCase}Props"
 interface TransformUserDataProps {
   name: number;
   surname: number;
   email: string;
 }
 
-// Satisfies allowNamesFileRoot = ["{filename_snake_case}_return"]
+// Satisfies fileRootRules format = "{filename_snake_case}_return"
 interface transform_user_data_return {
   fullName: string;
   email: string;
 }
 
-// Satisfies allowNamesFileRoot = ["{filename_camelCase}"]
+// Satisfies fileRootRules format = "{filename_camelCase}"
 const transformUserData = ({
   name,
   surname,
   email,
 }: TransformUserDataProps): transform_user_data_return => {
-  // Satisfies allowNames = ["{camelCase}"]
+  // Satisfies fileRules format = "{camelCase}"
   const nestedFunction = () => {};
 
   return {
@@ -178,16 +210,6 @@ const transformUserData = ({
     email,
   };
 };
-```
-
-```ts
-// File transformUserData.consts.ts
-
-// Satisfies allowNames = ["{camelCase}"]
-const variable1 = "";
-
-// Satisfies allowNamesExport = ["{SNAKE_CASE}"]
-export const VARIABLE_2 = "";
 ```
 
 ## API:
@@ -201,22 +223,89 @@ Here you define which files should meet the rules. You can use all **[micromatch
 { "filePattern": ["**/*.ts", "!(**/index.ts)"] }
 ```
 
-### **`rules`**: `NamingRule[]` <a id="rules"></a>
+### **`fileExportRules, fileRootRules, fileRules`**: `NamingRule[] | NamingRuleObject` <a id="file-rules"></a>
 
-The place where you define the naming rules for a given file.
+The plugin allows setting rules for exported [selectors](#selector) via `fileExportsRules`, [selectors](#selector) in the root of the file via `fileRootRules` and nested/all [selectors](#selector) in the file via `fileRules`. They can be used together in combination.
+
+There are two types of notations available:
+
+- An object if you need additional options such as [allowOnlySpecifiedSelectors](#allow-only-specified-selectors), [errors](#errors).
+- An array if you don't need the additional options.
 
 ```jsonc
 {
   "filePattern": "*",
-  "rules": [],
+  "fileExportsRules": {
+    "allowOnlySpecifiedSelectors": true,
+    "errors": {},
+    "rules": [],
+  },
+  "fileRootRules": {
+    "allowOnlySpecifiedSelectors": true,
+    "errors": {},
+    "rules": [],
+  },
+  "fileRules": {
+    "allowOnlySpecifiedSelectors": true,
+    "errors": {},
+    "rules": [],
+  },
 }
 ```
 
-### **`nameType`**: `NameType | NameType[]` <a id="name-type"></a>
+```jsonc
+{
+  "filePattern": "*",
+  "fileExportsRules": [],
+  "fileRootRules": [],
+  "fileRules": [],
+}
+```
 
-Here you define the name type you are interested in.<br>
+### **`allowOnlySpecifiedSelectors`**: `boolean | undefined` <a id="allow-only-specified-selectors"></a>
 
-Available types:<br>
+With `allowOnlySpecifiedSelectors`, you can prohibit the use of selectors that you haven’t explicitly specified for the file.
+
+```jsonc
+{
+  "filePattern": "*",
+  "fileRules": {
+    "allowOnlySpecifiedSelectors": true,
+    "rules": [],
+  },
+}
+```
+
+### **`errors`**: `Record<Selector, string> | undefined` <a id="errors"></a>
+
+Additional errors for individual selectors. Useful if you want to provide more information to your team members and explain why a particular selector is prohibited in a given file.
+
+Available only when [allowOnlySpecifiedSelectors](#allow-only-specified-selectors) is set to `true`.
+
+```jsonc
+{
+  "filePattern": "*",
+  "fileRules": {
+    "allowOnlySpecifiedSelectors": true,
+    "errors": {
+      "variable": "We keep all variables in .consts.ts files to maintain organization and readability ...",
+      "enum": "We keep all enums in .types.ts files ...",
+      "arrowFunction": "We keep all utility functions in the helpers folder ...",
+      "class": "...",
+      "function": "...",
+      "interface": "...",
+      "type": "...",
+    },
+    "rules": [],
+  },
+}
+```
+
+### **`selector`**: `Selector | Selector[]` <a id="selector"></a>
+
+Here you define the selector or selectors you are interested in.<br>
+
+Available selectors:<br>
 
 - **`"class"`**<br>
 - **`"variable"`**<br>
@@ -229,20 +318,16 @@ Available types:<br>
 ```jsonc
 {
   "filePattern": "**/*.tsx",
-  "rules": [
-    {
-      "nameType": ["function", "arrowFunction"],
-    },
-    {
-      "nameType": "variable",
-    },
+  "fileRules": [
+    { "selector": ["function", "arrowFunction"] },
+    { "selector": "variable" },
   ],
 }
 ```
 
 ### **`filenamePartsToRemove`**: `string[] | undefined` <a id="filename-parts-to-remove"></a>
 
-Useful if you use prefixes in your filenames and don't want them to be part of the name.
+Useful if you use prefixes in your filenames and don't want them to be part of the [selector](#selector) name.
 
 > [!NOTE]
 > Only taken into account when using [**`references`**](#references) with filename.
@@ -250,116 +335,41 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 ```jsonc
 {
   "filePattern": "**/*.tsx",
-  "rules": [
+  "fileRules": [
     {
-      "nameType": "arrowFunction",
+      "selector": "arrowFunction",
       "filenamePartsToRemove": [".react"], // ComponentName.react.tsx => ComponentName.tsx
-      "allowNamesFileRoot": ["{filename_PascalCase}"], // const ComponentName = () => {}
+      "format": ["{filename_PascalCase}"], // const ComponentName = () => {}
     },
   ],
 }
 ```
 
-### **`allowNames`**: `string[] | undefined` <a id="allow-names"></a>
+### **`format`**: `string[] | undefined` <a id="format"></a>
 
-If the name matches at least one regex, it will be considered valid.
+The format that the given [selector](#selector) must adhere to.<br>
+It is treated as a regular expression. If the [selector](#selector) name matches at least one regular expression, it will be considered valid.<br>
 
-The following improvements are automatically added to the regex:
+The following improvements are automatically added to the regular expression:
 
-- The name is wrapped in `^$`.
+- regular expression is automatically wrapped in `^$`.
 
 > [!NOTE]
-> If you do not specify **`allowNames`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
+> If you do not specify **`format`**, the default value is **[{camelCase}](#camel-case)**.
 
 ```jsonc
 {
   "filePattern": "**/*.tsx",
-  "rules": [
+  "fileRules": [
     {
-      "nameType": "arrowFunction",
+      "selector": "arrowFunction",
       // Arrow functions in .tsx files should meet camelCase or PascalCase.
-      "allowNames": ["{camelCase}", "{PascalCase}"],
+      "format": ["{camelCase}", "{PascalCase}"],
     },
     {
-      "nameType": "variable",
+      "selector": "variable",
       // Variables in .tsx files should meet SNAKE_CASE.
-      "allowNames": ["{SNAKE_CASE}"],
-    },
-  ],
-}
-```
-
-### **`allowNamesFileRoot`**: `string[] | undefined` <a id="allow-names-file-root"></a>
-
-**`allowNamesFileRoot`** only takes into account [**`nameTypes`**](#name-type) that are in the root of a given file (not nested).
-
-If the name matches at least one regex, it will be considered valid.
-
-The following improvements are automatically added to the regex:
-
-- The name is wrapped in `^$`.
-
-> [!NOTE]
-> If you do not specify **`allowNamesFileRoot`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
-
-```jsonc
-{
-  "filePattern": "**/*.tsx",
-  "rules": [
-    {
-      "nameType": ["arrowFunction", "function"],
-      // Arrow function or function located at the root of the file (not nested) should meet the name: filename as PascalCase.
-      "allowNamesFileRoot": ["{filename_PascalCase}"],
-    },
-    {
-      "nameType": ["interface", "type"],
-      "allowNamesFileRoot": [
-        // Interface or type located at the root of the file (non-nested) should meet the name: filename as PascalCase + Props.
-        "{filename_PascalCase}Props",
-
-        // or
-
-        // Interface or type located at the root of the file (non-nested) should meet the name: filename as PascalCase + Return
-        "{filename_PascalCase}Return",
-      ],
-    },
-  ],
-}
-```
-
-### **`allowNamesExport`**: `string[] | undefined` <a id="allow-names-export"></a>
-
-**`allowNamesExport`** only takes into account exported [**`nameTypes`**](#name-type).
-
-If the name matches at least one regex, it will be considered valid.
-
-The following improvements are automatically added to the regex:
-
-- The name is wrapped in `^$`.
-
-> [!NOTE]
-> If you do not specify **`allowNamesExport`**, the default values ​​are **[{camelCase}](#camel-case)** and **[{PascalCase}](#pascal-case)**.
-
-```jsonc
-{
-  "filePattern": "**/*.tsx",
-  "rules": [
-    {
-      "nameType": ["arrowFunction", "function"],
-      // Exported arrow function or function should meet the name: filename as PascalCase.
-      "allowNamesExport": ["{filename_PascalCase}"],
-    },
-    {
-      "nameType": ["interface", "type"],
-      "allowNamesExport": [
-        // Exported interface or type should meet the name: filename as PascalCase + Props.
-        "{filename_PascalCase}Props",
-
-        // or
-
-        // Interface or type should meet the name: filename as PascalCase + Return
-        "{filename_PascalCase}Return",
-      ],
+      "format": ["{SNAKE_CASE}"],
     },
   ],
 }
@@ -371,44 +381,28 @@ The following improvements are automatically added to the regex:
 Take the name of the file you are currently in and change it to **`camelCase`**.
 
 ```jsonc
-{
-  "allowNames": ["{filename_camelCase}"],
-  "allowNamesFileRoot": ["{filename_camelCase}"],
-  "allowNamesExport": ["{filename_camelCase}"],
-}
+{ "format": ["{filename_camelCase}"] }
 ```
 
 **`{filename_PascalCase}`**<br>
 Take the name of the file you are currently in and change it to **`PascalCase`**.
 
 ```jsonc
-{
-  "allowNames": ["{filename_PascalCase}"],
-  "allowNamesFileRoot": ["{filename_PascalCase}"],
-  "allowNamesExport": ["{filename_PascalCase}"],
-}
+{ "format": ["{filename_PascalCase}"] }
 ```
 
 **`{filename_snake_case}`**<br>
 Take the name of the file you are currently in and change it to **`snake_case`**.
 
 ```jsonc
-{
-  "allowNames": ["{filename_snake_case}"],
-  "allowNamesFileRoot": ["{filename_snake_case}"],
-  "allowNamesExport": ["{filename_snake_case}"],
-}
+{ "format": ["{filename_snake_case}"] }
 ```
 
 **`{filename_SNAKE_CASE}`**<br>
 Take the name of the file you are currently in and change it to **`SNAKE_CASE`**.
 
 ```jsonc
-{
-  "allowNames": ["{filename_SNAKE_CASE}"],
-  "allowNamesFileRoot": ["{filename_SNAKE_CASE}"],
-  "allowNamesExport": ["{filename_SNAKE_CASE}"],
-}
+{ "format": ["{filename_SNAKE_CASE}"] }
 ```
 
 **`{camelCase}`**<a id="camel-case"></a><br>
@@ -416,11 +410,7 @@ Add **`camelCase`** validation to your regex.<br>
 The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`**.
 
 ```jsonc
-{
-  "allowNames": ["{camelCase}"],
-  "allowNamesFileRoot": ["{camelCase}"],
-  "allowNamesExport": ["{camelCase}"],
-}
+{ "format": ["{camelCase}"] }
 ```
 
 **`{PascalCase}`**<a id="pascal-case"></a><br>
@@ -428,11 +418,7 @@ Add **`PascalCase`** validation to your regex.<br>
 The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
 
 ```jsonc
-{
-  "allowNames": ["{PascalCase}"],
-  "allowNamesFileRoot": ["{PascalCase}"],
-  "allowNamesExport": ["{PascalCase}"],
-}
+{ "format": ["{PascalCase}"] }
 ```
 
 **`{snake_case}`**<br>
@@ -440,11 +426,7 @@ Add **`snake_case`** validation to your regex.<br>
 The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
 
 ```jsonc
-{
-  "allowNames": ["{snake_case}"],
-  "allowNamesFileRoot": ["{snake_case}"],
-  "allowNamesExport": ["{snake_case}"],
-}
+{ "format": ["{snake_case}"] }
 ```
 
 **`{SNAKE_CASE}`**<br>
@@ -452,9 +434,5 @@ Add **`SNAKE_CASE`** validation to your regex.<br>
 The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ```jsonc
-{
-  "allowNames": ["{SNAKE_CASE}"],
-  "allowNamesFileRoot": ["{SNAKE_CASE}"],
-  "allowNamesExport": ["{SNAKE_CASE}"],
-}
+{ "format": ["{SNAKE_CASE}"] }
 ```

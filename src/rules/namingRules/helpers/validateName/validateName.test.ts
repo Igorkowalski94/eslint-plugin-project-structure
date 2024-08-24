@@ -1,9 +1,13 @@
+import path from "path";
+
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
 import { readConfigFile } from "helpers/readConfigFile";
 
-import { validateFileRules } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/validateFileRules";
+import { isExportedName } from "rules/namingRules/helpers/validateName/helpers/isExportedName/isExportedName";
+import { isNameFromFileRoot } from "rules/namingRules/helpers/validateName/helpers/isNameFromFileRoot";
+import { validateRules } from "rules/namingRules/helpers/validateName/helpers/validateRules/validateRules";
 import { validateName } from "rules/namingRules/helpers/validateName/validateName";
 import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
 import { FileNamingRules } from "rules/namingRules/namingRules.types";
@@ -13,24 +17,38 @@ jest.mock("helpers/readConfigFile", () => ({
 }));
 
 jest.mock(
-  "rules/namingRules/helpers/validateName/helpers/validateFileRules/validateFileRules",
+  "rules/namingRules/helpers/validateName/helpers/validateRules/validateRules",
   () => ({
-    validateFileRules: jest.fn(),
+    validateRules: jest.fn(),
+  }),
+);
+
+jest.mock(
+  "rules/namingRules/helpers/validateName/helpers/isExportedName/isExportedName",
+  () => ({
+    isExportedName: jest.fn(),
+  }),
+);
+
+jest.mock(
+  "rules/namingRules/helpers/validateName/helpers/isNameFromFileRoot",
+  () => ({
+    isNameFromFileRoot: jest.fn(),
   }),
 );
 
 describe("validateName", () => {
+  const config: FileNamingRules[] = [
+    {
+      filePattern: "**/*.ts",
+      fileRootRules: [{ selector: "variable" }],
+      fileExportsRules: [{ selector: "variable" }],
+      fileRules: [{ selector: "variable" }],
+    },
+  ];
+
   test("Should return undefined if !fileRule from config", () => {
-    (readConfigFile as jest.Mock).mockReturnValue([
-      {
-        filePattern: "**/*.ts",
-        rules: [
-          {
-            nameType: "variable",
-          },
-        ],
-      },
-    ]);
+    (readConfigFile as jest.Mock).mockReturnValue(config);
 
     expect(
       validateName({
@@ -46,22 +64,13 @@ describe("validateName", () => {
         >,
         name: "componentName",
         node: {} as TSESTree.VariableDeclarator,
-        nameType: "VariableDeclarator",
+        nodeType: "VariableDeclarator",
       }),
     ).toEqual(undefined);
   });
 
   test("Should return undefined if !fileRule from options", () => {
-    (readConfigFile as jest.Mock).mockReturnValue([
-      {
-        filePattern: "**/*.ts",
-        rules: [
-          {
-            nameType: "variable",
-          },
-        ],
-      },
-    ]);
+    (readConfigFile as jest.Mock).mockReturnValue(config);
 
     expect(
       validateName({
@@ -69,16 +78,7 @@ describe("validateName", () => {
           settings: {},
           cwd: "C:/somePath",
           filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
-          options: [
-            {
-              rules: [
-                {
-                  nameType: "variable",
-                },
-              ],
-              filePattern: "**/*.ts",
-            },
-          ],
+          options: config,
           report: () => undefined,
         } as unknown as RuleContext<
           keyof typeof ESLINT_ERRORS,
@@ -86,52 +86,139 @@ describe("validateName", () => {
         >,
         name: "componentName",
         node: {} as TSESTree.VariableDeclarator,
-        nameType: "VariableDeclarator",
+        nodeType: "VariableDeclarator",
       }),
     ).toEqual(undefined);
   });
 
-  test("Should call validateFileRules", () => {
-    (readConfigFile as jest.Mock).mockReturnValue([
-      {
-        filePattern: "**/*.ts",
-        rules: [
-          {
-            nameType: "variable",
-          },
-        ],
-      },
-    ]);
+  test("Should call fileExportsRules for fileExportsRules", () => {
+    (readConfigFile as jest.Mock).mockReturnValue(config);
 
-    const validateFileRulesMock = jest.fn();
+    const validateRulesMock = jest.fn();
+    const reportMock = jest.fn();
 
-    (validateFileRules as jest.Mock).mockImplementation(validateFileRulesMock);
+    (validateRules as jest.Mock).mockImplementation(validateRulesMock);
+    (isExportedName as jest.Mock).mockReturnValue({
+      isExportName: true,
+      currentName: "componentNameExport",
+      currentNode: {},
+    });
 
     validateName({
       context: {
         settings: {},
         cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
-        options: [
-          {
-            rules: [
-              {
-                nameType: "variable",
-              },
-            ],
-            filePattern: "**/*.ts",
-          },
-        ],
-        report: () => undefined,
+        options: config,
+        report: reportMock,
       } as unknown as RuleContext<
         keyof typeof ESLINT_ERRORS,
         FileNamingRules[]
       >,
       name: "componentName",
       node: {} as TSESTree.VariableDeclarator,
-      nameType: "VariableDeclarator",
+      nodeType: "VariableDeclarator",
     });
 
-    expect(validateFileRulesMock).toHaveBeenCalled();
+    expect(validateRulesMock).toHaveBeenCalledWith({
+      namingRule: [{ selector: "variable" }],
+      name: "componentNameExport",
+      nodeType: "VariableDeclarator",
+      node: {},
+      report: reportMock,
+      filenamePath: path.resolve(
+        "C:/somePath",
+        "C:/somePath/src/features/Feature1/Feature1.ts",
+      ),
+      errorMessageId: "prohibitedSelectorExport",
+    });
+  });
+
+  test("Should call fileExportsRules for fileRootRules", () => {
+    (readConfigFile as jest.Mock).mockReturnValue(config);
+
+    const validateRulesMock = jest.fn();
+    const reportMock = jest.fn();
+
+    (validateRules as jest.Mock).mockImplementation(validateRulesMock);
+    (isExportedName as jest.Mock).mockReturnValue({
+      isExportName: false,
+      currentName: "",
+      currentNode: {},
+    });
+    (isNameFromFileRoot as jest.Mock).mockReturnValue(true);
+
+    validateName({
+      context: {
+        settings: {},
+        cwd: "C:/somePath",
+        filename: "C:/somePath/src/features/Feature1/Feature1.ts",
+        options: config,
+        report: reportMock,
+      } as unknown as RuleContext<
+        keyof typeof ESLINT_ERRORS,
+        FileNamingRules[]
+      >,
+      name: "componentName",
+      node: {} as TSESTree.VariableDeclarator,
+      nodeType: "VariableDeclarator",
+    });
+
+    expect(validateRulesMock).toHaveBeenCalledWith({
+      namingRule: [{ selector: "variable" }],
+      name: "componentName",
+      nodeType: "VariableDeclarator",
+      node: {},
+      report: reportMock,
+      filenamePath: path.resolve(
+        "C:/somePath",
+        "C:/somePath/src/features/Feature1/Feature1.ts",
+      ),
+      errorMessageId: "prohibitedSelectorRoot",
+    });
+  });
+
+  test("Should call fileExportsRules for fileRules", () => {
+    (readConfigFile as jest.Mock).mockReturnValue(config);
+
+    const validateRulesMock = jest.fn();
+    const reportMock = jest.fn();
+
+    (validateRules as jest.Mock).mockImplementation(validateRulesMock);
+    (isExportedName as jest.Mock).mockReturnValue({
+      isExportName: false,
+      currentName: "",
+      currentNode: {},
+    });
+    (isNameFromFileRoot as jest.Mock).mockReturnValue(false);
+
+    validateName({
+      context: {
+        settings: {},
+        cwd: "C:/somePath",
+        filename: "C:/somePath/src/features/Feature1/Feature1.ts",
+        options: config,
+        report: reportMock,
+      } as unknown as RuleContext<
+        keyof typeof ESLINT_ERRORS,
+        FileNamingRules[]
+      >,
+      name: "componentName",
+      node: {} as TSESTree.VariableDeclarator,
+      nodeType: "VariableDeclarator",
+    });
+
+    expect(validateRulesMock).toHaveBeenCalledWith({
+      namingRule: [{ selector: "variable" }],
+      name: "componentName",
+      nodeType: "VariableDeclarator",
+      node: {},
+      report: reportMock,
+      filenamePath: path.resolve(
+        "C:/somePath",
+        "C:/somePath/src/features/Feature1/Feature1.ts",
+      ),
+      errorMessageId: "prohibitedSelector",
+    });
   });
 });

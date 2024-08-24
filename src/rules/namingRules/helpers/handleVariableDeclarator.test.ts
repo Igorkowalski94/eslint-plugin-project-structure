@@ -39,7 +39,7 @@ describe("handleVariableDeclarator", () => {
         },
         context: {},
         name: "name",
-        nameType: "ArrowFunctionExpression",
+        nodeType: "ArrowFunctionExpression",
       },
     },
     {
@@ -56,7 +56,7 @@ describe("handleVariableDeclarator", () => {
         },
         context: {},
         name: "name",
-        nameType: "VariableDeclarator",
+        nodeType: "VariableDeclarator",
       },
     },
   ])(

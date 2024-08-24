@@ -1,7 +1,7 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 import { validateName } from "rules/namingRules/helpers/validateName/validateName";
-import { Context, NameType } from "rules/namingRules/namingRules.types";
+import { Context, NodeType } from "rules/namingRules/namingRules.types";
 
 interface HandleVariableDeclaratorProps {
   node: TSESTree.VariableDeclarator;
@@ -14,7 +14,7 @@ export const handleVariableDeclarator = ({
 }: HandleVariableDeclaratorProps): void => {
   if (node.id.type !== TSESTree.AST_NODE_TYPES.Identifier) return;
 
-  const nameType: NameType =
+  const nodeType: NodeType =
     node.init?.type === TSESTree.AST_NODE_TYPES.ArrowFunctionExpression
       ? "ArrowFunctionExpression"
       : "VariableDeclarator";
@@ -23,6 +23,6 @@ export const handleVariableDeclarator = ({
     node,
     context,
     name: node.id.name,
-    nameType,
+    nodeType,
   });
 };

@@ -11,7 +11,7 @@ If you have any questions or need help creating a configuration that meets your 
 
 ### Documentation:
 
-- **[Migration guide to 2.1.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.1.0.md)**
+- **[Migration guide to 2.2.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)**
 - **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
 - **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 - **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
@@ -55,14 +55,15 @@ Get rid of dependencies between modules and create truly independent functionali
 
 ## **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
-Enforce complex naming rules.
+Enforce complex naming rules and prohibit the use of given selectors in a given file.<br>
+Have full control over what your file can contain and the naming conventions it must follow.<br>
 
 #### Features:
 
-✅ Naming validation. <br>
-✅ Supported name types: Classes, types, interfaces, enums, variables, functions, arrow function.<br>
-✅ Naming rules only for name types located in the root of the file (not nested).<br>
-✅ Naming rules only for exported name types.<br>
+✅ Naming validation.<br>
+✅ Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.<br>
+✅ Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.<br>
+✅ Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.<br>
 ✅ Inheriting the filename as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a filename.<br>
 ✅ Enforcing a maximum of one main function/class per file.<br>
 ✅ Different name rules for different files.<br>

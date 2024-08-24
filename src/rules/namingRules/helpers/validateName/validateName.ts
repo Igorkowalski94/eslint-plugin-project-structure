@@ -1,38 +1,33 @@
 import path from "path";
 
-import { TSESTree } from "@typescript-eslint/utils";
 import micromatch from "micromatch";
 
 import { readConfigFile } from "helpers/readConfigFile";
 import { validateConfig } from "helpers/validateConfig";
 
-import { validateFileRules } from "rules/namingRules/helpers/validateName/helpers/validateFileRules/validateFileRules";
+import { isExportedName } from "rules/namingRules/helpers/validateName/helpers/isExportedName/isExportedName";
+import { isNameFromFileRoot } from "rules/namingRules/helpers/validateName/helpers/isNameFromFileRoot";
+import { validateRules } from "rules/namingRules/helpers/validateName/helpers/validateRules/validateRules";
 import { NAMING_RULES_SCHEMA } from "rules/namingRules/helpers/validateName/validateName.consts";
 import {
   Context,
   FileNamingRules,
-  NameType,
+  Node,
+  NodeType,
 } from "rules/namingRules/namingRules.types";
 
 export interface ValidateNameProps {
   name: string;
   context: Context;
-  node:
-    | TSESTree.VariableDeclarator
-    | TSESTree.ClassDeclaration
-    | TSESTree.FunctionDeclaration
-    | TSESTree.TSTypeAliasDeclaration
-    | TSESTree.TSInterfaceDeclaration
-    | TSESTree.TSEnumDeclaration
-    | TSESTree.Identifier;
-  nameType: NameType;
+  node: Node;
+  nodeType: NodeType;
 }
 
 export const validateName = ({
   name,
   context: { filename, report, options, cwd, settings },
   node,
-  nameType,
+  nodeType,
 }: ValidateNameProps): void => {
   const config = readConfigFile<FileNamingRules[]>({
     cwd,
@@ -44,12 +39,58 @@ export const validateName = ({
   validateConfig({ config, schema: NAMING_RULES_SCHEMA });
 
   const filenamePath = path.resolve(cwd, filename);
-
-  const fileRules = config.find(({ filePattern }) =>
+  const fileConfig = config.find(({ filePattern }) =>
     micromatch.every(filenamePath, filePattern),
   );
 
-  if (!fileRules) return;
+  if (!fileConfig) return;
 
-  validateFileRules({ fileRules, name, nameType, node, report, filenamePath });
+  const { fileExportsRules, fileRootRules, fileRules } = fileConfig;
+
+  const { isExportName, currentName, currentNode } = isExportedName({
+    nodeType,
+    node,
+    name,
+  });
+
+  if (fileExportsRules && isExportName) {
+    return validateRules({
+      namingRule: fileExportsRules,
+      name: currentName,
+      nodeType,
+      node: currentNode,
+      report,
+      filenamePath,
+      errorMessageId: "prohibitedSelectorExport",
+    });
+  }
+
+  const isFileRootName = isNameFromFileRoot({
+    nodeType,
+    node,
+  });
+
+  if (fileRootRules && isFileRootName) {
+    return validateRules({
+      namingRule: fileRootRules,
+      name,
+      nodeType,
+      node,
+      report,
+      filenamePath,
+      errorMessageId: "prohibitedSelectorRoot",
+    });
+  }
+
+  if (fileRules) {
+    return validateRules({
+      namingRule: fileRules,
+      name,
+      nodeType,
+      node,
+      report,
+      filenamePath,
+      errorMessageId: "prohibitedSelector",
+    });
+  }
 };

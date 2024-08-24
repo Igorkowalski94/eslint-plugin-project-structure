@@ -1,10 +1,9 @@
+import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
 import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
 
-export type Cases = "camelCase" | "PascalCase" | "snake_case" | "SNAKE_CASE";
-
-export type NameType =
+export type NodeType =
   | "ClassDeclaration"
   | "VariableDeclarator"
   | "FunctionDeclaration"
@@ -13,7 +12,7 @@ export type NameType =
   | "TSInterfaceDeclaration"
   | "TSEnumDeclaration";
 
-export type NameTypeRule =
+export type Selector =
   | "class"
   | "variable"
   | "function"
@@ -22,19 +21,36 @@ export type NameTypeRule =
   | "interface"
   | "enum";
 
-export type NameTypes = Record<NameType, NameTypeRule>;
+export type Node =
+  | TSESTree.VariableDeclarator
+  | TSESTree.ClassDeclaration
+  | TSESTree.FunctionDeclaration
+  | TSESTree.TSTypeAliasDeclaration
+  | TSESTree.TSInterfaceDeclaration
+  | TSESTree.TSEnumDeclaration
+  | TSESTree.Identifier;
+
+export type Selectors = Record<NodeType, Selector>;
 
 export interface NamingRule {
-  nameType: NameTypeRule | NameTypeRule[];
+  selector: Selector | Selector[];
   filenamePartsToRemove?: string[];
-  allowNamesFileRoot?: string[];
-  allowNamesExport?: string[];
-  allowNames?: string[];
+  format?: string[];
+}
+
+export type CustomErrors = Partial<Record<Selector, string>>;
+
+export interface NamingRuleObject {
+  allowOnlySpecifiedSelectors?: boolean;
+  errors?: CustomErrors;
+  rules: NamingRule[];
 }
 
 export interface FileNamingRules {
   filePattern: string | string[];
-  rules: NamingRule[];
+  fileRootRules?: NamingRule[] | NamingRuleObject;
+  fileExportsRules?: NamingRule[] | NamingRuleObject;
+  fileRules?: NamingRule[] | NamingRuleObject;
 }
 
 export type Context = Readonly<
