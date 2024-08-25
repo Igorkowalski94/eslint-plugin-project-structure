@@ -9,7 +9,7 @@ Have full control over what your file can contain and the naming conventions it 
 ✅ Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.<br>
 ✅ Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.<br>
 ✅ Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.<br>
-✅ Inheriting the filename as the name. Option of adding your own prefixes/suffixes, changing the case or deleting parts of a filename.<br>
+✅ Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.<br>
 ✅ Enforcing a maximum of one main function/class per file.<br>
 ✅ Different name rules for different files.<br>
 ✅ Regex validation.<br>
