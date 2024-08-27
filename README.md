@@ -1,7 +1,7 @@
 # eslint-plugin-project-structure
 
 [![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg)](https://www.npmjs.com/package/eslint-plugin-project-structure)
-[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg)](https://www.npmtrends.com/eslint-plugin-project-structure)
+[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg)](https://www.npmjs.com/package/eslint-plugin-project-structure)
 [![npm](https://img.shields.io/npm/l/eslint-plugin-project-structure)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/LICENCE)
 [![Build and Test](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml/badge.svg)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml)
 
