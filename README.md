@@ -1,6 +1,8 @@
 # eslint-plugin-project-structure
 
 [![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg)](https://www.npmjs.com/package/eslint-plugin-project-structure)
+[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg)](https://www.npmjs.com/package/eslint-plugin-project-structure)
+[![npm](https://img.shields.io/npm/l/eslint-plugin-project-structure)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/LICENCE)
 
 Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out.<br>
 Whether you're working alone, with a small or large team, save time by automating the reviews of key principles for a healthy project!
