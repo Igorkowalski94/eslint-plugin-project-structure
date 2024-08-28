@@ -26,10 +26,9 @@
     "project-principles",
     "project-rules"
   ],
-  "fund": {
-    "type": "github",
-    "url": "https://github.com/sponsors/Igorkowalski94"
-  },
+  "funding": [
+    "https://github.com/sponsors/Igorkowalski94"
+  ],
   "homepage": "https://github.com/Igorkowalski94/eslint-plugin-project-structure",
   "repository": {
     "type": "git",

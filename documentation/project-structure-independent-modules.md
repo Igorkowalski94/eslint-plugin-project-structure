@@ -1,30 +1,30 @@
 # project-structure-independent-modules
 
-A key principle of a healthy project is to prevent the creation of a massive dependency tree,<br>
-where removing or editing one feature triggers a chain reaction that impacts the entire project.<br>
-Create independent modules to keep your project scalable and easy to maintain.<br>
-Get rid of dependencies between modules and create truly independent functionalities.<br>
+A key principle of a healthy project is to prevent the creation of a massive dependency tree,
+where removing or editing one feature triggers a chain reaction that impacts the entire project.
+Create independent modules to keep your project scalable and easy to maintain.
+Get rid of dependencies between modules and create truly independent functionalities.
 
-#### Features:
+#### 🚀 Features:
 
-✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).<br>
-✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
-✅ Non-relative/relative imports support. <br>
-✅ Support for imports without extension. <br>
-✅ Reusable import patterns. <br>
-✅ Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.<br>
-✅ An option to create a separate configuration file with TypeScript support.<br>
+- Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
+- Disabling external imports (node_modules) for a given module (Option to add exceptions).
+- Non-relative/relative imports support.
+- Support for imports without extension.
+- Reusable import patterns.
+- Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
+- An option to create a separate configuration file with TypeScript support.
 
-[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
-If you have any questions or need help creating a configuration that meets your requirements, **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
+If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
 ### Documentation:
 
-- **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
-- **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
+- [project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
+- [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
 ### Go to:
 
@@ -61,10 +61,10 @@ npm i --dev eslint-plugin-independent-modules
 
 ### Step 1
 
-Add the following lines to **`eslint.config.mjs`**.
+Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
@@ -101,10 +101,10 @@ export default tseslint.config({
 
 ### Step 2
 
-Create a **`independentModules.mjs`** in the root of your project.<br>
+Create a `independentModules.mjs` in the root of your project.<br>
 
 > [!NOTE]  
->  **`independentModules.json`** and **`independentModules.yaml`** are also supported. See an example in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  `independentModules.json` and `independentModules.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 #### Simple example for the folder structure below:
 
@@ -255,7 +255,7 @@ export const independentModulesConfig = createIndependentModules({
 
 ## API:
 
-### **`tsconfigPath`**: `string | undefined` <a id="tsconfig-path"></a>
+### `tsconfigPath`: `string | undefined` <a id="tsconfig-path"></a>
 
 The path to your `tsconfig.json`.<br>
 If your `tsconfig` is located in the root of your project, the plugin will automatically detect it.<br>
@@ -265,7 +265,7 @@ If your `tsconfig` is located elsewhere, you can specify its location here.
 { "tsconfigPath": "./tsconfig.json" }
 ```
 
-### **`pathAliases`**: `{ baseUrl: string; paths: Record<string, string[]>; } | undefined` <a id="path-aliases"></a>
+### `pathAliases`: `{ baseUrl: string; paths: Record<string, string[]>; } | undefined` <a id="path-aliases"></a>
 
 The plugin automatically takes `baseUrl` and `paths` from your `tsconfig.json`.<br>
 However, if you are using another tool for path aliases, such as `Webpack` or `Babel`, you can configure the appropriate path aliases here.
@@ -286,7 +286,7 @@ import { Component } from "@components/Component";
 }
 ```
 
-### **`extensions`**: `string[] | undefined` <a id="extensions"></a>
+### `extensions`: `string[] | undefined` <a id="extensions"></a>
 
 If you use shortened imports without a file extension, the plugin will automatically assign the correct extension from the list of available extensions.
 
@@ -295,7 +295,7 @@ If you use shortened imports without a file extension, the plugin will automatic
 import { myHelper } from "helpers/myHelper"; // The plugin will recognize the file as a .ts file and consider this when validating the glob pattern.
 ```
 
-Available extensions: **`".js"`**, **`".jsx"`**, **`".mjs"`**, **`".cjs"`** **`".d.ts"`**, **`".ts"`**, **`".tsx"`**, **`".vue"`**, **`".svelte"`**, **`".json"`**, **`".jsonc"`**, **`".yml"`**, **`".yaml"`**, **`".svg"`**, **`".png"`**, **`".jpg"`**, **`".ico"`**, **`".css"`**, **`".sass"`**, **`".scss"`**, **`".less"`**, **`".html"`**,
+Available extensions: `".js"`, `".jsx"`, `".mjs"`, `".cjs"` `".d.ts"`, `".ts"`, `".tsx"`, `".vue"`, `".svelte"`, `".json"`, `".jsonc"`, `".yml"`, `".yaml"`, `".svg"`, `".png"`, `".jpg"`, `".ico"`, `".css"`, `".sass"`, `".scss"`, `".less"`, `".html"`,
 
 If the extension you are using is not on the list, you can extend it.
 
@@ -303,7 +303,7 @@ If the extension you are using is not on the list, you can extend it.
 { "extensions": [".yourFancyExtension"] }
 ```
 
-### **`modules`**: `Module[]` <a id="modules"></a>
+### `modules`: `Module[]` <a id="modules"></a>
 
 A place where you can add your modules.<br>
 
@@ -366,7 +366,7 @@ After creation, each module will not be able to import anything except external 
 }
 ```
 
-### **`name`**: `string` <a id="name"></a>
+### `name`: `string` <a id="name"></a>
 
 The name of your module.
 
@@ -374,11 +374,11 @@ The name of your module.
 { "modules": [{ "name": "features" }] }
 ```
 
-### **`pattern`**: `string | string[]` <a id="pattern"></a>
+### `pattern`: `string | string[]` <a id="pattern"></a>
 
 Your module's pattern.<br>
 
-You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.
+You can use all [micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every) functionalities.
 
 ```jsonc
 {
@@ -390,13 +390,13 @@ You can use all **[micromatch.every](https://github.com/micromatch/micromatch?ta
 }
 ```
 
-### **`allowImportsFrom`**: `(string | string[])[]` <a id="allow-imports-from"></a>
+### `allowImportsFrom`: `(string | string[])[]` <a id="allow-imports-from"></a>
 
 The place where you specify what can be imported into your module.<br>
 
-You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.<br>
+You can use all [micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every) functionalities.<br>
 
-If at least **one** pattern in **`allowImportsFrom`** meets the condition, the import is considered allowed.<br>
+If at least **one** pattern in `allowImportsFrom` meets the condition, the import is considered allowed.<br>
 
 > [!WARNING]
 > The order of patterns matters! They are checked from top to bottom.
@@ -436,7 +436,7 @@ If at least **one** pattern in **`allowImportsFrom`** meets the condition, the i
 }
 ```
 
-### **`errorMessage`**: `string | undefined` <a id="error-message"></a>
+### `errorMessage`: `string | undefined` <a id="error-message"></a>
 
 Here, you can set your custom error for a given module.
 
@@ -444,7 +444,7 @@ Here, you can set your custom error for a given module.
 { "modules": [{ "errorMessage": "My custom module error." }] }
 ```
 
-### **`allowExternalImports`**: `<boolean | undefined>` <a id="allow-external-imports"></a>
+### `allowExternalImports`: `<boolean | undefined>` <a id="allow-external-imports"></a>
 
 Here you can enable/disable the ability to import external imports (node_modules) in a given module.<br>
 
@@ -462,11 +462,11 @@ The default value is true.
 }
 ```
 
-### **`reusableImportPatterns`**: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
+### `reusableImportPatterns`: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
 
 To avoid repetitions, you can create reusable import patterns. <br>
-By writing **`"{yourKey}"`** you refer to a particular key in the **`reusableImportPatterns`** object,<br>
-you can use this reference in **`reusableImportPatterns`** and in [**`"allowImportsFrom"`**](#allow-imports-from).<br>
+By writing `"{yourKey}"` you refer to a particular key in the `reusableImportPatterns` object,<br>
+you can use this reference in `reusableImportPatterns` and in [`"allowImportsFrom"`](#allow-imports-from).<br>
 
 The library will automatically inform you about all usage errors such as: Infinite recursion, too many array nests. e.t.c.
 
@@ -506,21 +506,21 @@ The library will automatically inform you about all usage errors such as: Infini
 }
 ```
 
-### **`debugMode`**: `boolean | undefined` <a id="debug-mode"></a>
+### `debugMode`: `boolean | undefined` <a id="debug-mode"></a>
 
-Debug mode showing the current [**`allowImportsFrom`**](#allow-imports-from), [**`{family}`**](#family), and [**`{dirname}`**](#dirname) for a given import.<br>
+Debug mode showing the current [`allowImportsFrom`](#allow-imports-from), [`{family}`](#family), and [`{dirname}`](#dirname) for a given import.<br>
 The default value is `false`.
 
 ```jsonc
 { "debugMode": true }
 ```
 
-### **`{family}`** <a id="family"></a>
+### `{family}` <a id="family"></a>
 
-**`{family}`** reference finds the common part between the import and the current file. <br>
+`{family}` reference finds the common part between the import and the current file. <br>
 By default, at least **two** common parts are required, [`baseUrl`](#path-aliases) is not taken into account.<br>
 This will make your rule work **recursively**/apply to all nestings.<br>
-You can change the number of parts required, **`{family_1}`** at least one, **`{family_3}`** at least three common part etc.<br>
+You can change the number of parts required, `{family_1}` at least one, `{family_3}` at least three common part etc.<br>
 
 ```
 Example 1
@@ -555,12 +555,12 @@ Import          = "features/Feature2/Feature2.types.ts"
 {family_1}      = "features"
 ```
 
-### **`{dirname}`** <a id="dirname"></a>
+### `{dirname}` <a id="dirname"></a>
 
 Reference to the directory of the file you are currently in.
 
-By default, **`{dirname}`** will refer to the nearest directory of the given file you are in.
-You can determine the directory lvl by the following notation **`{dirname_2}`**, **`{dirname_3}`** and so on.
+By default, `{dirname}` will refer to the nearest directory of the given file you are in.
+You can determine the directory lvl by the following notation `{dirname_2}`, `{dirname_3}` and so on.
 
 ```
 Example 1

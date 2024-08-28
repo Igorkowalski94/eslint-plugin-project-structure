@@ -2,31 +2,31 @@
 
 Enforce rules on folder structure to keep your project consistent, orderly and well thought out.
 
-#### Features:
+#### 🚀 Features:
 
-✅ Validation of folder structure. Any files/folders outside the structure will be considered an error.<br>
-✅ File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.<br>
-✅ Build in case validation.<br>
-✅ Inheriting the folder's name. The file/folder inherits the name of the folder in which it is located. Option of adding your own prefixes/suffixes or changing the case.<br>
-✅ Enforcing the existence of a files/folders when a specific file/folder exists. For example, if `./src/Component.tsx` exists, then `./src/Component.test.tsx` and `./src/stories/Component.stories.tsx` must also exist.<br>
-✅ Reusable rules for folder structures.<br>
-✅ An option to create a separate configuration file with TypeScript support.<br>
-✅ Forcing a nested/flat structure for a given folder.<br>
-✅ Support for all file extensions.<br>
-✅ Folder recursion. You can nest a given folder structure recursively.<br>
-✅ Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.<br>
+- Validation of folder structure. Any files/folders outside the structure will be considered an error.
+- File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.
+- Build in case validation.
+- Inheriting the folder's name. The file/folder inherits the name of the folder in which it is located. Option of adding your own prefixes/suffixes or changing the case.
+- Enforcing the existence of a files/folders when a specific file/folder exists. For example, if `./src/Component.tsx` exists, then `./src/Component.test.tsx` and `./src/stories/Component.stories.tsx` must also exist.
+- Reusable rules for folder structures.
+- An option to create a separate configuration file with TypeScript support.
+- Forcing a nested/flat structure for a given folder.
+- Support for all file extensions.
+- Folder recursion. You can nest a given folder structure recursively.
+- Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
 
-[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
-If you have any questions or need help creating a configuration that meets your requirements, **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
+If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
 ### Documentation:
 
-- **[Migration guide to 2.2.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)**
-- **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
-- **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
+- [Migration guide to 2.2.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)
+- [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
+- [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
 ### Go to:
 
@@ -63,10 +63,10 @@ npm i --dev eslint-plugin-project-structure
 
 ### Step 1
 
-Add the following lines to **`eslint.config.mjs`**.
+Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
@@ -134,10 +134,10 @@ export default tseslint.config(
 
 ### Step 2
 
-Create a **`folderStructure.mjs`** in the root of your project.<br>
+Create a `folderStructure.mjs` in the root of your project.<br>
 
 > [!NOTE]  
->  **`folderStructure.json`** and **`folderStructure.yaml`** are also supported. See an example in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  `folderStructure.json` and `folderStructure.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 #### Simple example for the structure below:
 
@@ -282,15 +282,15 @@ export const folderStructureConfig = createFolderStructure({
 });
 ```
 
-### **`ignorePatterns`**: `string[] | undefined` <a id="ignore-patterns"></a>
+### `ignorePatterns`: `string[] | undefined` <a id="ignore-patterns"></a>
 
-Here you can set the paths you want to ignore. You can use all **[micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some)** functionalities.
+Here you can set the paths you want to ignore. You can use all [micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some) functionalities.
 
 ```jsonc
 { "ignorePatterns": ["src/legacy/**"] }
 ```
 
-### **`name`**: `string | undefined` <a id="name"></a>
+### `name`: `string | undefined` <a id="name"></a>
 
 The name is treated as a `regex`.
 
@@ -302,11 +302,11 @@ The following improvements are automatically added to the regex:
 - All `*` characters will be converted to `(([^/]*)+)` (wildcard).
   If you want original behavior, use the following notation `**`.
 
-When used with **[children](#children)** this will be the name of **`folder`**.<br>
-When used without **[children](#children)** this will be the name of **`file`**.<br>
+When used with [children](#children) this will be the name of `folder`.<br>
+When used without [children](#children) this will be the name of `file`.<br>
 
 > [!NOTE]
-> If you only care about the name of the **`folder`** without rules for its **[children](#children)**, leave the **[children](#children)** as **`[]`**.
+> If you only care about the name of the `folder` without rules for its [children](#children), leave the [children](#children) as `[]`.
 
 ```jsonc
 { "name": "fileName.*" }
@@ -316,11 +316,11 @@ When used without **[children](#children)** this will be the name of **`file`**.
 { "name": "folderName", "children": [] }
 ```
 
-### **`regexParameters`**: `Record<string, string> | undefined` <a id="regex-parameters"></a>
+### `regexParameters`: `Record<string, string> | undefined` <a id="regex-parameters"></a>
 
 A place where you can add your own regex parameters.<br>
-You can use **[built-in regex parameters](#built-in-regex-parameters)**. You can overwrite them with your logic, exceptions are **[parentName](#parent-name-lower)** and **[ParentName](#parent-name-upper)** overwriting them will be ignored.<br>
-You can freely mix regex parameters together see **[example](#regex-parameters-mix-example)**.
+You can use [built-in regex parameters](#built-in-regex-parameters). You can overwrite them with your logic, exceptions are [parentName](#parent-name-lower) and [ParentName](#parent-name-upper) overwriting them will be ignored.<br>
+You can freely mix regex parameters together see [example](#regex-parameters-mix-example).
 
 ```jsonc
 {
@@ -333,7 +333,7 @@ You can freely mix regex parameters together see **[example](#regex-parameters-m
 }
 ```
 
-Then you can use them in **[name](#name)** with the following notation **`{yourRegexParameter}`**.
+Then you can use them in [name](#name) with the following notation `{yourRegexParameter}`.
 
 ```jsonc
 { "name": "{yourRegexParameter}" }
@@ -341,55 +341,55 @@ Then you can use them in **[name](#name)** with the following notation **`{yourR
 
 #### Built-in regex parameters
 
-**`{parentName}`**<a id="parent-name-lower"></a><br>
-The file/folder inherits the name of the **`folder`** in which it is located and sets its **first letter** to **`lowercase`**.
+`{parentName}`<a id="parent-name-lower"></a><br>
+The file/folder inherits the name of the `folder` in which it is located and sets its **first letter** to `lowercase`.
 
 ```jsonc
 { "name": "{parentName}" }
 ```
 
-**`{ParentName}`**<a id="parent-name-upper"></a><br>
-The file/folder inherits the name of the **`folder`** in which it is located and sets its **first letter** to **`uppercase`**.
+`{ParentName}`<a id="parent-name-upper"></a><br>
+The file/folder inherits the name of the `folder` in which it is located and sets its **first letter** to `uppercase`.
 
 ```jsonc
 { "name": "{ParentName}" }
 ```
 
-**`{PascalCase}`**<br>
-Add **`PascalCase`** validation to your regex.<br>
-The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
+`{PascalCase}`<br>
+Add `PascalCase` validation to your regex.<br>
+The added regex is `[A-Z](([a-z0-9]+[A-Z]?)*)`.
 
 ```jsonc
 { "name": "{PascalCase}" }
 ```
 
-**`{camelCase}`**<br>
-Add **`camelCase`** validation to your regex.<br>
-The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`**.
+`{camelCase}`<br>
+Add `camelCase` validation to your regex.<br>
+The added regex is `[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`.
 
 ```jsonc
 { "name": "{camelCase}" }
 ```
 
-**`{snake_case}`**<br>
-Add **`snake_case`** validation to your regex.<br>
-The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
+`{snake_case}`<br>
+Add `snake_case` validation to your regex.<br>
+The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
 ```jsonc
 { "name": "{snake_case}" }
 ```
 
-**`{SNAKE_CASE}`**<br>
-Add **`SNAKE_CASE`** validation to your regex.<br>
-The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
+`{SNAKE_CASE}`<br>
+Add `SNAKE_CASE` validation to your regex.<br>
+The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 
 ```jsonc
 { "name": "{SNAKE_CASE}" }
 ```
 
-**`{kebab-case}`**<br>
-Add **`kebab-case`** validation to your regex.<br>
-The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
+`{kebab-case}`<br>
+Add `kebab-case` validation to your regex.<br>
+The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
 
 ```jsonc
 { "name": "{kebab-case}" }
@@ -397,7 +397,7 @@ The added regex is **`((([a-z]|\d)+-)*([a-z]|\d)+)`**.
 
 #### Regex parameters mix example <a id="regex-parameters-mix-example"></a>
 
-Here are some examples of how easy it is to combine **[regex parameters](#regex-parameters)**.
+Here are some examples of how easy it is to combine [regex parameters](#regex-parameters).
 
 ```jsonc
 // useNiceHook.ts
@@ -413,9 +413,9 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 { "name": "{ParentName}.{snake_case}(.(test|api))?.ts" }
 ```
 
-### **`children`**: `Rule[] | undefined` <a id="children"></a>
+### `children`: `Rule[] | undefined` <a id="children"></a>
 
-**`Folder`** children rules.<br>
+`Folder` children rules.<br>
 
 > [!WARNING]
 > Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
@@ -424,7 +424,7 @@ Here are some examples of how easy it is to combine **[regex parameters](#regex-
 { "children": [{ "name": "Child" }] }
 ```
 
-### **`enforceExistence`**: `string[] | undefined` <a id="enforce-existence"></a>
+### `enforceExistence`: `string[] | undefined` <a id="enforce-existence"></a>
 
 Enforce the existence of other folders/files when a given folder/file exists.
 
@@ -468,15 +468,15 @@ In `enforceExistence`, two references are available for use:
 }
 ```
 
-### **`structure`**: `Rule | Rule[]` <a id="structure"></a>
+### `structure`: `Rule | Rule[]` <a id="structure"></a>
 
 The structure of your project and its rules.
 
 > [!WARNING]
-> Make sure your **`tsconfig`**/**`eslint.config.mjs`** and the script to run ESLint, contains all the **`files`**/**`folders`** you want to validate. Otherwise **`eslint`** will not take them into account.
+> Make sure your `tsconfig`/`eslint.config.mjs` and the script to run ESLint, contains all the `files`/`folders` you want to validate. Otherwise `eslint` will not take them into account.
 
 > [!TIP]
-> I recommend creating reusable **[rules](#rules)** for each folder and using the **[ruleId](#ruleid)** in the **[structure](#structure)** for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground/blob/main/folderStructure.mjs).
+> I recommend creating reusable [rules](#rules) for each folder and using the [ruleId](#ruleid) in the [structure](#structure) for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground/blob/main/folderStructure.mjs).
 
 ```
 .
@@ -519,10 +519,10 @@ or
 }
 ```
 
-### **`rules`**: `Record<string, Rule> | undefined` <a id="rules"></a>
+### `rules`: `Record<string, Rule> | undefined` <a id="rules"></a>
 
-A place where you can add your reusable rules. This is useful when you want to avoid a lot of repetition in your **[structure](#structure)** or use **[folder recursion](#folder-recursion)** feature.<br>
-The key in the object will correspond to **[ruleId](#ruleid)**, which you can then use in many places.
+A place where you can add your reusable rules. This is useful when you want to avoid a lot of repetition in your [structure](#structure) or use [folder recursion](#folder-recursion) feature.<br>
+The key in the object will correspond to [ruleId](#ruleid), which you can then use in many places.
 
 ```jsonc
 {
@@ -532,7 +532,7 @@ The key in the object will correspond to **[ruleId](#ruleid)**, which you can th
 }
 ```
 
-### **`ruleId`**: `string | undefined` <a id="ruleid"></a>
+### `ruleId`: `string | undefined` <a id="ruleid"></a>
 
 A reference to your reusable rule.
 
@@ -540,8 +540,8 @@ A reference to your reusable rule.
 { "ruleId": "yourReusableRule" }
 ```
 
-You can use it with other keys like **[name](#name)** and **[children](#children)** but remember that they will **override** the keys from your reusable rule.<br>
-This is useful if you want to get rid of a lot of repetition in your structure, for example, **`folders`** have different **[name](#name)**, but the same **[children](#children)**.
+You can use it with other keys like [name](#name) and [children](#children) but remember that they will **override** the keys from your reusable rule.<br>
+This is useful if you want to get rid of a lot of repetition in your structure, for example, `folders` have different [name](#name), but the same [children](#children).
 
 ```
 .
@@ -599,7 +599,7 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 
 ## Folder recursion
 
-You can easily create recursions when you refer to the same **[ruleId](#ruleid)** that your rule has.<br>
+You can easily create recursions when you refer to the same [ruleId](#ruleid) that your rule has.<br>
 Let's assume you want all files in the `src` folder to follow `{PascalCase}` with any file extension, and all folders to follow `{camelCase}`.<br>
 In this case, the recursion will look like this:<br>
 

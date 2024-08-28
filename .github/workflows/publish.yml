@@ -1,49 +1,45 @@
-name: Publish new version
+name: Publish
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "Choose version to bump"
-        required: true
-        default: "patch"
-        type: choice
-        options:
-          - "patch"
-          - "minor"
-          - "major"
+  release:
+    types: [created]
 
 jobs:
-  publish:
-    name: publish
+  publish-npm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "14.x"
+          node-version: "20.4.0"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Config git
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git config --global push.followTags true
+      - name: Enable Corepack
+        run: corepack enable
 
-      - name: Install dependencies
-        run: yarn --non-interactive --frozen-lockfile --ignore-scripts
+      - name: Set Yarn version
+        run: corepack prepare yarn@3.6.3 --activate
 
-      - name: Build lib
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.yarn
+            .yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Build
         run: yarn build
 
-      - name: Publish new version
-        run: |
-          npm version ${{ github.event.inputs.version }}
-          npm publish
+      - name: Publish
+        run: npm publish --provenance --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Push to main
-        run: git push
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

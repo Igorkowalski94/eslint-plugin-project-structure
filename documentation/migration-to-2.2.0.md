@@ -177,35 +177,35 @@ The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
 
 ## **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
 
-A key principle of a healthy project is to prevent the creation of a massive dependency tree,<br>
-where removing or editing one feature triggers a chain reaction that impacts the entire project.<br>
-Create independent modules to keep your project scalable and easy to maintain.<br>
-Get rid of dependencies between modules and create truly independent functionalities.<br>
+A key principle of a healthy project is to prevent the creation of a massive dependency tree,
+where removing or editing one feature triggers a chain reaction that impacts the entire project.
+Create independent modules to keep your project scalable and easy to maintain.
+Get rid of dependencies between modules and create truly independent functionalities.
 
-#### Features:
+#### 🚀 Features:
 
-✅ Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).<br>
-✅ Disabling external imports (node_modules) for a given module (Option to add exceptions). <br>
-✅ Non-relative/relative imports support. <br>
-✅ Support for imports without extension. <br>
-✅ Reusable import patterns. <br>
-✅ Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.<br>
-✅ An option to create a separate configuration file with TypeScript support.<br>
+- Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
+- Disabling external imports (node_modules) for a given module (Option to add exceptions).
+- Non-relative/relative imports support.
+- Support for imports without extension.
+- Reusable import patterns.
+- Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
+- An option to create a separate configuration file with TypeScript support.
 
 ## **[project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)**
 
-Enforce complex naming rules and prohibit the use of given selectors in a given file.<br>
-Have full control over what your file can contain and the naming conventions it must follow.<br>
+Enforce complex naming rules and prohibit the use of given selectors in a given file.
+Have full control over what your file can contain and the naming conventions it must follow.
 
-#### Features:
+#### 🚀 Features:
 
-✅ Naming validation.<br>
-✅ Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.<br>
-✅ Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.<br>
-✅ Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.<br>
-✅ Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.<br>
-✅ Enforcing a maximum of one main function/class per file.<br>
-✅ Different name rules for different files.<br>
-✅ Regex validation.<br>
-✅ Build in case validation.<br>
-✅ An option to create a separate configuration file with TypeScript support.<br>
+- Naming validation.
+- Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.
+- Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.
+- Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.
+- Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.
+- Enforcing a maximum of one main function/class per file.
+- Different name rules for different files.
+- Regex validation.
+- Build in case validation.
+- An option to create a separate configuration file with TypeScript support.

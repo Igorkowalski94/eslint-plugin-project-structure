@@ -1,31 +1,31 @@
 # project-structure/naming-rules
 
-Enforce complex naming rules and prohibit the use of given selectors in a given file.<br>
-Have full control over what your file can contain and the naming conventions it must follow.<br>
+Enforce complex naming rules and prohibit the use of given selectors in a given file.
+Have full control over what your file can contain and the naming conventions it must follow.
 
-#### Features:
+#### 🚀 Features:
 
-✅ Naming validation.<br>
-✅ Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.<br>
-✅ Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.<br>
-✅ Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.<br>
-✅ Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.<br>
-✅ Enforcing a maximum of one main function/class per file.<br>
-✅ Different name rules for different files.<br>
-✅ Regex validation.<br>
-✅ Build in case validation.<br>
-✅ An option to create a separate configuration file with TypeScript support.<br>
+- Naming validation.
+- Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.
+- Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.
+- Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.
+- Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.
+- Enforcing a maximum of one main function/class per file.
+- Different name rules for different files.
+- Regex validation.
+- Build in case validation.
+- An option to create a separate configuration file with TypeScript support.
 
-[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
-If you have any questions or need help creating a configuration that meets your requirements, **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions)**, issues / an idea for a new functionality **[click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose)**.
+If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
 ### Documentation:
 
-- **[project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)**
-- **[project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)**
+- [project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
+- [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
 
 ### Go to:
 
@@ -54,10 +54,10 @@ npm i --dev eslint-plugin-project-structure
 
 ## Getting started
 
-Add the following lines to **`eslint.config.mjs`**.
+Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
@@ -93,10 +93,10 @@ export default tseslint.config({
 
 #### Example:
 
-Create a **`namingRules.mjs`** in the root of your project.<br>
+Create a `namingRules.mjs` in the root of your project.<br>
 
 > [!NOTE]  
->  **`namingRules.json`** and **`namingRules.yaml`** are also supported. See an example in the [**playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  `namingRules.json` and `namingRules.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 > [!WARNING]  
 > Remember to include `// @ts-check`, otherwise type checking won't be enabled.
@@ -214,16 +214,16 @@ const transformUserData = ({
 
 ## API:
 
-### **`filePattern`**: `string | string[]` <a id="file-pattern"></a>
+### `filePattern`: `string | string[]` <a id="file-pattern"></a>
 
-Here you define which files should meet the rules. You can use all **[micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every)** functionalities.
+Here you define which files should meet the rules. You can use all [micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every) functionalities.
 
 ```jsonc
 // Name rules for all .ts files except index.ts
 { "filePattern": ["**/*.ts", "!(**/index.ts)"] }
 ```
 
-### **`fileExportRules, fileRootRules, fileRules`**: `NamingRule[] | NamingRuleObject` <a id="file-rules"></a>
+### `fileExportRules, fileRootRules, fileRules`: `NamingRule[] | NamingRuleObject` <a id="file-rules"></a>
 
 The plugin allows setting rules for exported [selectors](#selector) via `fileExportsRules`, [selectors](#selector) in the root of the file via `fileRootRules` and nested/all [selectors](#selector) in the file via `fileRules`. They can be used together in combination.
 
@@ -262,7 +262,7 @@ There are two types of notations available:
 }
 ```
 
-### **`allowOnlySpecifiedSelectors`**: `boolean | undefined` <a id="allow-only-specified-selectors"></a>
+### `allowOnlySpecifiedSelectors`: `boolean | undefined` <a id="allow-only-specified-selectors"></a>
 
 With `allowOnlySpecifiedSelectors`, you can prohibit the use of selectors that you haven’t explicitly specified for the file.
 
@@ -276,7 +276,7 @@ With `allowOnlySpecifiedSelectors`, you can prohibit the use of selectors that y
 }
 ```
 
-### **`errors`**: `Record<Selector, string> | undefined` <a id="errors"></a>
+### `errors`: `Record<Selector, string> | undefined` <a id="errors"></a>
 
 Additional errors for individual selectors. Useful if you want to provide more information to your team members and explain why a particular selector is prohibited in a given file.
 
@@ -301,19 +301,19 @@ Available only when [allowOnlySpecifiedSelectors](#allow-only-specified-selector
 }
 ```
 
-### **`selector`**: `Selector | Selector[]` <a id="selector"></a>
+### `selector`: `Selector | Selector[]` <a id="selector"></a>
 
 Here you define the selector or selectors you are interested in.<br>
 
 Available selectors:<br>
 
-- **`"class"`**<br>
-- **`"variable"`**<br>
-- **`"function"`**<br>
-- **`"arrowFunction"`**<br>
-- **`"type"`**<br>
-- **`"interface"`**<br>
-- **`"enum"`**<br>
+- `"class"`<br>
+- `"variable"`<br>
+- `"function"`<br>
+- `"arrowFunction"`<br>
+- `"type"`<br>
+- `"interface"`<br>
+- `"enum"`<br>
 
 ```jsonc
 {
@@ -325,12 +325,12 @@ Available selectors:<br>
 }
 ```
 
-### **`filenamePartsToRemove`**: `string[] | undefined` <a id="filename-parts-to-remove"></a>
+### `filenamePartsToRemove`: `string[] | undefined` <a id="filename-parts-to-remove"></a>
 
 Useful if you use prefixes in your filenames and don't want them to be part of the [selector](#selector) name.
 
 > [!NOTE]
-> Only taken into account when using [**`references`**](#references) with filename.
+> Only taken into account when using [`references`](#references) with filename.
 
 ```jsonc
 {
@@ -345,7 +345,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 }
 ```
 
-### **`format`**: `string[] | undefined` <a id="format"></a>
+### `format`: `string[] | undefined` <a id="format"></a>
 
 The format that the given [selector](#selector) must adhere to.<br>
 It is treated as a regular expression. If the [selector](#selector) name matches at least one regular expression, it will be considered valid.<br>
@@ -355,7 +355,7 @@ The following improvements are automatically added to the regular expression:
 - regular expression is automatically wrapped in `^$`.
 
 > [!NOTE]
-> If you do not specify **`format`**, the default value is **[{camelCase}](#camel-case)**.
+> If you do not specify `format`, the default value is [{camelCase}](#camel-case).
 
 ```jsonc
 {
@@ -377,61 +377,61 @@ The following improvements are automatically added to the regular expression:
 
 #### References
 
-**`{filename_camelCase}`**<br>
-Take the name of the file you are currently in and change it to **`camelCase`**.
+`{filename_camelCase}`<br>
+Take the name of the file you are currently in and change it to `camelCase`.
 
 ```jsonc
 { "format": ["{filename_camelCase}"] }
 ```
 
-**`{filename_PascalCase}`**<br>
-Take the name of the file you are currently in and change it to **`PascalCase`**.
+`{filename_PascalCase}`<br>
+Take the name of the file you are currently in and change it to `PascalCase`.
 
 ```jsonc
 { "format": ["{filename_PascalCase}"] }
 ```
 
-**`{filename_snake_case}`**<br>
-Take the name of the file you are currently in and change it to **`snake_case`**.
+`{filename_snake_case}`<br>
+Take the name of the file you are currently in and change it to `snake_case`.
 
 ```jsonc
 { "format": ["{filename_snake_case}"] }
 ```
 
-**`{filename_SNAKE_CASE}`**<br>
-Take the name of the file you are currently in and change it to **`SNAKE_CASE`**.
+`{filename_SNAKE_CASE}`<br>
+Take the name of the file you are currently in and change it to `SNAKE_CASE`.
 
 ```jsonc
 { "format": ["{filename_SNAKE_CASE}"] }
 ```
 
-**`{camelCase}`**<a id="camel-case"></a><br>
-Add **`camelCase`** validation to your regex.<br>
-The added regex is **`[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`**.
+`{camelCase}`<a id="camel-case"></a><br>
+Add `camelCase` validation to your regex.<br>
+The added regex is `[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`.
 
 ```jsonc
 { "format": ["{camelCase}"] }
 ```
 
-**`{PascalCase}`**<a id="pascal-case"></a><br>
-Add **`PascalCase`** validation to your regex.<br>
-The added regex is **`[A-Z](([a-z0-9]+[A-Z]?)*)`**.
+`{PascalCase}`<a id="pascal-case"></a><br>
+Add `PascalCase` validation to your regex.<br>
+The added regex is `[A-Z](([a-z0-9]+[A-Z]?)*)`.
 
 ```jsonc
 { "format": ["{PascalCase}"] }
 ```
 
-**`{snake_case}`**<br>
-Add **`snake_case`** validation to your regex.<br>
-The added regex is **`((([a-z]|\d)+_)*([a-z]|\d)+)`**.
+`{snake_case}`<br>
+Add `snake_case` validation to your regex.<br>
+The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
 ```jsonc
 { "format": ["{snake_case}"] }
 ```
 
-**`{SNAKE_CASE}`**<br>
-Add **`SNAKE_CASE`** validation to your regex.<br>
-The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
+`{SNAKE_CASE}`<br>
+Add `SNAKE_CASE` validation to your regex.<br>
+The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 
 ```jsonc
 { "format": ["{SNAKE_CASE}"] }
