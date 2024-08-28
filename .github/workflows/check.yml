@@ -17,7 +17,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: npm run install
+        run: npm install
 
       - name: deadCode:check
         run: npm run deadCode:check
