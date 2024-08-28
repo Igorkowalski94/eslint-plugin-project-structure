@@ -1,6 +1,5 @@
-# project-structure/folder-structure
-
-Enforce rules on folder structure to keep your project consistent, orderly and well thought out.
+<h1 align="center">project-structure/folder-structure</h1>
+<p align="center">Enforce rules on folder structure to keep your project consistent, orderly and well thought out.</p>
 
 #### 🚀 Features:
 

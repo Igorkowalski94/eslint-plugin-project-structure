@@ -1,18 +1,14 @@
-# eslint-plugin-project-structure
+<h1 align="center">eslint-plugin-project-structure</h1>
+<p align="center">ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.</p>
+<p align="center">Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules.</p>
+<p align="center">Take your project to the next level and save time by automating the review of key principles for a healthy project!</p>
 
-[![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg)](https://www.npmjs.com/package/eslint-plugin-project-structure)
-[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg)](https://www.npmjs.com/package/eslint-plugin-project-structure)
-[![Build and Test](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml/badge.svg)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml)
-[![npm](https://img.shields.io/npm/l/eslint-plugin-project-structure)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/LICENCE)
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red)](https://github.com/sponsors/Igorkowalski94)
-
-ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.
-
-Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules.
-
-Take your project to the next level and save time by automating the review of key principles for a healthy project!
-
-[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+<p align="center">
+    <a href="https://www.npmjs.com/package/eslint-plugin-project-structure"><img src="https://img.shields.io/npm/v/eslint-plugin-project-structure.svg" alt="npm" /></a>
+    <a href="https://www.npmjs.com/package/eslint-plugin-project-structure"><img src="https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg" alt="npm downloads" /></a>
+    <a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml"><img src="https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml/badge.svg" alt="Check code, test and build" /></a>
+    <a href="https://github.com/sponsors/Igorkowalski94"><img src="https://img.shields.io/badge/Sponsor-%E2%9D%A4-red" alt="Sponsor" /></a>
+</p>
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
@@ -26,6 +22,8 @@ If you have any questions or need help creating a configuration that meets your 
 - [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
 ### Rules:
+
+[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 ## [project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
 
