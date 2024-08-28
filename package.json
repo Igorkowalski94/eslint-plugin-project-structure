@@ -3,7 +3,7 @@
   "name": "eslint-plugin-project-structure",
   "version": "2.2.4",
   "license": "MIT",
-  "description": "Eslint plugin with rules that will help you achieve a project structure that is scalable, consistent, and well thought out. Whether you're working alone or with a small or large team, save time by automating the reviews of key principles for a healthy project!",
+  "description": "ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project. Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules. Take your project to the next level and save time by automating the review of key principles for a healthy project!",
   "keywords": [
     "eslint",
     "eslint-plugin",
