@@ -16,23 +16,39 @@ jobs:
           node-version: "20.4.0"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set Yarn version
+        run: corepack prepare yarn@3.6.3 --activate
+
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.yarn
+            .yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
       - name: Install dependencies
-        run: npm install
+        run: yarn install --frozen-lockfile
 
       - name: deadCode:check
-        run: npm run deadCode:check
+        run: yarn deadCode:check
 
       - name: lint:check
-        run: npm run lint:check
+        run: yarn lint:check
 
       - name: types:check
-        run: npm run types:check
+        run: yarn types:check
 
       - name: format:check
-        run: npm run format:check
+        run: yarn format:check
 
       - name: test:check
-        run: npm run test:check
+        run: yarn test:check
 
   publish-npm:
     needs: checkAll
