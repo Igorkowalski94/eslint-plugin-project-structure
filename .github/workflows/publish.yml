@@ -4,7 +4,38 @@ on:
   workflow_dispatch:
 
 jobs:
+  checkAll:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.4.0"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm run install --frozen-lockfile
+
+      - name: deadCode:check
+        run: npm run deadCode:check
+
+      - name: lint:check
+        run: npm run lint:check
+
+      - name: types:check
+        run: npm run types:check
+
+      - name: format:check
+        run: npm run format:check
+
+      - name: test:check
+        run: npm run test:check
+
   publish-npm:
+    needs: checkAll
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -19,24 +50,8 @@ jobs:
           node-version: "20.4.0"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Set Yarn version
-        run: corepack prepare yarn@3.6.3 --activate
-
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.yarn
-            .yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Publish
         run: npm publish --provenance --access public
