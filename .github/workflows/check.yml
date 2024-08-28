@@ -17,7 +17,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: npm run install --frozen-lockfile
+        run: npm run install
 
       - name: deadCode:check
         run: npm run deadCode:check
