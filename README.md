@@ -8,7 +8,7 @@
 
 ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.
 
-Create your own framework today! Define your folder structure, advanced naming conventions, file composition, and create independent modules.
+Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules.
 
 Take your project to the next level and save time by automating the review of key principles for a healthy project!
 

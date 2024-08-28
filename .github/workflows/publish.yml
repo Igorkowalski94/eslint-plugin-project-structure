@@ -5,6 +5,9 @@ on:
     types: [created]
 
 jobs:
+  workflow_dispatch:
+    inputs: publish
+
   publish-npm:
     runs-on: ubuntu-latest
     permissions:
