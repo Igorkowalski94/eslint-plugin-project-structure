@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  checkAll:
+  check-all:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,8 +50,8 @@ jobs:
       - name: test:check
         run: yarn test:check
 
-  publish-npm:
-    needs: checkAll
+  publish:
+    needs: check-all
     runs-on: ubuntu-latest
     permissions:
       contents: read

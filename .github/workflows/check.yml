@@ -1,10 +1,10 @@
-name: Build and test
+name: Check code, test and build
 
 on: [push]
 
 jobs:
   test:
-    name: Build and test
+    name: Check code, test and build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
