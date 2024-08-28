@@ -38,8 +38,6 @@ If you have any questions or need help creating a configuration that meets your 
 - [API](#api)
   - [ignorePatterns](#ignore-patterns)
   - [name](#name)
-    - [Fixed name](#fixed-name)
-    - [Regex](#regex)
   - [regexParameters](#regex-parameters)
     - [Built-in regex parameters](#built-in-regex-parameters)
     - [Regex parameters mix example](#regex-parameters-mix-example)
