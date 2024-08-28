@@ -15,7 +15,7 @@
 - Folder recursion. You can nest a given folder structure recursively.
 - Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
 
-### General information:
+## General information:
 
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -23,13 +23,13 @@ Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
 If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
-### Documentation:
+## Documentation:
 
 - [Migration guide to 2.2.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)
 - [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
 - [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
-### Go to:
+## Go to:
 
 - [Installation](#installation)
 - [Getting started](#getting-started)
@@ -282,6 +282,8 @@ export const folderStructureConfig = createFolderStructure({
   },
 });
 ```
+
+## API:
 
 ### `ignorePatterns`: `string[] | undefined` <a id="ignore-patterns"></a>
 

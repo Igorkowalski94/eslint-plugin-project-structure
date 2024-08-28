@@ -4,7 +4,7 @@ Version 2.2.0 introduces two new rules and minor configuration improvements.
 
 A minor configuration fix will be required for version <= 1.4.7.
 
-### General changes:
+## General changes:
 
 - A shorter notation option for [structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#structure).
 - New build-in {SNAKE_CASE} regexParameter.
@@ -16,7 +16,7 @@ A minor configuration fix will be required for version <= 1.4.7.
 - Improved error messages for folder-structure.
 - Easier configuration of folder-structure. The "extension" key has been removed, now the file extension will be part of the "name". You don't need to add /^$/ to your regex, they will be added automatically and other improvements.
 
-### Changes for the file .eslintrc
+## Changes for the file .eslintrc
 
 From:
 
@@ -92,7 +92,7 @@ To:
 }
 ```
 
-### Changes for the projectStructure.json => folderStructure.json
+## Changes for the projectStructure.json => folderStructure.json
 
 From:
 
@@ -110,7 +110,7 @@ To:
 }
 ```
 
-### Changes for the regexParameters and name.
+## Changes for the regexParameters and name.
 
 The name is treated as a `regex`.
 
@@ -134,7 +134,7 @@ To: {key}
 { "name": "{parentName}" }
 ```
 
-### Changes for build-in PascalCase
+## Changes for build-in PascalCase
 
 Allowed before: Component, ComponentName, ComponentName1, ComponenTTName, COMPONENTNAME.<br>
 Allowed now: Component, ComponentName, ComponentName1<br>
@@ -142,7 +142,7 @@ Allowed now: Component, ComponentName, ComponentName1<br>
 From: `((([A-Z]|\d){1}([a-z]|\d)*)*([A-Z]|\d){1}([a-z]|\d)*)`<br>
 To: `[A-Z](([a-z0-9]+[A-Z]?)*)`<br>
 
-### Changes for build-in camelCase
+## Changes for build-in camelCase
 
 Allowed before: component, componentName, componentName1, componenTTName, cOMPONENTNAME.<br>
 Allowed now: component, componentName, componentName1.<br>
@@ -161,19 +161,19 @@ You can go back to the old settings via [regexParameters](https://github.com/Igo
 }
 ```
 
-### New build-in SNAKE_CASE
+## New build-in SNAKE_CASE
 
-**`{SNAKE_CASE}`**<br>
-Add **`SNAKE_CASE`** validation to your regex.<br>
-The added regex is **`((([A-Z]|\d)+_)*([A-Z]|\d)+)`**.
+`{SNAKE_CASE}`<br>
+Add `SNAKE_CASE` validation to your regex.<br>
+The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 
 ```jsonc
 { "name": "{SNAKE_CASE}" }
 ```
 
-### New rules:
+## New rules:
 
-[**Playground**](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md">project-structure-independent-modules</a></h2>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,
