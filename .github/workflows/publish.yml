@@ -2,8 +2,6 @@ name: Publish
 
 on:
   workflow_dispatch:
-    inputs:
-      publish:
 
 jobs:
   publish-npm:
