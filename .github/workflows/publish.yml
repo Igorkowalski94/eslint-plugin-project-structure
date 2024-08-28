@@ -23,7 +23,7 @@ jobs:
         run: corepack prepare yarn@3.6.3 --activate
 
       - name: Cache Yarn dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.yarn
