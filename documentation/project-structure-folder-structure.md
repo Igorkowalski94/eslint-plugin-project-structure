@@ -15,6 +15,8 @@
 - Folder recursion. You can nest a given folder structure recursively.
 - Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
 
+### General information:
+
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>

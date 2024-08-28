@@ -15,6 +15,8 @@
 - Build in case validation.
 - An option to create a separate configuration file with TypeScript support.
 
+### General information:
+
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>

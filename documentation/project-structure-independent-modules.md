@@ -13,6 +13,8 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
 - An option to create a separate configuration file with TypeScript support.
 
+### General information:
+
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>
