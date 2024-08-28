@@ -13,7 +13,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
 - An option to create a separate configuration file with TypeScript support.
 
-## General information:
+## General information
 
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -21,12 +21,12 @@ Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
 If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
-## Documentation:
+## Documentation
 
 - [project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
 - [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
-## Go to:
+## Go to
 
 - [Installation](#installation)
 - [Getting started](#getting-started)

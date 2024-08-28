@@ -4,7 +4,7 @@ Version 2.2.0 introduces two new rules and minor configuration improvements.
 
 A minor configuration fix will be required for version <= 1.4.7.
 
-## General changes:
+## General changes
 
 - A shorter notation option for [structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#structure).
 - New build-in {SNAKE_CASE} regexParameter.
@@ -171,7 +171,7 @@ The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 { "name": "{SNAKE_CASE}" }
 ```
 
-## New rules:
+## New rules
 
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
