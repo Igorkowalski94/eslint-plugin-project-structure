@@ -1,13 +1,11 @@
 name: Publish
 
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
+    inputs:
+      publish:
 
 jobs:
-  workflow_dispatch:
-    inputs: publish
-
   publish-npm:
     runs-on: ubuntu-latest
     permissions:
