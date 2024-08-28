@@ -1,7 +1,7 @@
 <h1 align="center">📁🦉eslint-plugin-project-structure</h1>
 <p align="center">ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.</p>
 <p align="center">Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules.</p>
-<p align="center">Take your project to the next level and save time by automating the review of key principles for a healthy project!</p>
+<p align="center">Take your project to the next level and save time by automating the review of key principles of a healthy project!</p>
 
 <p align="center">
     <a href="https://www.npmjs.com/package/eslint-plugin-project-structure"><img src="https://img.shields.io/npm/v/eslint-plugin-project-structure.svg" alt="npm" /></a>
