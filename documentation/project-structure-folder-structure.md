@@ -256,6 +256,8 @@ export const folderStructureConfig = createFolderStructure({
     // hooks/useHookName.ts
     // hooks/useHookName.test.ts
     // hooks/useHookName2/useHookName2.ts
+    // hooks/useHookName2/useHookName2.api.ts
+    // hooks/useHookName2/useHookName2.types.ts
     // hooks/useHookName2/useHookName2.test.ts
     // hooks/useHookName2/hooks/... All files and folders of the hooks_folder rule.
     hooks_folder: {
