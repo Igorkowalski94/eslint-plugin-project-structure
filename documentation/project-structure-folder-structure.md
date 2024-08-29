@@ -252,42 +252,42 @@ export const folderStructureConfig = createFolderStructure({
     },
   ],
   rules: {
-    // hooks/useHookName.ts
-    // hooks/useHookName.test.ts
-    // hooks/useHookName2/useHookName2.ts
-    // hooks/useHookName2/useHookName2.api.ts
-    // hooks/useHookName2/useHookName2.types.ts
-    // hooks/useHookName2/useHookName2.test.ts
-    // hooks/useHookName2/hooks/... All files and folders of the hooks_folder rule.
+    // useHookName/hooks/... All files and folders of the hooks_folder rule.
+    // useHookName/useHookName.test.ts
+    // useHookName/useHookName.api.ts
+    // useHookName/useHookName.types.ts
+    // useHookName/useHookName.ts
+    hook_folder: {
+      name: "use{PascalCase}",
+      children: [
+        { ruleId: "hooks_folder" },
+        { name: "{parentName}(.(test|api|types))?.ts" },
+      ],
+    },
+
+    // hooks/useHookName1/... All files and folders of the hook_folder rule.
+    // hooks/useHookName2.ts
+    // hooks/useHookName2.test.ts
     hooks_folder: {
       name: "hooks",
       children: [
-        {
-          name: "use{PascalCase}",
-          children: [
-            { ruleId: "hooks_folder" },
-            { name: "{parentName}(.(test|api|types))?.ts" },
-          ],
-        },
+        { ruleId: "hook_folder" },
         { name: "use{PascalCase}(.test)?.ts" },
       ],
     },
-    // components/ComponentName/ComponentName.tsx
-    // components/ComponentName/ComponentName.test.tsx
-    // components/ComponentName/componentName.types.ts
-    // components/ComponentName/componentName.api.ts
-    // components/ComponentName/hooks/... All files and folders of the hooks_folder rule.
-    // components/ComponentName/components/... All files and folders of the components_folder rule.
+
+    // components/ComponentName/... All files and folders of the component_folder rule.
     components_folder: {
       name: "components",
       children: [{ ruleId: "component_folder" }],
     },
-    // ComponentName/ComponentName.tsx
-    // ComponentName/ComponentName.test.tsx
+
+    // ComponentName/components/... All files and folders of the components_folder rule.
+    // ComponentName/hooks/... All files and folders of the hooks_folder rule.
     // ComponentName/componentName.types.ts
     // ComponentName/componentName.api.ts
-    // ComponentName/hooks/... All files and folders of the hooks_folder rule.
-    // ComponentName/components/... All files and folders of the components_folder rule.
+    // ComponentName/ComponentName.test.tsx
+    // ComponentName/ComponentName.tsx
     component_folder: {
       name: "{PascalCase}",
       children: [
