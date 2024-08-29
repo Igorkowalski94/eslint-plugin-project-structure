@@ -1,4 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { ESLINT_ERRORS } from "consts";
 
 import { handleCallExpression } from "rules/independentModules/helpers/handleCallExpression";
 import { handleExportNamedDeclaration } from "rules/independentModules/helpers/handleExportNamedDeclaration";
@@ -9,7 +10,7 @@ import { IndependentModulesConfig } from "rules/independentModules/independentMo
 export const independentModules = ESLintUtils.RuleCreator(
   () =>
     "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md",
-)<[IndependentModulesConfig] | [], "error">({
+)<[IndependentModulesConfig] | [], keyof typeof ESLINT_ERRORS>({
   name: "independent-modules",
   meta: {
     docs: {
@@ -19,7 +20,7 @@ export const independentModules = ESLintUtils.RuleCreator(
     },
     type: "problem",
     schema: [{ type: "object", additionalProperties: true }],
-    messages: { error: "" },
+    messages: ESLINT_ERRORS,
   },
   defaultOptions: [],
   create(context) {

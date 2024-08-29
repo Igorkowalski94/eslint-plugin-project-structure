@@ -1,4 +1,5 @@
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
+import { ESLINT_ERRORS } from "consts";
 
 export type NodeType = "File" | "Folder";
 
@@ -18,5 +19,5 @@ export interface FolderStructureConfig<T extends string = string> {
   regexParameters?: RegexParameters;
 }
 export type Context = Readonly<
-  RuleContext<"error", [FolderStructureConfig] | []>
+  RuleContext<keyof typeof ESLINT_ERRORS, [FolderStructureConfig] | []>
 >;

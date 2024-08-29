@@ -14,3 +14,7 @@ export const PASCAL_CASE = `${PASCAL_CASE_RE}`.replace(/\//g, "");
 export const CAMEL_CASE = `${CAMEL_CASE_RE}`.replace(/\//g, "");
 
 export const RECURSION_LIMIT = 1000;
+
+export const ESLINT_ERRORS = {
+  error: `{{error}}`,
+};

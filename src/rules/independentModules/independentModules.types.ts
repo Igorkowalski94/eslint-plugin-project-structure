@@ -1,4 +1,5 @@
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
+import { ESLINT_ERRORS } from "consts";
 
 export type Pattern = string | string[];
 
@@ -11,7 +12,7 @@ export interface Module {
 }
 
 export type Context = Readonly<
-  RuleContext<"error", [IndependentModulesConfig] | []>
+  RuleContext<keyof typeof ESLINT_ERRORS, [IndependentModulesConfig] | []>
 >;
 
 export type Paths = Record<string, string[]>;

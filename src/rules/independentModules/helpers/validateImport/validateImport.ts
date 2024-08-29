@@ -1,5 +1,4 @@
 import { TSESTree } from "@typescript-eslint/utils";
-import { ReportDescriptor } from "@typescript-eslint/utils/dist/ts-eslint/Rule";
 
 import { finalErrorGuard } from "errors/finalErrorGuard";
 
@@ -49,7 +48,8 @@ export const validateImport = ({
 
     report({
       node,
-      message: error.message,
-    } as unknown as ReportDescriptor<"error">);
+      messageId: "error",
+      data: { error: error.message },
+    });
   }
 };
