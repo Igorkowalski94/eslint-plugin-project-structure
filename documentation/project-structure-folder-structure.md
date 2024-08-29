@@ -34,7 +34,7 @@ If you have any questions or need help creating a configuration that meets your 
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [Simple example](#simple-example-for-the-structure-below)
-- [Advanced example](#advanced-example-for-the-structure-below-containing-all-key-features)
+- [Advanced example](#advanced-example-for-the-structure-below)
 - [API](#api)
   - [ignorePatterns](#ignore-patterns)
   - [name](#name)
@@ -179,7 +179,7 @@ export const folderStructureConfig = createFolderStructure({
 });
 ```
 
-#### Advanced example for the structure below, containing all key features:
+#### Advanced example for the structure below:
 
 ```
 .
@@ -236,7 +236,6 @@ export const folderStructureConfig = createFolderStructure({
 import { createFolderStructure } from "eslint-plugin-project-structure";
 
 export const folderStructureConfig = createFolderStructure({
-  ignorePatterns: ["src/legacy/**"],
   structure: [
     // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
     // You can add rules for them separately.
@@ -294,13 +293,10 @@ export const folderStructureConfig = createFolderStructure({
       children: [
         { ruleId: "components_folder" },
         { ruleId: "hooks_folder" },
-        { name: "{parentName}{yourRegexParameter}.ts" },
+        { name: "{parentName}.(types|api).ts" },
         { name: "{ParentName}(.test)?.tsx" },
       ],
     },
-  },
-  regexParameters: {
-    yourRegexParameter: ".(types|api)",
   },
 });
 ```
