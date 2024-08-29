@@ -274,8 +274,8 @@ export const folderStructureConfig = createFolderStructure({
     },
     // components/ComponentName/ComponentName.tsx
     // components/ComponentName/ComponentName.test.tsx
-    // components/ComponentName/ComponentName.types.ts
-    // components/ComponentName/ComponentName.api.ts
+    // components/ComponentName/componentName.types.ts
+    // components/ComponentName/componentName.api.ts
     // components/ComponentName/hooks/... All files and folders of the hooks_folder rule.
     // components/ComponentName/components/... All files and folders of the components_folder rule.
     components_folder: {
@@ -284,8 +284,8 @@ export const folderStructureConfig = createFolderStructure({
     },
     // ComponentName/ComponentName.tsx
     // ComponentName/ComponentName.test.tsx
-    // ComponentName/ComponentName.types.ts
-    // ComponentName/ComponentName.api.ts
+    // ComponentName/componentName.types.ts
+    // ComponentName/componentName.api.ts
     // ComponentName/hooks/... All files and folders of the hooks_folder rule.
     // ComponentName/components/... All files and folders of the components_folder rule.
     component_folder: {
