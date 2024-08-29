@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import { getNodeExistenceError } from "rules/folderStructure/errors/getNodeExistenceError";
-import { checkNodeExistence } from "rules/folderStructure/helpers/checkNodeExistence";
+import { checkNodeExistence } from "rules/folderStructure/helpers/validatePath/helpers/checkNodeExistence";
 
 describe("checkNodeExistence", () => {
   afterEach(() => {

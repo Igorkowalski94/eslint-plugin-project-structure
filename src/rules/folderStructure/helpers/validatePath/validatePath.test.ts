@@ -1,7 +1,7 @@
 import { Rule } from "rules/folderStructure/folderStructure.types";
-import { checkNodeExistence } from "rules/folderStructure/helpers/checkNodeExistence";
 import { validateChildren } from "rules/folderStructure/helpers/validateChildren/validateChildren";
 import { validateName } from "rules/folderStructure/helpers/validateName/validateName";
+import { checkNodeExistence } from "rules/folderStructure/helpers/validatePath/helpers/checkNodeExistence";
 import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
 jest.mock("rules/folderStructure/helpers/validateName/validateName", () => ({
@@ -15,9 +15,12 @@ jest.mock(
   }),
 );
 
-jest.mock("rules/folderStructure/helpers/checkNodeExistence", () => ({
-  checkNodeExistence: jest.fn(),
-}));
+jest.mock(
+  "rules/folderStructure/helpers/validatePath/helpers/checkNodeExistence",
+  () => ({
+    checkNodeExistence: jest.fn(),
+  }),
+);
 
 describe("validatePath", () => {
   it("should call validateName when name is string", () => {

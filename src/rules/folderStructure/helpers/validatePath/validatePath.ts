@@ -2,11 +2,11 @@ import {
   Rule,
   FolderStructureConfig,
 } from "rules/folderStructure/folderStructure.types";
-import { checkNodeExistence } from "rules/folderStructure/helpers/checkNodeExistence";
 import { getNodeName } from "rules/folderStructure/helpers/getNodeName";
 import { getRule } from "rules/folderStructure/helpers/getRule";
 import { validateChildren } from "rules/folderStructure/helpers/validateChildren/validateChildren";
 import { validateName } from "rules/folderStructure/helpers/validateName/validateName";
+import { checkNodeExistence } from "rules/folderStructure/helpers/validatePath/helpers/checkNodeExistence";
 
 interface ValidatePathProps {
   pathname: string;
