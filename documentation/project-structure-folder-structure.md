@@ -244,10 +244,20 @@ export const folderStructureConfig = createFolderStructure({
     { name: "*" },
     {
       name: "src",
-      children: [{ ruleId: "hooks_folder" }, { ruleId: "components_folder" }],
+      children: [
+        // src/hooks/... All files and folders of the hooks_folder rule.
+        { ruleId: "hooks_folder" },
+        // src/components/... All files and folders of the components_folder rule.
+        { ruleId: "components_folder" },
+      ],
     },
   ],
   rules: {
+    // hooks/useHookName.ts
+    // hooks/useHookName.test.ts
+    // hooks/useHookName2/useHookName2.ts
+    // hooks/useHookName2/useHookName2.test.ts
+    // hooks/useHookName2/hooks/... All files and folders of the hooks_folder rule.
     hooks_folder: {
       name: "hooks",
       children: [
@@ -261,10 +271,22 @@ export const folderStructureConfig = createFolderStructure({
         { name: "use{PascalCase}(.test)?.ts" },
       ],
     },
+    // components/ComponentName/ComponentName.tsx
+    // components/ComponentName/ComponentName.test.tsx
+    // components/ComponentName/ComponentName.types.ts
+    // components/ComponentName/ComponentName.api.ts
+    // components/ComponentName/hooks/... All files and folders of the hooks_folder rule.
+    // components/ComponentName/components/... All files and folders of the components_folder rule.
     components_folder: {
       name: "components",
       children: [{ ruleId: "component_folder" }],
     },
+    // ComponentName/ComponentName.tsx
+    // ComponentName/ComponentName.test.tsx
+    // ComponentName/ComponentName.types.ts
+    // ComponentName/ComponentName.api.ts
+    // ComponentName/hooks/... All files and folders of the hooks_folder rule.
+    // ComponentName/components/... All files and folders of the components_folder rule.
     component_folder: {
       name: "{PascalCase}",
       children: [
