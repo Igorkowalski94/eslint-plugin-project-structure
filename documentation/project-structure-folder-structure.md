@@ -171,7 +171,9 @@ export const folderStructureConfig = createFolderStructure({
     {
       name: "src",
       children: [
+        // src/index.tsx
         { name: "index.tsx" },
+        // src/components/ComponentName.tsx
         { name: "components", children: [{ name: "{PascalCase}.tsx" }] },
       ],
     },
@@ -266,8 +268,8 @@ export const folderStructureConfig = createFolderStructure({
     },
 
     // hooks/useHookName1/... All files and folders of the hook_folder rule.
-    // hooks/useHookName2.ts
     // hooks/useHookName2.test.ts
+    // hooks/useHookName2.ts
     hooks_folder: {
       name: "hooks",
       children: [
