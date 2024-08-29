@@ -254,6 +254,17 @@ export const folderStructureConfig = createFolderStructure({
     },
   ],
   rules: {
+    // hooks/useHookName1/... All files and folders of the hook_folder rule.
+    // hooks/useHookName2.test.ts
+    // hooks/useHookName2.ts
+    hooks_folder: {
+      name: "hooks",
+      children: [
+        { ruleId: "hook_folder" },
+        { name: "use{PascalCase}(.test)?.ts" },
+      ],
+    },
+
     // useHookName/hooks/... All files and folders of the hooks_folder rule.
     // useHookName/useHookName.test.ts
     // useHookName/useHookName.api.ts
@@ -264,17 +275,6 @@ export const folderStructureConfig = createFolderStructure({
       children: [
         { ruleId: "hooks_folder" },
         { name: "{parentName}(.(test|api|types))?.ts" },
-      ],
-    },
-
-    // hooks/useHookName1/... All files and folders of the hook_folder rule.
-    // hooks/useHookName2.test.ts
-    // hooks/useHookName2.ts
-    hooks_folder: {
-      name: "hooks",
-      children: [
-        { ruleId: "hook_folder" },
-        { name: "use{PascalCase}(.test)?.ts" },
       ],
     },
 
