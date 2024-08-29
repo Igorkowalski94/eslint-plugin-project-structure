@@ -1,6 +1,9 @@
+import { RECURSION_LIMIT } from "consts";
+
+import { getRecursionLimitError } from "errors/getRecursionLimitError";
+
 import { getInvalidReusableImportPatternsKeyError } from "rules/independentModules/errors/getInvalidReusableImportPatternsKeyError";
 import { getNestedArrayInPatternError } from "rules/independentModules/errors/getNestedArrayInPatternError";
-import { getRecursionLimitError } from "rules/independentModules/errors/getRecursionLimitError";
 import { getReferenceAsPartOfPatternError } from "rules/independentModules/errors/getReferenceAsPartOfPatternError";
 import { hasNestedArray } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/helpers/hasNestedArray";
 import {
@@ -18,7 +21,7 @@ interface ExtractReferencesFromPatternsProps {
 export const extractReferencesFromPatterns = ({
   patterns,
   reusableImportPatterns,
-  recursionLimit = 1000,
+  recursionLimit = RECURSION_LIMIT,
   checkNestedArrays = false,
 }: ExtractReferencesFromPatternsProps): Pattern[] => {
   if (!reusableImportPatterns) return patterns;

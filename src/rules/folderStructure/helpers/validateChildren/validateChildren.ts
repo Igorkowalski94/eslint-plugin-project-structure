@@ -26,14 +26,16 @@ export const validateChildren = ({
   config,
   cwd,
 }: ValidateChildrenProps): void => {
-  const childrenWithoutReplicatedRules =
-    removeRuleReplicatesFromChildren(children);
-
-  const nextPathname = getNextPathname({ pathname, nodeName });
-  const childrenWithRules = childrenWithoutReplicatedRules.map((rule) =>
+  const childrenWithRules = children.map((rule) =>
     getRule({ rule, rules: config.rules }),
   );
-  const sortedChildren = sortChildrenByNameType(childrenWithRules);
+
+  const childrenWithoutReplicatedRules =
+    removeRuleReplicatesFromChildren(childrenWithRules);
+
+  const sortedChildren = sortChildrenByNameType(childrenWithoutReplicatedRules);
+
+  const nextPathname = getNextPathname({ pathname, nodeName });
 
   const childrenByFileType = sortedChildren.filter((node) =>
     filterRulesByType({

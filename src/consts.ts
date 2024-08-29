@@ -12,3 +12,5 @@ export const SNAKE_CASE_UPPER = `${SNAKE_CASE_UPPER_RE}`.replace(/\//g, "");
 export const KEBAB_CASE = `${KEBAB_CASE_RE}`.replace(/\//g, "");
 export const PASCAL_CASE = `${PASCAL_CASE_RE}`.replace(/\//g, "");
 export const CAMEL_CASE = `${CAMEL_CASE_RE}`.replace(/\//g, "");
+
+export const RECURSION_LIMIT = 1000;
