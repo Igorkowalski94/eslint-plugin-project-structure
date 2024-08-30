@@ -47,7 +47,7 @@ If you have any questions or need help creating a configuration that meets your 
   - [{family}](#family)
   - [{dirname}](#dirname)
 
-## 💾 Installation
+## 💾 Installation <a id="installation"></a>
 
 ```bsh
 yarn add -D eslint-plugin-independent-modules
@@ -57,7 +57,7 @@ yarn add -D eslint-plugin-independent-modules
 npm i --dev eslint-plugin-independent-modules
 ```
 
-## 🏁 Getting started
+## 🏁 Getting started <a id="getting-started"></a>
 
 ### Step 1
 
@@ -246,7 +246,7 @@ export const independentModulesConfig = createIndependentModules({
 });
 ```
 
-## ⚙️ API:
+## ⚙️ API <a id="api"></a>
 
 ### `tsconfigPath`: `string | undefined` <a id="tsconfig-path"></a>
 

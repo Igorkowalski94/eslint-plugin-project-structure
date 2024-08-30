@@ -43,7 +43,7 @@ If you have any questions or need help creating a configuration that meets your 
     - [format](#format)
     - [references](#references)
 
-## 💾 Installation
+## 💾 Installation <a id="installation"></a>
 
 ```bsh
 yarn add -D eslint-plugin-project-structure
@@ -53,7 +53,7 @@ yarn add -D eslint-plugin-project-structure
 npm i --dev eslint-plugin-project-structure
 ```
 
-## 🏁 Getting started
+## 🏁 Getting started <a id="getting-started"></a>
 
 Add the following lines to `eslint.config.mjs`.
 
@@ -213,7 +213,7 @@ const transformUserData = ({
 };
 ```
 
-## ⚙️ API:
+## ⚙️ API <a id="api"></a>
 
 ### `filePattern`: `string | string[]` <a id="file-pattern"></a>
 

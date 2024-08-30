@@ -48,7 +48,7 @@ If you have any questions or need help creating a configuration that meets your 
   - [ruleId](#ruleid)
   - [Folder recursion](#folder-recursion)
 
-## 💾 Installation
+## 💾 Installation <a id="installation"></a>
 
 ```bsh
 yarn add -D eslint-plugin-project-structure
@@ -58,7 +58,7 @@ yarn add -D eslint-plugin-project-structure
 npm i --dev eslint-plugin-project-structure
 ```
 
-## 🏁 Getting started
+## 🏁 Getting started <a id="getting-started"></a>
 
 ### Step 1
 
@@ -296,7 +296,7 @@ export const folderStructureConfig = createFolderStructure({
 });
 ```
 
-## ⚙️ API:
+## ⚙️ API <a id="api"></a>
 
 ### `ignorePatterns`: `string[] | undefined` <a id="ignore-patterns"></a>
 
