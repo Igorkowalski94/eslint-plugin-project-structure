@@ -36,17 +36,17 @@ If you have any questions or need help creating a configuration that meets your 
   - [Simple example](#simple-example-for-the-structure-below)
   - [Advanced example](#advanced-example-for-the-structure-below)
 - [API](#api)
-  - [ignorePatterns](#ignore-patterns)
   - [name](#name)
+  - [children](#children)
+  - [enforceExistence](#enforce-existence)
+  - [ruleId](#ruleid)
+  - [rules](#rules)
+  - [Folder recursion](#folder-recursion)
+  - [structure](#structure)
   - [regexParameters](#regex-parameters)
     - [Built-in regex parameters](#built-in-regex-parameters)
     - [Regex parameters mix example](#regex-parameters-mix-example)
-  - [children](#children)
-  - [enforceExistence](#enforce-existence)
-  - [structure](#structure)
-  - [rules](#rules)
-  - [ruleId](#ruleid)
-  - [Folder recursion](#folder-recursion)
+  - [ignorePatterns](#ignore-patterns)
 
 ## 💾 Installation <a id="installation"></a>
 
@@ -298,14 +298,6 @@ export const folderStructureConfig = createFolderStructure({
 
 ## ⚙️ API <a id="api"></a>
 
-### `ignorePatterns`: `string[] | undefined` <a id="ignore-patterns"></a>
-
-Here you can set the paths you want to ignore. You can use all [micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some) functionalities.
-
-```jsonc
-{ "ignorePatterns": ["src/legacy/**"] }
-```
-
 ### `name`: `string | undefined` <a id="name"></a>
 
 The name is treated as a `regex`.
@@ -330,6 +322,227 @@ When used without [children](#children) this will be the name of `file`.<br>
 
 ```jsonc
 { "name": "folderName", "children": [] }
+```
+
+### `children`: `Rule[] | undefined` <a id="children"></a>
+
+`Folder` children rules.<br>
+
+> [!WARNING]
+> Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
+
+```jsonc
+{ "children": [{ "name": "Child" }] }
+```
+
+### `enforceExistence`: `string[] | undefined` <a id="enforce-existence"></a>
+
+Enforce the existence of other folders/files when a given folder/file exists.
+
+In `enforceExistence`, two references are available for use:
+
+- `{name}` - Take the name of the current file or folder and change its first letter to lowercase.
+- `{Name}` - Take the name of the current file or folder and change its first letter to uppercase.
+
+> [!WARNING]
+> Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
+
+```jsonc
+{
+  "structure": {
+    // If root directory exists.
+    "enforceExistence": [
+      "src", // ./src must exist.
+      "src/components", // ./src/components must exist.
+    ],
+    "children": [
+      { "name": "*" },
+      {
+        "name": "src",
+        "children": [
+          { "name": "stories", "children": [{ "name": "{camelCase}.tsx" }] },
+          { "name": "{PascalCase}.test.tsx" },
+          { "name": "components", "children": [] },
+          {
+            "name": "{PascalCase}.tsx",
+            // If ./src/ComponentName.tsx exist:
+            "enforceExistence": [
+              "{Name}.test.tsx", // ./src/ComponentName.test.tsx must exist.
+              "stories/{name}.stories.tsx", // ./src/stories/componentName.stories.tsx must exist.
+              "../cats.ts", // ./cats.ts must exist.
+            ],
+          },
+        ],
+      },
+    ],
+  },
+}
+```
+
+### `ruleId`: `string | undefined` <a id="ruleid"></a>
+
+A reference to your reusable rule.
+
+```jsonc
+{ "ruleId": "yourReusableRule" }
+```
+
+You can use it with other keys like [name](#name) and [children](#children) but remember that they will **override** the keys from your reusable rule.<br>
+This is useful if you want to get rid of a lot of repetition in your structure, for example, `folders` have different [name](#name), but the same [children](#children).
+
+```
+.
+├── ...
+└── 📂 src
+    ├── 📂 folder1
+    │   ├── ...
+    │   └── 📂 NestedFolder
+    │       ├── ...
+    │       ├── 📄 File1.tsx
+    │       └── 📄 file2.ts
+    └── 📂 folder2
+        ├── 📂 subFolder1
+        │    ├── ...
+        │    ├── 📄 File1.tsx
+        │    └── 📄 file2.ts
+        └── 📂 subFolder2
+            ├── ...
+            ├── 📄 File1.tsx
+            └── 📄 file2.ts
+```
+
+```jsonc
+{
+  "structure": [
+    {
+      "name": "src",
+      "children": [
+        {
+          "name": "folder1",
+          "children": [{ "name": "{PascalCase}", "ruleId": "shared_children" }],
+        },
+        {
+          "name": "folder2",
+          "children": [
+            {
+              "name": "(subFolder1|subFolder2)",
+              "ruleId": "shared_children",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  "rules": {
+    "shared_children": {
+      "children": [
+        { "name": "{PascalCase}.tsx" },
+        { "name": "{camelCase}.ts" },
+      ],
+    },
+  },
+}
+```
+
+### `rules`: `Record<string, Rule> | undefined` <a id="rules"></a>
+
+A place where you can add your reusable rules. This is useful when you want to avoid a lot of repetition in your [structure](#structure) or use [folder recursion](#folder-recursion) feature.<br>
+The key in the object will correspond to [ruleId](#ruleid), which you can then use in many places.
+
+```jsonc
+{
+  "rules": {
+    "yourReusableRule": { "name": "ComponentName", "children": [] },
+  },
+}
+```
+
+### Folder recursion
+
+You can easily create recursions when you refer to the same [ruleId](#ruleid) that your rule has.<br>
+Let's assume you want all files in the `src` folder to follow `{PascalCase}` with any file extension, and all folders to follow `{camelCase}`.<br>
+In this case, the recursion will look like this:<br>
+
+```
+.
+├── ...
+└── 📂 src
+    ├── ...
+    ├── 📄 File1.tsx
+    └── 📂 folder1
+        ├── ...
+        ├── 📄 File2.ts
+        └── 📂 folder2
+            ├── ...
+            ├── 📄 File3.js
+            └── 📁 folder3
+                ├── ...
+                ├── 📄 File4.jsx
+                └── 📂 folder4
+                    └── ... (recursion)
+```
+
+```jsonc
+{
+  "structure": [{ "name": "src", "ruleId": "folderRule" }],
+  "rules": {
+    "folderRule": {
+      "name": "{camelCase}",
+      "children": [{ "name": "{PascalCase}.*" }, { "ruleId": "folderRule" }],
+    },
+  },
+}
+```
+
+### `structure`: `Rule | Rule[]` <a id="structure"></a>
+
+The structure of your project and its rules.
+
+> [!WARNING]
+> Make sure your `tsconfig`/`eslint.config.mjs` and the script to run ESLint, contains all the `files`/`folders` you want to validate. Otherwise `eslint` will not take them into account.
+
+> [!TIP]
+> I recommend creating reusable [rules](#rules) for each folder and using the [ruleId](#ruleid) in the [structure](#structure) for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme/blob/main/folderStructure.mjs).
+
+```
+.
+├── 📂 libs
+├── 📂 src
+├── 📂 yourCoolFolderName
+└── 📄 ...
+```
+
+```jsonc
+{
+  "structure": [
+    { "name": "libs", "children": [] },
+    { "name": "src", "children": [] },
+    { "name": "yourCoolFolderName", "children": [] },
+    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
+    // You can add rules for them separately.
+    // You can also add exceptions like this: "(?!folderStructure)*"
+    { "name": "*" },
+  ],
+}
+```
+
+or
+
+```jsonc
+{
+  "structure": {
+    "enforceExistence": ["src"],
+    "children": [
+      { "name": "libs", "children": [] },
+      { "name": "src", "children": [] },
+      { "name": "yourCoolFolderName", "children": [] },
+      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
+      // You can add rules for them separately.
+      // You can also add exceptions like this: "(?!folderStructure)*"
+      { "name": "*" },
+    ],
+  },
+}
 ```
 
 ### `regexParameters`: `Record<string, string> | undefined` <a id="regex-parameters"></a>
@@ -429,223 +642,10 @@ Here are some examples of how easy it is to combine [regex parameters](#regex-pa
 { "name": "{ParentName}.{snake_case}(.(test|api))?.ts" }
 ```
 
-### `children`: `Rule[] | undefined` <a id="children"></a>
+### `ignorePatterns`: `string[] | undefined` <a id="ignore-patterns"></a>
 
-`Folder` children rules.<br>
-
-> [!WARNING]
-> Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
+Here you can set the paths you want to ignore. You can use all [micromatch.some](https://github.com/micromatch/micromatch?tab=readme-ov-file#some) functionalities.
 
 ```jsonc
-{ "children": [{ "name": "Child" }] }
-```
-
-### `enforceExistence`: `string[] | undefined` <a id="enforce-existence"></a>
-
-Enforce the existence of other folders/files when a given folder/file exists.
-
-In `enforceExistence`, two references are available for use:
-
-- `{name}` - Take the name of the current file or folder and change its first letter to lowercase.
-- `{Name}` - Take the name of the current file or folder and change its first letter to uppercase.
-
-> [!WARNING]
-> Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
-
-```jsonc
-{
-  "structure": {
-    // If root directory exists.
-    "enforceExistence": [
-      "src", // ./src must exist.
-      "src/components", // ./src/components must exist.
-    ],
-    "children": [
-      { "name": "*" },
-      {
-        "name": "src",
-        "children": [
-          { "name": "stories", "children": [{ "name": "{camelCase}.tsx" }] },
-          { "name": "{PascalCase}.test.tsx" },
-          { "name": "components", "children": [] },
-          {
-            "name": "{PascalCase}.tsx",
-            // If ./src/ComponentName.tsx exist:
-            "enforceExistence": [
-              "{Name}.test.tsx", // ./src/ComponentName.test.tsx must exist.
-              "stories/{name}.stories.tsx", // ./src/stories/componentName.stories.tsx must exist.
-              "../cats.ts", // ./cats.ts must exist.
-            ],
-          },
-        ],
-      },
-    ],
-  },
-}
-```
-
-### `structure`: `Rule | Rule[]` <a id="structure"></a>
-
-The structure of your project and its rules.
-
-> [!WARNING]
-> Make sure your `tsconfig`/`eslint.config.mjs` and the script to run ESLint, contains all the `files`/`folders` you want to validate. Otherwise `eslint` will not take them into account.
-
-> [!TIP]
-> I recommend creating reusable [rules](#rules) for each folder and using the [ruleId](#ruleid) in the [structure](#structure) for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme/blob/main/folderStructure.mjs).
-
-```
-.
-├── 📂 libs
-├── 📂 src
-├── 📂 yourCoolFolderName
-└── 📄 ...
-```
-
-```jsonc
-{
-  "structure": [
-    { "name": "libs", "children": [] },
-    { "name": "src", "children": [] },
-    { "name": "yourCoolFolderName", "children": [] },
-    // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
-    // You can add rules for them separately.
-    // You can also add exceptions like this: "(?!folderStructure)*"
-    { "name": "*" },
-  ],
-}
-```
-
-or
-
-```jsonc
-{
-  "structure": {
-    "enforceExistence": ["src"],
-    "children": [
-      { "name": "libs", "children": [] },
-      { "name": "src", "children": [] },
-      { "name": "yourCoolFolderName", "children": [] },
-      // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
-      // You can add rules for them separately.
-      // You can also add exceptions like this: "(?!folderStructure)*"
-      { "name": "*" },
-    ],
-  },
-}
-```
-
-### `rules`: `Record<string, Rule> | undefined` <a id="rules"></a>
-
-A place where you can add your reusable rules. This is useful when you want to avoid a lot of repetition in your [structure](#structure) or use [folder recursion](#folder-recursion) feature.<br>
-The key in the object will correspond to [ruleId](#ruleid), which you can then use in many places.
-
-```jsonc
-{
-  "rules": {
-    "yourReusableRule": { "name": "ComponentName", "children": [] },
-  },
-}
-```
-
-### `ruleId`: `string | undefined` <a id="ruleid"></a>
-
-A reference to your reusable rule.
-
-```jsonc
-{ "ruleId": "yourReusableRule" }
-```
-
-You can use it with other keys like [name](#name) and [children](#children) but remember that they will **override** the keys from your reusable rule.<br>
-This is useful if you want to get rid of a lot of repetition in your structure, for example, `folders` have different [name](#name), but the same [children](#children).
-
-```
-.
-├── ...
-└── 📂 src
-    ├── 📂 folder1
-    │   ├── ...
-    │   └── 📂 NestedFolder
-    │       ├── ...
-    │       ├── 📄 File1.tsx
-    │       └── 📄 file2.ts
-    └── 📂 folder2
-        ├── 📂 subFolder1
-        │    ├── ...
-        │    ├── 📄 File1.tsx
-        │    └── 📄 file2.ts
-        └── 📂 subFolder2
-            ├── ...
-            ├── 📄 File1.tsx
-            └── 📄 file2.ts
-```
-
-```jsonc
-{
-  "structure": [
-    {
-      "name": "src",
-      "children": [
-        {
-          "name": "folder1",
-          "children": [{ "name": "{PascalCase}", "ruleId": "shared_children" }],
-        },
-        {
-          "name": "folder2",
-          "children": [
-            {
-              "name": "(subFolder1|subFolder2)",
-              "ruleId": "shared_children",
-            },
-          ],
-        },
-      ],
-    },
-  ],
-  "rules": {
-    "shared_children": {
-      "children": [
-        { "name": "{PascalCase}.tsx" },
-        { "name": "{camelCase}.ts" },
-      ],
-    },
-  },
-}
-```
-
-### Folder recursion
-
-You can easily create recursions when you refer to the same [ruleId](#ruleid) that your rule has.<br>
-Let's assume you want all files in the `src` folder to follow `{PascalCase}` with any file extension, and all folders to follow `{camelCase}`.<br>
-In this case, the recursion will look like this:<br>
-
-```
-.
-├── ...
-└── 📂 src
-    ├── ...
-    ├── 📄 File1.tsx
-    └── 📂 folder1
-        ├── ...
-        ├── 📄 File2.ts
-        └── 📂 folder2
-            ├── ...
-            ├── 📄 File3.js
-            └── 📁 folder3
-                ├── ...
-                ├── 📄 File4.jsx
-                └── 📂 folder4
-                    └── ... (recursion)
-```
-
-```jsonc
-{
-  "structure": [{ "name": "src", "ruleId": "folderRule" }],
-  "rules": {
-    "folderRule": {
-      "name": "{camelCase}",
-      "children": [{ "name": "{PascalCase}.*" }, { "ruleId": "folderRule" }],
-    },
-  },
-}
+{ "ignorePatterns": ["src/legacy/**"] }
 ```

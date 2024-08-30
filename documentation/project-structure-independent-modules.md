@@ -33,19 +33,19 @@ If you have any questions or need help creating a configuration that meets your 
   - [Simple example](#simple-example-for-the-folder-structure-below)
   - [Advanced example](#advanced-example-for-the-folder-structure-below)
 - [API](#api)
-  - [tsconfigPath](#tsconfig-path)
-  - [pathAliases](#path-aliases)
-  - [extensions](#extensions)
   - [modules](#modules)
     - [name](#name)
     - [pattern](#pattern)
     - [allowImportsFrom](#allow-imports-from)
-    - [errorMessage](#error-message)
     - [allowExternalImports](#allow-external-imports)
+    - [errorMessage](#error-message)
   - [reusableImportPatterns](#reusable-import-patterns)
-  - [debugMode](#debug-mode)
   - [{family}](#family)
   - [{dirname}](#dirname)
+  - [tsconfigPath](#tsconfig-path)
+  - [pathAliases](#path-aliases)
+  - [extensions](#extensions)
+  - [debugMode](#debug-mode)
 
 ## 💾 Installation <a id="installation"></a>
 
@@ -248,54 +248,6 @@ export const independentModulesConfig = createIndependentModules({
 
 ## ⚙️ API <a id="api"></a>
 
-### `tsconfigPath`: `string | undefined` <a id="tsconfig-path"></a>
-
-The path to your `tsconfig.json`.<br>
-If your `tsconfig` is located in the root of your project, the plugin will automatically detect it.<br>
-If your `tsconfig` is located elsewhere, you can specify its location here.
-
-```jsonc
-{ "tsconfigPath": "./tsconfig.json" }
-```
-
-### `pathAliases`: `{ baseUrl: string; paths: Record<string, string[]>; } | undefined` <a id="path-aliases"></a>
-
-The plugin automatically takes `baseUrl` and `paths` from your `tsconfig.json`.<br>
-However, if you are using another tool for path aliases, such as `Webpack` or `Babel`, you can configure the appropriate path aliases here.
-
-```ts
-// "src/components/Component.tsx"
-import { Component } from "@components/Component";
-```
-
-```jsonc
-{
-  "pathAliases": {
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": ["src/components/*"],
-    },
-  },
-}
-```
-
-### `extensions`: `string[] | undefined` <a id="extensions"></a>
-
-If you use shortened imports without a file extension, the plugin will automatically assign the correct extension from the list of available extensions.
-
-```ts
-// "helpers/myHelper.ts"
-import { myHelper } from "helpers/myHelper"; // The plugin will recognize the file as a .ts file and consider this when validating the glob pattern.
-```
-
-Available extensions: `".js"`, `".jsx"`, `".mjs"`, `".cjs"` `".d.ts"`, `".ts"`, `".tsx"`, `".vue"`, `".svelte"`, `".json"`, `".jsonc"`, `".yml"`, `".yaml"`, `".svg"`, `".png"`, `".jpg"`, `".ico"`, `".css"`, `".sass"`, `".scss"`, `".less"`, `".html"`,
-
-If the extension you are using is not on the list, you can extend it.
-
-```jsonc
-{ "extensions": [".yourFancyExtension"] }
-```
-
 ### `modules`: `Module[]` <a id="modules"></a>
 
 A place where you can add your modules.<br>
@@ -429,14 +381,6 @@ If at least **one** pattern in `allowImportsFrom` meets the condition, the impor
 }
 ```
 
-### `errorMessage`: `string | undefined` <a id="error-message"></a>
-
-Here, you can set your custom error for a given module.
-
-```jsonc
-{ "modules": [{ "errorMessage": "My custom module error." }] }
-```
-
 ### `allowExternalImports`: `<boolean | undefined>` <a id="allow-external-imports"></a>
 
 Here you can enable/disable the ability to import external imports (node_modules) in a given module.<br>
@@ -453,6 +397,14 @@ The default value is true.
     },
   ],
 }
+```
+
+### `errorMessage`: `string | undefined` <a id="error-message"></a>
+
+Here, you can set your custom error for a given module.
+
+```jsonc
+{ "modules": [{ "errorMessage": "My custom module error." }] }
 ```
 
 ### `reusableImportPatterns`: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
@@ -497,15 +449,6 @@ The library will automatically inform you about all usage errors such as: Infini
     },
   ],
 }
-```
-
-### `debugMode`: `boolean | undefined` <a id="debug-mode"></a>
-
-Debug mode showing the current [`allowImportsFrom`](#allow-imports-from), [`{family}`](#family), and [`{dirname}`](#dirname) for a given import.<br>
-The default value is `false`.
-
-```jsonc
-{ "debugMode": true }
 ```
 
 ### `{family}` <a id="family"></a>
@@ -571,4 +514,61 @@ Current file    = "features/Feature1/Feature1.tsx"
 Example 4
 Current file    = "features/Feature1/Child1/hooks/useComplexHook1/useComplexHook1.ts"
 {dirname_5}     = "features"
+```
+
+### `tsconfigPath`: `string | undefined` <a id="tsconfig-path"></a>
+
+The path to your `tsconfig.json`.<br>
+If your `tsconfig` is located in the root of your project, the plugin will automatically detect it.<br>
+If your `tsconfig` is located elsewhere, you can specify its location here.
+
+```jsonc
+{ "tsconfigPath": "./tsconfig.json" }
+```
+
+### `pathAliases`: `{ baseUrl: string; paths: Record<string, string[]>; } | undefined` <a id="path-aliases"></a>
+
+The plugin automatically takes `baseUrl` and `paths` from your `tsconfig.json`.<br>
+However, if you are using another tool for path aliases, such as `Webpack` or `Babel`, you can configure the appropriate path aliases here.
+
+```ts
+// "src/components/Component.tsx"
+import { Component } from "@components/Component";
+```
+
+```jsonc
+{
+  "pathAliases": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+    },
+  },
+}
+```
+
+### `extensions`: `string[] | undefined` <a id="extensions"></a>
+
+If you use shortened imports without a file extension, the plugin will automatically assign the correct extension from the list of available extensions.
+
+```ts
+// "helpers/myHelper.ts"
+import { myHelper } from "helpers/myHelper"; // The plugin will recognize the file as a .ts file and consider this when validating the glob pattern.
+```
+
+Available extensions: `".js"`, `".jsx"`, `".mjs"`, `".cjs"` `".d.ts"`, `".ts"`, `".tsx"`, `".vue"`, `".svelte"`, `".json"`, `".jsonc"`, `".yml"`, `".yaml"`, `".svg"`, `".png"`, `".jpg"`, `".ico"`, `".css"`, `".sass"`, `".scss"`, `".less"`, `".html"`,
+
+If the extension you are using is not on the list, you can extend it.
+
+```jsonc
+{ "extensions": [".yourFancyExtension"] }
+```
+
+### `debugMode`: `boolean | undefined` <a id="debug-mode"></a>
+
+Debug mode showing the current [`allowImportsFrom`](#allow-imports-from), [`{family}`](#family), and [`{dirname}`](#dirname) for a given import.<br>
+The default value is `false`.
+
+```jsonc
+{ "debugMode": true }
 ```
