@@ -13,7 +13,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
 - An option to create a separate configuration file with TypeScript support.
 
-## General information
+## 📋 General information
 
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -21,17 +21,17 @@ Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
 If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
-## Documentation
+## 📚 Documentation
 
 - [project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
 - [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
-## Go to
+## ✈️ Go to
 
 - [Installation](#installation)
 - [Getting started](#getting-started)
-- [Simple example](#simple-example-for-the-folder-structure-below)
-- [Advanced example](#advanced-example-for-the-folder-structure-below)
+  - [Simple example](#simple-example-for-the-folder-structure-below)
+  - [Advanced example](#advanced-example-for-the-folder-structure-below)
 - [API](#api)
   - [tsconfigPath](#tsconfig-path)
   - [pathAliases](#path-aliases)
@@ -44,10 +44,10 @@ If you have any questions or need help creating a configuration that meets your 
     - [allowExternalImports](#allow-external-imports)
   - [reusableImportPatterns](#reusable-import-patterns)
   - [debugMode](#debug-mode)
-- [{family}](#family)
-- [{dirname}](#dirname)
+  - [{family}](#family)
+  - [{dirname}](#dirname)
 
-## Installation
+## 💾 Installation
 
 ```bsh
 yarn add -D eslint-plugin-independent-modules
@@ -57,7 +57,7 @@ yarn add -D eslint-plugin-independent-modules
 npm i --dev eslint-plugin-independent-modules
 ```
 
-## Getting started
+## 🏁 Getting started
 
 ### Step 1
 
@@ -103,6 +103,9 @@ export default tseslint.config({
 
 Create a `independentModules.mjs` in the root of your project.<br>
 
+> [!WARNING]  
+> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
+
 > [!NOTE]  
 >  `independentModules.json` and `independentModules.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -129,11 +132,6 @@ Create a `independentModules.mjs` in the root of your project.<br>
             ├── 📄 feature2.types.ts        Private / Public for Feature2 family.
             └── 📄 Feature2.tsx             Public.
 ```
-
-#### independentModules.mjs
-
-> [!WARNING]  
-> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 
 ```mjs
 // @ts-check
@@ -197,11 +195,6 @@ export const independentModulesConfig = createIndependentModules({
 
 ```
 
-#### independentModules.mjs
-
-> [!WARNING]  
-> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
-
 ```mjs
 // @ts-check
 
@@ -253,7 +246,7 @@ export const independentModulesConfig = createIndependentModules({
 });
 ```
 
-## API:
+## ⚙️ API:
 
 ### `tsconfigPath`: `string | undefined` <a id="tsconfig-path"></a>
 
@@ -515,7 +508,7 @@ The default value is `false`.
 { "debugMode": true }
 ```
 
-## `{family}` <a id="family"></a>
+### `{family}` <a id="family"></a>
 
 `{family}` reference finds the common part between the import and the current file. <br>
 By default, at least **two** common parts are required, [`baseUrl`](#path-aliases) is not taken into account.<br>
@@ -555,7 +548,7 @@ Import          = "features/Feature2/Feature2.types.ts"
 {family_1}      = "features"
 ```
 
-## `{dirname}` <a id="dirname"></a>
+### `{dirname}` <a id="dirname"></a>
 
 Reference to the directory of the file you are currently in.
 

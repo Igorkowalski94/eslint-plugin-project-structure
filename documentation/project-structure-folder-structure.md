@@ -15,7 +15,7 @@
 - Folder recursion. You can nest a given folder structure recursively.
 - Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
 
-## General information
+## 📋 General information
 
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -23,18 +23,18 @@ Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
 If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
-## Documentation
+## 📚 Documentation
 
 - [Migration guide to 2.2.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)
 - [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
 - [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
-## Go to
+## ✈️ Go to
 
 - [Installation](#installation)
 - [Getting started](#getting-started)
-- [Simple example](#simple-example-for-the-structure-below)
-- [Advanced example](#advanced-example-for-the-structure-below)
+  - [Simple example](#simple-example-for-the-structure-below)
+  - [Advanced example](#advanced-example-for-the-structure-below)
 - [API](#api)
   - [ignorePatterns](#ignore-patterns)
   - [name](#name)
@@ -46,9 +46,9 @@ If you have any questions or need help creating a configuration that meets your 
   - [structure](#structure)
   - [rules](#rules)
   - [ruleId](#ruleid)
-- [Folder recursion](#folder-recursion)
+  - [Folder recursion](#folder-recursion)
 
-## Installation
+## 💾 Installation
 
 ```bsh
 yarn add -D eslint-plugin-project-structure
@@ -58,7 +58,7 @@ yarn add -D eslint-plugin-project-structure
 npm i --dev eslint-plugin-project-structure
 ```
 
-## Getting started
+## 🏁 Getting started
 
 ### Step 1
 
@@ -135,6 +135,9 @@ export default tseslint.config(
 
 Create a `folderStructure.mjs` in the root of your project.<br>
 
+> [!WARNING]  
+> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
+
 > [!NOTE]  
 >  `folderStructure.json` and `folderStructure.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -151,11 +154,6 @@ Create a `folderStructure.mjs` in the root of your project.<br>
         ├── ...
         └── 📄 ComponentName.tsx
 ```
-
-#### folderStructure.mjs
-
-> [!WARNING]  
-> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 
 ```mjs
 // @ts-check
@@ -226,11 +224,6 @@ export const folderStructureConfig = createFolderStructure({
                     ├── 📄 useComplexParentComponentHook.test.ts
                     └── 📄 useComplexParentComponentHook.ts
 ```
-
-#### folderStructure.mjs
-
-> [!WARNING]  
-> Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 
 ```mjs
 // @ts-check
@@ -303,7 +296,7 @@ export const folderStructureConfig = createFolderStructure({
 });
 ```
 
-## API:
+## ⚙️ API:
 
 ### `ignorePatterns`: `string[] | undefined` <a id="ignore-patterns"></a>
 
@@ -620,7 +613,7 @@ This is useful if you want to get rid of a lot of repetition in your structure, 
 }
 ```
 
-## Folder recursion
+### Folder recursion
 
 You can easily create recursions when you refer to the same [ruleId](#ruleid) that your rule has.<br>
 Let's assume you want all files in the `src` folder to follow `{PascalCase}` with any file extension, and all folders to follow `{camelCase}`.<br>

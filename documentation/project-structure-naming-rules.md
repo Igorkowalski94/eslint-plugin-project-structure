@@ -15,7 +15,7 @@
 - Build in case validation.
 - An option to create a separate configuration file with TypeScript support.
 
-## General information
+## 📋 General information
 
 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
@@ -23,16 +23,16 @@ Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
 If you have any questions or need help creating a configuration that meets your requirements, [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions), issues / an idea for a new functionality [click here](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new/choose).
 
-## Documentation
+## 📚 Documentation
 
 - [project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
 - [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
 
-## Go to
+## ✈️ Go to
 
 - [Installation](#installation)
 - [Getting started](#getting-started)
-- [Example](#example)
+  - [Example](#example)
 - [API](#api)
   - [filePattern](#file-pattern)
   - [fileExportsRules, fileRootRules, fileRules](#file-rules)
@@ -43,7 +43,7 @@ If you have any questions or need help creating a configuration that meets your 
     - [format](#format)
     - [references](#references)
 
-## Installation
+## 💾 Installation
 
 ```bsh
 yarn add -D eslint-plugin-project-structure
@@ -53,7 +53,7 @@ yarn add -D eslint-plugin-project-structure
 npm i --dev eslint-plugin-project-structure
 ```
 
-## Getting started
+## 🏁 Getting started
 
 Add the following lines to `eslint.config.mjs`.
 
@@ -213,7 +213,7 @@ const transformUserData = ({
 };
 ```
 
-## API:
+## ⚙️ API:
 
 ### `filePattern`: `string | string[]` <a id="file-pattern"></a>
 
