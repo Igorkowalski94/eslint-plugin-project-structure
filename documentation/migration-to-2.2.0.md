@@ -9,7 +9,7 @@ A minor configuration fix will be required for version <= 1.4.7.
 - A shorter notation option for [structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#structure).
 - New build-in {SNAKE_CASE} regexParameter.
 - Improvements for {PascalCase} and {camelCase} regexParameters.
-- The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+- The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 - New option for creating a configuration file in an .mjs file with TypeScript support.
 - [Enforcing the existence](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#enforce-existence) of a files/folders when a specific file/folder exists. For example, if `src/Component.tsx` exists, then `src/Component.test.tsx` and `src/stories/Component.stories.tsx` must also exist.
 - You can now use comments in folderStructure.json, independentModules.json and namingRules.json files.

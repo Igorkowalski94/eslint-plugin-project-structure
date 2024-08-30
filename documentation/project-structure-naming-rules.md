@@ -58,7 +58,7 @@ npm i --dev eslint-plugin-project-structure
 Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
@@ -100,7 +100,7 @@ Create a `namingRules.mjs` in the root of your project.<br>
 > Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 
 > [!NOTE]  
->  `namingRules.json` and `namingRules.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+>  `namingRules.json` and `namingRules.yaml` are also supported. See an example in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
