@@ -1514,7 +1514,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.3.0, @typescript-eslint/utils@npm:^8.1.0, @typescript-eslint/utils@npm:^8.3.0":
+"@typescript-eslint/utils@npm:8.3.0, @typescript-eslint/utils@npm:^8.3.0":
   version: 8.3.0
   resolution: "@typescript-eslint/utils@npm:8.3.0"
   dependencies:
@@ -2817,16 +2817,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-project-structure@npm:2.2.10":
-  version: 2.2.10
-  resolution: "eslint-plugin-project-structure@npm:2.2.10"
+"eslint-plugin-project-structure@npm:2.2.11":
+  version: 2.2.11
+  resolution: "eslint-plugin-project-structure@npm:2.2.11"
   dependencies:
-    "@typescript-eslint/utils": ^8.1.0
+    "@typescript-eslint/utils": ^8.3.0
     comment-json: ^4.2.5
     js-yaml: ^4.1.0
     jsonschema: ^1.4.1
-    micromatch: ^4.0.7
-  checksum: 60537396ab0f9d9f8cd067f97b7e4a54ae2c815ab0c9638973c516b099ccf5236c552df9955ca2f6192e48d237d8f3a5f8f419f8b4d8b53a1815913fa409ed83
+    micromatch: ^4.0.8
+  checksum: b6e7709973649ab61a8d2820f3caf43233e3538e0f82bb96cd564503e165ac47deb1437a1ef10a61757b38e94723a8ecc3db70249b280ef464d1fde5064997b5
   languageName: node
   linkType: hard
 
@@ -2847,7 +2847,7 @@ __metadata:
     eslint-config-prettier: ^9.1.0
     eslint-plugin-import: ^2.29.1
     eslint-plugin-prettier: ^5.2.1
-    eslint-plugin-project-structure: 2.2.10
+    eslint-plugin-project-structure: 2.2.11
     husky: ^9.1.5
     jest: ^29.7.0
     js-yaml: ^4.1.0
@@ -4668,7 +4668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.7, micromatch@npm:^4.0.8":
+"micromatch@npm:^4.0.8":
   version: 4.0.8
   resolution: "micromatch@npm:4.0.8"
   dependencies:

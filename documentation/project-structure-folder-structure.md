@@ -17,7 +17,7 @@
 
 ## 📋 General information
 
-🕹️[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+🕹️[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
@@ -65,7 +65,7 @@ npm i --dev eslint-plugin-project-structure
 Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
@@ -139,7 +139,7 @@ Create a `folderStructure.mjs` in the root of your project.<br>
 > Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 
 > [!NOTE]  
->  `folderStructure.json` and `folderStructure.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+>  `folderStructure.json` and `folderStructure.yaml` are also supported. See an example in the [playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 #### Simple example for the structure below:
 
@@ -492,7 +492,7 @@ The structure of your project and its rules.
 > Make sure your `tsconfig`/`eslint.config.mjs` and the script to run ESLint, contains all the `files`/`folders` you want to validate. Otherwise `eslint` will not take them into account.
 
 > [!TIP]
-> I recommend creating reusable [rules](#rules) for each folder and using the [ruleId](#ruleid) in the [structure](#structure) for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground/blob/main/folderStructure.mjs).
+> I recommend creating reusable [rules](#rules) for each folder and using the [ruleId](#ruleid) in the [structure](#structure) for better readability. See the [example](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme/blob/main/folderStructure.mjs).
 
 ```
 .
