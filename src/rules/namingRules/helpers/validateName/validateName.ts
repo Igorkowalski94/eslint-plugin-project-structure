@@ -38,7 +38,7 @@ export const validateName = ({
 
   validateConfig({ config, schema: NAMING_RULES_SCHEMA });
 
-  const filenamePath = path.resolve(cwd, filename);
+  const filenamePath = path.relative(cwd, filename);
   const fileConfig = config.find(({ filePattern }) =>
     micromatch.every(filenamePath, filePattern),
   );

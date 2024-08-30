@@ -126,7 +126,7 @@ describe("validateName", () => {
       nodeType: "VariableDeclarator",
       node: {},
       report: reportMock,
-      filenamePath: path.resolve(
+      filenamePath: path.relative(
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",
       ),
@@ -170,7 +170,7 @@ describe("validateName", () => {
       nodeType: "VariableDeclarator",
       node: {},
       report: reportMock,
-      filenamePath: path.resolve(
+      filenamePath: path.relative(
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",
       ),
@@ -214,7 +214,7 @@ describe("validateName", () => {
       nodeType: "VariableDeclarator",
       node: {},
       report: reportMock,
-      filenamePath: path.resolve(
+      filenamePath: path.relative(
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",
       ),

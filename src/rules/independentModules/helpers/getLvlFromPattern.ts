@@ -12,5 +12,5 @@ export const getLvlFromPattern = (
 
   if (patternElements.length === 1) return defaultLvl;
 
-  return Number(patternElements[1].replace("}", ""));
+  return Number(patternElements[1].replaceAll("}", ""));
 };
