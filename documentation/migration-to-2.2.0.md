@@ -173,7 +173,7 @@ The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 
 ## New rules
 
-[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
+🕹️[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground) for eslint-plugin-project-structure rules.
 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md"> project-structure-independent-modules</a></h2>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,
