@@ -26,8 +26,8 @@ If you have any questions or need help creating a configuration that meets your 
 ## 📚 Documentation
 
 - [Migration guide to 2.2.0.](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)
-- [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
-- [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
+- [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structure-independent-modules)
+- [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules)
 
 ## ✈️ Go to
 
@@ -239,56 +239,77 @@ export const folderStructureConfig = createFolderStructure({
     {
       name: "src",
       children: [
-        // src/hooks/... All files and folders of the hooks_folder rule.
+        // src/hooks/useComplexGlobalHook/...
+        // src/hooks/...
         { ruleId: "hooks_folder" },
-        // src/components/... All files and folders of the components_folder rule.
+        // src/components/ParentComponent/...
+        // src/components/...
         { ruleId: "components_folder" },
       ],
     },
   ],
   rules: {
-    // hooks/useHookName1/... All files and folders of the hook_folder rule.
-    // hooks/useHookName2.test.ts
-    // hooks/useHookName2.ts
     hooks_folder: {
       name: "hooks",
       children: [
+        // hooks/useComplexHook/...
+        // hooks/...
         { ruleId: "hook_folder" },
+
+        // hooks/useSimpleHook.test.ts
+        // hooks/useSimpleHook.ts
         { name: "use{PascalCase}(.test)?.ts" },
       ],
     },
 
-    // useHookName/hooks/... All files and folders of the hooks_folder rule.
-    // useHookName/useHookName.test.ts
-    // useHookName/useHookName.api.ts
-    // useHookName/useHookName.types.ts
-    // useHookName/useHookName.ts
     hook_folder: {
+      // For example, this would be `useComplexHook`.
       name: "use{PascalCase}",
       children: [
+        // Here we create recursion because the `hooks_folder` rule refers to the `hook_folder` rule.
+        // useComplexHook/hooks/useComplexHook2/hooks/...
+        // useComplexHook/hooks/useComplexHook2/...
+        // useComplexHook/hooks/...
         { ruleId: "hooks_folder" },
+
+        // useComplexHook/useComplexHook.test.ts
+        // useComplexHook/useComplexHook.api.ts
+        // useComplexHook/useComplexHook.types.ts
+        // useComplexHook/useComplexHook.ts
         { name: "{parentName}(.(test|api|types))?.ts" },
       ],
     },
 
-    // components/ComponentName/... All files and folders of the component_folder rule.
     components_folder: {
       name: "components",
-      children: [{ ruleId: "component_folder" }],
+      children: [
+        // components/ParentComponent/...
+        { ruleId: "component_folder" },
+      ],
     },
 
-    // ComponentName/components/... All files and folders of the components_folder rule.
-    // ComponentName/hooks/... All files and folders of the hooks_folder rule.
-    // ComponentName/componentName.types.ts
-    // ComponentName/componentName.api.ts
-    // ComponentName/ComponentName.test.tsx
-    // ComponentName/ComponentName.tsx
     component_folder: {
+      // For example, this would be `ParentComponent`
       name: "{PascalCase}",
       children: [
+        // Here we create recursion because the `components_folder` rule refers to the `component_folder` rule.
+        // ParentComponent/components/ChildComponent/components/...
+        // ParentComponent/components/ChildComponent/hooks/...
+        // ParentComponent/components/ChildComponent/...
         { ruleId: "components_folder" },
+
+        // Here we create recursion because the `hooks_folder` rule refers to the `hook_folder` rule.
+        // ParentComponent/hooks/...
+        // ParentComponent/hooks/useComplexParentComponentHook/hooks/...
+        // ParentComponent/hooks/useComplexParentComponentHook/...
         { ruleId: "hooks_folder" },
+
+        // ParentComponent/parentComponent.types.ts
+        // ParentComponent/parentComponent.api.ts
         { name: "{parentName}.(types|api).ts" },
+
+        // ParentComponent/ParentComponent.test.tsx
+        // ParentComponent/ParentComponent.tsx
         { name: "{ParentName}(.test)?.tsx" },
       ],
     },
