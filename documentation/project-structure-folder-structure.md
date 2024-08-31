@@ -172,6 +172,7 @@ export const folderStructureConfig = createFolderStructure({
       children: [
         // src/index.tsx
         { name: "index.tsx" },
+
         // src/components/ComponentName.tsx
         { name: "components", children: [{ name: "{PascalCase}.tsx" }] },
       ],
@@ -243,6 +244,7 @@ export const folderStructureConfig = createFolderStructure({
         // src/hooks/useComplexGlobalHook/...
         // src/hooks/...
         { ruleId: "hooks_folder" },
+
         // src/components/ParentComponent/...
         { ruleId: "components_folder" },
       ],
