@@ -253,7 +253,6 @@ export const folderStructureConfig = createFolderStructure({
       name: "hooks",
       children: [
         // hooks/useComplexHook/...
-        // hooks/...
         { ruleId: "hook_folder" },
 
         // hooks/useSimpleHook.test.ts
