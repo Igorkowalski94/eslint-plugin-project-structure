@@ -164,7 +164,7 @@ export const folderStructureConfig = createFolderStructure({
   structure: [
     // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
     // You can add rules for them separately.
-    // You can also add exceptions like this: "(?!folderStructure)*"
+    // You can also add exceptions like this: "(?!folderStructure)*".
     { name: "*" },
     {
       name: "src",
@@ -234,7 +234,7 @@ export const folderStructureConfig = createFolderStructure({
   structure: [
     // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
     // You can add rules for them separately.
-    // You can also add exceptions like this: "(?!folderStructure)*"
+    // You can also add exceptions like this: "(?!folderStructure)*".
     { name: "*" },
     {
       name: "src",
@@ -287,7 +287,7 @@ export const folderStructureConfig = createFolderStructure({
     },
 
     component_folder: {
-      // For example, this would be `ParentComponent`
+      // For example, this would be `ParentComponent`.
       name: "{PascalCase}",
       children: [
         // Here we create recursion because the `components_folder` rule refers to the `component_folder` rule.
@@ -539,7 +539,7 @@ The structure of your project and its rules.
     { "name": "yourCoolFolderName", "children": [] },
     // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
     // You can add rules for them separately.
-    // You can also add exceptions like this: "(?!folderStructure)*"
+    // You can also add exceptions like this: "(?!folderStructure)*".
     { "name": "*" },
   ],
 }
@@ -557,7 +557,7 @@ or
       { "name": "yourCoolFolderName", "children": [] },
       // Allow any files in the root of your project, like package.json, eslint.config.mjs, etc.
       // You can add rules for them separately.
-      // You can also add exceptions like this: "(?!folderStructure)*"
+      // You can also add exceptions like this: "(?!folderStructure)*".
       { "name": "*" },
     ],
   },
