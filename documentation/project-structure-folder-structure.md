@@ -31,6 +31,7 @@ If you have any questions or need help creating a configuration that meets your 
 
 ## ✈️ Go to
 
+- [Plugin homepage](https://github.com/Igorkowalski94/eslint-plugin-project-structure#readme)
 - [Installation](#installation)
 - [Getting started](#getting-started)
   - [Simple example](#simple-example-for-the-structure-below)
