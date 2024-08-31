@@ -14,7 +14,7 @@ export const namingRules = ESLintUtils.RuleCreator(
   meta: {
     docs: {
       url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules",
-      description: "Enforce complex naming rules.",
+      description: "Enforce advanced naming rules.",
     },
     type: "problem",
     schema: { type: "array" },

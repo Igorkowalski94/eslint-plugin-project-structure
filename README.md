@@ -58,7 +58,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - An option to create a separate configuration file with TypeScript support.
 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules">project-structure-naming-rules</a></h2>
-<p align="center">Enforce complex naming rules and prohibit the use of given selectors in a given file.</p>
+<p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
 
 #### 🚀 Features:

@@ -19,7 +19,7 @@
     "filename-export-match",
     "enforce-file-existence",
     "enforce-folder-existence",
-    "complex-naming-rules",
+    "advanced-naming-rules",
     "single-main-class-per-file",
     "single-main-function-per-file",
     "react-folder-structure",

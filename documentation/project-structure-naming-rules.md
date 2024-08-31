@@ -1,5 +1,5 @@
 <h1 align="center">📁🦉project-structure/naming-rules</h1>
-<p align="center">Enforce complex naming rules and prohibit the use of given selectors in a given file.</p>
+<p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
 
 #### 🚀 Features:
