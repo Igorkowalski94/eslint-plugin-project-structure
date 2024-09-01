@@ -8,7 +8,7 @@ export const folderStructure = ESLintUtils.RuleCreator(
   () =>
     "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure",
 )<[FolderStructureConfig] | [], keyof typeof ESLINT_ERRORS>({
-  name: "project-structure-folder-structure",
+  name: "folder-structure",
   meta: {
     docs: {
       url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure",

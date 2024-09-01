@@ -1,4 +1,4 @@
-<h1 align="center">📁🦉project-structure-independent-modules</h1>
+<h1 align="center">📁🦉project-structure/independent-modules</h1>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,
 where removing or editing one feature triggers a chain reaction that impacts the entire project.</p>
 <p align="center">Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.</p>
@@ -23,8 +23,8 @@ If you have any questions or need help creating a configuration that meets your 
 
 ## 📚 Documentation
 
-- [project-structure-folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure)
-- [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules)
+- [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure/folder-structure.md#project-structurefolder-structure)
+- [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure/naming-rules.md#project-structurenaming-rules)
 
 ## ✈️ Go to
 

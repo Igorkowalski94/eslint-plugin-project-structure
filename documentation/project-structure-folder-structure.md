@@ -26,8 +26,8 @@ If you have any questions or need help creating a configuration that meets your 
 ## 📚 Documentation
 
 - [Migration guide to 2.2.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)
-- [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structure-independent-modules)
-- [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules)
+- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structure-independent-modules)
+- [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules)
 
 ## ✈️ Go to
 

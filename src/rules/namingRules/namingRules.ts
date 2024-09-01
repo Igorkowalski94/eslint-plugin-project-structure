@@ -10,7 +10,7 @@ export const namingRules = ESLintUtils.RuleCreator(
   () =>
     "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules",
 )({
-  name: "project-structure-naming-rules",
+  name: "naming-rules",
   meta: {
     docs: {
       url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules",
