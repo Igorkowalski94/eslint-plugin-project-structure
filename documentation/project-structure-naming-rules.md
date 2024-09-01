@@ -60,6 +60,8 @@ pnpm add --save-dev eslint-plugin-project-structure
 
 ## 🏁 Getting started <a id="getting-started"></a>
 
+### Step 1
+
 Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
@@ -99,7 +101,7 @@ export default tseslint.config(
 );
 ```
 
-#### Example:
+### Step 2
 
 Create a `namingRules.mjs` in the root of your project.<br>
 
@@ -108,6 +110,8 @@ Create a `namingRules.mjs` in the root of your project.<br>
 
 > [!NOTE]  
 >  `namingRules.json` and `namingRules.yaml` are also supported. See an example in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+
+#### Example:
 
 ```mjs
 // @ts-check

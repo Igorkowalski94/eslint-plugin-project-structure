@@ -416,8 +416,8 @@ Here, you can set your custom error for a given module.
 ### `reusableImportPatterns`: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
 
 To avoid repetitions, you can create reusable import patterns. <br>
-By writing `"{yourKey}"` you refer to a particular key in the `reusableImportPatterns` object,<br>
-you can use this reference in `reusableImportPatterns` and in [`"allowImportsFrom"`](#allow-imports-from).<br>
+By writing `{yourKey}` you refer to a particular key in the `reusableImportPatterns` object,<br>
+you can use this reference in `reusableImportPatterns` and in [`allowImportsFrom`](#allow-imports-from).<br>
 
 The library will automatically inform you about all usage errors such as: Infinite recursion, too many array nests. e.t.c.
 
