@@ -23,7 +23,7 @@ If you have any questions or need help creating a configuration that meets your 
 
 ## 📚 Documentation
 
-- [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structure-folder-structure)
+- [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure)
 - [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules)
 
 ## ✈️ Go to

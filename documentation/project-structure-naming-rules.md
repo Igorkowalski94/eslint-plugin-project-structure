@@ -26,7 +26,7 @@ If you have any questions or need help creating a configuration that meets your 
 ## 📚 Documentation
 
 - [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure)
-- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structure-independent-modules)
+- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structureindependent-modules)
 
 ## ✈️ Go to
 
