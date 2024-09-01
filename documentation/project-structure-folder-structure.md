@@ -85,8 +85,8 @@ import { folderStructureConfig } from "./folderStructure.mjs";
 
 export default tseslint.config(
   /**
-   *  Only for the project-structure/folder-structure rule,
-   *  which must use the projectStructureParser to check all file extensions not supported by ESLint.
+   *  Only for the `project-structure/folder-structure` rule,
+   *  which must use the `projectStructureParser` to check all file extensions not supported by ESLint.
    *  If you don't care about validating other file extensions, you can remove this section.
    */
   {
@@ -113,6 +113,10 @@ export default tseslint.config(
 
   /**
    *  Here you will add your normal rules, which use the default parser.
+   *  `tseslint.configs.recommended` and `eslint.configs.recommended.rules` are written in such a way that their rules are not added globally.
+   *  Some recommended rules require the default parser and will not work with additional extensions. Therefore,
+   *  we want `projectStructureParser` to be used exclusively by the `project-structure/folder-structure` rule.
+   *  If you’re not going to use `projectStructureParser`, you can write them normally.
    */
   {
     extends: [...tseslint.configs.recommended],

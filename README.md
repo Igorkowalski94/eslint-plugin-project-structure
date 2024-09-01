@@ -12,7 +12,7 @@
 
 ## 📋 General information
 
-🕹️[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+🕹️[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin/project-structure rules.
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
@@ -25,7 +25,7 @@ If you have any questions or need help creating a configuration that meets your 
 - [project-structure-independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structure-independent-modules)
 - [project-structure-naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules)
 
-<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure">project-structure-folder-structure</a></h2>
+<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure">project-structure/folder-structure</a></h2>
 <p align="center">Enforce rules on folder structure to keep your project consistent, orderly and well thought out.</p>
 
 #### 🚀 Features:
@@ -42,7 +42,7 @@ If you have any questions or need help creating a configuration that meets your 
 - Folder recursion. You can nest a given folder structure recursively.
 - Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
 
-<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structure-independent-modules">project-structure-independent-modules</a></h2>
+<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structure-independent-modules">project-structure/independent-modules</a></h2>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,
 where removing or editing one feature triggers a chain reaction that impacts the entire project.</p>
 <p align="center">Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.</p>
@@ -57,7 +57,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
 - An option to create a separate configuration file with TypeScript support.
 
-<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules">project-structure-naming-rules</a></h2>
+<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules">project-structure/naming-rules</a></h2>
 <p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
 

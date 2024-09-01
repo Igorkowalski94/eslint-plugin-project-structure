@@ -73,28 +73,30 @@ import tseslint from "typescript-eslint";
 import { projectStructurePlugin } from "eslint-plugin-project-structure";
 import { namingRulesConfig } from "./namingRules.mjs";
 
-export default tseslint.config({
-  extends: [...tseslint.configs.recommended],
-  files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-  plugins: {
-    "project-structure": projectStructurePlugin,
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    plugins: {
+      "project-structure": projectStructurePlugin,
+    },
+    rules: {
+      // If you have many rules in a separate file.
+      "project-structure/naming-rules": ["error", ...namingRulesConfig],
+      // If you have only a few rules.
+      "project-structure/naming-rules": [
+        "error",
+        {
+          // Rule1
+        },
+        {
+          // Rule2
+        },
+      ],
+    },
   },
-  rules: {
-    ...eslint.configs.recommended.rules,
-    // If you have many rules in a separate file.
-    "project-structure/naming-rules": ["error", ...namingRulesConfig],
-    // If you have only a few rules.
-    "project-structure/naming-rules": [
-      "error",
-      {
-        // Rule1
-      },
-      {
-        // Rule2
-      },
-    ],
-  },
-});
+);
 ```
 
 #### Example:
