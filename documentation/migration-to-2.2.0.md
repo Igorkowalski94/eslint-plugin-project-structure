@@ -6,12 +6,12 @@ A minor configuration fix will be required for version <= 1.4.7.
 
 ## General changes
 
-- A shorter notation option for [structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure#structure).
+- A shorter notation option for [structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#structure).
 - New build-in {SNAKE_CASE} regexParameter.
 - Improvements for {PascalCase} and {camelCase} regexParameters.
 - The entire documentation has been rewritten for ESLint's new config system. Examples with the old ESLint configuration can be found in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 - New option for creating a configuration file in an .mjs file with TypeScript support.
-- [Enforcing the existence](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure#enforce-existence) of a files/folders when a specific file/folder exists. For example, if `src/Component.tsx` exists, then `src/Component.test.tsx` and `src/stories/Component.stories.tsx` must also exist.
+- [Enforcing the existence](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#enforce-existence) of a files/folders when a specific file/folder exists. For example, if `src/Component.tsx` exists, then `src/Component.test.tsx` and `src/stories/Component.stories.tsx` must also exist.
 - You can now use comments in folderStructure.json, independentModules.json and namingRules.json files.
 - Improved error messages for folder-structure.
 - Easier configuration of folder-structure. The "extension" key has been removed, now the file extension will be part of the "name". You don't need to add /^$/ to your regex, they will be added automatically and other improvements.
@@ -150,7 +150,7 @@ Allowed now: component, componentName, componentName1.<br>
 From: `(([a-z]|\d)+(([A-Z]|\d){1}([a-z]|\d)*)*)`<br>
 To: `[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`<br>
 
-You can go back to the old settings via [regexParameters](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure#regex-parameters).
+You can go back to the old settings via [regexParameters](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#regex-parameters).
 
 ```jsonc
 {
