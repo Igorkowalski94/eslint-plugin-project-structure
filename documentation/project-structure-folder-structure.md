@@ -52,11 +52,15 @@ If you have any questions or need help creating a configuration that meets your 
 ## 💾 Installation <a id="installation"></a>
 
 ```bsh
-yarn add -D eslint-plugin-project-structure
+npm i --save-dev eslint-plugin-project-structure
 ```
 
 ```bsh
-npm i --dev eslint-plugin-project-structure
+yarn add --dev eslint-plugin-project-structure
+```
+
+```bsh
+pnpm add --save-dev eslint-plugin-project-structure
 ```
 
 ## 🏁 Getting started <a id="getting-started"></a>
