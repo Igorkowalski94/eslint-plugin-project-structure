@@ -52,7 +52,7 @@ If you have any questions or need help creating a configuration that meets your 
 ## 💾 Installation <a id="installation"></a>
 
 ```bsh
-npm i --save-dev eslint-plugin-project-structure
+npm install --save-dev eslint-plugin-project-structure
 ```
 
 ```bsh
