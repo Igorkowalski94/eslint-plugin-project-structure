@@ -6,6 +6,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 #### 🚀 Features:
 
 - Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
+- The ability to create very detailed rules, even for nested folder structures. Whether it's a large module, a sub-module, or a single file, there are no limitations.
 - Disabling external imports (node_modules) for a given module (Option to add exceptions).
 - Non-relative/relative imports support.
 - Support for imports without extension.
