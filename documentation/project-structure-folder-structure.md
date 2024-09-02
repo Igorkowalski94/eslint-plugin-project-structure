@@ -1,7 +1,7 @@
 <h1 align="center"><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></br>project-structure/folder-structure</h1>
 <p align="center">Enforce rules on folder structure to keep your project consistent, orderly and well thought out.</p>
 
-<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="25" height="25" /> Features:</h4>
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="30" height="30" /> Features:</h4>
 
 - Validation of folder structure. Any files/folders outside the structure will be considered an error.
 - File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.
