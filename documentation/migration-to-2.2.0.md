@@ -180,7 +180,7 @@ The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 where removing or editing one feature triggers a chain reaction that impacts the entire project.</p>
 <p align="center">Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.</p>
 
-<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="30" height="30" /> Features:</h4>
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /> Features:</h4>
 
 - Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
 - Disabling external imports (node_modules) for a given module (Option to add exceptions).
@@ -194,7 +194,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 <p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
 
-<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="30" height="30" /> Features:</h4>
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /> Features:</h4>
 
 - Naming validation.
 - Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.

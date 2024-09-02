@@ -34,7 +34,7 @@ If you have any questions or need help creating a configuration that meets your 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure">project&#8209;structure/&#8203;folder&#8209;structure</a></h2>
 <p align="center">Enforce rules on folder structure to keep your project consistent, orderly and well thought out.</p>
 
-<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="30" height="30" /> Features:</h4>
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /> Features:</h4>
 
 - Validation of folder structure. Any files/folders outside the structure will be considered an error.
 - File/Folder name regex validation with features like wildcard `*` and treating `.` as a character, along with other conveniences.
@@ -53,7 +53,7 @@ If you have any questions or need help creating a configuration that meets your 
 where removing or editing one feature triggers a chain reaction that impacts the entire project.</p>
 <p align="center">Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.</p>
 
-<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="30" height="30" /> Features:</h4>
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /> Features:</h4>
 
 - Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
 - The ability to create very detailed rules, even for nested folder structures. Whether it's a large module, a sub-module, or a single file, there are no limitations.
@@ -68,7 +68,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 <p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
 
-<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="30" height="30" /> Features:</h4>
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /> Features:</h4>
 
 - Naming validation.
 - Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.
