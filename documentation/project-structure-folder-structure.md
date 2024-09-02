@@ -685,7 +685,7 @@ Here you can set the paths you want to ignore. You can use all [micromatch.some]
 { "ignorePatterns": ["src/legacy/**"] }
 ```
 
-<h2><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images//Party%20Popper.png" alt="Party Popper" width="35" height="35" /> Sponsors</h2>
+<h2><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Party%20Popper.png" alt="Party Popper" width="35" height="35" /> Sponsors</h2>
 <p align="center">Thank you very much to all current and past sponsors. Let’s work together to raise the quality of projects in our industry!</p>
 
 <p align="center"><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Love-You%20Gesture.png" alt="Love-You Gesture" width="60px" height="60px" /><p>
