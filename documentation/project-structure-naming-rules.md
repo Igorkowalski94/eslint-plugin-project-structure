@@ -231,7 +231,7 @@ const transformUserData = ({
 
 ## ⚙️ API <a id="api"></a>
 
-### `filePattern`: `string | string[]` <a id="file-pattern"></a>
+### `filePattern: string | string[]` <a id="file-pattern"></a>
 
 Here you define which files should meet the rules. You can use all [micromatch.every](https://github.com/micromatch/micromatch?tab=readme-ov-file#every) functionalities.
 
@@ -240,7 +240,7 @@ Here you define which files should meet the rules. You can use all [micromatch.e
 { "filePattern": ["**/*.ts", "!(**/index.ts)"] }
 ```
 
-### `fileExportRules, fileRootRules, fileRules`: `NamingRule[] | NamingRuleObject` <a id="file-rules"></a>
+### `fileExportRules, fileRootRules, fileRules?: NamingRule[] | NamingRuleObject` <a id="file-rules"></a>
 
 The plugin allows setting rules for exported [selectors](#selector) via `fileExportsRules`, [selectors](#selector) in the root of the file via `fileRootRules` and nested/all [selectors](#selector) in the file via `fileRules`. They can be used together in combination.
 
@@ -279,7 +279,7 @@ There are two types of notations available:
 }
 ```
 
-### `allowOnlySpecifiedSelectors`: `boolean | undefined` <a id="allow-only-specified-selectors"></a>
+### `allowOnlySpecifiedSelectors?: boolean` <a id="allow-only-specified-selectors"></a>
 
 With `allowOnlySpecifiedSelectors`, you can prohibit the use of selectors that you haven’t explicitly specified for the file.
 
@@ -293,7 +293,7 @@ With `allowOnlySpecifiedSelectors`, you can prohibit the use of selectors that y
 }
 ```
 
-### `errors`: `Record<Selector, string> | undefined` <a id="errors"></a>
+### `errors?: Record<Selector, string>` <a id="errors"></a>
 
 Additional errors for individual selectors. Useful if you want to provide more information to your team members and explain why a particular selector is prohibited in a given file.
 
@@ -318,7 +318,7 @@ Available only when [allowOnlySpecifiedSelectors](#allow-only-specified-selector
 }
 ```
 
-### `selector`: `Selector | Selector[]` <a id="selector"></a>
+### `selector: Selector | Selector[]` <a id="selector"></a>
 
 Here you define the selector or selectors you are interested in.<br>
 
@@ -342,7 +342,7 @@ Available selectors:<br>
 }
 ```
 
-### `filenamePartsToRemove`: `string[] | undefined` <a id="filename-parts-to-remove"></a>
+### `filenamePartsToRemove?: string[]` <a id="filename-parts-to-remove"></a>
 
 Useful if you use prefixes in your filenames and don't want them to be part of the [selector](#selector) name.
 
@@ -362,7 +362,7 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
 }
 ```
 
-### `format`: `string[] | undefined` <a id="format"></a>
+### `format?: string[]` <a id="format"></a>
 
 The format that the given [selector](#selector) must adhere to.<br>
 It is treated as a regular expression. If the [selector](#selector) name matches at least one regular expression, it will be considered valid.<br>

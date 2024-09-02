@@ -260,7 +260,7 @@ export const independentModulesConfig = createIndependentModules({
 
 ## ⚙️ API <a id="api"></a>
 
-### `modules`: `Module[]` <a id="modules"></a>
+### `modules: Module[]` <a id="modules"></a>
 
 A place where you can add your modules.<br>
 
@@ -323,7 +323,7 @@ After creation, each module will not be able to import anything except external 
 }
 ```
 
-### `name`: `string` <a id="name"></a>
+### `name: string` <a id="name"></a>
 
 The name of your module.
 
@@ -331,7 +331,7 @@ The name of your module.
 { "modules": [{ "name": "features" }] }
 ```
 
-### `pattern`: `string | string[]` <a id="pattern"></a>
+### `pattern: string | string[]` <a id="pattern"></a>
 
 Your module's pattern.<br>
 
@@ -347,7 +347,7 @@ You can use all [micromatch.every](https://github.com/micromatch/micromatch?tab=
 }
 ```
 
-### `allowImportsFrom`: `(string | string[])[]` <a id="allow-imports-from"></a>
+### `allowImportsFrom: (string | string[])[]` <a id="allow-imports-from"></a>
 
 The place where you specify what can be imported into your module.<br>
 
@@ -393,7 +393,7 @@ If at least **one** pattern in `allowImportsFrom` meets the condition, the impor
 }
 ```
 
-### `allowExternalImports`: `<boolean | undefined>` <a id="allow-external-imports"></a>
+### `allowExternalImports?: boolean` <a id="allow-external-imports"></a>
 
 Here you can enable/disable the ability to import external imports (node_modules) in a given module.<br>
 
@@ -411,7 +411,7 @@ The default value is true.
 }
 ```
 
-### `errorMessage`: `string | undefined` <a id="error-message"></a>
+### `errorMessage?: string` <a id="error-message"></a>
 
 Here, you can set your custom error for a given module.
 
@@ -419,7 +419,7 @@ Here, you can set your custom error for a given module.
 { "modules": [{ "errorMessage": "My custom module error." }] }
 ```
 
-### `reusableImportPatterns`: `Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
+### `reusableImportPatterns?: Record<string, (string | string[])[]>` <a id="reusable-import-patterns"></a>
 
 To avoid repetitions, you can create reusable import patterns. <br>
 By writing `{yourKey}` you refer to a particular key in the `reusableImportPatterns` object,<br>
@@ -528,7 +528,7 @@ Current file    = "features/Feature1/Child1/hooks/useComplexHook1/useComplexHook
 {dirname_5}     = "features"
 ```
 
-### `tsconfigPath`: `string | undefined` <a id="tsconfig-path"></a>
+### `tsconfigPath?: string` <a id="tsconfig-path"></a>
 
 The path to your `tsconfig.json`.<br>
 If your `tsconfig` is located in the root of your project, the plugin will automatically detect it.<br>
@@ -538,7 +538,7 @@ If your `tsconfig` is located elsewhere, you can specify its location here.
 { "tsconfigPath": "./tsconfig.json" }
 ```
 
-### `pathAliases`: `{ baseUrl: string; paths: Record<string, string[]>; } | undefined` <a id="path-aliases"></a>
+### `pathAliases?: { baseUrl: string; paths: Record<string, string[]>; }` <a id="path-aliases"></a>
 
 The plugin automatically takes `baseUrl` and `paths` from your `tsconfig.json`.<br>
 However, if you are using another tool for path aliases, such as `Webpack` or `Babel`, you can configure the appropriate path aliases here.
@@ -559,7 +559,7 @@ import { Component } from "@components/Component";
 }
 ```
 
-### `extensions`: `string[] | undefined` <a id="extensions"></a>
+### `extensions?: string[]` <a id="extensions"></a>
 
 If you use shortened imports without a file extension, the plugin will automatically assign the correct extension from the list of available extensions.
 
@@ -576,7 +576,7 @@ If the extension you are using is not on the list, you can extend it.
 { "extensions": [".yourFancyExtension"] }
 ```
 
-### `debugMode`: `boolean | undefined` <a id="debug-mode"></a>
+### `debugMode?: boolean` <a id="debug-mode"></a>
 
 Debug mode showing the current [`allowImportsFrom`](#allow-imports-from), [`{family}`](#family), and [`{dirname}`](#dirname) for a given import.<br>
 The default value is `false`.
