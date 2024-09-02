@@ -1,3 +1,8 @@
+<p align="right">
+  <img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Cloud.png" alt="Cloud" width="35" height="35" />
+  <img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Crescent%20Moon.png" alt="Crescent Moon" width="30" height="30" />
+    <img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Cloud.png" alt="Cloud" width="19" height="19" />
+</p>
 <h1 align="center"><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></br>eslint&#8209;plugin-project&#8209;structure</h1>
 
 <p align="center">ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.</p>
