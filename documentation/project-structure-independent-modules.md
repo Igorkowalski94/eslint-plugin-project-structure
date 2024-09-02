@@ -1,9 +1,9 @@
-<h1 align="center">📁🦉project-structure/independent-modules</h1>
+<h1 align="center"><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></br>project-structure/independent-modules</h1>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,
 where removing or editing one feature triggers a chain reaction that impacts the entire project.</p>
 <p align="center">Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.</p>
 
-#### 🚀 Features:
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="25" height="25" /> Features:</h4>
 
 - Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
 - The ability to create very detailed rules, even for nested folder structures. Whether it's a large module, a sub-module, or a single file, there are no limitations.
@@ -16,7 +16,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 
 ## 📋 General information
 
-🕹️[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+🎮[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
@@ -70,7 +70,7 @@ pnpm add --save-dev eslint-plugin-project-structure
 Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the 🎮[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
@@ -114,7 +114,7 @@ Create a `independentModules.mjs` in the root of your project.<br>
 > Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 
 > [!NOTE]  
->  `independentModules.json` and `independentModules.yaml` are also supported. See an example in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+>  `independentModules.json` and `independentModules.yaml` are also supported. See an example in the 🎮[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 #### Simple example for the folder structure below:
 

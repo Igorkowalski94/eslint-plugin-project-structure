@@ -1,8 +1,8 @@
-<h1 align="center">📁🦉project-structure/naming-rules</h1>
+<h1 align="center"><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></br>project-structure/naming-rules</h1>
 <p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
 
-#### 🚀 Features:
+<h4><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Folder" width="25" height="25" /> Features:</h4>
 
 - Naming validation.
 - Supported selectors: `class`, `variable`, `function`, `arrowFunction`, `type`, `interface`, `enum`.
@@ -17,7 +17,7 @@
 
 ## 📋 General information
 
-🕹️[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+🎮[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
@@ -65,7 +65,7 @@ pnpm add --save-dev eslint-plugin-project-structure
 Add the following lines to `eslint.config.mjs`.
 
 > [!NOTE]  
->  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+>  The examples in the documentation refer to ESLint's new config system. If you're interested in examples for the old ESLint config, you can find them in the 🎮[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 ```mjs
 // @ts-check
@@ -109,7 +109,7 @@ Create a `namingRules.mjs` in the root of your project.<br>
 > Remember to include `// @ts-check`, otherwise type checking won't be enabled.
 
 > [!NOTE]  
->  `namingRules.json` and `namingRules.yaml` are also supported. See an example in the 🕹️[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
+>  `namingRules.json` and `namingRules.yaml` are also supported. See an example in the 🎮[playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#readme) for eslint-plugin-project-structure rules.
 
 #### Example:
 
