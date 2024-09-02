@@ -453,3 +453,6 @@ The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 ```jsonc
 { "format": ["{SNAKE_CASE}"] }
 ```
+
+<h2><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images//Party%20Popper.png" alt="Party Popper" width="35" height="35" /> Sponsors</h2>
+<p align="center">Thank you very much to all current and past sponsors. Let’s work together to raise the quality of projects in our industry!</p>

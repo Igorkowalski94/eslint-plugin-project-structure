@@ -80,3 +80,6 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Regex validation.
 - Build in case validation.
 - An option to create a separate configuration file with TypeScript support.
+
+<h2><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images//Party%20Popper.png" alt="Party Popper" width="35" height="35" /> Sponsors</h2>
+<p align="center">Thank you very much to all current and past sponsors. Let’s work together to raise the quality of projects in our industry!</p>
