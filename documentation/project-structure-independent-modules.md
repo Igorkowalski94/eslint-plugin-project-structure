@@ -1,4 +1,4 @@
-<h1 align="center"><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></br>project&#8209;structure/independent&#8209;modules</h1>
+<h1 align="center"><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></br>project&#8209;structure/&#8203;independent&#8209;modules</h1>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,
 where removing or editing one feature triggers a chain reaction that impacts the entire project.</p>
 <p align="center">Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.</p>
