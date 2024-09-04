@@ -36,7 +36,7 @@ Leave a ⭐ and share the link with your friends.<br>
 
 ## 📚 Documentation
 
-- [Migration guide to 2.3.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.3.0.md)
+- [Migration guide to 2.3.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/Migration-guide-to-2.3.0)
 - [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root)
 - [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bindependent%E2%80%91modules#root)
 - [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bnaming%E2%80%91rules#root)
