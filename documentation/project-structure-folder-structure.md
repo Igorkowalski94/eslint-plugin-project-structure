@@ -47,7 +47,7 @@ Leave a ⭐ and share the link with your friends.<br>
 
 ## ✈️ Go to
 
-- [Plugin homepage](https://github.com/Igorkowalski94/eslint-plugin-project-structure#readme)
+- [Plugin homepage](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/Plugin-homepage#root)
 - [Installation](#installation)
 - [Getting started](#getting-started)
   - [Simple example](#simple-example-for-the-structure-below)
