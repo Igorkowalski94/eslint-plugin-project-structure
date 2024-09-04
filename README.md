@@ -7,7 +7,7 @@
   </picture>
   <picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Cloud.png" alt="Cloud" width="19" height="19" /></picture>
 </p>
-<h1 align="center"><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /></picture><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></picture></br>eslint&#8209;plugin-project&#8209;structure</h1>
+<h1 align="center"><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /></picture><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></picture><br>eslint&#8209;plugin-project&#8209;structure</h1>
 
 <p align="center">ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.</p>
 <p align="center">Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules.</p>
