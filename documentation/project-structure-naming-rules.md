@@ -131,68 +131,70 @@ Create a `namingRules.mjs` in the root of your project.<br>
 
 import { createNamingRules } from "eslint-plugin-project-structure";
 
-export const namingRulesConfig = createNamingRules([
-  // In this example, we want all `.consts.ts` files to adhere to the following rules:
-  // - They may only export variables that adhere to `{SNAKE_CASE}`.
-  // - The file may contain all other selectors, but non-exported variables must adhere to `{camelCase}`.
-  {
-    filePattern: "**/*.consts.ts",
-    fileExportsRules: {
-      allowOnlySpecifiedSelectors: true,
-      rules: [
+export const namingRulesConfig = createNamingRules({
+  filesRules: [
+    // In this example, we want all `.consts.ts` files to adhere to the following rules:
+    // - They may only export variables that adhere to `{SNAKE_CASE}`.
+    // - The file may contain all other selectors, but non-exported variables must adhere to `{camelCase}`.
+    {
+      filePattern: "**/*.consts.ts",
+      fileExportsRules: {
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          {
+            selector: "variable",
+            format: "{SNAKE_CASE}",
+          },
+        ],
+      },
+      fileRules: [
         {
           selector: "variable",
-          format: "{SNAKE_CASE}",
-        },
-      ],
-    },
-    fileRules: [
-      {
-        selector: "variable",
-        format: "{camelCase}",
-      },
-    ],
-  },
-  // In this example, we want all `.ts` files, except `index.ts`, to adhere to the following rules:
-  // - They may contain at most one arrowFunction that follows `{fileName}`.
-  // - They may include at most two types or interfaces that match `{FileName}Props` or `{file_name}_return`.
-  // - All nested arrowFunctions and variables must follow `{camelCase}`.
-  // - If a variable is used at the root of our file, an error will appear indicating that it should be moved to a `.consts.ts` file.
-  // - All other selectors not specified in the rules for this file are prohibited.
-  {
-    filePattern: ["**/*.ts", "!(**/index.ts)"],
-    fileRootRules: {
-      allowOnlySpecifiedSelectors: true,
-      errors: {
-        variable: "Move all variables to .consts.ts file.",
-      },
-      rules: [
-        {
-          selector: "arrowFunction",
-          format: "{fileName}",
-        },
-        {
-          selector: ["interface", "type"],
-          format: ["{FileName}Props", "{file_name}_return"],
-        },
-      ],
-    },
-    fileRules: {
-      allowOnlySpecifiedSelectors: true,
-      rules: [
-        {
-          selector: "arrowFunction",
           format: "{camelCase}",
         },
+      ],
+    },
+    // In this example, we want all `.ts` files, except `index.ts`, to adhere to the following rules:
+    // - They may contain at most one arrowFunction that follows `{fileName}`.
+    // - They may include at most two types or interfaces that match `{FileName}Props` or `{file_name}_return`.
+    // - All nested arrowFunctions and variables must follow `{camelCase}`.
+    // - If a variable is used at the root of our file, an error will appear indicating that it should be moved to a `.consts.ts` file.
+    // - All other selectors not specified in the rules for this file are prohibited.
+    {
+      filePattern: ["**/*.ts", "!(**/index.ts)"],
+      fileRootRules: {
+        allowOnlySpecifiedSelectors: true,
+        errors: {
+          variable: "Move all variables to .consts.ts file.",
+        },
+        rules: [
+          {
+            selector: "arrowFunction",
+            format: "{fileName}",
+          },
+          {
+            selector: ["interface", "type"],
+            format: ["{FileName}Props", "{file_name}_return"],
+          },
+        ],
+      },
+      fileRules: {
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          {
+            selector: "arrowFunction",
+            format: "{camelCase}",
+          },
 
-        {
-          selector: "variable",
-          format: "{camelCase}",
-        },
-      ],
+          {
+            selector: "variable",
+            format: "{camelCase}",
+          },
+        ],
+      },
     },
-  },
-]);
+  ],
+});
 ```
 
 ```ts
