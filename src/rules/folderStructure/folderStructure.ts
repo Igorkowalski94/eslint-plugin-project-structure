@@ -6,12 +6,12 @@ import { handleProgram } from "rules/folderStructure/helpers/handleProgram";
 
 export const folderStructure = ESLintUtils.RuleCreator(
   () =>
-    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md",
+    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root",
 )<[FolderStructureConfig] | [], keyof typeof ESLINT_ERRORS>({
   name: "folder-structure",
   meta: {
     docs: {
-      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md",
+      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root",
       description:
         "Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.",
     },

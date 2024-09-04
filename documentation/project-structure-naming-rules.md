@@ -1,3 +1,5 @@
+<a id="root"></a>
+
 <p align="right">
   <picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Cloud.png" alt="Cloud" width="35" height="35" /></picture>
   <picture>
@@ -7,6 +9,7 @@
   </picture>
   <picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Cloud.png" alt="Cloud" width="19" height="19" /></picture>
 </p>
+
 <h1 align="center"><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /></picture><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></picture><br>project&#8209;structure/&#8203;naming&#8209;rules</h1>
 <p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
@@ -38,8 +41,8 @@ Leave a ⭐ and share the link with your friends.<br>
 
 ## 📚 Documentation
 
-- [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
-- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
+- [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root)
+- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bindependent%E2%80%91modules#root)
 
 ## ✈️ Go to
 

@@ -9,12 +9,12 @@ import { NamingRulesConfig } from "rules/namingRules/namingRules.types";
 
 export const namingRules = ESLintUtils.RuleCreator(
   () =>
-    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md",
+    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bnaming%E2%80%91rules#root",
 )<[NamingRulesConfig] | [], keyof typeof ESLINT_ERRORS>({
   name: "naming-rules",
   meta: {
     docs: {
-      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md",
+      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bnaming%E2%80%91rules#root",
       description: "Enforce advanced naming rules.",
     },
     type: "problem",
