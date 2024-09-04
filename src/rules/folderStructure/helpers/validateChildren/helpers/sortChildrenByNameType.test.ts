@@ -3,7 +3,7 @@ import { sortChildrenByNameType } from "rules/folderStructure/helpers/validateCh
 describe("sortChildrenByNameType", () => {
   const children = [
     { name: "FixedName1" },
-    { name: "{ParentName}" },
+    { name: "{FolderName}" },
     { name: "FixedName2" },
     { ruleId: "ruleId" },
     { children: [] },
@@ -20,7 +20,7 @@ describe("sortChildrenByNameType", () => {
     { children: [] },
     { extension: "*" },
     { name: "{camelCase}" },
-    { name: "{ParentName}" },
+    { name: "{FolderName}" },
   ];
 
   it("should sort children by name type", () => {

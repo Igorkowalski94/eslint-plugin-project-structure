@@ -11,7 +11,7 @@ import { validateRules } from "rules/namingRules/helpers/validateName/helpers/va
 import { NAMING_RULES_SCHEMA } from "rules/namingRules/helpers/validateName/validateName.consts";
 import {
   Context,
-  FileNamingRules,
+  NamingRulesConfig,
   Node,
   NodeType,
 } from "rules/namingRules/namingRules.types";
@@ -29,19 +29,20 @@ export const validateName = ({
   node,
   nodeType,
 }: ValidateNameProps): void => {
-  const config = readConfigFile<FileNamingRules[]>({
+  const config = readConfigFile<NamingRulesConfig>({
     cwd,
     key: "project-structure/naming-rules-config-path",
     settings,
-    options: options.length ? options : undefined,
+    options: options[0],
   });
 
   validateConfig({ config, schema: NAMING_RULES_SCHEMA });
 
   const filenamePath = path.relative(cwd, filename);
-  const fileConfig = config.find(({ filePattern }) =>
+  const fileConfig = config.filesRules.find(({ filePattern }) =>
     micromatch.every(filenamePath, filePattern),
   );
+  const regexParameters = config.regexParameters;
 
   if (!fileConfig) return;
 
@@ -62,6 +63,7 @@ export const validateName = ({
       report,
       filenamePath,
       errorMessageId: "prohibitedSelectorExport",
+      regexParameters,
     });
   }
 
@@ -79,6 +81,7 @@ export const validateName = ({
       report,
       filenamePath,
       errorMessageId: "prohibitedSelectorRoot",
+      regexParameters,
     });
   }
 
@@ -91,6 +94,7 @@ export const validateName = ({
       report,
       filenamePath,
       errorMessageId: "prohibitedSelector",
+      regexParameters,
     });
   }
 };

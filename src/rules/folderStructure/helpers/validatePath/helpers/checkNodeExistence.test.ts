@@ -1,7 +1,10 @@
 import fs from "fs";
 import path from "path";
 
+import { getInvalidReferenceError } from "errors/getInvalidReferenceError";
+
 import { getNodeExistenceError } from "rules/folderStructure/errors/getNodeExistenceError";
+import { NODE_NAME_REFERENCES } from "rules/folderStructure/folderStructure.consts";
 import { checkNodeExistence } from "rules/folderStructure/helpers/validatePath/helpers/checkNodeExistence";
 
 describe("checkNodeExistence", () => {
@@ -33,11 +36,44 @@ describe("checkNodeExistence", () => {
     expect(() =>
       checkNodeExistence({
         cwd: "...",
-        enforceExistence: ["{name}.stories.tsx", "test.ts"],
+        enforceExistence: ["{nodeName}.stories.tsx", "test.ts"],
         nodeName: "Feature1.tsx",
         filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
       }),
     ).not.toThrow();
+  });
+
+  it("should throw when reference do not exist", () => {
+    jest
+      .spyOn(fs, "existsSync")
+      .mockImplementation(
+        (filepath) =>
+          filepath ===
+            path.join(
+              "...",
+              "src",
+              "features",
+              "Feature1",
+              "feature1.stories.tsx",
+            ) ||
+          filepath ===
+            path.join("...", "src", "features", "Feature1", "test.ts"),
+      );
+
+    expect(() =>
+      checkNodeExistence({
+        cwd: "...",
+        enforceExistence: ["{nodeName2}.{PascalCase}.stories.tsx", "test.ts"],
+        nodeName: "Feature1.tsx",
+        filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
+      }),
+    ).toThrow(
+      getInvalidReferenceError({
+        allowedReferences: Object.keys(NODE_NAME_REFERENCES),
+        invalidReferences: ["{nodeName2}", "{PascalCase}"],
+        key: "enforceExistence",
+      }),
+    );
   });
 
   it("should not throw when nodes exist folder", () => {

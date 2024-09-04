@@ -13,6 +13,7 @@ export const independentModulesConfig = createIndependentModules({
         "{globalHelpers}",
         "{globalConsts}",
         "{globalErrors}",
+        "{globalTypes}",
       ],
     },
     {
@@ -23,6 +24,7 @@ export const independentModulesConfig = createIndependentModules({
         "{globalHelpers}",
         "{globalConsts}",
         "{globalErrors}",
+        "{globalTypes}",
       ],
     },
     {
@@ -45,6 +47,7 @@ export const independentModulesConfig = createIndependentModules({
       "!(**/{privateFolders}/**)",
     ],
 
+    globalTypes: ["types.ts"],
     globalConsts: ["consts.ts"],
     globalErrors: ["errors/**"],
     globalHelpers: [["helpers/**", "{notPrivateFilesAndFolders}"]],

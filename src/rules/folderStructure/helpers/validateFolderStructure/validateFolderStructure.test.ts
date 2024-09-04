@@ -63,7 +63,7 @@ describe("validateFolderStructure", () => {
       pathname: "rootFolderName/src/features/ComponentName.tsx",
       filenameWithoutCwd: "src/features/ComponentName.tsx",
       cwd: path.join("C:", "rootFolderName"),
-      parentName: "rootFolderName",
+      folderName: "rootFolderName",
       rule: {},
       config: { structure: {} },
     });

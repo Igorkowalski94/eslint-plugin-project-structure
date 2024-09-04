@@ -1,40 +1,28 @@
-import { validateReferences } from "helpers/validateReferences/validateReferences";
+import { RegexParameters } from "types";
 
-import { RegexParameters } from "rules/folderStructure/folderStructure.types";
+import { getRegexWithoutReferences } from "helpers/getRegexWithoutReferences/getRegexWithoutReferences";
+
 import { getDefaultRegexParameters } from "rules/folderStructure/helpers/validateName/helpers/getDefaultRegexParameters";
 
 interface ApplyRegexParametersProps {
   regex: string;
-  parentName: string;
+  folderName: string;
   regexParameters?: RegexParameters;
 }
 
 export const applyRegexParameters = ({
   regex,
-  parentName,
+  folderName,
   regexParameters,
 }: ApplyRegexParametersProps): string => {
-  let currentRegex = regex;
-
   const defaultRegexParameters = getDefaultRegexParameters({
-    parentName,
+    folderName,
     regexParameters,
   });
 
-  const regexParametersKeys = Object.keys(defaultRegexParameters);
-
-  validateReferences({
-    pattern: regex,
-    allowedReferences: regexParametersKeys,
+  return getRegexWithoutReferences({
+    regex,
+    regexParameters: defaultRegexParameters,
+    key: "name",
   });
-
-  regexParametersKeys.forEach(
-    (key) =>
-      (currentRegex = currentRegex.replaceAll(
-        `{${key}}`,
-        defaultRegexParameters[key],
-      )),
-  );
-
-  return currentRegex;
 };

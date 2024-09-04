@@ -38,9 +38,9 @@ Leave a ⭐ and share the link with your friends.<br>
 
 ## 📚 Documentation
 
-- [Migration guide to 2.2.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.2.0.md)
-- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structureindependent-modules)
-- [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules)
+- [Migration guide to 2.3.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/migration-to-2.3.0.md)
+- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
+- [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md)
 
 ## ✈️ Go to
 
@@ -298,7 +298,7 @@ export const folderStructureConfig = createFolderStructure({
         // useComplexHook/useComplexHook.api.ts
         // useComplexHook/useComplexHook.types.ts
         // useComplexHook/useComplexHook.ts
-        { name: "{parentName}(.(test|api|types))?.ts" },
+        { name: "{folderName}(.(test|api|types))?.ts" },
       ],
     },
 
@@ -328,11 +328,11 @@ export const folderStructureConfig = createFolderStructure({
 
         // ParentComponent/parentComponent.types.ts
         // ParentComponent/parentComponent.api.ts
-        { name: "{parentName}.(types|api).ts" },
+        { name: "{folderName}.(types|api).ts" },
 
         // ParentComponent/ParentComponent.test.tsx
         // ParentComponent/ParentComponent.tsx
-        { name: "{ParentName}(.test)?.tsx" },
+        { name: "{FolderName}(.test)?.tsx" },
       ],
     },
   },
@@ -382,10 +382,13 @@ When used without [children](#children) this will be the name of `file`.<br>
 
 Enforce the existence of other folders/files when a given folder/file exists.
 
-In `enforceExistence`, two references are available for use:
+In `enforceExistence`, the following references are available:
 
-- `{name}` - Take the name of the current file or folder and change its first letter to lowercase.
-- `{Name}` - Take the name of the current file or folder and change its first letter to uppercase.
+- `{nodeName}` - Take the name of the current file or folder and change it to `camelCase`.
+- `{NodeName}` - Take the name of the current file or folder and change it to `PascalCase`.
+- `{node-name}` - Take the name of the current file or folder and change it to `kebab-case`.
+- `{node_name}` - Take the name of the current file or folder and change it to `snake_case`.
+- `{NODE_NAME}` - Take the name of the current file or folder and change it to `SNAKE_CASE`.
 
 > [!WARNING]
 > Folder needs to contain at least one file/subfolder with file to be validated. ESLint and Git ignore empty folders, so they won’t be pushed to the repository and will only remain visible locally.
@@ -396,7 +399,6 @@ In `enforceExistence`, two references are available for use:
     // If root directory exists.
     "enforceExistence": [
       "src", // ./src must exist.
-      "src/components", // ./src/components must exist.
     ],
     "children": [
       { "name": "*" },
@@ -405,13 +407,12 @@ In `enforceExistence`, two references are available for use:
         "children": [
           { "name": "stories", "children": [{ "name": "{camelCase}.tsx" }] },
           { "name": "{PascalCase}.test.tsx" },
-          { "name": "components", "children": [] },
           {
-            "name": "{PascalCase}.tsx",
             // If ./src/ComponentName.tsx exist:
+            "name": "{PascalCase}.tsx",
             "enforceExistence": [
-              "{Name}.test.tsx", // ./src/ComponentName.test.tsx must exist.
-              "stories/{name}.stories.tsx", // ./src/stories/componentName.stories.tsx must exist.
+              "{NodeName}.test.tsx", // ./src/ComponentName.test.tsx must exist.
+              "stories/{nodeName}.stories.tsx", // ./src/stories/componentName.stories.tsx must exist.
               "../cats.ts", // ./cats.ts must exist.
             ],
           },
@@ -591,7 +592,7 @@ or
 ### `regexParameters?: Record<string, string>` <a id="regex-parameters"></a>
 
 A place where you can add your own regex parameters.<br>
-You can use [built-in regex parameters](#built-in-regex-parameters). You can overwrite them with your logic, exceptions are [parentName](#parent-name-lower) and [ParentName](#parent-name-upper) overwriting them will be ignored.<br>
+You can use [built-in regex parameters](#built-in-regex-parameters). You can overwrite them with your logic, exceptions are folder name references overwriting them will be ignored.<br>
 You can freely mix regex parameters together see [example](#regex-parameters-mix-example).
 
 ```jsonc
@@ -599,8 +600,8 @@ You can freely mix regex parameters together see [example](#regex-parameters-mix
   "regexParameters": {
     "yourRegexParameter": "(Regex logic)",
     "camelCase": "(Regex logic)", // Override built-in camelCase.
-    "parentName": "(Regex logic)", // Overwriting will be ignored.
-    "ParentName": "(Regex logic)", // Overwriting will be ignored.
+    "folderName": "(Regex logic)", // Overwriting will be ignored.
+    "FolderName": "(Regex logic)", // Overwriting will be ignored.
   },
 }
 ```
@@ -613,55 +614,106 @@ Then you can use them in [name](#name) with the following notation `{yourRegexPa
 
 #### Built-in regex parameters
 
-`{parentName}`<a id="parent-name-lower"></a><br>
-The file/folder inherits the name of the `folder` in which it is located and sets its **first letter** to `lowercase`.
+`{folderName}`<a id="folder-name-camel-case"></a><br>
+The file/folder inherits the name of the `folder` it is in and changes it to `camelCase`.
 
 ```jsonc
-{ "name": "{parentName}" }
+{ "name": "{folderName}" }
 ```
 
-`{ParentName}`<a id="parent-name-upper"></a><br>
-The file/folder inherits the name of the `folder` in which it is located and sets its **first letter** to `uppercase`.
+`{FolderName}`<a id="folder-name-pascal-case"></a><br>
+The file/folder inherits the name of the `folder` it is in and changes it to `PascalCase`.
 
 ```jsonc
-{ "name": "{ParentName}" }
+{ "name": "{FolderName}" }
+```
+
+`{folder-name}`<a id="folder-name-kebab-case"></a><br>
+The file/folder inherits the name of the `folder` it is in and changes it to `kebab-case`.
+
+```jsonc
+{ "name": "{folder-name}" }
+```
+
+`{folder_name}`<a id="folder-name-snake-case"></a><br>
+The file/folder inherits the name of the `folder` it is in and changes it to `snake_case`.
+
+```jsonc
+{ "name": "{folder_name}" }
+```
+
+`{FOLDER_NAME}`<a id="folder-name-snake-case-upper"></a><br>
+The file/folder inherits the name of the `folder` it is in and changes it to `SNAKE_CASE`.
+
+```jsonc
+{ "name": "{FOLDER_NAME}" }
+```
+
+`{camelCase}`<br>
+Add `camelCase` validation to your regex.<br>
+The added regex is `([a-z]+[A-Z0-9]*[A-Z0-9]*)*`.
+
+Examples: `component`, `componentName`, `componentName1`, `componentXYZName`, `cOMPONENTNAME`.
+
+```jsonc
+{ "name": "{camelCase}" }
 ```
 
 `{PascalCase}`<br>
 Add `PascalCase` validation to your regex.<br>
-The added regex is `[A-Z](([a-z0-9]+[A-Z]?)*)`.
+The added regex is `([A-Z]+[a-z0-9]*[A-Z0-9]*)*`.
+
+Examples: `Component`, `ComponentName`, `ComponentName1`, `ComponentXYZName`, `COMPONENTNAME`.
 
 ```jsonc
 { "name": "{PascalCase}" }
 ```
 
-`{camelCase}`<br>
-Add `camelCase` validation to your regex.<br>
+`{strictCamelCase}`<br>
+Add `strictCamelCase` validation to your regex.<br>
 The added regex is `[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`.
 
+Examples: `component`, `componentName`, `componentName1`.
+
 ```jsonc
-{ "name": "{camelCase}" }
+{ "name": "{strictCamelCase}" }
+```
+
+`{StrictPascalCase}`<br>
+Add `StrictPascalCase` validation to your regex.<br>
+The added regex is `[A-Z](([a-z0-9]+[A-Z]?)*)`.
+
+Examples: `Component`, `ComponentName`, `ComponentName1`.
+
+```jsonc
+{ "name": "{StrictPascalCase}" }
 ```
 
 `{snake_case}`<br>
 Add `snake_case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
+Examples: `component`, `component_name`, `component_name_1`.
+
 ```jsonc
-{ "name": "{snake_case}" }
+{ "format": "{snake_case}" }
 ```
 
 `{SNAKE_CASE}`<br>
 Add `SNAKE_CASE` validation to your regex.<br>
 The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 
+Examples: `COMPONENT`, `COMPONENT_NAME`, `COMPONENT_NAME_1`.
+
 ```jsonc
-{ "name": "{SNAKE_CASE}" }
+{ "format": "{SNAKE_CASE}" }
 ```
 
 `{kebab-case}`<br>
 Add `kebab-case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+-)*([a-z]|\d)+)`.
+
+Examples: `component`, `component-name`, `component-name-1`.
 
 ```jsonc
 { "name": "{kebab-case}" }
@@ -679,10 +731,10 @@ Here are some examples of how easy it is to combine [regex parameters](#regex-pa
 ```
 
 ```jsonc
-// FileParentName.hello_world.ts
-// FileParentName.hello_world.test.ts
-// FileParentName.hello_world.api.ts
-{ "name": "{ParentName}.{snake_case}(.(test|api))?.ts" }
+// FolderName.hello_world.ts
+// FolderName.hello_world.test.ts
+// FolderName.hello_world.api.ts
+{ "name": "{FolderName}.{snake_case}(.(test|api))?.ts" }
 ```
 
 ### `ignorePatterns?: string[]` <a id="ignore-patterns"></a>

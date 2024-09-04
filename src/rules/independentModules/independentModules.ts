@@ -9,12 +9,12 @@ import { IndependentModulesConfig } from "rules/independentModules/independentMo
 
 export const independentModules = ESLintUtils.RuleCreator(
   () =>
-    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structureindependent-modules",
+    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md",
 )<[IndependentModulesConfig] | [], keyof typeof ESLINT_ERRORS>({
   name: "independent-modules",
   meta: {
     docs: {
-      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structureindependent-modules",
+      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md",
       description:
         "A key principle of a healthy project is to prevent the creation of a massive dependency tree, where removing or editing one feature triggers a chain reaction that impacts the entire project. Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.",
     },

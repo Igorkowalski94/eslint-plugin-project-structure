@@ -5,6 +5,7 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
   definitions: {
     Selector: {
       type: "string",
+      default: "",
       enum: [
         "class",
         "variable",
@@ -17,62 +18,73 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
     },
     NamingRule: {
       type: "object",
+      default: {},
+      additionalProperties: false,
       properties: {
         selector: {
           oneOf: [
             { $ref: "#/definitions/Selector" },
             {
               type: "array",
+              default: [],
               items: { $ref: "#/definitions/Selector" },
             },
           ],
         },
         filenamePartsToRemove: {
           type: "array",
-          items: { type: "string" },
+          default: [],
+          items: { type: "string", default: "" },
         },
         format: {
-          type: "array",
-          items: { type: "string" },
+          oneOf: [
+            { type: "string", default: "" },
+            { type: "array", default: [], items: { type: "string" } },
+          ],
         },
       },
       required: ["selector"],
-      additionalProperties: false,
     },
     NamingRuleObject: {
       type: "object",
+      default: {},
+      additionalProperties: false,
       properties: {
-        allowOnlySpecifiedSelectors: { type: "boolean" },
+        allowOnlySpecifiedSelectors: { type: "boolean", default: true },
         errors: {
           type: "object",
-          properties: {
-            class: { type: "string" },
-            variable: { type: "string" },
-            function: { type: "string" },
-            arrowFunction: { type: "string" },
-            type: { type: "string" },
-            interface: { type: "string" },
-            enum: { type: "string" },
-          },
+          default: {},
           additionalProperties: false,
+          properties: {
+            class: { type: "string", default: "" },
+            variable: { type: "string", default: "" },
+            function: { type: "string", default: "" },
+            arrowFunction: { type: "string", default: "" },
+            type: { type: "string", default: "" },
+            interface: { type: "string", default: "" },
+            enum: { type: "string", default: "" },
+          },
         },
         rules: {
           type: "array",
+          default: [],
           items: { $ref: "#/definitions/NamingRule" },
         },
       },
       required: ["rules"],
-      additionalProperties: false,
     },
     FileNamingRules: {
       type: "object",
+      default: {},
+      additionalProperties: false,
       properties: {
         filePattern: {
           oneOf: [
-            { type: "string" },
+            { type: "string", default: "" },
             {
               type: "array",
-              items: { type: "string" },
+              default: [],
+              items: { type: "string", default: "" },
             },
           ],
         },
@@ -80,6 +92,7 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
           oneOf: [
             {
               type: "array",
+              default: [],
               items: { $ref: "#/definitions/NamingRule" },
             },
             { $ref: "#/definitions/NamingRuleObject" },
@@ -89,6 +102,7 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
           oneOf: [
             {
               type: "array",
+              default: [],
               items: { $ref: "#/definitions/NamingRule" },
             },
             { $ref: "#/definitions/NamingRuleObject" },
@@ -98,6 +112,7 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
           oneOf: [
             {
               type: "array",
+              default: [],
               items: { $ref: "#/definitions/NamingRule" },
             },
             { $ref: "#/definitions/NamingRuleObject" },
@@ -105,9 +120,27 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
         },
       },
       required: ["filePattern"],
-      additionalProperties: false,
+    },
+    RegexParameters: {
+      type: "object",
+      default: {},
+      additionalProperties: {
+        type: "string",
+        default: "",
+      },
     },
   },
-  type: "array",
-  items: { $ref: "#/definitions/FileNamingRules" },
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    filesRules: {
+      type: "array",
+      default: [],
+      items: { $ref: "#/definitions/FileNamingRules" },
+    },
+    regexParameters: {
+      $ref: "#/definitions/RegexParameters",
+    },
+  },
+  required: ["filesRules"],
 };

@@ -11,7 +11,7 @@ import { checkNodeExistence } from "rules/folderStructure/helpers/validatePath/h
 interface ValidatePathProps {
   pathname: string;
   filenameWithoutCwd: string;
-  parentName: string;
+  folderName: string;
   rule: Rule;
   config: FolderStructureConfig;
   cwd: string;
@@ -20,7 +20,7 @@ interface ValidatePathProps {
 export const validatePath = ({
   pathname,
   filenameWithoutCwd,
-  parentName,
+  folderName,
   rule,
   config,
   cwd,
@@ -34,7 +34,7 @@ export const validatePath = ({
     validateName({
       nodeName,
       ruleName: name,
-      parentName,
+      folderName,
       regexParameters: config.regexParameters,
     });
 

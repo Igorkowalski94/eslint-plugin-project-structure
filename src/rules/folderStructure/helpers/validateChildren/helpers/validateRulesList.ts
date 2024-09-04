@@ -15,7 +15,7 @@ import { validatePath } from "rules/folderStructure/helpers/validatePath/validat
 interface ValidateRulesListProps {
   pathname: string;
   filenameWithoutCwd: string;
-  parentName: string;
+  folderName: string;
   nodesList: Rule[];
   config: FolderStructureConfig;
   cwd: string;
@@ -24,7 +24,7 @@ interface ValidateRulesListProps {
 export const validateRulesList = ({
   pathname,
   filenameWithoutCwd,
-  parentName,
+  folderName,
   nodesList,
   config,
   cwd,
@@ -44,7 +44,7 @@ export const validateRulesList = ({
       validatePath({
         pathname,
         filenameWithoutCwd,
-        parentName,
+        folderName,
         rule: childNode,
         config,
         cwd,

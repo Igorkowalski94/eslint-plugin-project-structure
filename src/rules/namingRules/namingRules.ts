@@ -5,19 +5,20 @@ import { handleFunctionDeclaration } from "rules/namingRules/helpers/handleFunct
 import { handleVariableDeclarator } from "rules/namingRules/helpers/handleVariableDeclarator";
 import { validateName } from "rules/namingRules/helpers/validateName/validateName";
 import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
+import { NamingRulesConfig } from "rules/namingRules/namingRules.types";
 
 export const namingRules = ESLintUtils.RuleCreator(
   () =>
-    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules",
-)({
+    "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md",
+)<[NamingRulesConfig] | [], keyof typeof ESLINT_ERRORS>({
   name: "naming-rules",
   meta: {
     docs: {
-      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md#project-structurenaming-rules",
+      url: "https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-naming-rules.md",
       description: "Enforce advanced naming rules.",
     },
     type: "problem",
-    schema: { type: "array" },
+    schema: [{ type: "object", additionalProperties: true }],
     messages: ESLINT_ERRORS,
   },
   defaultOptions: [],

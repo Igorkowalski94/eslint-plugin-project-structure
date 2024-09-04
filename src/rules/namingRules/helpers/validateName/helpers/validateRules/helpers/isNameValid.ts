@@ -2,11 +2,9 @@ import { getInvalidRegexError } from "errors/getInvalidRegexError";
 
 import { isRegexInvalid } from "helpers/isRegexInvalid";
 
-import { NamingRule } from "rules/namingRules/namingRules.types";
-
 interface IsNameValidProps {
   name: string;
-  formatWithoutReferences: NamingRule["format"];
+  formatWithoutReferences: string[];
 }
 
 export const isNameValid = ({
@@ -14,7 +12,7 @@ export const isNameValid = ({
   name,
 }: IsNameValidProps): boolean =>
   Boolean(
-    formatWithoutReferences?.some((pattern) => {
+    formatWithoutReferences.some((pattern) => {
       if (isRegexInvalid(pattern)) throw getInvalidRegexError(pattern);
 
       const regexp = new RegExp(`^${pattern}$`, "g");

@@ -3,7 +3,6 @@ import {
   CAMEL_CASE,
   SNAKE_CASE_LOWER,
   SNAKE_CASE_UPPER,
-  KEBAB_CASE,
   STRICT_CAMEL_CASE,
   STRICT_PASCAL_CASE,
 } from "consts";
@@ -12,12 +11,12 @@ import { RegexParameters } from "types";
 import { transformStringToCase } from "helpers/transformStringToCase";
 
 interface GetDefaultRegexParametersProps {
-  folderName: string;
+  fileName: string;
   regexParameters?: RegexParameters;
 }
 
 export const getDefaultRegexParameters = ({
-  folderName,
+  fileName,
   regexParameters = {},
 }: GetDefaultRegexParametersProps): RegexParameters => ({
   camelCase: CAMEL_CASE,
@@ -26,26 +25,21 @@ export const getDefaultRegexParameters = ({
   StrictPascalCase: STRICT_PASCAL_CASE,
   snake_case: SNAKE_CASE_LOWER,
   SNAKE_CASE: SNAKE_CASE_UPPER,
-  "kebab-case": KEBAB_CASE,
   ...regexParameters,
-  folderName: transformStringToCase({
-    str: folderName,
+  fileName: transformStringToCase({
+    str: fileName,
     transformTo: "camelCase",
   }),
-  FolderName: transformStringToCase({
-    str: folderName,
+  FileName: transformStringToCase({
+    str: fileName,
     transformTo: "PascalCase",
   }),
-  "folder-name": transformStringToCase({
-    str: folderName,
-    transformTo: "kebab-case",
-  }),
-  folder_name: transformStringToCase({
-    str: folderName,
+  file_name: transformStringToCase({
+    str: fileName,
     transformTo: "snake_case",
   }),
-  FOLDER_NAME: transformStringToCase({
-    str: folderName,
+  FILE_NAME: transformStringToCase({
+    str: fileName,
     transformTo: "SNAKE_CASE",
   }),
 });

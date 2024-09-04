@@ -1,20 +1,22 @@
 import { getInvalidReferenceError } from "errors/getInvalidReferenceError";
 
-import { extractReferencesFromPattern } from "helpers/validateReferences/helpers/extractReferencesFromPattern";
+import { extractReferencesFromRegex } from "helpers/getRegexWithoutReferences/helpers/validateReferences/helpers/extractReferencesFromRegex";
 
 interface ValidateReferencesProps {
-  pattern: string;
+  regex: string;
   allowedReferences: string[];
   filterReferences?: RegExp;
+  key: string;
 }
 
 export const validateReferences = ({
   allowedReferences,
-  pattern,
+  regex,
   filterReferences,
+  key,
 }: ValidateReferencesProps): void => {
-  const references = extractReferencesFromPattern({
-    pattern,
+  const references = extractReferencesFromRegex({
+    regex,
     filterReferences,
   });
 
@@ -24,5 +26,5 @@ export const validateReferences = ({
 
   if (!invalidReferences.length) return;
 
-  throw getInvalidReferenceError(invalidReferences);
+  throw getInvalidReferenceError({ invalidReferences, allowedReferences, key });
 };

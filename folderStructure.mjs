@@ -12,6 +12,7 @@ export const folderStructureConfig = createFolderStructure({
           { ruleId: "helpers_folder" },
           { ruleId: "errors_folder" },
           { name: "consts.ts" },
+          { name: "types.ts" },
           { name: "index.ts" },
           { name: "parser.ts" },
         ],

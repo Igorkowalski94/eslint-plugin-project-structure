@@ -1,105 +1,111 @@
 import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 
 export const INDEPENDENT_MODULES_SCHEMA: JSONSchema4 = {
+  $ref: "#/definitions/IndependentModulesConfig",
   $schema: "http://json-schema.org/draft-07/schema#",
-  type: "object",
-  properties: {
-    tsconfigPath: {
-      type: "string",
-    },
-    pathAliases: {
-      type: "object",
-      properties: {
-        baseUrl: {
+  definitions: {
+    Pattern: {
+      anyOf: [
+        {
           type: "string",
+          default: "",
         },
-        paths: {
+        {
+          type: "array",
+          default: [],
+          items: {
+            type: "string",
+            default: "",
+          },
+        },
+      ],
+    },
+    Module: {
+      type: "object",
+      default: {
+        name: "",
+        pattern: "",
+        allowImportsFrom: [],
+      },
+      additionalProperties: false,
+      properties: {
+        name: {
+          type: "string",
+          default: "",
+        },
+        pattern: { $ref: "#/definitions/Pattern" },
+        errorMessage: {
+          type: "string",
+          default: "",
+        },
+        allowImportsFrom: {
+          type: "array",
+          default: [],
+          items: {
+            $ref: "#/definitions/Pattern",
+          },
+        },
+        allowExternalImports: {
+          type: "boolean",
+          default: false,
+        },
+      },
+      required: ["name", "pattern", "allowImportsFrom"],
+    },
+    IndependentModulesConfig: {
+      type: "object",
+      default: {},
+      additionalProperties: false,
+      properties: {
+        extensions: {
+          type: "array",
+          default: [],
+          items: {
+            type: "string",
+            default: "",
+          },
+        },
+        debugMode: {
+          type: "boolean",
+          default: true,
+        },
+        pathAliases: {
           type: "object",
+          default: {},
+          additionalProperties: false,
+          properties: {
+            baseUrl: { type: "string", default: "" },
+            paths: {
+              type: "object",
+              default: {},
+              additionalProperties: {
+                type: "array",
+                default: [],
+                items: { type: "string" },
+              },
+            },
+          },
+          required: ["baseUrl", "paths"],
+        },
+        reusableImportPatterns: {
+          type: "object",
+          default: {},
           additionalProperties: {
             type: "array",
             items: {
-              type: "string",
+              $ref: "#/definitions/Pattern",
             },
           },
         },
-      },
-      required: ["baseUrl", "paths"],
-    },
-    extensions: {
-      type: "array",
-      items: {
-        type: "string",
-      },
-    },
-    reusableImportPatterns: {
-      type: "object",
-      additionalProperties: {
-        type: "array",
-        items: {
-          anyOf: [
-            {
-              type: "string",
-            },
-            {
-              type: "array",
-              items: {
-                type: "string",
-              },
-            },
-          ],
-        },
-      },
-    },
-    modules: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          name: {
-            type: "string",
-          },
-          pattern: {
-            anyOf: [
-              {
-                type: "string",
-              },
-              {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-              },
-            ],
-          },
-          errorMessage: {
-            type: "string",
-          },
-          allowImportsFrom: {
-            type: "array",
-            items: {
-              anyOf: [
-                {
-                  type: "string",
-                },
-                {
-                  type: "array",
-                  items: {
-                    type: "string",
-                  },
-                },
-              ],
-            },
-          },
-          allowExternalImports: {
-            type: "boolean",
+        modules: {
+          type: "array",
+          default: [],
+          items: {
+            $ref: "#/definitions/Module",
           },
         },
-        required: ["name", "pattern", "allowImportsFrom"],
       },
-    },
-    debugMode: {
-      type: "boolean",
+      required: ["modules"],
     },
   },
-  required: ["modules"],
 };

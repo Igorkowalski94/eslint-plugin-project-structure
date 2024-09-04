@@ -11,13 +11,15 @@ export const SELECTORS: Selectors = {
 };
 
 export const REFERENCES = {
-  filename_PascalCase: "{filename_PascalCase}",
-  filename_camelCase: "{filename_camelCase}",
-  filename_snake_case: "{filename_snake_case}",
-  filename_SNAKE_CASE: "{filename_SNAKE_CASE}",
+  FileName: "{FileName}",
+  fileName: "{fileName}",
+  file_name: "{file_name}",
+  FILE_NAME: "{FILE_NAME}",
 
-  PascalCase: "{PascalCase}",
   camelCase: "{camelCase}",
+  PascalCase: "{PascalCase}",
+  strictCamelCase: "{strictCamelCase}",
+  StrictPascalCase: "{StrictPascalCase}",
   snake_case: "{snake_case}",
   SNAKE_CASE: "{SNAKE_CASE}",
 };

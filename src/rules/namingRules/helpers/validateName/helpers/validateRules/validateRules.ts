@@ -1,3 +1,5 @@
+import { RegexParameters } from "types";
+
 import { getFileNameWithoutExtension } from "rules/namingRules/helpers/validateName/helpers/validateRules/helpers/getFileNameWithoutExtension";
 import { getFormatWithCaseReferences } from "rules/namingRules/helpers/validateName/helpers/validateRules/helpers/getFormatWithCaseReferences";
 import { getRules } from "rules/namingRules/helpers/validateName/helpers/validateRules/helpers/getRules";
@@ -24,6 +26,7 @@ interface ValidateRulesProps {
   report: Context["report"];
   namingRule: NamingRule[] | NamingRuleObject;
   errorMessageId: keyof typeof ESLINT_ERRORS;
+  regexParameters?: RegexParameters;
 }
 
 export const validateRules = ({
@@ -34,6 +37,7 @@ export const validateRules = ({
   filenamePath,
   namingRule,
   errorMessageId,
+  regexParameters,
 }: ValidateRulesProps): void => {
   const selectorConverted = SELECTORS[nodeType];
 
@@ -67,6 +71,7 @@ export const validateRules = ({
     const formatWithoutReferences = replaceReferencesWithData({
       format,
       filenameWithoutParts,
+      regexParameters,
     });
     const isValidExport = isNameValid({
       formatWithoutReferences,

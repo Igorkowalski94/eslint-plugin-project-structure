@@ -31,7 +31,7 @@ describe("validatePath", () => {
       pathname: "ComponentName.tsx",
       filenameWithoutCwd: "ComponentName.tsx",
       cwd: "...",
-      parentName: "parentName",
+      folderName: "folderName",
       rule: {
         name: "test",
       },
@@ -53,7 +53,7 @@ describe("validatePath", () => {
       pathname: "ComponentName.tsx",
       filenameWithoutCwd: "ComponentName.tsx",
       cwd: "...",
-      parentName: "parentName",
+      folderName: "folderName",
       rule: {
         name: undefined,
       } as Rule,
@@ -75,7 +75,7 @@ describe("validatePath", () => {
       pathname: "src/ComponentName",
       filenameWithoutCwd: "ComponentName.tsx",
       cwd: "...",
-      parentName: "parentName",
+      folderName: "folderName",
       rule: {
         children: [{ name: "componentName" }],
       },
@@ -97,7 +97,7 @@ describe("validatePath", () => {
       pathname: "ComponentName.tsx",
       filenameWithoutCwd: "ComponentName.tsx",
       cwd: "...",
-      parentName: "parentName",
+      folderName: "folderName",
       rule: {
         name: "ComponentName",
       },
@@ -121,7 +121,7 @@ describe("validatePath", () => {
       pathname: "src/ComponentName",
       filenameWithoutCwd: "ComponentName.tsx",
       cwd: "...",
-      parentName: "parentName",
+      folderName: "folderName",
       rule: {
         name: "ComponentName",
         enforceExistence: ["test.ts"],
@@ -146,7 +146,7 @@ describe("validatePath", () => {
       pathname: "ComponentName.tsx",
       filenameWithoutCwd: "ComponentName.tsx",
       cwd: "...",
-      parentName: "parentName",
+      folderName: "folderName",
       rule: {
         name: "ComponentName",
       },

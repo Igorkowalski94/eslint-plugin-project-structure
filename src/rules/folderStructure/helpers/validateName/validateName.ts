@@ -1,12 +1,12 @@
+import { RegexParameters } from "types";
+
 import { getInvalidRegexError } from "errors/getInvalidRegexError";
 
 import { isRegexInvalid } from "helpers/isRegexInvalid";
+import { transformStringToCase } from "helpers/transformStringToCase";
 
 import { getNameRegexError } from "rules/folderStructure/errors/getNameRegexError";
 import { REFERENCES } from "rules/folderStructure/folderStructure.consts";
-import { RegexParameters } from "rules/folderStructure/folderStructure.types";
-import { getLowerCaseFirstLetter } from "rules/folderStructure/helpers/getLowerCaseFirstLetter";
-import { getUpperCaseFirstLetter } from "rules/folderStructure/helpers/getUpperCaseFirstLetter";
 import { applyRegexParameters } from "rules/folderStructure/helpers/validateName/helpers/applyRegexParameters";
 import {
   DOT_CHARACTER_REGEX,
@@ -16,14 +16,14 @@ import {
 export interface ValidateNameProps {
   nodeName: string;
   ruleName: string;
-  parentName: string;
+  folderName: string;
   regexParameters?: RegexParameters;
 }
 
 export const validateName = ({
   nodeName,
   ruleName,
-  parentName,
+  folderName,
   regexParameters,
 }: ValidateNameProps): void => {
   const regexImproved = ruleName
@@ -36,7 +36,7 @@ export const validateName = ({
 
   const regexWithRegexParameters = applyRegexParameters({
     regex: regexImproved,
-    parentName,
+    folderName,
     regexParameters,
   });
 
@@ -44,9 +44,42 @@ export const validateName = ({
 
   if (finalRegex.test(nodeName)) return;
 
-  const regexWithParentName = ruleName
-    .replaceAll(REFERENCES.parentName, getLowerCaseFirstLetter(parentName))
-    .replaceAll(REFERENCES.ParentName, getUpperCaseFirstLetter(parentName));
+  const regexWithFolderName = ruleName
+    .replaceAll(
+      REFERENCES.folderName,
+      transformStringToCase({
+        str: folderName,
+        transformTo: "camelCase",
+      }),
+    )
+    .replaceAll(
+      REFERENCES.FolderName,
+      transformStringToCase({
+        str: folderName,
+        transformTo: "PascalCase",
+      }),
+    )
+    .replaceAll(
+      REFERENCES["folder-name"],
+      transformStringToCase({
+        str: folderName,
+        transformTo: "kebab-case",
+      }),
+    )
+    .replaceAll(
+      REFERENCES.folder_name,
+      transformStringToCase({
+        str: folderName,
+        transformTo: "snake_case",
+      }),
+    )
+    .replaceAll(
+      REFERENCES.FOLDER_NAME,
+      transformStringToCase({
+        str: folderName,
+        transformTo: "SNAKE_CASE",
+      }),
+    );
 
-  throw getNameRegexError(regexWithParentName);
+  throw getNameRegexError(regexWithFolderName);
 };

@@ -26,7 +26,7 @@ describe("validateRulesList", () => {
               name: "{PascalCase}",
               children: [
                 {
-                  name: "{ParentName}.tsx",
+                  name: "{FolderName}.tsx",
                 },
               ],
             },
@@ -39,10 +39,10 @@ describe("validateRulesList", () => {
 
   const nodesList: Rule[] = [
     {
-      name: "{ParentName}(.(context|test|test.helpers)).tsx",
+      name: "{FolderName}(.(context|test|test.helpers)).tsx",
     },
     {
-      name: "{parentName}(.(api|types)).ts",
+      name: "{folderName}(.(api|types)).ts",
     },
   ];
 
@@ -57,7 +57,7 @@ describe("validateRulesList", () => {
       validateRulesList({
         pathname: "componentName.api.ts",
         filenameWithoutCwd: "src/componentName.api.ts",
-        parentName: "ComponentName",
+        folderName: "ComponentName",
         nodesList: [],
         cwd: "...",
         config,
@@ -79,7 +79,7 @@ describe("validateRulesList", () => {
       validateRulesList({
         pathname: "folderName/componentName.api.ts",
         filenameWithoutCwd: "src/folderName/componentName.api.ts",
-        parentName: "ComponentName",
+        folderName: "ComponentName",
         nodesList: [],
         cwd: "...",
         config,
@@ -101,7 +101,7 @@ describe("validateRulesList", () => {
       validateRulesList({
         pathname: "componentName.api.ts",
         filenameWithoutCwd: "src/componentName.api.ts",
-        parentName: "ComponentName",
+        folderName: "ComponentName",
         nodesList,
         cwd: "...",
         config,
@@ -114,7 +114,7 @@ describe("validateRulesList", () => {
       validateRulesList({
         pathname: "ComponentName.tsx",
         filenameWithoutCwd: "src/ComponentName.tsx",
-        parentName: "ComponentName",
+        folderName: "ComponentName",
         nodesList,
         cwd: "...",
         config,
@@ -132,7 +132,7 @@ describe("validateRulesList", () => {
       validateRulesList({
         pathname: "componentName.api.ts",
         filenameWithoutCwd: "src/componentName.api.ts",
-        parentName: "ComponentName",
+        folderName: "ComponentName",
         nodesList: nodesListRuleIdNotExist,
         cwd: "...",
         config,

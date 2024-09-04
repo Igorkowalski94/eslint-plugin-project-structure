@@ -1,7 +1,6 @@
 import path from "path";
 
 import { TSESTree } from "@typescript-eslint/utils";
-import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
 import { readConfigFile } from "helpers/readConfigFile";
 
@@ -9,8 +8,10 @@ import { isExportedName } from "rules/namingRules/helpers/validateName/helpers/i
 import { isNameFromFileRoot } from "rules/namingRules/helpers/validateName/helpers/isNameFromFileRoot";
 import { validateRules } from "rules/namingRules/helpers/validateName/helpers/validateRules/validateRules";
 import { validateName } from "rules/namingRules/helpers/validateName/validateName";
-import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
-import { FileNamingRules } from "rules/namingRules/namingRules.types";
+import {
+  Context,
+  NamingRulesConfig,
+} from "rules/namingRules/namingRules.types";
 
 jest.mock("helpers/readConfigFile", () => ({
   readConfigFile: jest.fn(),
@@ -38,14 +39,16 @@ jest.mock(
 );
 
 describe("validateName", () => {
-  const config: FileNamingRules[] = [
-    {
-      filePattern: "**/*.ts",
-      fileRootRules: [{ selector: "variable" }],
-      fileExportsRules: [{ selector: "variable" }],
-      fileRules: [{ selector: "variable" }],
-    },
-  ];
+  const config: NamingRulesConfig = {
+    filesRules: [
+      {
+        filePattern: "**/*.ts",
+        fileRootRules: [{ selector: "variable" }],
+        fileExportsRules: [{ selector: "variable" }],
+        fileRules: [{ selector: "variable" }],
+      },
+    ],
+  };
 
   test("Should return undefined if !fileRule from config", () => {
     (readConfigFile as jest.Mock).mockReturnValue(config);
@@ -58,10 +61,7 @@ describe("validateName", () => {
           filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
           options: [],
           report: () => undefined,
-        } as unknown as RuleContext<
-          keyof typeof ESLINT_ERRORS,
-          FileNamingRules[]
-        >,
+        } as unknown as Context,
         name: "componentName",
         node: {} as TSESTree.VariableDeclarator,
         nodeType: "VariableDeclarator",
@@ -80,10 +80,7 @@ describe("validateName", () => {
           filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
           options: config,
           report: () => undefined,
-        } as unknown as RuleContext<
-          keyof typeof ESLINT_ERRORS,
-          FileNamingRules[]
-        >,
+        } as unknown as Context,
         name: "componentName",
         node: {} as TSESTree.VariableDeclarator,
         nodeType: "VariableDeclarator",
@@ -111,10 +108,7 @@ describe("validateName", () => {
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
         options: config,
         report: reportMock,
-      } as unknown as RuleContext<
-        keyof typeof ESLINT_ERRORS,
-        FileNamingRules[]
-      >,
+      } as unknown as Context,
       name: "componentName",
       node: {} as TSESTree.VariableDeclarator,
       nodeType: "VariableDeclarator",
@@ -155,10 +149,7 @@ describe("validateName", () => {
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
         options: config,
         report: reportMock,
-      } as unknown as RuleContext<
-        keyof typeof ESLINT_ERRORS,
-        FileNamingRules[]
-      >,
+      } as unknown as Context,
       name: "componentName",
       node: {} as TSESTree.VariableDeclarator,
       nodeType: "VariableDeclarator",
@@ -199,10 +190,7 @@ describe("validateName", () => {
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
         options: config,
         report: reportMock,
-      } as unknown as RuleContext<
-        keyof typeof ESLINT_ERRORS,
-        FileNamingRules[]
-      >,
+      } as unknown as Context,
       name: "componentName",
       node: {} as TSESTree.VariableDeclarator,
       nodeType: "VariableDeclarator",

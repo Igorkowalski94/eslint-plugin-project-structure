@@ -18,7 +18,7 @@ export const namingRulesConfig = createNamingRules([
   },
 
   {
-    filePattern: "**/*.types.ts",
+    filePattern: "**/*types.ts",
     fileRootRules: {
       allowOnlySpecifiedSelectors: true,
       rules: [

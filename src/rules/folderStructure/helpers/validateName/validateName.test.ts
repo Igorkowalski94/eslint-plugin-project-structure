@@ -16,7 +16,7 @@ describe("validateName", () => {
       validateName({
         nodeName: "componentName.api",
         ruleName: "/^?/*.",
-        parentName: "parentName",
+        folderName: "folderName",
       }),
     ).toThrow(
       getInvalidRegexError(`/^?/${WILDCARD_REGEX}${DOT_CHARACTER_REGEX}`),
@@ -26,92 +26,92 @@ describe("validateName", () => {
   it.each<[ValidateNameProps]>([
     [
       {
-        nodeName: "parentName",
-        parentName: "ParentName",
-        ruleName: "parentName",
+        nodeName: "folderName",
+        folderName: "FolderName",
+        ruleName: "folderName",
       },
     ],
     [
       {
-        nodeName: "ParentName",
-        parentName: "ParentName",
-        ruleName: "ParentName",
+        nodeName: "FolderName",
+        folderName: "FolderName",
+        ruleName: "FolderName",
       },
     ],
     [
       {
         nodeName: "ComponentName",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{PascalCase}",
       },
     ],
     [
       {
         nodeName: "componentName",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{camelCase}",
       },
     ],
     [
       {
         nodeName: "component_name",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{snake_case}",
       },
     ],
     [
       {
         nodeName: "component-name",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{kebab-case}",
       },
     ],
     [
       {
         nodeName: "useHook.test.ts",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "(use){PascalCase}(?:.(test|test.helpers))?.ts",
       },
     ],
     [
       {
         nodeName: "helper.test.ts",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "{camelCase}(?:.(test|test.helpers))?.ts",
       },
     ],
     [
       {
-        nodeName: "parentName.test.ts",
-        parentName: "parentName",
-        ruleName: "parentName(?:.(test|test.helpers))?.ts",
+        nodeName: "folderName.test.ts",
+        folderName: "folderName",
+        ruleName: "folderName(?:.(test|test.helpers))?.ts",
       },
     ],
     [
       {
         nodeName: "componentName.ts",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "*.ts",
       },
     ],
     [
       {
         nodeName: "componentName,ts",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "*..ts",
       },
     ],
     [
       {
         nodeName: "xxx",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "*",
       },
     ],
     [
       {
         nodeName: "bbb",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "b**",
       },
     ],
@@ -126,84 +126,84 @@ describe("validateName", () => {
     [
       {
         nodeName: "XparentName",
-        parentName: "ParentName",
-        ruleName: "parentName",
+        folderName: "FolderName",
+        ruleName: "folderName",
       },
     ],
     [
       {
         nodeName: "XParentName",
-        parentName: "ParentName",
-        ruleName: "ParentName",
+        folderName: "FolderName",
+        ruleName: "FolderName",
       },
     ],
     [
       {
         nodeName: "xComponentName",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{PascalCase}",
       },
     ],
     [
       {
         nodeName: "XcomponentName",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{camelCase}",
       },
     ],
     [
       {
         nodeName: "Xcomponent_name",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{snake_case}",
       },
     ],
     [
       {
         nodeName: "Xcomponent-name",
-        parentName: "ParentName",
+        folderName: "FolderName",
         ruleName: "{kebab-case}",
       },
     ],
     [
       {
         nodeName: "XuseHook.test.ts",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "(use){PascalCase}(?:.(test|test.helpers))?.ts",
       },
     ],
     [
       {
         nodeName: "Xhelper.test.ts",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "{camelCase}(?:.(test|test.helpers))?.ts",
       },
     ],
     [
       {
         nodeName: "XparentName.test.ts",
-        parentName: "parentName",
-        ruleName: "parentName(?:.(test|test.helpers))?.ts",
+        folderName: "folderName",
+        ruleName: "folderName(?:.(test|test.helpers))?.ts",
       },
     ],
     [
       {
         nodeName: "componentName,ts",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "*.ts",
       },
     ],
     [
       {
         nodeName: "c",
-        parentName: "parentName",
+        folderName: "folderName",
         ruleName: "b**",
       },
     ],
   ])(
     "should throw error when nodeName do not match regex pattern for args = %s",
-    ({ nodeName, parentName, ruleName }) => {
-      expect(() => validateName({ nodeName, parentName, ruleName })).toThrow(
+    ({ nodeName, folderName, ruleName }) => {
+      expect(() => validateName({ nodeName, folderName, ruleName })).toThrow(
         getNameRegexError(ruleName),
       );
     },

@@ -38,8 +38,8 @@ Leave a ⭐ and share the link with your friends.<br>
 
 ## 📚 Documentation
 
-- [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md#project-structurefolder-structure)
-- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md#project-structureindependent-modules)
+- [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-folder-structure.md)
+- [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/blob/main/documentation/project-structure-independent-modules.md)
 
 ## ✈️ Go to
 
@@ -48,14 +48,17 @@ Leave a ⭐ and share the link with your friends.<br>
 - [Getting started](#getting-started)
   - [Example](#example)
 - [API](#api)
-  - [filePattern](#file-pattern)
-  - [fileExportsRules, fileRootRules, fileRules](#file-rules)
-    - [allowOnlySpecifiedSelectors](#allow-only-specified-selectors)
-    - [errors](#errors)
-    - [selector](#selector)
-    - [filenamePartsToRemove](#filename-parts-to-remove)
-    - [format](#format)
-    - [references](#references)
+  - [filesRules](#files-rules)
+    - [filePattern](#file-pattern)
+    - [fileExportsRules, fileRootRules, fileRules](#file-rules)
+      - [allowOnlySpecifiedSelectors](#allow-only-specified-selectors)
+      - [errors](#errors)
+      - [selector](#selector)
+      - [filenamePartsToRemove](#filename-parts-to-remove)
+      - [format](#format)
+  - [regexParameters](#regex-parameters)
+    - [Built-in regex parameters](#built-in-regex-parameters)
+    - [Regex parameters mix example](#regex-parameters-mix-example)
 
 ## 💾 Installation <a id="installation"></a>
 
@@ -98,15 +101,12 @@ export default tseslint.config(
     },
     rules: {
       // If you have many rules in a separate file.
-      "project-structure/naming-rules": ["error", ...namingRulesConfig],
+      "project-structure/naming-rules": ["error", namingRulesConfig],
       // If you have only a few rules.
       "project-structure/naming-rules": [
         "error",
         {
-          // Rule1
-        },
-        {
-          // Rule2
+          // Config
         },
       ],
     },
@@ -142,20 +142,20 @@ export const namingRulesConfig = createNamingRules([
       rules: [
         {
           selector: "variable",
-          format: ["{SNAKE_CASE}"],
+          format: "{SNAKE_CASE}",
         },
       ],
     },
     fileRules: [
       {
-        selector: ["variable"],
-        format: ["{camelCase}"],
+        selector: "variable",
+        format: "{camelCase}",
       },
     ],
   },
   // In this example, we want all `.ts` files, except `index.ts`, to adhere to the following rules:
-  // - They may contain at most one arrowFunction that follows `{filename_camelCase}`.
-  // - They may include at most two types or interfaces that match `{filename_PascalCase}Props` or `{filename_PascalCase}Return`.
+  // - They may contain at most one arrowFunction that follows `{fileName}`.
+  // - They may include at most two types or interfaces that match `{FileName}Props` or `{file_name}_return`.
   // - All nested arrowFunctions and variables must follow `{camelCase}`.
   // - If a variable is used at the root of our file, an error will appear indicating that it should be moved to a `.consts.ts` file.
   // - All other selectors not specified in the rules for this file are prohibited.
@@ -169,11 +169,11 @@ export const namingRulesConfig = createNamingRules([
       rules: [
         {
           selector: "arrowFunction",
-          format: ["{filename_camelCase}"],
+          format: "{fileName}",
         },
         {
           selector: ["interface", "type"],
-          format: ["{filename_PascalCase}Props", "{filename_PascalCase}Return"],
+          format: ["{FileName}Props", "{file_name}_return"],
         },
       ],
     },
@@ -182,12 +182,12 @@ export const namingRulesConfig = createNamingRules([
       rules: [
         {
           selector: "arrowFunction",
-          format: ["{camelCase}"],
+          format: "{camelCase}",
         },
 
         {
-          selector: ["variable"],
-          format: ["{camelCase}"],
+          selector: "variable",
+          format: "{camelCase}",
         },
       ],
     },
@@ -208,20 +208,20 @@ export const VARIABLE_2 = "";
 ```ts
 // File transformUserData.ts
 
-// Satisfies fileRootRules format = "{filename_PascalCase}Props"
+// Satisfies fileRootRules format = "{FileName}Props"
 interface TransformUserDataProps {
   name: number;
   surname: number;
   email: string;
 }
 
-// Satisfies fileRootRules format = "{filename_snake_case}_return"
+// Satisfies fileRootRules format = "{file_name}_return"
 interface transform_user_data_return {
   fullName: string;
   email: string;
 }
 
-// Satisfies fileRootRules format = "{filename_camelCase}"
+// Satisfies fileRootRules format = "{fileName}"
 const transformUserData = ({
   name,
   surname,
@@ -238,6 +238,110 @@ const transformUserData = ({
 ```
 
 ## ⚙️ API <a id="api"></a>
+
+### `filesRules: FileNamingRules[]` <a id="files-rules"></a>
+
+A place where you can add rules for a given file.
+
+This way, you can ignore specific folders/files:
+
+```jsonc
+{
+  "filesRules": [
+    { "filePattern": "legacy/**" },
+    {
+      "filePattern": "*",
+      "fileRootRules": [
+        {
+          "selector": "variable",
+          "format": "{SNAKE_CASE}",
+        },
+      ],
+    },
+  ],
+}
+```
+
+> [!WARNING]
+> The order of rules matters! Rules are checked in order from top to bottom.
+
+```jsonc
+{
+  "filesRules": [
+    {
+      "filePattern": "*",
+      "fileRootRules": [
+        {
+          "selector": "variable",
+          "format": "{SNAKE_CASE}",
+        },
+      ],
+    },
+    // File rule with "**/*.consts.ts" will not be taken into account because file rule with "*" meets the condition.
+    {
+      "filePattern": "**/*.consts.ts",
+      "fileRootRules": [
+        {
+          "selector": "variable",
+          "format": "{snake_case}",
+        },
+      ],
+    },
+  ],
+}
+```
+
+```jsonc
+{
+  "filesRules": [
+    // File rule with "**/*.consts.ts" will be taken into account because file rule with "*" is below file rule with "**/*.consts.ts".
+    {
+      "filePattern": "**/*.consts.ts",
+      "fileRootRules": [
+        {
+          "selector": "variable",
+          "format": "{snake_case}",
+        },
+      ],
+    },
+    {
+      "filePattern": "*",
+      "fileRootRules": [
+        {
+          "selector": "variable",
+          "format": "{SNAKE_CASE}",
+        },
+      ],
+    },
+  ],
+}
+```
+
+```jsonc
+{
+  "filesRules": [
+    {
+      "filePattern": ["*", "!(**/*.consts.ts)"],
+      "fileRootRules": [
+        {
+          "selector": "variable",
+          "format": "{SNAKE_CASE}",
+        },
+      ],
+    },
+    // File rule with "**/*.consts.ts" will be taken into account because file rule with ["*", "!(**/*.consts.ts)"] ignores "**/*.consts.ts" pattern.
+    {
+      "filePattern": "**/*.consts.ts",
+      "fileRootRules": [
+        {
+          "selector": "variable",
+          "format": "{snake_case}",
+        },
+      ],
+    },
+  ],
+}
+```
 
 ### `filePattern: string | string[]` <a id="file-pattern"></a>
 
@@ -364,13 +468,13 @@ Useful if you use prefixes in your filenames and don't want them to be part of t
     {
       "selector": "arrowFunction",
       "filenamePartsToRemove": [".react"], // ComponentName.react.tsx => ComponentName.tsx
-      "format": ["{filename_PascalCase}"], // const ComponentName = () => {}
+      "format": "{FileName}", // const ComponentName = () => {}
     },
   ],
 }
 ```
 
-### `format?: string[]` <a id="format"></a>
+### `format?: string[] | string` <a id="format"></a>
 
 The format that the given [selector](#selector) must adhere to.<br>
 It is treated as a regular expression. If the [selector](#selector) name matches at least one regular expression, it will be considered valid.<br>
@@ -394,72 +498,141 @@ The following improvements are automatically added to the regular expression:
     {
       "selector": "variable",
       // Variables in .tsx files should meet SNAKE_CASE.
-      "format": ["{SNAKE_CASE}"],
+      "format": "{SNAKE_CASE}",
     },
   ],
 }
 ```
 
-#### References
+### `regexParameters?: Record<string, string>` <a id="regex-parameters"></a>
 
-`{filename_camelCase}`<br>
+A place where you can add your own regex parameters.<br>
+You can use [built-in regex parameters](#built-in-regex-parameters). You can overwrite them with your logic, exceptions are filename references.<br>
+You can freely mix regex parameters together see [example](#regex-parameters-mix-example).
+
+```jsonc
+{
+  "regexParameters": {
+    "yourRegexParameter": "(Regex logic)",
+    "camelCase": "(Regex logic)", // Override built-in camelCase.
+    "fileName": "(Regex logic)", // Overwriting will be ignored.
+    "FileName": "(Regex logic)", // Overwriting will be ignored.
+  },
+}
+```
+
+Then you can use them in [format](#format) with the following notation `{yourRegexParameter}`.
+
+```jsonc
+{ "format": "{yourRegexParameter}" }
+```
+
+#### Built-in regex parameters
+
+`{fileName}`<br>
 Take the name of the file you are currently in and change it to `camelCase`.
 
 ```jsonc
-{ "format": ["{filename_camelCase}"] }
+{ "format": "{fileName}" }
 ```
 
-`{filename_PascalCase}`<br>
+`{FileName}`<br>
 Take the name of the file you are currently in and change it to `PascalCase`.
 
 ```jsonc
-{ "format": ["{filename_PascalCase}"] }
+{ "format": "{FileName}" }
 ```
 
-`{filename_snake_case}`<br>
+`{file_name}`<br>
 Take the name of the file you are currently in and change it to `snake_case`.
 
 ```jsonc
-{ "format": ["{filename_snake_case}"] }
+{ "format": "{file_name}" }
 ```
 
-`{filename_SNAKE_CASE}`<br>
+`{FILE_NAME}`<br>
 Take the name of the file you are currently in and change it to `SNAKE_CASE`.
 
 ```jsonc
-{ "format": ["{filename_SNAKE_CASE}"] }
+{ "format": "{FILE_NAME}" }
 ```
 
-`{camelCase}`<a id="camel-case"></a><br>
+`{camelCase}`<br>
 Add `camelCase` validation to your regex.<br>
+The added regex is `([a-z]+[A-Z0-9]*[A-Z0-9]*)*`.
+
+Examples: `component`, `componentName`, `componentName1`, `componentXYZName`, `cOMPONENTNAME`.
+
+```jsonc
+{ "name": "{camelCase}" }
+```
+
+`{PascalCase}`<br>
+Add `PascalCase` validation to your regex.<br>
+The added regex is `([A-Z]+[a-z0-9]*[A-Z0-9]*)*`.
+
+Examples: `Component`, `ComponentName`, `ComponentName1`, `ComponentXYZName`, `COMPONENTNAME`.
+
+```jsonc
+{ "name": "{PascalCase}" }
+```
+
+`{strictCamelCase}`<br>
+Add `strictCamelCase` validation to your regex.<br>
 The added regex is `[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])`.
 
+Examples: `component`, `componentName`, `componentName1`.
+
 ```jsonc
-{ "format": ["{camelCase}"] }
+{ "name": "{strictCamelCase}" }
 ```
 
-`{PascalCase}`<a id="pascal-case"></a><br>
-Add `PascalCase` validation to your regex.<br>
+`{StrictPascalCase}`<br>
+Add `StrictPascalCase` validation to your regex.<br>
 The added regex is `[A-Z](([a-z0-9]+[A-Z]?)*)`.
 
+Examples: `Component`, `ComponentName`, `ComponentName1`.
+
 ```jsonc
-{ "format": ["{PascalCase}"] }
+{ "name": "{StrictPascalCase}" }
 ```
 
 `{snake_case}`<br>
 Add `snake_case` validation to your regex.<br>
 The added regex is `((([a-z]|\d)+_)*([a-z]|\d)+)`.
 
+Examples: `component`, `component_name`, `component_name_1`.
+
 ```jsonc
-{ "format": ["{snake_case}"] }
+{ "format": "{snake_case}" }
 ```
 
 `{SNAKE_CASE}`<br>
 Add `SNAKE_CASE` validation to your regex.<br>
 The added regex is `((([A-Z]|\d)+_)*([A-Z]|\d)+)`.
 
+Examples: `COMPONENT`, `COMPONENT_NAME`, `COMPONENT_NAME_1`.
+
 ```jsonc
-{ "format": ["{SNAKE_CASE}"] }
+{ "format": "{SNAKE_CASE}" }
+```
+
+#### Regex parameters mix example <a id="regex-parameters-mix-example"></a>
+
+Here are some examples of how easy it is to combine [regex parameters](#regex-parameters).
+
+```jsonc
+// useNiceHook
+// useNiceHook_api
+// useNiceHook_test
+{ "format": "use{PascalCase}(_(test|api))?" }
+```
+
+```jsonc
+// someFileName_hello_world
+// someFileName_hello_world_test
+// someFileName_hello_world_api
+{ "format": "{fileName}_{snake_case}(_(test|api))?" }
 ```
 
 <h2><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Party%20Popper.png" alt="Party Popper" width="35" height="35" /></picture> Sponsors</h2>

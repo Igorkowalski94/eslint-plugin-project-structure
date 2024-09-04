@@ -1,5 +1,6 @@
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import { ESLINT_ERRORS } from "consts";
+import { RegexParameters } from "types";
 
 export type NodeType = "File" | "Folder";
 
@@ -9,8 +10,6 @@ export interface Rule<T extends string = string> {
   enforceExistence?: string[];
   children?: Rule<T>[];
 }
-
-export type RegexParameters = Record<string, string>;
 
 export interface FolderStructureConfig<T extends string = string> {
   ignorePatterns?: string[];

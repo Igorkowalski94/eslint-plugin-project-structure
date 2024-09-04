@@ -50,7 +50,7 @@ export const validateChildren = ({
   validateRulesList({
     pathname: nextPathname,
     filenameWithoutCwd,
-    parentName: nodeName,
+    folderName: nodeName,
     nodesList: childrenByFileType,
     config,
     cwd,

@@ -1,6 +1,7 @@
+import { RegexParameters } from "types";
+
 import {
   Rule,
-  RegexParameters,
   FolderStructureConfig,
 } from "rules/folderStructure/folderStructure.types";
 

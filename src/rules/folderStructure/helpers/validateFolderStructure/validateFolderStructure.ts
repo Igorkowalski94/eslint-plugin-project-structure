@@ -40,7 +40,7 @@ export const validateFolderStructure = ({
     pathname,
     filenameWithoutCwd,
     cwd,
-    parentName: rootFolderName,
+    folderName: rootFolderName,
     rule: rootRule,
     config,
   });

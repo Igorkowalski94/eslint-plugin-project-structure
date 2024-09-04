@@ -10,55 +10,54 @@
         },
         {
           "type": "array",
+          "default": [],
           "items": {
             "type": "string",
             "default": ""
-          },
-          "default": []
+          }
         }
       ]
     },
     "Module": {
       "type": "object",
+      "default": {
+        "name": "",
+        "pattern": "",
+        "allowImportsFrom": []
+      },
       "additionalProperties": false,
       "properties": {
         "name": {
           "type": "string",
           "default": ""
         },
-        "pattern": {
-          "$ref": "#/definitions/Pattern",
-          "default": ""
-        },
+        "pattern": { "$ref": "#/definitions/Pattern" },
         "errorMessage": {
           "type": "string",
           "default": ""
         },
         "allowImportsFrom": {
           "type": "array",
+          "default": [],
           "items": {
             "$ref": "#/definitions/Pattern"
-          },
-          "default": []
+          }
         },
         "allowExternalImports": {
           "type": "boolean",
           "default": false
         }
       },
-      "default": {
-        "name": "",
-        "pattern": "",
-        "allowImportsFrom": []
-      },
       "required": ["name", "pattern", "allowImportsFrom"]
     },
     "IndependentModulesConfig": {
       "type": "object",
+      "default": {},
       "additionalProperties": false,
       "properties": {
         "extensions": {
           "type": "array",
+          "default": [],
           "items": {
             "type": "string",
             "default": ""
@@ -68,34 +67,40 @@
           "type": "boolean",
           "default": true
         },
-        "root": {
-          "anyOf": [
-            {
-              "type": "string",
-              "default": "src"
-            },
-            {
-              "type": "null",
-              "default": null
+        "pathAliases": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": false,
+          "properties": {
+            "baseUrl": { "type": "string", "default": "" },
+            "paths": {
+              "type": "object",
+              "default": {},
+              "additionalProperties": {
+                "type": "array",
+                "default": [],
+                "items": { "type": "string" }
+              }
             }
-          ]
+          },
+          "required": ["baseUrl", "paths"]
         },
         "reusableImportPatterns": {
           "type": "object",
+          "default": {},
           "additionalProperties": {
             "type": "array",
             "items": {
               "$ref": "#/definitions/Pattern"
             }
-          },
-          "default": {}
+          }
         },
         "modules": {
           "type": "array",
+          "default": [],
           "items": {
             "$ref": "#/definitions/Module"
-          },
-          "default": []
+          }
         }
       },
       "required": ["modules"]
