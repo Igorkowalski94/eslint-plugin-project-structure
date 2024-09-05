@@ -1,10 +1,10 @@
 import { getRecursionLimitError } from "errors/getRecursionLimitError";
 
 import { getNestedArrayInPatternError } from "rules/independentModules/errors/getNestedArrayInPatternError";
-import { extractReferencesFromReusableImportPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromReusableImportPatterns";
+import { getReusableImportPatternsWithoutRef } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/getReusableImportPatternsWithoutRef";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
-describe("extractReferencesFromReusableImportPatterns", () => {
+describe("getReusableImportPatternsWithoutRef", () => {
   const reusableImportPatterns: IndependentModulesConfig["reusableImportPatterns"] =
     {
       pattern0: ["pattern0"],
@@ -72,14 +72,14 @@ describe("extractReferencesFromReusableImportPatterns", () => {
   };
 
   test("Should return extracted reusableImportPatterns", () => {
-    expect(
-      extractReferencesFromReusableImportPatterns(reusableImportPatterns),
-    ).toEqual(reusableImportPatternsExtracted);
+    expect(getReusableImportPatternsWithoutRef(reusableImportPatterns)).toEqual(
+      reusableImportPatternsExtracted,
+    );
   });
 
   test("Should throw getNestedArrayInPatternError", () => {
     expect(() =>
-      extractReferencesFromReusableImportPatterns({
+      getReusableImportPatternsWithoutRef({
         pattern1: ["pattern1_a", ["pattern1_b", "{pattern2}"]],
         pattern2: ["pattern2_a", ["pattern2_b", "pattern2_c"]],
       }),
@@ -90,7 +90,7 @@ describe("extractReferencesFromReusableImportPatterns", () => {
 
   test("Should throw recursion error", () => {
     expect(() =>
-      extractReferencesFromReusableImportPatterns({
+      getReusableImportPatternsWithoutRef({
         pattern1: ["{pattern2}"],
         pattern2: ["{pattern1}"],
       }),
@@ -98,8 +98,6 @@ describe("extractReferencesFromReusableImportPatterns", () => {
   });
 
   test("Should return undefined when reusableImportPatterns === undefined", () => {
-    expect(extractReferencesFromReusableImportPatterns(undefined)).toEqual(
-      undefined,
-    );
+    expect(getReusableImportPatternsWithoutRef(undefined)).toEqual(undefined);
   });
 });

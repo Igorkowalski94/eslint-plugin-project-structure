@@ -3,29 +3,27 @@
 import { createFolderStructure } from "eslint-plugin-project-structure";
 
 export const folderStructureConfig = createFolderStructure({
-  structure: {
-    children: [
-      {
-        name: "src",
-        children: [
-          { ruleId: "rules_folder" },
-          { ruleId: "helpers_folder" },
-          { ruleId: "errors_folder" },
-          { name: "consts.ts" },
-          { name: "types.ts" },
-          { name: "index.ts" },
-          { name: "parser.ts" },
-        ],
-      },
-      {
-        name: "types",
-        children: [{ name: "*.d.ts" }],
-      },
-      { name: "*" },
-    ],
-  },
+  structure: [
+    {
+      name: "src",
+      children: [
+        { ruleId: "rules_folder" },
+        { ruleId: "helpers_folder" },
+        { ruleId: "errors_folder" },
+        { name: "consts.ts" },
+        { name: "types.ts" },
+        { name: "index.ts" },
+        { name: "parser.ts" },
+      ],
+    },
+    {
+      name: "types",
+      children: [{ name: "*.d.ts" }],
+    },
+    { name: "*" },
+  ],
   rules: {
-    additional_files: { name: "{parentName}(.(types|consts|test)).ts" },
+    additional_files: { name: "{folderName}(.(types|consts|test)).ts" },
 
     test_file: { name: "{camelCase}.test.ts" },
 
@@ -34,7 +32,7 @@ export const folderStructureConfig = createFolderStructure({
       children: [
         { ruleId: "helpers_folder" },
         { ruleId: "additional_files" },
-        { name: "{parentName}.ts" },
+        { name: "{folderName}.ts" },
       ],
     },
 
@@ -42,7 +40,7 @@ export const folderStructureConfig = createFolderStructure({
       name: "helpers",
       children: [
         { ruleId: "helper_folder" },
-        { ruleId: "test_file" },
+        { name: "{camelCase}.test.ts" },
         { name: "{camelCase}.ts" },
       ],
     },
@@ -53,7 +51,7 @@ export const folderStructureConfig = createFolderStructure({
         { ruleId: "helpers_folder" },
         { ruleId: "errors_folder" },
         { ruleId: "additional_files" },
-        { name: "{parentName}.ts" },
+        { name: "{folderName}.ts" },
       ],
     },
 

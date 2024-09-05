@@ -108,7 +108,7 @@ export default tseslint.config(
         "error",
         independentModulesConfig,
       ],
-      "project-structure/naming-rules": ["error", ...namingRulesConfig],
+      "project-structure/naming-rules": ["error", namingRulesConfig],
 
       "prettier/prettier": [
         "error",

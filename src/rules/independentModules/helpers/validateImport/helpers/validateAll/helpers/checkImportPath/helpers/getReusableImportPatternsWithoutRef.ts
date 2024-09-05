@@ -1,7 +1,7 @@
 import { extractReferencesFromPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/extractReferencesFromPatterns";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
-export const extractReferencesFromReusableImportPatterns = (
+export const getReusableImportPatternsWithoutRef = (
   reusableImportPatterns: IndependentModulesConfig["reusableImportPatterns"],
 ): IndependentModulesConfig["reusableImportPatterns"] => {
   if (!reusableImportPatterns) return;

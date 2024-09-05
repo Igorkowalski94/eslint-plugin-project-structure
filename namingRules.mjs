@@ -2,83 +2,85 @@
 
 import { createNamingRules } from "eslint-plugin-project-structure";
 
-export const namingRulesConfig = createNamingRules([
-  { filePattern: "**/(index|parser|tsup.config|jest.config).(ts|js)" },
-  {
-    filePattern: "**/*consts.ts",
-    fileRootRules: {
-      allowOnlySpecifiedSelectors: true,
-      rules: [
-        {
-          selector: "variable",
-          format: ["{SNAKE_CASE}"],
-        },
-      ],
+export const namingRulesConfig = createNamingRules({
+  filesRules: [
+    { filePattern: "**/(index|parser|tsup.config|jest.config).(ts|js)" },
+    {
+      filePattern: "**/*consts.ts",
+      fileRootRules: {
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          {
+            selector: "variable",
+            format: "{SNAKE_CASE}",
+          },
+        ],
+      },
     },
-  },
 
-  {
-    filePattern: "**/*types.ts",
-    fileRootRules: {
-      allowOnlySpecifiedSelectors: true,
-      rules: [
-        {
-          selector: ["interface", "type"],
-          format: ["{PascalCase}"],
-        },
-        {
-          selector: "enum",
-          format: ["{SNAKE_CASE}"],
-        },
-      ],
+    {
+      filePattern: "**/*types.ts",
+      fileRootRules: {
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          {
+            selector: ["interface", "type"],
+            format: "{PascalCase}",
+          },
+          {
+            selector: "enum",
+            format: "{SNAKE_CASE}",
+          },
+        ],
+      },
     },
-  },
 
-  {
-    filePattern: ["src/rules/*/*.ts"],
-    fileRootRules: {
-      allowOnlySpecifiedSelectors: true,
-      rules: [
-        {
-          selector: "variable",
-          format: ["{filename_camelCase}"],
-        },
-      ],
+    {
+      filePattern: "src/rules/*/*.ts",
+      fileRootRules: {
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          {
+            selector: "variable",
+            format: "{fileName}",
+          },
+        ],
+      },
     },
-  },
 
-  {
-    filePattern: "**/*.ts",
-    fileRootRules: {
-      allowOnlySpecifiedSelectors: true,
-      rules: [
-        {
-          selector: "class",
-          format: ["{filename_PascalCase}"],
-        },
-        {
-          selector: "arrowFunction",
-          format: ["{filename_camelCase}"],
-        },
-        {
-          selector: ["interface", "type"],
-          format: ["{filename_PascalCase}Props", "{filename_PascalCase}Return"],
-        },
-      ],
-    },
-    fileRules: {
-      allowOnlySpecifiedSelectors: true,
-      rules: [
-        {
-          selector: "arrowFunction",
-          format: ["{camelCase}"],
-        },
+    {
+      filePattern: "**/*.ts",
+      fileRootRules: {
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          {
+            selector: "class",
+            format: "{FileName}",
+          },
+          {
+            selector: "arrowFunction",
+            format: "{fileName}",
+          },
+          {
+            selector: ["interface", "type"],
+            format: ["{FileName}Props", "{FileName}Return"],
+          },
+        ],
+      },
+      fileRules: {
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          {
+            selector: "arrowFunction",
+            format: "{camelCase}",
+          },
 
-        {
-          selector: ["variable"],
-          format: ["{camelCase}"],
-        },
-      ],
+          {
+            selector: "variable",
+            format: "{camelCase}",
+          },
+        ],
+      },
     },
-  },
-]);
+  ],
+});

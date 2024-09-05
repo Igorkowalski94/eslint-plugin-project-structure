@@ -1,7 +1,7 @@
 {
   "author": "Igor Kowalski (Igorkowalski94)",
   "name": "eslint-plugin-project-structure",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "license": "MIT",
   "description": "ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project. Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules. Take your project to the next level and save time by automating the review of key principles of a healthy project!",
   "keywords": [
@@ -57,7 +57,6 @@
     "husky:prepare": "husky install"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.3.0",
     "comment-json": "^4.2.5",
     "js-yaml": "^4.1.0",
     "jsonschema": "^1.4.1",
@@ -71,11 +70,12 @@
     "@types/js-yaml": "^4.0.9",
     "@types/micromatch": "^4.0.9",
     "@types/node": "^22.5.1",
+    "@typescript-eslint/utils": "^8.3.0",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-project-structure": "2.2.12",
+    "eslint-plugin-project-structure": "2.3.1",
     "husky": "^9.1.5",
     "jest": "^29.7.0",
     "prettier": "^3.3.3",

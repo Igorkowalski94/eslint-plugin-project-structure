@@ -17,8 +17,8 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg?&logo=npm&color=%231f6feb)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
-[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg?&logo=npm&label=Downloads&color=%238957e5)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
+[![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg?&logo=nodedotjs&color=%231f6feb)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
+[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg?&logo=nodedotjs&label=Downloads&color=%238957e5)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
 [![Check, test, build](https://img.shields.io/github/actions/workflow/status/Igorkowalski94/eslint-plugin-project-structure/check.yml?&logo=github&color=%23238636&label=Check%2C%20test%2C%20build)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml)
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-%23db61a2.svg?&logo=github&color=%23db61a2)](https://github.com/sponsors/Igorkowalski94)
 [![GitHub Repo stars](https://img.shields.io/github/stars/igorkowalski94/eslint-plugin-project-structure?label=Star)](https://github.com/Igorkowalski94/eslint-plugin-project-structure)

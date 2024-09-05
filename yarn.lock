@@ -2817,16 +2817,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-project-structure@npm:2.2.12":
-  version: 2.2.12
-  resolution: "eslint-plugin-project-structure@npm:2.2.12"
+"eslint-plugin-project-structure@npm:2.3.1":
+  version: 2.3.1
+  resolution: "eslint-plugin-project-structure@npm:2.3.1"
   dependencies:
     "@typescript-eslint/utils": ^8.3.0
     comment-json: ^4.2.5
     js-yaml: ^4.1.0
     jsonschema: ^1.4.1
     micromatch: ^4.0.8
-  checksum: 7884a3c808f9ddec4a3be001720a1932f6daa20fdf917d4a4ba82ebd56237eb47646c4b80efb842cc7059bcc69775df62816bfb7fe35d088494516a3b1afa79e
+  checksum: 88f15fac4100b5536da130533f14676ee9dc6e524da7ad7a29f6dcdc5c58c5c1893d36a9643c72218e58457d6dcb24082f2303256ec16b5bc3d05ae02e5dcb1e
   languageName: node
   linkType: hard
 
@@ -2847,7 +2847,7 @@ __metadata:
     eslint-config-prettier: ^9.1.0
     eslint-plugin-import: ^2.29.1
     eslint-plugin-prettier: ^5.2.1
-    eslint-plugin-project-structure: 2.2.12
+    eslint-plugin-project-structure: 2.3.1
     husky: ^9.1.5
     jest: ^29.7.0
     js-yaml: ^4.1.0
