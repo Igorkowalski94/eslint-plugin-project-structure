@@ -15,12 +15,15 @@
 <p align="center">Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules.</p>
 <p align="center">Take your project to the next level and save time by automating the review of key principles of a healthy project!</p>
 
-<p align="center">
-    <a href="https://www.npmjs.com/package/eslint-plugin-project-structure"><img src="https://img.shields.io/npm/v/eslint-plugin-project-structure.svg" alt="npm" /></a>
-    <a href="https://www.npmjs.com/package/eslint-plugin-project-structure"><img src="https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg" alt="npm downloads" /></a>
-    <a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml"><img src="https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml/badge.svg" alt="Check code, test and build" /></a>
-    <a href="https://github.com/sponsors/Igorkowalski94"><img src="https://img.shields.io/badge/Sponsor-%E2%9D%A4-red" alt="Sponsor" /></a>
-</p>
+<div align="center">
+
+[![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg?&logo=npm&color=%231f6feb)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
+[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg?&logo=npm&label=Downloads&color=%238957e5)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
+[![Check, test, build](https://img.shields.io/github/actions/workflow/status/Igorkowalski94/eslint-plugin-project-structure/check.yml?&logo=github&color=%23238636&label=Check%2C%20test%2C%20build)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-%23db61a2.svg?&logo=github&color=%23db61a2)](https://github.com/sponsors/Igorkowalski94)
+[![GitHub Repo stars](https://img.shields.io/github/stars/igorkowalski94/eslint-plugin-project-structure?label=Star)](https://github.com/Igorkowalski94/eslint-plugin-project-structure)
+
+</div>
 
 ## 📋 General information
 
@@ -93,6 +96,6 @@ where removing or editing one feature triggers a chain reaction that impacts the
 
 <h2><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Party%20Popper.png" alt="Party Popper" width="35" height="35" /></picture> Sponsors</h2>
 
-<p align="center">A big thank you to all the <a href="https://github.com/sponsors/Igorkowalski94" target=”_blank”>sponsors</a> for your support! You give me the strength and motivation to keep going!</p>
+<p align="center">A big thank you to all the <a href="https://github.com/sponsors/Igorkowalski94">sponsors</a> for your support! You give me the strength and motivation to keep going!</p>
 <p align="center"> Thanks to you, I can help others create their ideal projects!</p>
 <p align="center"><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Love-You%20Gesture.png" alt="Love-You Gesture" width="60px" height="60px" /></picture><p>
