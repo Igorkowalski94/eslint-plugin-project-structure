@@ -1,5 +1,7 @@
 <a id="root"></a>
 
+<div>&nbsp;</div>
+
 <p align="right">
   <picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Cloud.png" alt="Cloud" width="35" height="35" /></picture>
   <picture>
