@@ -17,10 +17,10 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg?&logo=nodedotjs&color=%231f6feb)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
-[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg?&logo=nodedotjs&label=Downloads&color=%238957e5)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
-[![Check, test, build](https://img.shields.io/github/actions/workflow/status/Igorkowalski94/eslint-plugin-project-structure/check.yml?&logo=github&color=%23238636&label=Check%2C%20test%2C%20build)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml)
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-%23db61a2.svg?&logo=github&color=%23db61a2)](https://github.com/sponsors/Igorkowalski94)
+[![npm](https://img.shields.io/npm/v/eslint-plugin-project-structure.svg?&logo=nodedotjs&color=%231f6feb&labelColor=%23212830)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
+[![npm downloads](https://img.shields.io/npm/dy/eslint-plugin-project-structure.svg?&logo=nodedotjs&label=Downloads&color=%238957e5&labelColor=%23212830)](https://www.npmjs.com/package/eslint-plugin-project-structure#root)
+[![Check, test, build](https://img.shields.io/github/actions/workflow/status/Igorkowalski94/eslint-plugin-project-structure/check.yml?&logo=github&color=%23238636&label=Check%2C%20test%2C%20build&labelColor=%23212830)](https://github.com/Igorkowalski94/eslint-plugin-project-structure/actions/workflows/check.yml)
+[![Sponsor](https://img.shields.io/badge/Sponsor-grey?logo=githubsponsors&style=flat&color=%23212830)](https://github.com/sponsors/Igorkowalski94)
 [![GitHub Repo stars](https://img.shields.io/github/stars/igorkowalski94/eslint-plugin-project-structure?label=Star)](https://github.com/Igorkowalski94/eslint-plugin-project-structure)
 
 </div>
@@ -60,6 +60,7 @@ Leave a ⭐ and share the link with your friends.<br>
 - Support for all file extensions.
 - Folder recursion. You can nest a given folder structure recursively.
 - Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
+- Checking the length of paths and notifying when the limit is exceeded.
 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bindependent%E2%80%91modules#root">project&#8209;structure/&#8203;independent&#8209;modules</a></h2>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,

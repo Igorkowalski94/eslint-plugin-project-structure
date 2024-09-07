@@ -3,13 +3,20 @@ import {
   Rule,
 } from "rules/folderStructure/folderStructure.types";
 
-export const getRootRule = (
-  structure: FolderStructureConfig["structure"],
-): Rule => {
+interface GetRootRuleProps {
+  structure: FolderStructureConfig["structure"];
+  rootFolderName: string;
+}
+
+export const getRootRule = ({ structure }: GetRootRuleProps): Rule => {
   if (Array.isArray(structure))
     return {
+      name: "*",
       children: structure,
     };
 
-  return structure;
+  return {
+    ...structure,
+    name: "*",
+  };
 };

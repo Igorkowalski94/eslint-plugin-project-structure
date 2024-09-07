@@ -10,5 +10,5 @@ export const getInvalidReferenceError = ({
   key,
 }: GetInvalidReferenceErrorProps): Error =>
   new Error(
-    `🔥 Reference ${invalidReferences.join(", ")} in "${key}" do not exist. 🔥\n\nAllowed references = ${allowedReferences.join(", ")}.\n\n`,
+    `🔥 Reference ${invalidReferences.join(", ")} in '${key}' do not exist. 🔥\n\nAllowed references = ${allowedReferences.join(", ")}.\n\n`,
   );

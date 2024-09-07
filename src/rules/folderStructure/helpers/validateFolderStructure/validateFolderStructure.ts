@@ -1,13 +1,15 @@
-import { sep } from "path";
+import path from "path";
 
 import { validateConfig } from "helpers/validateConfig";
 
 import { FolderStructureConfig } from "rules/folderStructure/folderStructure.types";
-import { getPaths } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getPaths";
+import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
+import { getPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getPathname";
 import { getRootRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRootRule";
 import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
+import { validateLongPath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validateLongPath";
+import { validatePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/validatePath";
 import { FOLDER_STRUCTURE_SCHEMA } from "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure.consts";
-import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
 interface ValidateFolderStructureProps {
   filename: string;
@@ -20,25 +22,33 @@ export const validateFolderStructure = ({
   cwd,
   config,
 }: ValidateFolderStructureProps): void => {
+  const { structure, ignorePatterns, longPathsInfo } = config;
+
   validateConfig({ config, schema: FOLDER_STRUCTURE_SCHEMA });
+  validateLongPath({ path: filename, longPathsInfo });
 
-  const { structure, ignorePatterns } = config;
-
-  const rootRule = getRootRule(structure);
-  const rootFolderName = cwd.split(sep).reverse()[0];
-
-  const { filenameWithoutCwd, pathname } = getPaths({
+  const rootFolderName = path.basename(cwd);
+  const rootRule = getRootRule({ structure, rootFolderName });
+  const pathname = getPathname({
     cwd,
     filename,
-    rootFolderName,
   });
 
-  if (isIgnoredPathname({ pathname: filenameWithoutCwd, ignorePatterns }))
-    return;
+  if (isIgnoredPathname({ pathname, ignorePatterns })) return;
+
+  if (rootRule.enforceExistence) {
+    checkNodeExistence({
+      enforceExistence: rootRule.enforceExistence,
+      filenameWithoutCwd: cwd,
+      nodeName: rootFolderName,
+      nodeType: "Folder",
+      cwd,
+    });
+  }
 
   validatePath({
     pathname,
-    filenameWithoutCwd,
+    filenameWithoutCwd: pathname,
     cwd,
     folderName: rootFolderName,
     rule: rootRule,

@@ -1,7 +1,7 @@
-import { sep } from "path";
+import path from "path";
 
 export const getFileNameWithoutExtension = (filenamePath: string): string => {
-  const fileNameWithExtension = filenamePath.split(sep).reverse()[0];
+  const fileNameWithExtension = path.basename(filenamePath);
 
   return fileNameWithExtension.substring(
     0,

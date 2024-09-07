@@ -4,17 +4,19 @@ import { getBaseError } from "rules/folderStructure/errors/getBaseError";
 import { getLocationError } from "rules/folderStructure/errors/getLocationError";
 import { NodeType } from "rules/folderStructure/folderStructure.types";
 
-interface GetNodeTypeErrorProps {
+interface GetNameErrorProps {
   nodeType: NodeType;
   nodeName: string;
   nodePath: string;
+  allowedNames: string[];
 }
 
-export const getNodeTypeError = ({
+export const getNameError = ({
   nodeName,
   nodePath,
   nodeType,
-}: GetNodeTypeErrorProps): FinalError =>
+  allowedNames,
+}: GetNameErrorProps): FinalError =>
   new FinalError(
-    `${getBaseError({ nodeName, nodeType })}According to the structure it should be a ${nodeType === "File" ? "folder" : "file"}.${getLocationError({ nodePath })}`,
+    `${getBaseError({ nodeName, nodeType })}Allowed names  = ${allowedNames.join(", ")}${getLocationError({ nodePath })}`,
   );

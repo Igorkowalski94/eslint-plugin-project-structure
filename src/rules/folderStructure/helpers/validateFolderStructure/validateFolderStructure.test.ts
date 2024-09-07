@@ -2,9 +2,10 @@ import path from "path";
 
 import { validateConfig } from "helpers/validateConfig";
 
+import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
 import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
+import { validatePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/validatePath";
 import { validateFolderStructure } from "rules/folderStructure/helpers/validateFolderStructure/validateFolderStructure";
-import { validatePath } from "rules/folderStructure/helpers/validatePath/validatePath";
 
 jest.mock(
   "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname",
@@ -17,9 +18,19 @@ jest.mock("helpers/validateConfig", () => ({
   validateConfig: jest.fn(),
 }));
 
-jest.mock("rules/folderStructure/helpers/validatePath/validatePath", () => ({
-  validatePath: jest.fn(),
-}));
+jest.mock(
+  "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/validatePath",
+  () => ({
+    validatePath: jest.fn(),
+  }),
+);
+
+jest.mock(
+  "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence",
+  () => ({
+    checkNodeExistence: jest.fn(),
+  }),
+);
 
 describe("validateFolderStructure", () => {
   it("should return undefined when filePath is in ignorePatterns", () => {
@@ -38,6 +49,40 @@ describe("validateFolderStructure", () => {
         ),
       }),
     ).toEqual(undefined);
+  });
+
+  it("should call checkNodeExistence", () => {
+    const checkNodeExistenceMock = jest.fn();
+
+    (isIgnoredPathname as jest.Mock).mockReturnValue(false);
+    (checkNodeExistence as jest.Mock).mockImplementation(
+      checkNodeExistenceMock,
+    );
+    (validateConfig as jest.Mock).mockImplementation();
+
+    validateFolderStructure({
+      cwd: path.join("C:", "rootFolderName"),
+      config: {
+        structure: {
+          enforceExistence: ["./src/test.ts"],
+        },
+      },
+      filename: path.join(
+        "C:",
+        "rootFolderName",
+        "src",
+        "features",
+        "ComponentName.tsx",
+      ),
+    });
+
+    expect(checkNodeExistenceMock).toHaveBeenCalledWith({
+      enforceExistence: ["./src/test.ts"],
+      filenameWithoutCwd: path.join("C:", "rootFolderName"),
+      nodeName: "rootFolderName",
+      nodeType: "Folder",
+      cwd: path.join("C:", "rootFolderName"),
+    });
   });
 
   it("should call validatePath", () => {
@@ -60,11 +105,13 @@ describe("validateFolderStructure", () => {
     });
 
     expect(validatePathMock).toHaveBeenCalledWith({
-      pathname: "rootFolderName/src/features/ComponentName.tsx",
+      pathname: "src/features/ComponentName.tsx",
       filenameWithoutCwd: "src/features/ComponentName.tsx",
       cwd: path.join("C:", "rootFolderName"),
       folderName: "rootFolderName",
-      rule: {},
+      rule: {
+        name: "*",
+      },
       config: { structure: {} },
     });
   });

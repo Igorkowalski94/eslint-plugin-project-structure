@@ -57,6 +57,7 @@
     "husky:prepare": "husky install"
   },
   "dependencies": {
+    "@typescript-eslint/utils": "^8.3.0",
     "comment-json": "^4.2.5",
     "js-yaml": "^4.1.0",
     "jsonschema": "^1.4.1",
@@ -70,7 +71,6 @@
     "@types/js-yaml": "^4.0.9",
     "@types/micromatch": "^4.0.9",
     "@types/node": "^22.5.1",
-    "@typescript-eslint/utils": "^8.3.0",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",

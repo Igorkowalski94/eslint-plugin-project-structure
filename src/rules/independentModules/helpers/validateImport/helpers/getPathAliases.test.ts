@@ -75,7 +75,7 @@ describe("getPathAliases", () => {
         },
       },
     },
-  ])("Should return correct value for %s", ({ config, tsconfig, expected }) => {
+  ])("Should return correct value for %o", ({ config, tsconfig, expected }) => {
     (parse as jest.Mock).mockReturnValue(tsconfig);
 
     expect(
