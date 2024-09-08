@@ -14,19 +14,21 @@ describe("getRootRule", () => {
       structure: [{ children: [] }, { name: "index.ts" }],
       rootFolderName: "rootFolderName",
       expected: {
-        name: "*",
+        name: "rootFolderName",
         children: [{ children: [] }, { name: "index.ts" }],
       },
     },
     {
       structure: { enforceExistence: [], children: [] },
       rootFolderName: "rootFolderName",
-      expected: { name: "*", enforceExistence: [], children: [] },
+      expected: { name: "rootFolderName", enforceExistence: [], children: [] },
     },
   ])(
     "Should return correct value for %o",
     ({ structure, rootFolderName, expected }) => {
-      expect(getRootRule({ rootFolderName, structure })).toEqual(expected);
+      expect(getRootRule({ rootFolderName, structure, rules: {} })).toEqual(
+        expected,
+      );
     },
   );
 });

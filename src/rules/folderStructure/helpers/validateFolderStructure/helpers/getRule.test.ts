@@ -5,7 +5,7 @@ import {
   Rule,
   FolderStructureConfig,
 } from "rules/folderStructure/folderStructure.types";
-import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getRule";
+import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRule";
 
 describe("getRule", () => {
   const testRule: Rule = {

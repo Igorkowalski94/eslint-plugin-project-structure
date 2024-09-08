@@ -39,7 +39,7 @@ describe("validateFolderStructure", () => {
     expect(
       validateFolderStructure({
         cwd: path.join("C:", "rootFolderName"),
-        config: { structure: {} },
+        config: { structure: [{ name: "camelCase.tsx" }] },
         filename: path.join(
           "C:",
           "rootFolderName",
@@ -65,6 +65,7 @@ describe("validateFolderStructure", () => {
       config: {
         structure: {
           enforceExistence: ["./src/test.ts"],
+          children: [{ name: "camelCase.tsx" }],
         },
       },
       filename: path.join(
@@ -94,7 +95,9 @@ describe("validateFolderStructure", () => {
 
     validateFolderStructure({
       cwd: path.join("C:", "rootFolderName"),
-      config: { structure: {} },
+      config: {
+        structure: { name: "name", children: [{ name: "camelCase.tsx" }] },
+      },
       filename: path.join(
         "C:",
         "rootFolderName",
@@ -109,10 +112,10 @@ describe("validateFolderStructure", () => {
       filenameWithoutCwd: "src/features/ComponentName.tsx",
       cwd: path.join("C:", "rootFolderName"),
       folderName: "rootFolderName",
-      rule: {
-        name: "*",
+      rule: { name: "rootFolderName", children: [{ name: "camelCase.tsx" }] },
+      config: {
+        structure: { name: "name", children: [{ name: "camelCase.tsx" }] },
       },
-      config: { structure: {} },
     });
   });
 });

@@ -5,6 +5,7 @@ import {
   FolderStructureConfig,
 } from "rules/folderStructure/folderStructure.types";
 import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
+import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRule";
 import { getChildren } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getChildren/getChildren";
 import { getNextPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNextPathname";
 import { getNodeAllowedNames } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodeAllowedNames";
@@ -12,7 +13,6 @@ import { getNodeName } from "rules/folderStructure/helpers/validateFolderStructu
 import { getNodePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodePath";
 import { getNodeRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodeRule";
 import { getNodeType } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodeType";
-import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getRule";
 
 interface ValidatePathProps {
   pathname: string;
@@ -39,6 +39,9 @@ export const validatePath = ({
     children: rule.children,
     rules,
   });
+
+  if (!nodeChildren?.length) return;
+
   const nodeRule = getNodeRule({
     nodeName,
     nodeType,

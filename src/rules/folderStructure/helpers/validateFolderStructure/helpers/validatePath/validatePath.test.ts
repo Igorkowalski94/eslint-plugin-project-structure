@@ -11,6 +11,24 @@ jest.mock(
 );
 
 describe("validatePath", () => {
+  it("Should return undefined when !children.length", () => {
+    expect(
+      validatePath({
+        pathname: "src/componentName/componentName.tsx",
+        filenameWithoutCwd: "src/componentName/componentName.tsx",
+        cwd: "projectName",
+        folderName: "projectName",
+        rule: {
+          name: "*",
+          children: [],
+        },
+        config: {
+          structure: [],
+        },
+      }),
+    ).toEqual(undefined);
+  });
+
   it("Should throw getNodeTypeError", () => {
     expect(() =>
       validatePath({

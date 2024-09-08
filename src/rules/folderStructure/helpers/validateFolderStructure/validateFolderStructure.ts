@@ -22,13 +22,13 @@ export const validateFolderStructure = ({
   cwd,
   config,
 }: ValidateFolderStructureProps): void => {
-  const { structure, ignorePatterns, longPathsInfo } = config;
+  const { structure, ignorePatterns, longPathsInfo, rules } = config;
 
   validateConfig({ config, schema: FOLDER_STRUCTURE_SCHEMA });
   validateLongPath({ path: filename, longPathsInfo });
 
   const rootFolderName = path.basename(cwd);
-  const rootRule = getRootRule({ structure, rootFolderName });
+  const rootRule = getRootRule({ structure, rootFolderName, rules });
   const pathname = getPathname({
     cwd,
     filename,

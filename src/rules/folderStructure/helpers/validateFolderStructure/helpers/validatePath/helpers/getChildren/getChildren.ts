@@ -1,7 +1,7 @@
 import { Rule } from "rules/folderStructure/folderStructure.types";
+import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRule";
 import { removeRuleReplicatesFromChildren } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getChildren/helpers/removeRuleReplicatesFromChildren";
 import { sortChildrenByNameType } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getChildren/helpers/sortChildrenByNameType";
-import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getRule";
 
 interface GetChildrenProps {
   children?: Rule[];
