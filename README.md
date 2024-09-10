@@ -60,7 +60,7 @@ Leave a ⭐ and share the link with your friends.<br>
 - An option to create a separate configuration file with TypeScript support.
 - Forcing a nested/flat structure for a given folder.
 - Support for all file extensions.
-- Folder recursion. You can nest a given folder structure recursively. Option to set a folder nesting limit, if a given folder structure exceeds the limit, it will be flattened.
+- Folder recursion. You can repeatedly nest a folder structure and set a limit on the nesting depth. There is also an option to change the rule at the final level, such as flattening the folder structure.
 - Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
 - Checking the length of paths and notifying when the limit is exceeded.
 
