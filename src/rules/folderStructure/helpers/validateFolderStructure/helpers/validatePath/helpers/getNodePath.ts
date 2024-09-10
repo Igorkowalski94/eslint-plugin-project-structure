@@ -7,7 +7,7 @@ export const getNodePath = ({
   filenameWithoutCwd,
   nodeName,
 }: GetNodePathProps): string => {
-  const nodeNameIndex = filenameWithoutCwd.split("/").indexOf(nodeName);
+  const nodeNameIndex = filenameWithoutCwd.split("/").lastIndexOf(nodeName);
 
   return filenameWithoutCwd
     .split("/")

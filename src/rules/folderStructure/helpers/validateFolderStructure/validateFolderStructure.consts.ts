@@ -21,20 +21,36 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
       additionalProperties: false,
     },
     FolderRecursionRule: {
-      allOf: [
-        {
-          $ref: "#/definitions/Rule",
+      type: "object",
+      default: { name: "" },
+      additionalProperties: false,
+      properties: {
+        ruleId: {
+          type: "string",
+          default: "",
         },
-        {
-          type: "object",
-          properties: {
-            folderRecursionLimit: {
-              type: "number",
-            },
+        name: {
+          type: "string",
+          default: "",
+        },
+        children: {
+          type: "array",
+          default: [],
+          items: {
+            $ref: "#/definitions/Rule",
           },
-          additionalProperties: false,
         },
-      ],
+        enforceExistence: {
+          type: "array",
+          default: [],
+          items: {
+            type: "string",
+          },
+        },
+        folderRecursionLimit: {
+          type: "number",
+        },
+      },
     },
     Rule: {
       type: "object",

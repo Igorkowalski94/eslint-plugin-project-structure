@@ -59,6 +59,6 @@ export const validateFolderStructure = ({
     cwd,
     folderName: rootFolderName,
     rule: rootRule,
-    config,
+    config: { ...config, rules: rulesWithFolderRecursion },
   });
 };

@@ -19,20 +19,36 @@
       "additionalProperties": false
     },
     "FolderRecursionRule": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/Rule"
+      "type": "object",
+      "default": { "name": "" },
+      "additionalProperties": false,
+      "properties": {
+        "ruleId": {
+          "type": "string",
+          "default": ""
         },
-        {
-          "type": "object",
-          "properties": {
-            "folderRecursionLimit": {
-              "type": "number"
-            }
-          },
-          "additionalProperties": false
+        "name": {
+          "type": "string",
+          "default": ""
+        },
+        "children": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/Rule"
+          }
+        },
+        "enforceExistence": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "folderRecursionLimit": {
+          "type": "number"
         }
-      ]
+      }
     },
     "Rule": {
       "type": "object",
