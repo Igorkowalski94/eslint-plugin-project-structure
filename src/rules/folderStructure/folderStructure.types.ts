@@ -11,6 +11,11 @@ export interface Rule<T extends string = string> {
   children?: Rule<T>[];
 }
 
+export interface FolderRecursionRule<T extends string = string>
+  extends Rule<T> {
+  folderRecursionLimit?: number;
+}
+
 export interface LongPathsInfo {
   maxLength?: number;
   mode: "warn" | "error";
@@ -20,7 +25,7 @@ export interface FolderStructureConfig<T extends string = string> {
   ignorePatterns?: string[];
   longPathsInfo?: LongPathsInfo | false;
   structure: Rule<T> | Rule<T>[];
-  rules?: Record<T, Rule<T>>;
+  rules?: Record<T, FolderRecursionRule<T>>;
   regexParameters?: RegexParameters;
 }
 export type Context = Readonly<

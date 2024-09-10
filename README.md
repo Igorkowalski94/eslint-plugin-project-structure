@@ -41,7 +41,7 @@ Leave a ⭐ and share the link with your friends.<br>
 
 ## 📚 Documentation
 
-- [Migration guide to 2.3.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/Migration-guide-to-2.3.0)
+- [Migration guide to 2.4.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/Migration-guide-to-2.4.0)
 - [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root)
 - [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bindependent%E2%80%91modules#root)
 - [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bnaming%E2%80%91rules#root)
@@ -60,7 +60,7 @@ Leave a ⭐ and share the link with your friends.<br>
 - An option to create a separate configuration file with TypeScript support.
 - Forcing a nested/flat structure for a given folder.
 - Support for all file extensions.
-- Folder recursion. You can nest a given folder structure recursively.
+- Folder recursion. You can nest a given folder structure recursively. Option to set a folder nesting limit, if a given folder structure exceeds the limit, it will be flattened.
 - Fewer repetitions and precise error messages, even for deeply nested folders (recursion), by representing the folder structure as a tree.
 - Checking the length of paths and notifying when the limit is exceeded.
 

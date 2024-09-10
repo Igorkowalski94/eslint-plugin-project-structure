@@ -4,6 +4,7 @@ import { validateConfig } from "helpers/validateConfig";
 
 import { FolderStructureConfig } from "rules/folderStructure/folderStructure.types";
 import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
+import { extractFolderRecursionFromRules } from "rules/folderStructure/helpers/validateFolderStructure/helpers/extractFolderRecursionFromRules/extractFolderRecursionFromRules";
 import { getPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getPathname";
 import { getRootRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRootRule";
 import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
@@ -25,16 +26,22 @@ export const validateFolderStructure = ({
   const { structure, ignorePatterns, longPathsInfo, rules } = config;
 
   validateConfig({ config, schema: FOLDER_STRUCTURE_SCHEMA });
-  validateLongPath({ path: filename, longPathsInfo });
 
+  const rulesWithFolderRecursion = extractFolderRecursionFromRules(rules);
   const rootFolderName = path.basename(cwd);
-  const rootRule = getRootRule({ structure, rootFolderName, rules });
+  const rootRule = getRootRule({
+    structure,
+    rootFolderName,
+    rules: rulesWithFolderRecursion,
+  });
   const pathname = getPathname({
     cwd,
     filename,
   });
 
   if (isIgnoredPathname({ pathname, ignorePatterns })) return;
+
+  validateLongPath({ path: filename, longPathsInfo });
 
   if (rootRule.enforceExistence) {
     checkNodeExistence({

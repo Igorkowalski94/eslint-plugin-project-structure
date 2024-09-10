@@ -3,22 +3,19 @@ import { RECURSION_LIMIT } from "consts";
 import { getRecursionLimitError } from "errors/getRecursionLimitError";
 
 import { getIdRuleError } from "rules/folderStructure/errors/getIdRuleError";
-import {
-  Rule,
-  FolderStructureConfig,
-} from "rules/folderStructure/folderStructure.types";
+import { Rule } from "rules/folderStructure/folderStructure.types";
 
-interface GetRuleProps {
-  rule: Rule;
-  rules?: FolderStructureConfig["rules"];
+interface GetRuleProps<T> {
+  rule: T;
+  rules?: Record<string, T>;
   recursionLimit?: number;
 }
 
-export const getRule = ({
+export const getRule = <T extends Rule = Rule>({
   rule,
   rules = {},
   recursionLimit = RECURSION_LIMIT,
-}: GetRuleProps): Rule => {
+}: GetRuleProps<T>): T => {
   if (recursionLimit === 0) throw getRecursionLimitError(rule);
 
   const { ruleId, ...ruleWithoutRuleId } = rule;

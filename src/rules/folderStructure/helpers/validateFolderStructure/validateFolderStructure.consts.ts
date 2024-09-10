@@ -20,9 +20,26 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
       required: ["mode"],
       additionalProperties: false,
     },
+    FolderRecursionRule: {
+      allOf: [
+        {
+          $ref: "#/definitions/Rule",
+        },
+        {
+          type: "object",
+          properties: {
+            folderRecursionLimit: {
+              type: "number",
+            },
+          },
+          additionalProperties: false,
+        },
+      ],
+    },
     Rule: {
       type: "object",
       default: { name: "" },
+      additionalProperties: false,
       properties: {
         ruleId: {
           type: "string",
@@ -47,17 +64,18 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
           },
         },
       },
-      additionalProperties: false,
     },
     RegexParameters: {
       type: "object",
       default: {},
       additionalProperties: {
         type: "string",
+        default: "",
       },
     },
   },
   type: "object",
+  additionalProperties: false,
   properties: {
     ignorePatterns: {
       type: "array",
@@ -84,6 +102,7 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
         },
         {
           type: "array",
+          default: [],
           items: {
             $ref: "#/definitions/Rule",
           },
@@ -94,7 +113,7 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
       type: "object",
       default: {},
       additionalProperties: {
-        $ref: "#/definitions/Rule",
+        $ref: "#/definitions/FolderRecursionRule",
       },
     },
     regexParameters: {
@@ -102,5 +121,4 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
     },
   },
   required: ["structure"],
-  additionalProperties: false,
 };

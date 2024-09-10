@@ -18,6 +18,22 @@
       "required": ["mode"],
       "additionalProperties": false
     },
+    "FolderRecursionRule": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Rule"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "folderRecursionLimit": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "Rule": {
       "type": "object",
       "default": { "name": "" },
@@ -95,7 +111,7 @@
       "type": "object",
       "default": {},
       "additionalProperties": {
-        "$ref": "#/definitions/Rule"
+        "$ref": "#/definitions/FolderRecursionRule"
       }
     },
     "regexParameters": {

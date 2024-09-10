@@ -4,10 +4,11 @@ import {
   Rule,
   FolderStructureConfig,
   LongPathsInfo,
+  FolderRecursionRule,
 } from "rules/folderStructure/folderStructure.types";
 
 export const createFolderStructure = <
-  R extends Record<string, Rule<keyof R & string>>,
+  R extends Record<string, FolderRecursionRule<keyof R & string>>,
 >(config: {
   longPathsInfo?: LongPathsInfo | false;
   structure: Rule<keyof R & string> | Rule<keyof R & string>[];

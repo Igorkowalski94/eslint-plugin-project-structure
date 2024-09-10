@@ -21,11 +21,11 @@ export const validateLongPath = ({
   if (longPathsInfo === undefined || longPathsInfo.mode === "warn")
     // eslint-disable-next-line no-console
     return console.error(
-      getLongPathError({
+      `\n${getLongPathError({
         path,
         pathMaxLength,
         ruleNameInfo: "project-structure/folder-structure",
-      }),
+      })}`,
     );
 
   throw new FinalError(
