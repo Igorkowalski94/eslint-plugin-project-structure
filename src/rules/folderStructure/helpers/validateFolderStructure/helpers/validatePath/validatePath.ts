@@ -51,7 +51,7 @@ export const validatePath = ({
   });
 
   if (!nodeRule) {
-    const nodePath = getNodePath({ filenameWithoutCwd, nodeName });
+    const nodePath = getNodePath({ filenameWithoutCwd, nodeName, pathname });
     const allowedNames = getNodeAllowedNames({
       nodeType,
       children: nodeChildren,
