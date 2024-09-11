@@ -50,8 +50,9 @@ export const validatePath = ({
     regexParameters,
   });
 
+  const nodePath = getNodePath({ filenameWithoutCwd, nodeName, pathname });
+
   if (!nodeRule) {
-    const nodePath = getNodePath({ filenameWithoutCwd, nodeName, pathname });
     const allowedNames = getNodeAllowedNames({
       nodeType,
       children: nodeChildren,
@@ -74,9 +75,8 @@ export const validatePath = ({
       enforceExistence,
       nodeName,
       cwd,
-      filenameWithoutCwd,
+      nodePath,
       nodeType,
-      pathname,
     });
 
   if (children) {

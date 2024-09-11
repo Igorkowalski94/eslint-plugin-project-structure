@@ -38,8 +38,7 @@ describe("checkNodeExistence", () => {
         cwd: "...",
         enforceExistence: ["{nodeName}.stories.tsx", "test.ts"],
         nodeName: "Feature1.tsx",
-        pathname: "Feature1.tsx",
-        filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
+        nodePath: "src/features/Feature1/Feature1.tsx",
         nodeType: "File",
       }),
     ).not.toThrow();
@@ -67,8 +66,7 @@ describe("checkNodeExistence", () => {
         cwd: "...",
         enforceExistence: ["{nodeName2}.{PascalCase}.stories.tsx", "test.ts"],
         nodeName: "Feature1.tsx",
-        pathname: "Feature1.tsx",
-        filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
+        nodePath: "src/features/Feature1/Feature1.tsx",
         nodeType: "File",
       }),
     ).toThrow(
@@ -94,8 +92,7 @@ describe("checkNodeExistence", () => {
         cwd: "...",
         enforceExistence: ["test.ts"],
         nodeName: "Feature1",
-        pathname: "Feature1/Feature1.tsx",
-        filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
+        nodePath: "src/features/Feature1",
         nodeType: "Folder",
       }),
     ).not.toThrow();
@@ -107,8 +104,7 @@ describe("checkNodeExistence", () => {
         cwd: "...",
         enforceExistence: ["test.ts", "tests/test.ts"],
         nodeName: "features",
-        pathname: "features/Feature1/Feature1.tsx",
-        filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
+        nodePath: "src/features",
         nodeType: "Folder",
       }),
     ).toThrow(
@@ -130,9 +126,8 @@ describe("checkNodeExistence", () => {
         cwd: "...",
         enforceExistence: ["test.ts", "tests/test.ts"],
         nodeName: "Feature1.tsx",
-        pathname: "Feature1.tsx",
+        nodePath: "src/features/Feature1/Feature1.tsx",
         nodeType: "File",
-        filenameWithoutCwd: "src/features/Feature1/Feature1.tsx",
       }),
     ).toThrow(
       getNodeExistenceError({

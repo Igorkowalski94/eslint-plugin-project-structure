@@ -1,4 +1,4 @@
-import path from "path";
+import path, { sep } from "path";
 
 import { validateConfig } from "helpers/validateConfig";
 
@@ -46,11 +46,10 @@ export const validateFolderStructure = ({
   if (rootRule.enforceExistence) {
     checkNodeExistence({
       enforceExistence: rootRule.enforceExistence,
-      filenameWithoutCwd: cwd,
       nodeName: rootFolderName,
       nodeType: "Folder",
       cwd,
-      pathname,
+      nodePath: cwd.replaceAll(sep, "/"),
     });
   }
 

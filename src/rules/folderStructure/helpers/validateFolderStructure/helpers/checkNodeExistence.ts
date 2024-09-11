@@ -6,26 +6,22 @@ import { transformStringToCase } from "helpers/transformStringToCase";
 
 import { getNodeExistenceError } from "rules/folderStructure/errors/getNodeExistenceError";
 import { NodeType } from "rules/folderStructure/folderStructure.types";
-import { getNodePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getNodePath";
 
 interface CheckNodeExistenceProps {
   cwd: string;
   nodeName: string;
   enforceExistence: string[];
-  filenameWithoutCwd: string;
   nodeType: NodeType;
-  pathname: string;
+  nodePath: string;
 }
 
 export const checkNodeExistence = ({
   enforceExistence,
-  filenameWithoutCwd,
   nodeName,
   nodeType,
   cwd,
-  pathname,
+  nodePath,
 }: CheckNodeExistenceProps): void => {
-  const nodePath = getNodePath({ filenameWithoutCwd, nodeName, pathname });
   const nodeDirname = path.dirname(nodePath);
   const currentNodeName =
     nodeName.substring(0, nodeName.lastIndexOf(".")) || nodeName;

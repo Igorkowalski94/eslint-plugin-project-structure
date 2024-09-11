@@ -1,4 +1,4 @@
-import path from "path";
+import path, { sep } from "path";
 
 import { validateConfig } from "helpers/validateConfig";
 
@@ -79,11 +79,10 @@ describe("validateFolderStructure", () => {
 
     expect(checkNodeExistenceMock).toHaveBeenCalledWith({
       enforceExistence: ["./src/test.ts"],
-      filenameWithoutCwd: path.join("C:", "rootFolderName"),
       nodeName: "rootFolderName",
       nodeType: "Folder",
       cwd: path.join("C:", "rootFolderName"),
-      pathname: "src/features/ComponentName.tsx",
+      nodePath: path.join("C:", "rootFolderName").replaceAll(sep, "/"),
     });
   });
 
