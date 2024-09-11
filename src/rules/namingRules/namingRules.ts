@@ -2,6 +2,8 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 
 import { handleClassDeclaration } from "rules/namingRules/helpers/handleClassDeclaration";
 import { handleFunctionDeclaration } from "rules/namingRules/helpers/handleFunctionDeclaration";
+import { handleMethodDefinition } from "rules/namingRules/helpers/handleMethodDefinition";
+import { handlePropertyDefinition } from "rules/namingRules/helpers/handlePropertyDefinition";
 import { handleVariableDeclarator } from "rules/namingRules/helpers/handleVariableDeclarator";
 import { validateName } from "rules/namingRules/helpers/validateName/validateName";
 import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
@@ -29,6 +31,12 @@ export const namingRules = ESLintUtils.RuleCreator(
       },
       ClassDeclaration(node): void {
         handleClassDeclaration({ node, context });
+      },
+      MethodDefinition(node): void {
+        handleMethodDefinition({ node, context });
+      },
+      PropertyDefinition(node): void {
+        handlePropertyDefinition({ node, context });
       },
       FunctionDeclaration(node): void {
         handleFunctionDeclaration({ node, context });

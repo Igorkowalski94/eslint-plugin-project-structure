@@ -29,7 +29,9 @@ export type Node =
   | TSESTree.TSTypeAliasDeclaration
   | TSESTree.TSInterfaceDeclaration
   | TSESTree.TSEnumDeclaration
-  | TSESTree.Identifier;
+  | TSESTree.Identifier
+  | TSESTree.MethodDefinition
+  | TSESTree.PropertyDefinition;
 
 export type Selectors = Record<NodeType, Selector>;
 

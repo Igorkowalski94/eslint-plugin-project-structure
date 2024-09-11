@@ -5,12 +5,12 @@ import {
   FolderStructureConfig,
 } from "rules/folderStructure/folderStructure.types";
 import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
+import { getNodePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getNodePath";
 import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRule";
 import { getChildren } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getChildren/getChildren";
 import { getNextPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNextPathname";
 import { getNodeAllowedNames } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodeAllowedNames";
 import { getNodeName } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodeName";
-import { getNodePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodePath";
 import { getNodeRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodeRule";
 import { getNodeType } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNodeType";
 
@@ -76,6 +76,7 @@ export const validatePath = ({
       cwd,
       filenameWithoutCwd,
       nodeType,
+      pathname,
     });
 
   if (children) {

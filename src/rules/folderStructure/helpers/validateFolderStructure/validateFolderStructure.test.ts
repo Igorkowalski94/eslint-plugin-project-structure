@@ -83,6 +83,7 @@ describe("validateFolderStructure", () => {
       nodeName: "rootFolderName",
       nodeType: "Folder",
       cwd: path.join("C:", "rootFolderName"),
+      pathname: "src/features/ComponentName.tsx",
     });
   });
 

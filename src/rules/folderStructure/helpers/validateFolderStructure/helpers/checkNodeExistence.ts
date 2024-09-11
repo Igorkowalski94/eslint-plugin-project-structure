@@ -6,6 +6,7 @@ import { transformStringToCase } from "helpers/transformStringToCase";
 
 import { getNodeExistenceError } from "rules/folderStructure/errors/getNodeExistenceError";
 import { NodeType } from "rules/folderStructure/folderStructure.types";
+import { getNodePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getNodePath";
 
 interface CheckNodeExistenceProps {
   cwd: string;
@@ -13,6 +14,7 @@ interface CheckNodeExistenceProps {
   enforceExistence: string[];
   filenameWithoutCwd: string;
   nodeType: NodeType;
+  pathname: string;
 }
 
 export const checkNodeExistence = ({
@@ -21,41 +23,36 @@ export const checkNodeExistence = ({
   nodeName,
   nodeType,
   cwd,
+  pathname,
 }: CheckNodeExistenceProps): void => {
-  const nodeNamePathIndex = filenameWithoutCwd.split("/").indexOf(nodeName);
-  const nodeNamePath = filenameWithoutCwd
-    .split("/")
-    .slice(0, nodeNamePathIndex + 1)
-    .join("/");
-  const nodeNameDirname = path.dirname(nodeNamePath);
-  const nodeNameWithoutExtension = nodeName.substring(
-    0,
-    nodeName.lastIndexOf("."),
-  );
-  const currentDirname = nodeType === "File" ? nodeNameDirname : nodeNamePath;
+  const nodePath = getNodePath({ filenameWithoutCwd, nodeName, pathname });
+  const nodeDirname = path.dirname(nodePath);
+  const currentNodeName =
+    nodeName.substring(0, nodeName.lastIndexOf(".")) || nodeName;
+  const currentDirname = nodeType === "File" ? nodeDirname : nodePath;
 
   const enforcedNodeNames = enforceExistence
     .map((enforcedNodeName) => {
       const enforcedNodeNameWithoutRef = getRegexWithoutReferences({
         regexParameters: {
           nodeName: transformStringToCase({
-            str: nodeNameWithoutExtension,
+            str: currentNodeName,
             transformTo: "camelCase",
           }),
           NodeName: transformStringToCase({
-            str: nodeNameWithoutExtension,
+            str: currentNodeName,
             transformTo: "PascalCase",
           }),
           "node-name": transformStringToCase({
-            str: nodeNameWithoutExtension,
+            str: currentNodeName,
             transformTo: "kebab-case",
           }),
           node_name: transformStringToCase({
-            str: nodeNameWithoutExtension,
+            str: currentNodeName,
             transformTo: "snake_case",
           }),
           NODE_NAME: transformStringToCase({
-            str: nodeNameWithoutExtension,
+            str: currentNodeName,
             transformTo: "SNAKE_CASE",
           }),
         },
@@ -86,6 +83,6 @@ export const checkNodeExistence = ({
     enforcedNodeNames,
     nodeName,
     nodeType,
-    nodePath: nodeNamePath,
+    nodePath,
   });
 };

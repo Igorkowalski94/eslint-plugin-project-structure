@@ -50,6 +50,7 @@ export const validateFolderStructure = ({
       nodeName: rootFolderName,
       nodeType: "Folder",
       cwd,
+      pathname,
     });
   }
 
