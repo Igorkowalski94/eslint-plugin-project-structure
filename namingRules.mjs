@@ -71,7 +71,7 @@ export const namingRulesConfig = createNamingRules({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: "arrowFunction",
+            selector: ["arrowFunction", "function"],
             format: "{camelCase}",
           },
 

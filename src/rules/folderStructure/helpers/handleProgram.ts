@@ -2,7 +2,9 @@ import { TSESTree } from "@typescript-eslint/utils";
 
 import { finalErrorGuard } from "errors/finalErrorGuard";
 
-import { readConfigFile } from "helpers/readConfigFile";
+import { cleanUpErrorFromCache } from "helpers/cleanUpErrorFromCache";
+import { isErrorInCache } from "helpers/isErrorInCache";
+import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 
 import {
   Context,
@@ -28,8 +30,20 @@ export const handleProgram = ({
 
   try {
     validateFolderStructure({ filename, cwd, config });
+    cleanUpErrorFromCache({ cwd, filename });
   } catch (error) {
     if (!finalErrorGuard(error)) throw error;
+
+    if (
+      isErrorInCache({
+        cwd,
+        errorCache: {
+          filename,
+          errorMessage: error.message,
+        },
+      })
+    )
+      return;
 
     report({
       node,

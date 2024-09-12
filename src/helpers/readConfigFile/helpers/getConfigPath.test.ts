@@ -2,7 +2,7 @@ import path from "path";
 
 import { getMissingConfigFileError } from "errors/getMissingConfigFileError";
 
-import { getConfigPath } from "helpers/getConfigPath";
+import { getConfigPath } from "helpers/readConfigFile/helpers/getConfigPath";
 
 describe("getConfigPath", () => {
   afterEach(() => {

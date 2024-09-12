@@ -2,7 +2,7 @@ import { TSESTree } from "@typescript-eslint/utils";
 
 import { finalErrorGuard } from "errors/finalErrorGuard";
 
-import { readConfigFile } from "helpers/readConfigFile";
+import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 
 import { getPathAliases } from "rules/independentModules/helpers/validateImport/helpers/getPathAliases";
 import { validateAll } from "rules/independentModules/helpers/validateImport/helpers/validateAll/validateAll";

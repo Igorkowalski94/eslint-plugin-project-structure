@@ -2,7 +2,7 @@ import path from "path";
 
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { readConfigFile } from "helpers/readConfigFile";
+import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 
 import { isExportedName } from "rules/namingRules/helpers/validateName/helpers/isExportedName/isExportedName";
 import { isNameFromFileRoot } from "rules/namingRules/helpers/validateName/helpers/isNameFromFileRoot";
@@ -13,7 +13,7 @@ import {
   NamingRulesConfig,
 } from "rules/namingRules/namingRules.types";
 
-jest.mock("helpers/readConfigFile", () => ({
+jest.mock("helpers/readConfigFile/readConfigFile", () => ({
   readConfigFile: jest.fn(),
 }));
 

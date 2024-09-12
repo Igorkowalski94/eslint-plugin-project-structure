@@ -21,3 +21,5 @@ export const RECURSION_LIMIT = 1000;
 export const ESLINT_ERRORS = {
   error: `{{error}}`,
 };
+
+export const PROJECT_STRUCTURE_CACHE_FILE_NAME = "projectStructure.cache.json";

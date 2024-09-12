@@ -6,7 +6,7 @@ import { load } from "js-yaml";
 
 import { getInvalidConfigFileError } from "errors/getInvalidConfigFileError";
 
-import { getConfigPath } from "helpers/getConfigPath";
+import { getConfigPath } from "helpers/readConfigFile/helpers/getConfigPath";
 
 interface ReadConfigFileProps<T> {
   key: string;

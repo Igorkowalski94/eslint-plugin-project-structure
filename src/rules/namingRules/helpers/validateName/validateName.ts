@@ -2,7 +2,7 @@ import path from "path";
 
 import micromatch from "micromatch";
 
-import { readConfigFile } from "helpers/readConfigFile";
+import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 import { validateConfig } from "helpers/validateConfig";
 
 import { isExportedName } from "rules/namingRules/helpers/validateName/helpers/isExportedName/isExportedName";

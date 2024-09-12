@@ -1,6 +1,6 @@
 import { FinalError } from "errors/FinalError";
 
-import { readConfigFile } from "helpers/readConfigFile";
+import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 
 import { validateAll } from "rules/independentModules/helpers/validateImport/helpers/validateAll/validateAll";
 import {
@@ -15,7 +15,7 @@ jest.mock(
   }),
 );
 
-jest.mock("helpers/readConfigFile", () => ({
+jest.mock("helpers/readConfigFile/readConfigFile", () => ({
   readConfigFile: jest.fn(),
 }));
 

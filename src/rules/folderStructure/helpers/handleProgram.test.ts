@@ -1,6 +1,7 @@
 import { FinalError } from "errors/FinalError";
 
-import { readConfigFile } from "helpers/readConfigFile";
+import { isErrorInCache } from "helpers/isErrorInCache";
+import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 
 import {
   handleProgram,
@@ -15,8 +16,12 @@ jest.mock(
   }),
 );
 
-jest.mock("helpers/readConfigFile", () => ({
+jest.mock("helpers/readConfigFile/readConfigFile", () => ({
   readConfigFile: jest.fn(),
+}));
+
+jest.mock("helpers/isErrorInCache", () => ({
+  isErrorInCache: jest.fn(),
 }));
 
 describe("validateImport", () => {
@@ -36,6 +41,26 @@ describe("validateImport", () => {
     } as unknown as HandleProgramProps);
 
     expect(reportMock).toHaveBeenCalled();
+  });
+
+  test("Should not call report when isErrorInCache", () => {
+    const reportMock = jest.fn();
+
+    (readConfigFile as jest.Mock).mockReturnValue({});
+
+    (validateFolderStructure as jest.Mock).mockImplementation(() => {
+      throw new FinalError("error");
+    });
+
+    (isErrorInCache as jest.Mock).mockReturnValue(true);
+
+    handleProgram({
+      context: { report: reportMock, settings: {}, options: [] },
+      importPath: "",
+      node: {},
+    } as unknown as HandleProgramProps);
+
+    expect(reportMock).not.toHaveBeenCalled();
   });
 
   test("Should throw random error when error !== FinalError ", () => {
