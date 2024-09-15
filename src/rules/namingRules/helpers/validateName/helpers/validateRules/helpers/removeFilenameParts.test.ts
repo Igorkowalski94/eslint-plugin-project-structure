@@ -13,6 +13,11 @@ describe("removeFilenameParts", () => {
       expected: "componentName",
     },
     {
+      filenamePartsToRemove: ".const",
+      filenameWithoutExtension: "componentName.const",
+      expected: "componentName",
+    },
+    {
       filenameWithoutExtension: "componentName.const",
       expected: "componentName.const",
     },

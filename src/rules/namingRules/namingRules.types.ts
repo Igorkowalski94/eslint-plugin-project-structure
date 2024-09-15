@@ -37,7 +37,7 @@ export type Selectors = Record<NodeType, Selector>;
 
 export interface NamingRule {
   selector: Selector | Selector[];
-  filenamePartsToRemove?: string[];
+  filenamePartsToRemove?: string | string[];
   format?: string[] | string;
 }
 

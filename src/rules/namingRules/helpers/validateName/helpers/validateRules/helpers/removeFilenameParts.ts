@@ -11,7 +11,12 @@ export const removeFilenameParts = ({
 }: RemoveFilenamePartsProps): string => {
   if (!filenamePartsToRemove) return filenameWithoutExtension;
 
-  return filenamePartsToRemove.reduce(
+  const currentFilenamePartsToRemove =
+    typeof filenamePartsToRemove === "string"
+      ? [filenamePartsToRemove]
+      : filenamePartsToRemove;
+
+  return currentFilenamePartsToRemove.reduce(
     (acc, removePart) => acc.replaceAll(removePart, ""),
     filenameWithoutExtension,
   );
