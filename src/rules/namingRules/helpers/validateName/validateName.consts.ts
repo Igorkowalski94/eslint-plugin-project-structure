@@ -32,9 +32,14 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
           ],
         },
         filenamePartsToRemove: {
-          type: "array",
-          default: [],
-          items: { type: "string", default: "" },
+          oneOf: [
+            { type: "string", default: "" },
+            {
+              type: "array",
+              default: [],
+              items: { type: "string", default: "" },
+            },
+          ],
         },
         format: {
           oneOf: [
