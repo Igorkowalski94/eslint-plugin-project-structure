@@ -13,13 +13,13 @@ describe("getNodeTypeError", () => {
     {
       nodeType: "File",
       expected: new FinalError(
-        `${getBaseError({ nodeName: "nodeName", nodeType: "File" })}According to the structure it should be a folder.${getLocationError({ nodePath: "nodePath" })}`,
+        `${getBaseError({ nodeName: "nodeName", nodeType: "File" })}According to the structure, the 'FolderName' folder can only contain folders.${getLocationError({ nodePath: "nodePath" })}`,
       ),
     },
     {
       nodeType: "Folder",
       expected: new FinalError(
-        `${getBaseError({ nodeName: "nodeName", nodeType: "Folder" })}According to the structure it should be a file.${getLocationError({ nodePath: "nodePath" })}`,
+        `${getBaseError({ nodeName: "nodeName", nodeType: "Folder" })}According to the structure, the 'FolderName' folder can only contain files.${getLocationError({ nodePath: "nodePath" })}`,
       ),
     },
   ])("Should return correct value for %o", ({ expected, nodeType }) => {
@@ -28,6 +28,7 @@ describe("getNodeTypeError", () => {
         nodeName: "nodeName",
         nodePath: "nodePath",
         nodeType,
+        folderName: "FolderName",
       }),
     ).toEqual(expected);
   });

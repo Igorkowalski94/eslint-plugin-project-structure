@@ -60,7 +60,7 @@ export const validatePath = ({
     });
 
     if (!allowedNames.length)
-      throw getNodeTypeError({ nodePath, nodeType, nodeName });
+      throw getNodeTypeError({ nodePath, nodeType, nodeName, folderName });
 
     throw getNameError({ allowedNames, nodeName, nodePath, nodeType });
   }

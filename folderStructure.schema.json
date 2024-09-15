@@ -39,11 +39,10 @@
           }
         },
         "enforceExistence": {
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "string"
-          }
+          "oneOf": [
+            { "type": "string", "default": "" },
+            { "type": "array", "default": [], "items": { "type": "string" } }
+          ]
         },
         "folderRecursionLimit": {
           "type": "number"
@@ -71,11 +70,10 @@
           }
         },
         "enforceExistence": {
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "string"
-          }
+          "oneOf": [
+            { "type": "string", "default": "" },
+            { "type": "array", "default": [], "items": { "type": "string" } }
+          ]
         }
       }
     },

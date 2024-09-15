@@ -78,7 +78,7 @@ describe("checkNodeExistence", () => {
     );
   });
 
-  it("should not throw when nodes exist folder", () => {
+  it("should not throw when nodes exist folder for enforceExistence as array", () => {
     jest
       .spyOn(fs, "existsSync")
       .mockImplementation(
@@ -91,6 +91,26 @@ describe("checkNodeExistence", () => {
       checkNodeExistence({
         cwd: "...",
         enforceExistence: ["test.ts"],
+        nodeName: "Feature1",
+        nodePath: "src/features/Feature1",
+        nodeType: "Folder",
+      }),
+    ).not.toThrow();
+  });
+
+  it("should not throw when nodes exist folder for enforceExistence as string", () => {
+    jest
+      .spyOn(fs, "existsSync")
+      .mockImplementation(
+        (filepath) =>
+          filepath ===
+          path.join("...", "src", "features", "Feature1", "test.ts"),
+      );
+
+    expect(() =>
+      checkNodeExistence({
+        cwd: "...",
+        enforceExistence: "test.ts",
         nodeName: "Feature1",
         nodePath: "src/features/Feature1",
         nodeType: "Folder",

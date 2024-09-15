@@ -10,7 +10,7 @@ import { NodeType } from "rules/folderStructure/folderStructure.types";
 interface CheckNodeExistenceProps {
   cwd: string;
   nodeName: string;
-  enforceExistence: string[];
+  enforceExistence: string[] | string;
   nodeType: NodeType;
   nodePath: string;
 }
@@ -27,7 +27,12 @@ export const checkNodeExistence = ({
     nodeName.substring(0, nodeName.lastIndexOf(".")) || nodeName;
   const currentDirname = nodeType === "File" ? nodeDirname : nodePath;
 
-  const enforcedNodeNames = enforceExistence
+  const currentEnforceExistence =
+    typeof enforceExistence === "string"
+      ? [enforceExistence]
+      : enforceExistence;
+
+  const enforcedNodeNames = currentEnforceExistence
     .map((enforcedNodeName) => {
       const enforcedNodeNameWithoutRef = getRegexWithoutReferences({
         regexParameters: {

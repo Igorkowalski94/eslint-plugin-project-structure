@@ -67,6 +67,7 @@ describe("validatePath", () => {
         nodeName: "componentName",
         nodePath: "src/componentName",
         nodeType: "Folder",
+        folderName: "src",
       }),
     );
   });

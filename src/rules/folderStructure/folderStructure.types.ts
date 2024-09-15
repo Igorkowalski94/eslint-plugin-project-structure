@@ -7,7 +7,7 @@ export type NodeType = "File" | "Folder";
 export interface Rule<T extends string = string> {
   ruleId?: T;
   name?: string;
-  enforceExistence?: string[];
+  enforceExistence?: string[] | string;
   children?: Rule<T>[];
 }
 

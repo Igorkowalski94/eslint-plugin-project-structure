@@ -41,11 +41,10 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
           },
         },
         enforceExistence: {
-          type: "array",
-          default: [],
-          items: {
-            type: "string",
-          },
+          oneOf: [
+            { type: "string", default: "" },
+            { type: "array", default: [], items: { type: "string" } },
+          ],
         },
         folderRecursionLimit: {
           type: "number",
@@ -73,11 +72,10 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
           },
         },
         enforceExistence: {
-          type: "array",
-          default: [],
-          items: {
-            type: "string",
-          },
+          oneOf: [
+            { type: "string", default: "" },
+            { type: "array", default: [], items: { type: "string" } },
+          ],
         },
       },
     },
