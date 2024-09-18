@@ -37,7 +37,7 @@ Leave a ⭐ and share the link with your friends.<br>
 - If you have any questions or need help creating a configuration that meets your requirements, [help](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=help).
 - If you have found a bug or an error in the documentation, [report issues](https://github.com/Igorkowalski94/eslint-plugin-project-structure/issues/new?assignees=Igorkowalski94&labels=bug&projects=&template=bug_report.md&title=%5BBUG%5D).
 - If you have an idea for a new feature or an improvement to an existing one, [ideas](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=ideas).
-- If you're interested in discussing project structures across different frameworks or want to vote on a proposed new feature, [discussions](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions?discussions_q=).
+- If you're interested in discussing project structures across different frameworks or want to vote on a proposed idea, [discussions](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions?discussions_q=).
 
 ## 📚 Documentation
 
