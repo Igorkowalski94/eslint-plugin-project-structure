@@ -11,6 +11,13 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
           type: "number",
           default: 240,
         },
+        root: {
+          type: "string",
+          default: "..",
+        },
+        countFromSystemRoot: {
+          type: "boolean",
+        },
         mode: {
           type: "string",
           default: "warn",

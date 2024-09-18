@@ -18,6 +18,8 @@ export interface FolderRecursionRule<T extends string = string>
 
 export interface LongPathsInfo {
   maxLength?: number;
+  root?: string;
+  countFromSystemRoot?: boolean;
   mode: "warn" | "error";
 }
 

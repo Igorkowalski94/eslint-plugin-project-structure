@@ -7,13 +7,23 @@ jest.mock("rules/folderStructure/errors/getLongPathError", () => ({
 
 describe("validateFolderStructure", () => {
   it("Should return undefined when longPathsInfo === false", () => {
-    expect(validateLongPath({ path: "", longPathsInfo: false })).toEqual(
-      undefined,
-    );
+    expect(
+      validateLongPath({
+        filename: "",
+        longPathsInfo: false,
+        cwd: "C:/Users/eslint-plugin-project-structure",
+      }),
+    ).toEqual(undefined);
   });
 
   it("Should return undefined when path.length < pathMaxLength", () => {
-    expect(validateLongPath({ path: "" })).toEqual(undefined);
+    expect(
+      validateLongPath({
+        filename:
+          "C:/Users/eslint-plugin-project-structure/features/Feature.tsx",
+        cwd: "C:/Users/eslint-plugin-project-structure",
+      }),
+    ).toEqual(undefined);
   });
 
   it("Should console.error when longPathsInfo === undefined", () => {
@@ -22,11 +32,12 @@ describe("validateFolderStructure", () => {
     (getLongPathError as jest.Mock).mockImplementation(getLongPathErrorMock);
 
     validateLongPath({
-      path: new Array(240).fill("0").join(""),
+      filename: `C:/Users/eslint-plugin-project-structure/${new Array(240).fill("0").join("")}`,
+      cwd: "C:/Users/eslint-plugin-project-structure",
     });
 
     expect(getLongPathErrorMock).toHaveBeenCalledWith({
-      path: new Array(240).fill("0").join(""),
+      path: `eslint-plugin-project-structure/${new Array(240).fill("0").join("")}`,
       pathMaxLength: 240,
       ruleNameInfo: "project-structure/folder-structure",
     });
@@ -38,12 +49,33 @@ describe("validateFolderStructure", () => {
     (getLongPathError as jest.Mock).mockImplementation(getLongPathErrorMock);
 
     validateLongPath({
-      longPathsInfo: { mode: "warn", maxLength: 3 },
-      path: "1234",
+      longPathsInfo: { mode: "warn", root: "../../", maxLength: 3 },
+      cwd: "C:/hello/Users/eslint-plugin-project-structure",
+      filename:
+        "C:/hello/Users/eslint-plugin-project-structure/src/features/Feature1.tsx",
     });
 
     expect(getLongPathErrorMock).toHaveBeenCalledWith({
-      path: "1234",
+      path: "Users/eslint-plugin-project-structure/src/features/Feature1.tsx",
+      pathMaxLength: 3,
+      ruleNameInfo: "project-structure/folder-structure",
+    });
+  });
+
+  it("Should console.error when longPathsInfo.mode === warn && countFromSystemRoot", () => {
+    const getLongPathErrorMock = jest.fn();
+
+    (getLongPathError as jest.Mock).mockImplementation(getLongPathErrorMock);
+
+    validateLongPath({
+      longPathsInfo: { mode: "warn", countFromSystemRoot: true, maxLength: 3 },
+      cwd: "C:/hello/Users/eslint-plugin-project-structure",
+      filename:
+        "C:/hello/Users/eslint-plugin-project-structure/src/features/Feature1.tsx",
+    });
+
+    expect(getLongPathErrorMock).toHaveBeenCalledWith({
+      path: "C:/hello/Users/eslint-plugin-project-structure/src/features/Feature1.tsx",
       pathMaxLength: 3,
       ruleNameInfo: "project-structure/folder-structure",
     });
@@ -53,7 +85,9 @@ describe("validateFolderStructure", () => {
     expect(() =>
       validateLongPath({
         longPathsInfo: { mode: "error", maxLength: 3 },
-        path: "1234",
+        filename:
+          "C:/Users/eslint-plugin-project-structure/features/Feature.tsx",
+        cwd: "C:/Users/eslint-plugin-project-structure",
       }),
     ).toThrow();
   });

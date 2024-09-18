@@ -41,7 +41,7 @@ export const validateFolderStructure = ({
 
   if (isIgnoredPathname({ pathname, ignorePatterns })) return;
 
-  validateLongPath({ path: filename, longPathsInfo });
+  validateLongPath({ filename, cwd, longPathsInfo });
 
   if (rootRule.enforceExistence) {
     checkNodeExistence({
