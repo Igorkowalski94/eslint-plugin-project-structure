@@ -11,6 +11,7 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
         "variable",
         "variableCallExpression",
         "variableTaggedTemplateExpression",
+        "variableMemberExpression",
         "function",
         "arrowFunction",
         "type",
@@ -67,6 +68,10 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
             variable: { type: "string", default: "" },
             variableCallExpression: { type: "string", default: "" },
             variableTaggedTemplateExpression: {
+              type: "string",
+              default: "",
+            },
+            variableMemberExpression: {
               type: "string",
               default: "",
             },

@@ -9,6 +9,7 @@
         "variable",
         "variableCallExpression",
         "variableTaggedTemplateExpression",
+        "variableMemberExpression",
         "function",
         "arrowFunction",
         "type",
@@ -65,6 +66,10 @@
             "variable": { "type": "string", "default": "" },
             "variableCallExpression": { "type": "string", "default": "" },
             "variableTaggedTemplateExpression": {
+              "type": "string",
+              "default": ""
+            },
+            "variableMemberExpression": {
               "type": "string",
               "default": ""
             },

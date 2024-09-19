@@ -4,6 +4,7 @@ export const SELECTORS: Selectors = {
   VariableDeclarator: "variable",
   CallExpression: "variableCallExpression",
   TaggedTemplateExpression: "variableTaggedTemplateExpression",
+  MemberExpression: "variableMemberExpression",
   ClassDeclaration: "class",
   FunctionDeclaration: "function",
   ArrowFunctionExpression: "arrowFunction",

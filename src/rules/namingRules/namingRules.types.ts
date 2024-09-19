@@ -9,6 +9,7 @@ export type NodeType =
   | "VariableDeclarator"
   | "CallExpression"
   | "TaggedTemplateExpression"
+  | "MemberExpression"
   | "FunctionDeclaration"
   | "ArrowFunctionExpression"
   | "TSTypeAliasDeclaration"
@@ -20,6 +21,7 @@ export type Selector =
   | "variable"
   | "variableCallExpression"
   | "variableTaggedTemplateExpression"
+  | "variableMemberExpression"
   | "function"
   | "arrowFunction"
   | "type"
@@ -30,6 +32,7 @@ export type Node =
   | TSESTree.VariableDeclarator
   | TSESTree.CallExpression
   | TSESTree.TaggedTemplateExpression
+  | TSESTree.MemberExpression
   | TSESTree.ClassDeclaration
   | TSESTree.FunctionDeclaration
   | TSESTree.TSTypeAliasDeclaration

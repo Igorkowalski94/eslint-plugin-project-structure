@@ -26,6 +26,9 @@ export const handleVariableDeclarator = ({
   if (initType === TSESTree.AST_NODE_TYPES.TaggedTemplateExpression)
     currentNodeType = "TaggedTemplateExpression";
 
+  if (initType === TSESTree.AST_NODE_TYPES.MemberExpression)
+    currentNodeType = "MemberExpression";
+
   validateName({
     node,
     context,

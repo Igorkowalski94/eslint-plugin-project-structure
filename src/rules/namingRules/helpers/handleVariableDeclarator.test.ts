@@ -77,6 +77,23 @@ describe("handleVariableDeclarator", () => {
       },
     },
     {
+      type: TSESTree.AST_NODE_TYPES.MemberExpression,
+      expected: {
+        node: {
+          id: {
+            type: TSESTree.AST_NODE_TYPES.Identifier,
+            name: "name",
+          },
+          init: {
+            type: "MemberExpression",
+          },
+        },
+        context: {},
+        name: "name",
+        nodeType: "MemberExpression",
+      },
+    },
+    {
       type: TSESTree.AST_NODE_TYPES.Identifier,
       expected: {
         node: {
