@@ -7,6 +7,8 @@ import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
 export type NodeType =
   | "ClassDeclaration"
   | "VariableDeclarator"
+  | "CallExpression"
+  | "TaggedTemplateExpression"
   | "FunctionDeclaration"
   | "ArrowFunctionExpression"
   | "TSTypeAliasDeclaration"
@@ -16,6 +18,8 @@ export type NodeType =
 export type Selector =
   | "class"
   | "variable"
+  | "variableCallExpression"
+  | "variableTaggedTemplateExpression"
   | "function"
   | "arrowFunction"
   | "type"
@@ -24,6 +28,8 @@ export type Selector =
 
 export type Node =
   | TSESTree.VariableDeclarator
+  | TSESTree.CallExpression
+  | TSESTree.TaggedTemplateExpression
   | TSESTree.ClassDeclaration
   | TSESTree.FunctionDeclaration
   | TSESTree.TSTypeAliasDeclaration

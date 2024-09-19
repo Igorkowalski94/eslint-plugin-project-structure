@@ -14,15 +14,22 @@ export const handleVariableDeclarator = ({
 }: HandleVariableDeclaratorProps): void => {
   if (node.id.type !== TSESTree.AST_NODE_TYPES.Identifier) return;
 
-  const nodeType: NodeType =
-    node.init?.type === TSESTree.AST_NODE_TYPES.ArrowFunctionExpression
-      ? "ArrowFunctionExpression"
-      : "VariableDeclarator";
+  let currentNodeType: NodeType = "VariableDeclarator";
+  const initType = node.init?.type;
+
+  if (initType === TSESTree.AST_NODE_TYPES.ArrowFunctionExpression)
+    currentNodeType = "ArrowFunctionExpression";
+
+  if (initType === TSESTree.AST_NODE_TYPES.CallExpression)
+    currentNodeType = "CallExpression";
+
+  if (initType === TSESTree.AST_NODE_TYPES.TaggedTemplateExpression)
+    currentNodeType = "TaggedTemplateExpression";
 
   validateName({
     node,
     context,
     name: node.id.name,
-    nodeType,
+    nodeType: currentNodeType,
   });
 };

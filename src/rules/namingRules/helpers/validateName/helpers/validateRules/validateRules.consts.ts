@@ -2,6 +2,8 @@ import { Selectors } from "rules/namingRules/namingRules.types";
 
 export const SELECTORS: Selectors = {
   VariableDeclarator: "variable",
+  CallExpression: "variableCallExpression",
+  TaggedTemplateExpression: "variableTaggedTemplateExpression",
   ClassDeclaration: "class",
   FunctionDeclaration: "function",
   ArrowFunctionExpression: "arrowFunction",

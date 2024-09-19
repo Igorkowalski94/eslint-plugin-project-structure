@@ -9,6 +9,8 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
       enum: [
         "class",
         "variable",
+        "variableCallExpression",
+        "variableTaggedTemplateExpression",
         "function",
         "arrowFunction",
         "type",

@@ -43,6 +43,40 @@ describe("handleVariableDeclarator", () => {
       },
     },
     {
+      type: TSESTree.AST_NODE_TYPES.CallExpression,
+      expected: {
+        node: {
+          id: {
+            type: TSESTree.AST_NODE_TYPES.Identifier,
+            name: "name",
+          },
+          init: {
+            type: "CallExpression",
+          },
+        },
+        context: {},
+        name: "name",
+        nodeType: "CallExpression",
+      },
+    },
+    {
+      type: TSESTree.AST_NODE_TYPES.TaggedTemplateExpression,
+      expected: {
+        node: {
+          id: {
+            type: TSESTree.AST_NODE_TYPES.Identifier,
+            name: "name",
+          },
+          init: {
+            type: "TaggedTemplateExpression",
+          },
+        },
+        context: {},
+        name: "name",
+        nodeType: "TaggedTemplateExpression",
+      },
+    },
+    {
       type: TSESTree.AST_NODE_TYPES.Identifier,
       expected: {
         node: {
