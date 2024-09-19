@@ -1,6 +1,6 @@
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import { ESLINT_ERRORS } from "consts";
-import { RegexParameters } from "types";
+import { Pattern, RegexParameters } from "types";
 
 export type NodeType = "File" | "Folder";
 
@@ -24,7 +24,7 @@ export interface LongPathsInfo {
 }
 
 export interface FolderStructureConfig<T extends string = string> {
-  ignorePatterns?: string[];
+  ignorePatterns?: Pattern;
   longPathsInfo?: LongPathsInfo | false;
   structure: Rule<T> | Rule<T>[];
   rules?: Record<T, FolderRecursionRule<T>>;

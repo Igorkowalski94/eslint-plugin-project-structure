@@ -1,10 +1,10 @@
 import micromatch from "micromatch";
 
 import { convertReferencesToPath } from "rules/independentModules/helpers/convertReferencesToPath";
-import { Pattern } from "rules/independentModules/independentModules.types";
+import { ImportPattern } from "rules/independentModules/independentModules.types";
 
 interface ValidateImportPathProps {
-  allowImportsFrom: Pattern[];
+  allowImportsFrom: ImportPattern[];
   importPath: string;
   filename: string;
 }

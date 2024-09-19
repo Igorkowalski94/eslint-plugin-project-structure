@@ -1,7 +1,7 @@
-import { Pattern } from "rules/independentModules/independentModules.types";
+import { ImportPattern } from "rules/independentModules/independentModules.types";
 
 export const getNestedArrayInPatternError = (
-  patterns: Pattern[],
+  patterns: ImportPattern[],
   referenceKey: string,
 ): Error =>
   new Error(

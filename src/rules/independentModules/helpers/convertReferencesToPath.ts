@@ -4,10 +4,10 @@ import {
   DIRNAME_REGEX,
   FAMILY_REGEX,
 } from "rules/independentModules/independentModules.consts";
-import { Pattern } from "rules/independentModules/independentModules.types";
+import { ImportPattern } from "rules/independentModules/independentModules.types";
 
 interface ConvertReferencesToPathProps {
-  pattern: Pattern;
+  pattern: ImportPattern;
   importPath: string;
   filename: string;
 }
@@ -16,7 +16,7 @@ export const convertReferencesToPath = ({
   importPath,
   pattern,
   filename,
-}: ConvertReferencesToPathProps): Pattern =>
+}: ConvertReferencesToPathProps): ImportPattern =>
   Array.isArray(pattern)
     ? pattern
         .map((p) => p.replace(DIRNAME_REGEX, getDirnamePath(filename, p)))

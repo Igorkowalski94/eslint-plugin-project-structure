@@ -1,8 +1,10 @@
-import micromatch from "micromatch";
+import { Pattern } from "types";
+
+import { isCorrectPattern } from "helpers/isCorrectPattern";
 
 interface IsIgnoredPathnameProps {
   pathname: string;
-  ignorePatterns?: string[];
+  ignorePatterns?: Pattern;
 }
 
 export const isIgnoredPathname = ({
@@ -11,5 +13,5 @@ export const isIgnoredPathname = ({
 }: IsIgnoredPathnameProps): boolean => {
   if (!ignorePatterns) return false;
 
-  return micromatch.some(pathname, ignorePatterns);
+  return isCorrectPattern({ input: pathname, pattern: ignorePatterns });
 };

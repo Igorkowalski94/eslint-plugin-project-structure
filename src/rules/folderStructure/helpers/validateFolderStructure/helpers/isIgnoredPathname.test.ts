@@ -12,12 +12,17 @@ describe("isIgnoredPathname", () => {
 
   it.each<{ expected: boolean; pathname: string }>([
     { pathname: "src/legacy/ComponentName.tsx", expected: true },
+    { pathname: "src/legacy2/ComponentName.tsx", expected: true },
+    { pathname: "src/legacy/ComponentName.js", expected: false },
     { pathname: "src/ComponentName.tsx", expected: false },
   ])("Should return correct value for %o", ({ expected, pathname }) => {
     expect(
       isIgnoredPathname({
         pathname,
-        ignorePatterns: ["src/legacy/**"],
+        ignorePatterns: [
+          ["src/legacy/**", "!src/legacy/**/*.js"],
+          "src/legacy2/**",
+        ],
       }),
     ).toEqual(expected);
   });

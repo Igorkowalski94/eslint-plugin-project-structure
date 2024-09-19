@@ -1,6 +1,6 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
-import { RegexParameters } from "types";
+import { Pattern, RegexParameters } from "types";
 
 import { ESLINT_ERRORS } from "rules/namingRules/namingRules.consts";
 
@@ -50,7 +50,7 @@ export interface NamingRuleObject {
 }
 
 interface FileNamingRules {
-  filePattern: string | string[];
+  filePattern: Pattern;
   fileRootRules?: NamingRule[] | NamingRuleObject;
   fileExportsRules?: NamingRule[] | NamingRuleObject;
   fileRules?: NamingRule[] | NamingRuleObject;

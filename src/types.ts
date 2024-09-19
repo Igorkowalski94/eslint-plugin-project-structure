@@ -6,3 +6,5 @@ export interface ErrorCache {
 }
 
 export type ProjectStructureCache = ErrorCache[];
+
+export type Pattern = string | (string | string[])[];

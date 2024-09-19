@@ -7,12 +7,12 @@ import { getNestedArrayInPatternError } from "rules/independentModules/errors/ge
 import { getReferenceAsPartOfPatternError } from "rules/independentModules/errors/getReferenceAsPartOfPatternError";
 import { hasNestedArray } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/helpers/hasNestedArray";
 import {
-  Pattern,
+  ImportPattern,
   IndependentModulesConfig,
 } from "rules/independentModules/independentModules.types";
 
 interface ExtractReferencesFromPatternsProps {
-  patterns: Pattern[];
+  patterns: ImportPattern[];
   reusableImportPatterns: IndependentModulesConfig["reusableImportPatterns"];
   recursionLimit?: number;
   checkNestedArrays?: boolean;
@@ -23,14 +23,14 @@ export const extractReferencesFromPatterns = ({
   reusableImportPatterns,
   recursionLimit = RECURSION_LIMIT,
   checkNestedArrays = false,
-}: ExtractReferencesFromPatternsProps): Pattern[] => {
+}: ExtractReferencesFromPatternsProps): ImportPattern[] => {
   if (!reusableImportPatterns) return patterns;
 
   if (recursionLimit === 0) throw getRecursionLimitError(patterns);
 
   // TODO: Refactor
   // eslint-disable-next-line complexity
-  return patterns.reduce<Pattern[]>((acc, pattern) => {
+  return patterns.reduce<ImportPattern[]>((acc, pattern) => {
     if (Array.isArray(pattern))
       return [
         ...acc,
@@ -39,7 +39,7 @@ export const extractReferencesFromPatterns = ({
           reusableImportPatterns,
           recursionLimit: recursionLimit - 1,
           checkNestedArrays,
-        }) as Pattern,
+        }) as ImportPattern,
       ];
 
     const patternMatch = pattern.match(/\{([^{}]*?)\}/g);

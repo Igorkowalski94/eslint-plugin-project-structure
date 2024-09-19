@@ -1,13 +1,14 @@
 import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 import { ESLINT_ERRORS } from "consts";
+import { Pattern } from "types";
 
-export type Pattern = string | string[];
+export type ImportPattern = string | string[];
 
 export interface Module {
   name: string;
   pattern: Pattern;
   errorMessage?: string;
-  allowImportsFrom: Pattern[];
+  allowImportsFrom: ImportPattern[];
   allowExternalImports?: boolean;
 }
 
@@ -30,7 +31,7 @@ export interface IndependentModulesConfig {
   tsconfigPath?: string;
   pathAliases?: PathAliases;
   extensions?: string[];
-  reusableImportPatterns?: Record<string, Pattern[]>;
+  reusableImportPatterns?: Record<string, ImportPattern[]>;
   modules: Module[];
   debugMode?: boolean;
 }

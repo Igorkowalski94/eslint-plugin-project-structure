@@ -1,7 +1,6 @@
 import path from "path";
 
-import micromatch from "micromatch";
-
+import { isCorrectPattern } from "helpers/isCorrectPattern";
 import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 import { validateConfig } from "helpers/validateConfig";
 
@@ -40,7 +39,7 @@ export const validateName = ({
 
   const filenamePath = path.relative(cwd, filename);
   const fileConfig = config.filesRules.find(({ filePattern }) =>
-    micromatch.every(filenamePath, filePattern),
+    isCorrectPattern({ input: filenamePath, pattern: filePattern }),
   );
   const regexParameters = config.regexParameters;
 

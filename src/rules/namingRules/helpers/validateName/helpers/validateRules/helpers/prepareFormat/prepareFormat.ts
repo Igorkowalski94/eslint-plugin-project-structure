@@ -3,36 +3,46 @@ import { RegexParameters } from "types";
 import { getRegexWithoutReferences } from "helpers/getRegexWithoutReferences/getRegexWithoutReferences";
 
 import { getDefaultRegexParameters } from "rules/namingRules/helpers/validateName/helpers/validateRules/helpers/getDefaultRegexParameters";
-import { DEFAULT_FORMAT } from "rules/namingRules/helpers/validateName/helpers/validateRules/helpers/replaceReferencesWithData/replaceReferencesWithData.consts";
+import { DEFAULT_FORMAT } from "rules/namingRules/helpers/validateName/helpers/validateRules/helpers/prepareFormat/prepareFormat.consts";
 import { NamingRule } from "rules/namingRules/namingRules.types";
 
-interface ReplaceReferencesWithDataProps {
+interface PrepareFormatProps {
   filenameWithoutParts: string;
   format: NamingRule["format"];
   regexParameters?: RegexParameters;
 }
 
-export const replaceReferencesWithData = ({
+export interface PrepareFormatReturn {
+  formatWithoutReferences: string[];
+  formatWithReferences: string[];
+}
+
+export const prepareFormat = ({
   format,
   filenameWithoutParts,
   regexParameters,
-}: ReplaceReferencesWithDataProps): string[] => {
+}: PrepareFormatProps): PrepareFormatReturn => {
   let currentFormat: string[] = [];
 
   if (!format) currentFormat = DEFAULT_FORMAT;
   if (typeof format === "string") currentFormat = [format];
   if (Array.isArray(format)) currentFormat = format;
 
-  return currentFormat.map((regex) => {
-    const defaultRegexParameters = getDefaultRegexParameters({
-      fileName: filenameWithoutParts,
-      regexParameters,
-    });
+  const defaultRegexParameters = getDefaultRegexParameters({
+    fileName: filenameWithoutParts,
+    regexParameters,
+  });
 
-    return getRegexWithoutReferences({
+  const formatWithoutReferences = currentFormat.map((regex) =>
+    getRegexWithoutReferences({
       regex,
       regexParameters: defaultRegexParameters,
       key: "format",
-    });
-  });
+    }),
+  );
+
+  return {
+    formatWithoutReferences,
+    formatWithReferences: currentFormat,
+  };
 };

@@ -1,4 +1,4 @@
-import micromatch from "micromatch";
+import { isCorrectPattern } from "helpers/isCorrectPattern";
 
 import {
   IndependentModulesConfig,
@@ -9,4 +9,4 @@ export const findModuleConfig = (
   fileName: string,
   modules: IndependentModulesConfig["modules"],
 ): Module | undefined =>
-  modules.find(({ pattern }) => micromatch.every(fileName, pattern));
+  modules.find(({ pattern }) => isCorrectPattern({ input: fileName, pattern }));
