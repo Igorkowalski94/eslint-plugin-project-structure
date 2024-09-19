@@ -23,8 +23,8 @@
     "single-main-class-per-file",
     "single-main-function-per-file",
     "react-folder-structure",
-    "project-principles",
-    "project-rules"
+    "react-file-structure",
+    "file-structure"
   ],
   "funding": [
     "https://github.com/sponsors/Igorkowalski94"
