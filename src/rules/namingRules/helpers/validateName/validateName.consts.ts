@@ -89,7 +89,16 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
             {
               type: "array",
               default: [],
-              items: { type: "string", default: "" },
+              items: {
+                oneOf: [
+                  { type: "string", default: "" },
+                  {
+                    type: "array",
+                    default: [],
+                    items: { type: "string" },
+                  },
+                ],
+              },
             },
           ],
         },

@@ -99,11 +99,19 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
   additionalProperties: false,
   properties: {
     ignorePatterns: {
-      type: "array",
-      default: [],
-      items: {
-        type: "string",
-      },
+      oneOf: [
+        { type: "string", default: "" },
+        {
+          type: "array",
+          default: [],
+          items: {
+            oneOf: [
+              { type: "string", default: "" },
+              { type: "array", default: [], items: { type: "string" } },
+            ],
+          },
+        },
+      ],
     },
     longPathsInfo: {
       oneOf: [

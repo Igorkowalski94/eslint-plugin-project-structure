@@ -33,7 +33,25 @@ export const INDEPENDENT_MODULES_SCHEMA: JSONSchema4 = {
           type: "string",
           default: "",
         },
-        pattern: { $ref: "#/definitions/Pattern" },
+        pattern: {
+          oneOf: [
+            { type: "string", default: "" },
+            {
+              type: "array",
+              default: [],
+              items: {
+                oneOf: [
+                  { type: "string", default: "" },
+                  {
+                    type: "array",
+                    default: [],
+                    items: { type: "string" },
+                  },
+                ],
+              },
+            },
+          ],
+        },
         errorMessage: {
           type: "string",
           default: "",

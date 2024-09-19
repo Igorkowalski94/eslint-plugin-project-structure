@@ -1,4 +1,4 @@
-import { RegexParameters } from "types";
+import { Pattern, RegexParameters } from "types";
 
 import {
   Rule,
@@ -13,6 +13,6 @@ export const createFolderStructure = <
   longPathsInfo?: LongPathsInfo | false;
   structure: Rule<keyof R & string> | Rule<keyof R & string>[];
   rules?: R;
-  ignorePatterns?: string[];
+  ignorePatterns?: Pattern;
   regexParameters?: RegexParameters;
 }): FolderStructureConfig<keyof R & string> => config;
