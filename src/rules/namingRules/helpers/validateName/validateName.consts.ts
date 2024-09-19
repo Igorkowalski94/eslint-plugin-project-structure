@@ -65,6 +65,11 @@ export const NAMING_RULES_SCHEMA: JSONSchema4 = {
           properties: {
             class: { type: "string", default: "" },
             variable: { type: "string", default: "" },
+            variableCallExpression: { type: "string", default: "" },
+            variableTaggedTemplateExpression: {
+              type: "string",
+              default: "",
+            },
             function: { type: "string", default: "" },
             arrowFunction: { type: "string", default: "" },
             type: { type: "string", default: "" },
