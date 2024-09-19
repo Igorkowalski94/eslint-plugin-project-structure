@@ -13,7 +13,10 @@ export const isNameFromFileRoot = ({
 }: IsNameFromFileRootProps): boolean => {
   if (
     nodeType === "ArrowFunctionExpression" ||
-    nodeType === "VariableDeclarator"
+    nodeType === "VariableDeclarator" ||
+    nodeType === "CallExpression" ||
+    nodeType === "MemberExpression" ||
+    nodeType === "TaggedTemplateExpression"
   )
     return (
       node.parent.parent?.type === TSESTree.AST_NODE_TYPES.Program ||

@@ -24,6 +24,9 @@ export const isExportedName = ({
 }: IsExportedNameProps): IsExportedNameReturn => {
   if (
     ((nodeType === "ArrowFunctionExpression" ||
+      nodeType === "TaggedTemplateExpression" ||
+      nodeType === "CallExpression" ||
+      nodeType === "MemberExpression" ||
       nodeType === "VariableDeclarator") &&
       node.parent.parent?.type ===
         TSESTree.AST_NODE_TYPES.ExportNamedDeclaration) ||
