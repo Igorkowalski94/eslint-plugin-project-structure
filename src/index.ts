@@ -1,17 +1,17 @@
 import parser from "parser";
 
+import { fileComposition } from "rules/fileComposition/fileComposition";
+import { createFileComposition } from "rules/fileComposition/helpers/createFileComposition";
 import { folderStructure } from "rules/folderStructure/folderStructure";
 import { createFolderStructure } from "rules/folderStructure/helpers/createFolderStructure";
 import { createIndependentModules } from "rules/independentModules/helpers/createIndependentModules";
 import { independentModules } from "rules/independentModules/independentModules";
-import { createNamingRules } from "rules/namingRules/helpers/createNamingRules";
-import { namingRules } from "rules/namingRules/namingRules";
 
 // ts-prune-ignore-next
 export const projectStructurePlugin = {
   rules: {
     "folder-structure": folderStructure,
-    "naming-rules": namingRules,
+    "file-composition": fileComposition,
     "independent-modules": independentModules,
   },
 };
@@ -22,18 +22,18 @@ export { createIndependentModules } from "rules/independentModules/helpers/creat
 // ts-prune-ignore-next
 export { createFolderStructure } from "rules/folderStructure/helpers/createFolderStructure";
 // ts-prune-ignore-next
-export { createNamingRules } from "rules/namingRules/helpers/createNamingRules";
+export { createFileComposition } from "rules/fileComposition/helpers/createFileComposition";
 
 module.exports = {
   projectStructurePlugin,
   projectStructureParser: parser,
   createIndependentModules,
   createFolderStructure,
-  createNamingRules,
+  createFileComposition,
   // For old eslint config
   rules: {
     "folder-structure": folderStructure,
-    "naming-rules": namingRules,
+    "file-composition": fileComposition,
     "independent-modules": independentModules,
   },
 };

@@ -41,7 +41,7 @@ export const namingRulesConfig = createNamingRules({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: "variable",
+            selector: "variableCallExpression",
             format: "{fileName}",
           },
         ],
@@ -71,12 +71,13 @@ export const namingRulesConfig = createNamingRules({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: ["arrowFunction", "function"],
-            format: "{camelCase}",
-          },
-
-          {
-            selector: "variable",
+            selector: [
+              "arrowFunction",
+              "function",
+              "variable",
+              "variableCallExpression",
+              "variableMemberExpression",
+            ],
             format: "{camelCase}",
           },
         ],

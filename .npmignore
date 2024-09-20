@@ -3,7 +3,7 @@
 !parser.*
 !folderStructure.schema.json
 !independentModules.schema.json
-!namingRules.schema.json
+!fileComposition.schema.json
 !package.json
 !README.md
 !LICENCE

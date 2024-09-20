@@ -44,7 +44,7 @@ Leave a ⭐ and share the link with your friends.<br>
 - [Migration guide to 2.5.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/Migration-guide-to-2.5.0)
 - [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root)
 - [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bindependent%E2%80%91modules#root)
-- [project-structure/naming-rules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bnaming%E2%80%91rules#root)
+- [project-structure/file-composition](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfile%E2%80%91composition#root)
 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root">project&#8209;structure/&#8203;folder&#8209;structure</a></h2>
 <p align="center">Enforce rules on folder structure to keep your project consistent, orderly and well thought out.</p>
@@ -80,21 +80,21 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
 - An option to create a separate configuration file with TypeScript support.
 
-<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bnaming%E2%80%91rules#root">project&#8209;structure/&#8203;naming&#8209;rules</a></h2>
+<h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfile%E2%80%91composition#root">project&#8209;structure/&#8203;file&#8209;composition</a></h2>
 <p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
 <p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
 
 <h4><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /></picture> Features:</h4>
 
-- Naming validation.
-- Supported selectors: `class`, `function`, `arrowFunction`, `type`, `interface`, `enum`, `variable`, `variableCallExpression`, `variableTaggedTemplateExpression`, `variableMemberExpression`.
-- Naming rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.
+- File composition validation.
+- Supported selectors: `class`, `function`, `arrowFunction`, `type`, `interface`, `enum`, `variable`, `variableCallExpression`, `variableTaggedTemplateExpression`.
+- Rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.
 - Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.
-- Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.
 - Enforcing a maximum of one main function/class per file.
-- Different name rules for different files.
-- Regex validation.
+- Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.
+- Selector name regex validation.
 - Build in case validation.
+- Different rules for different files.
 - An option to create a separate configuration file with TypeScript support.
 
 <h2><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Party%20Popper.png" alt="Party Popper" width="35" height="35" /></picture> Sponsors</h2>
