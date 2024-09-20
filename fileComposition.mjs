@@ -71,7 +71,12 @@ export const fileCompositionConfig = createFileComposition({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: ["arrowFunction", "variable", "variableCallExpression"],
+            selector: [
+              "arrowFunction",
+              "function",
+              "variable",
+              "variableCallExpression",
+            ],
             format: "{camelCase}",
           },
         ],
