@@ -8,23 +8,23 @@
     "eslint",
     "eslint-plugin",
     "conventions",
+    "naming-conventions",
+    "file-structure",
     "project-structure",
     "folder-structure",
+    "react-folder-structure",
+    "react-file-structure",
     "project-architecture",
     "independent-modules",
-    "naming-conventions",
     "filename-validation",
     "folder-name-validation",
     "filename-folder-name-match",
     "filename-export-match",
     "enforce-file-existence",
     "enforce-folder-existence",
-    "file-composition",
     "single-main-class-per-file",
     "single-main-function-per-file",
-    "react-folder-structure",
-    "react-file-structure",
-    "file-structure"
+    "file-composition"
   ],
   "funding": [
     "https://github.com/sponsors/Igorkowalski94"
