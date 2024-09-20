@@ -1,4 +1,3 @@
-/* eslint-disable project-structure/naming-rules */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 const SNAKE_CASE_LOWER_RE = /((([a-z]|\d)+_)*([a-z]|\d)+)/;
 const SNAKE_CASE_UPPER_RE = /((([A-Z]|\d)+_)*([A-Z]|\d)+)/;

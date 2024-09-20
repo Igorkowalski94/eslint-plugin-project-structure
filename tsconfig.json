@@ -22,6 +22,6 @@
     "./eslint.config.mjs",
     "./folderStructure.mjs",
     "./independentModules.mjs",
-    "./namingRules.mjs"
+    "./fileComposition.mjs"
   ]
 }

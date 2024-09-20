@@ -12,9 +12,9 @@ import { projectStructurePlugin } from "eslint-plugin-project-structure";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
+import { fileCompositionConfig } from "./fileComposition.mjs";
 import { folderStructureConfig } from "./folderStructure.mjs";
 import { independentModulesConfig } from "./independentModules.mjs";
-import { namingRulesConfig } from "./namingRules.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -108,7 +108,7 @@ export default tseslint.config(
         "error",
         independentModulesConfig,
       ],
-      "project-structure/naming-rules": ["error", namingRulesConfig],
+      "project-structure/file-composition": ["error", fileCompositionConfig],
 
       "prettier/prettier": [
         "error",

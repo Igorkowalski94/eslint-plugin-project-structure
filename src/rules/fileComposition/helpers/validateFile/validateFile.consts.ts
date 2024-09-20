@@ -12,6 +12,7 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
         "variableCallExpression",
         "variableTaggedTemplateExpression",
         "arrowFunction",
+        "function",
         "type",
         "interface",
         "enum",

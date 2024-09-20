@@ -1,8 +1,8 @@
 // @ts-check
 
-import { createNamingRules } from "eslint-plugin-project-structure";
+import { createFileComposition } from "eslint-plugin-project-structure";
 
-export const namingRulesConfig = createNamingRules({
+export const fileCompositionConfig = createFileComposition({
   filesRules: [
     { filePattern: "**/(index|parser|tsup.config|jest.config).(ts|js)" },
     {
@@ -41,7 +41,7 @@ export const namingRulesConfig = createNamingRules({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: "variableCallExpression",
+            selector: "variable",
             format: "{fileName}",
           },
         ],
@@ -71,13 +71,7 @@ export const namingRulesConfig = createNamingRules({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: [
-              "arrowFunction",
-              "function",
-              "variable",
-              "variableCallExpression",
-              "variableMemberExpression",
-            ],
+            selector: ["arrowFunction", "variable", "variableCallExpression"],
             format: "{camelCase}",
           },
         ],

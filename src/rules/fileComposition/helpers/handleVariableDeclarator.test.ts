@@ -72,6 +72,31 @@ describe("handleVariableDeclarator", () => {
     {
       node: {
         id: {
+          type: TSESTree.AST_NODE_TYPES.ObjectPattern,
+        },
+        init: {
+          type: TSESTree.AST_NODE_TYPES.CallExpression,
+          callee: { type: TSESTree.AST_NODE_TYPES.MemberExpression },
+        },
+      },
+      expected: {
+        node: {
+          id: {
+            type: TSESTree.AST_NODE_TYPES.ObjectPattern,
+          },
+          init: {
+            type: TSESTree.AST_NODE_TYPES.CallExpression,
+            callee: { type: TSESTree.AST_NODE_TYPES.MemberExpression },
+          },
+        },
+        context: {},
+        name: "*",
+        nodeType: "CallExpression",
+      },
+    },
+    {
+      node: {
+        id: {
           type: TSESTree.AST_NODE_TYPES.ArrayPattern,
         },
         init: {

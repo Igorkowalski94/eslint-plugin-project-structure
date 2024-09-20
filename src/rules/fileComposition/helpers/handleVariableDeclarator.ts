@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { TSESTree } from "@typescript-eslint/utils";
 
 import { Context, NodeType } from "rules/fileComposition/fileComposition.types";
@@ -15,6 +16,8 @@ export const handleVariableDeclarator = ({
   const isVariableCallExpression =
     (node.init?.type === TSESTree.AST_NODE_TYPES.CallExpression &&
       node.init.callee.type === TSESTree.AST_NODE_TYPES.Identifier) ||
+    (node.init?.type === TSESTree.AST_NODE_TYPES.CallExpression &&
+      node.init.callee.type === TSESTree.AST_NODE_TYPES.MemberExpression) ||
     (node.init?.type === TSESTree.AST_NODE_TYPES.MemberExpression &&
       node.init.object.type === TSESTree.AST_NODE_TYPES.CallExpression);
 
