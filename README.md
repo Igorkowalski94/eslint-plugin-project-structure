@@ -116,7 +116,8 @@ where removing or editing one feature triggers a chain reaction that impacts the
   rules,
   clean,
   frontend,
-  backend
+  backend,
+  import,
 
   naming-conventions,
   file-composition,

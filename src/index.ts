@@ -52,7 +52,8 @@ export const KEYWORDS = `
   rules,
   clean,
   frontend,
-  backend
+  backend,
+  import,
 
   naming-conventions,
   file-composition,
