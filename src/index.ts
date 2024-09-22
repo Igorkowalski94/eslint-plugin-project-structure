@@ -37,3 +37,106 @@ module.exports = {
     "independent-modules": independentModules,
   },
 };
+
+// ts-prune-ignore-next
+export const KEYWORDS = `
+    conventions,
+    architecture,
+    file,
+    folder,
+    project,
+    structure,
+    filename,
+    file,
+    validation,
+    rules,
+    clean,
+    frontend,
+    backend
+
+    naming-conventions,
+    file-composition,
+    independent-modules,
+
+    project architecture,
+    project structure,
+    folder structure,
+    file structure,
+
+    react,
+    react folder structure,
+    react file structure,
+    react project structure,
+    react architecture,
+    react conventions,
+
+    react native,
+    react native folder structure,
+    react native file structure,
+    react native project structure,
+    react native architecture,
+    react native conventions,
+
+    nextjs
+    nextjs folder structure,
+    nextjs file structure,
+    nextjs project structure,
+    nextjs architecture,
+    nextjs conventions,
+
+    remix,
+    remix folder structure,
+    remix file structure,
+    remix project structure,
+    remix architecture,
+    remix conventions,
+
+    angular,
+    angular folder structure,
+    angular file structure,
+    angular project structure,
+    angular architecture,
+    angular conventions,
+
+    vue,
+    vue folder structure,
+    vue file structure,
+    vue project structure,
+    vue architecture,
+    vue conventions,
+
+    node,
+    node folder structure,
+    node file structure,
+    node project structure,
+    node architecture,
+    node conventions,
+
+    Express,
+    Express folder structure,
+    Express file structure,
+    Express project structure,
+    Express architecture,
+    Express conventions,
+
+    NestJS,
+    NestJS folder structure,
+    NestJS file structure,
+    NestJS project structure,
+    NestJS architecture,
+    NestJS conventions,
+
+    solid,
+    solid folder structure,
+    solid file structure,
+    solid project structure,
+    solid architecture,
+    solid conventions,
+
+    svelte,
+    svelte folder structure,
+    svelte file structure,
+    svelte project structure,
+    svelte architecture,
+    svelte conventions
+`;

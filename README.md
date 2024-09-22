@@ -102,3 +102,82 @@ where removing or editing one feature triggers a chain reaction that impacts the
 <p align="center">A big thank you to all the <a href="https://github.com/sponsors/Igorkowalski94">sponsors</a> for your support! You give me the strength and motivation to keep going!</p>
 <p align="center"> Thanks to you, I can help others create their ideal projects!</p>
 <p align="center"><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Love-You%20Gesture.png" alt="Love-You Gesture" width="60px" height="60px" /></picture><p>
+
+<!--
+  conventions,
+  architecture,
+  file,
+  folder,
+  project,
+  structure,
+  filename,
+  file,
+  validation,
+  rules,
+  clean
+
+  naming-conventions,
+  file-composition,
+  independent-modules,
+
+  project architecture,
+  project structure,
+  folder structure,
+  file structure,
+
+  react,
+  react folder structure,
+  react file structure,
+  react project structure,
+  react architecture,
+  react conventions,
+
+  nextjs
+  nextjs folder structure,
+  nextjs file structure,
+  nextjs project structure,
+  nextjs architecture,
+  nextjs conventions,
+
+  remix,
+  remix folder structure,
+  remix file structure,
+  remix project structure,
+  remix architecture,
+  remix conventions,
+
+  angular,
+  angular folder structure,
+  angular file structure,
+  angular project structure,
+  angular architecture,
+  angular conventions,
+
+  vue,
+  vue folder structure,
+  vue file structure,
+  vue project structure,
+  vue architecture,
+  vue conventions,
+
+  node,
+  node folder structure,
+  node file structure,
+  node project structure,
+  node architecture,
+  node conventions,
+
+  solid,
+  solid folder structure,
+  solid file structure,
+  solid project structure,
+  solid architecture,
+  solid conventions,
+
+  svelte,
+  svelte folder structure,
+  svelte file structure,
+  svelte project structure,
+  svelte architecture,
+  svelte conventions
+ -->
