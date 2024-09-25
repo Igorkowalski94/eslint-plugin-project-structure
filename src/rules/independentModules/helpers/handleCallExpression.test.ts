@@ -58,6 +58,18 @@ describe("handleCallExpression", () => {
       },
       arguments: [{ type: TSESTree.AST_NODE_TYPES.Literal, value: "import" }],
     } as TSESTree.CallExpression,
+
+    {
+      callee: {
+        type: TSESTree.AST_NODE_TYPES.MemberExpression,
+        object: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "jest" },
+        property: {
+          type: TSESTree.AST_NODE_TYPES.Identifier,
+          name: "requireActual",
+        },
+      },
+      arguments: [{ type: TSESTree.AST_NODE_TYPES.Literal, value: "import" }],
+    } as TSESTree.CallExpression,
   ])("Should call validateImport when node = %s", (node) => {
     const validateImportMock = jest.fn();
 

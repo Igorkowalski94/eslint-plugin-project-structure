@@ -16,7 +16,8 @@ export const handleCallExpression = (
       node.callee.object.type === AST_NODE_TYPES.Identifier &&
       node.callee.object.name === "jest" &&
       node.callee.property.type === AST_NODE_TYPES.Identifier &&
-      node.callee.property.name === "mock" &&
+      (node.callee.property.name === "mock" ||
+        node.callee.property.name === "requireActual") &&
       node.arguments[0].type === AST_NODE_TYPES.Literal &&
       typeof node.arguments[0].value === "string")
   ) {
