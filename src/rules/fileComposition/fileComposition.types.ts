@@ -7,19 +7,17 @@ import { ESLINT_ERRORS } from "rules/fileComposition/fileComposition.consts";
 export type NodeType =
   | "ClassDeclaration"
   | "VariableDeclarator"
-  | "CallExpression"
-  | "TaggedTemplateExpression"
+  | "Expression"
   | "FunctionDeclaration"
   | "ArrowFunctionExpression"
   | "TSTypeAliasDeclaration"
   | "TSInterfaceDeclaration"
   | "TSEnumDeclaration";
 
-export type Selector =
+export type SelectorType =
   | "class"
   | "variable"
-  | "variableCallExpression"
-  | "variableTaggedTemplateExpression"
+  | "variableExpression"
   | "function"
   | "arrowFunction"
   | "type"
@@ -28,18 +26,23 @@ export type Selector =
 
 export type Node =
   | TSESTree.VariableDeclarator
-  | TSESTree.CallExpression
-  | TSESTree.TaggedTemplateExpression
+  | TSESTree.Expression
   | TSESTree.ClassDeclaration
   | TSESTree.FunctionDeclaration
   | TSESTree.TSTypeAliasDeclaration
   | TSESTree.TSInterfaceDeclaration
   | TSESTree.TSEnumDeclaration
-  | TSESTree.Identifier
   | TSESTree.MethodDefinition
   | TSESTree.PropertyDefinition;
 
-export type Selectors = Record<NodeType, Selector>;
+export type Selectors = Record<NodeType, SelectorType>;
+
+interface VariableExpression {
+  type: "variableExpression";
+  limitTo: string | string[];
+}
+
+export type Selector = SelectorType | VariableExpression;
 
 export interface FileRule {
   selector: Selector | Selector[];
@@ -47,7 +50,7 @@ export interface FileRule {
   format?: string[] | string;
 }
 
-export type CustomErrors = Partial<Record<Selector, string>>;
+export type CustomErrors = Partial<Record<SelectorType, string>>;
 
 export interface FileRuleObject {
   allowOnlySpecifiedSelectors?: boolean;
@@ -57,6 +60,8 @@ export interface FileRuleObject {
 
 interface FilesRules {
   filePattern: Pattern;
+  selectorsLimits?: number;
+  selectorsOrder?: number;
   fileRootRules?: FileRule[] | FileRuleObject;
   fileExportRules?: FileRule[] | FileRuleObject;
   fileRules?: FileRule[] | FileRuleObject;

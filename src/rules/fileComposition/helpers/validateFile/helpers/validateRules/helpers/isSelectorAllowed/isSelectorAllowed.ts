@@ -4,42 +4,48 @@ import {
   FileRule,
   FileRuleObject,
   Node,
-  NodeType,
+  SelectorType,
 } from "rules/fileComposition/fileComposition.types";
 import { getCustomError } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/helpers/getCustomError";
-import { SELECTORS } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules.consts";
 
 interface IsSelectorAllowedProps {
   fileRule: FileRule[] | FileRuleObject;
-  nodeType: NodeType;
   report: Context["report"];
   node: Node;
   errorMessageId: keyof typeof ESLINT_ERRORS;
+  selectorKey: SelectorType;
+  expressionName?: string;
 }
 
 export const isSelectorAllowed = ({
   fileRule,
-  nodeType,
   report,
   node,
   errorMessageId,
+  selectorKey,
+  expressionName,
 }: IsSelectorAllowedProps): boolean => {
-  const nodeTypeConverted = SELECTORS[nodeType];
-
   if (
     !Array.isArray(fileRule) &&
     fileRule.allowOnlySpecifiedSelectors &&
     !fileRule.rules
       .map(({ selector }) => selector)
       .flat()
-      .includes(nodeTypeConverted)
+      .some(
+        (selector) =>
+          selector === selectorKey ||
+          (typeof selector !== "string" &&
+            selector.type === selectorKey &&
+            expressionName &&
+            selector.limitTo.includes(expressionName)),
+      )
   ) {
     report({
       messageId: errorMessageId,
       data: {
-        selector: nodeTypeConverted,
+        selectorKey,
         error: getCustomError({
-          selector: nodeTypeConverted,
+          selectorKey,
           errors: fileRule.errors,
         }),
       },

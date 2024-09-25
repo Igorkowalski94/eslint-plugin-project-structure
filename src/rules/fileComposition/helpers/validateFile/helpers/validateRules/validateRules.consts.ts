@@ -2,8 +2,7 @@ import { Selectors } from "rules/fileComposition/fileComposition.types";
 
 export const SELECTORS: Selectors = {
   VariableDeclarator: "variable",
-  CallExpression: "variableCallExpression",
-  TaggedTemplateExpression: "variableTaggedTemplateExpression",
+  Expression: "variableExpression",
   ClassDeclaration: "class",
   FunctionDeclaration: "function",
   ArrowFunctionExpression: "arrowFunction",

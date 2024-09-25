@@ -4,18 +4,54 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
   $schema: "http://json-schema.org/draft-07/schema#",
   definitions: {
     Selector: {
-      type: "string",
-      default: "",
-      enum: [
-        "class",
-        "variable",
-        "variableCallExpression",
-        "variableTaggedTemplateExpression",
-        "arrowFunction",
-        "function",
-        "type",
-        "interface",
-        "enum",
+      oneOf: [
+        {
+          type: "string",
+          default: "",
+          enum: [
+            "class",
+            "variable",
+            "variableExpression",
+            "arrowFunction",
+            "function",
+            "type",
+            "interface",
+            "enum",
+          ],
+        },
+        {
+          type: "object",
+          default: { type: "variableExpression", limitTo: "" },
+          additionalProperties: false,
+          properties: {
+            selector: {
+              oneOf: [
+                { $ref: "#/definitions/Selector" },
+                {
+                  type: "array",
+                  default: [],
+                  items: { $ref: "#/definitions/Selector" },
+                },
+              ],
+            },
+            type: {
+              type: "string",
+              default: "variableExpression",
+              enum: ["variableExpression"],
+            },
+            limitTo: {
+              oneOf: [
+                { type: "string", default: "" },
+                {
+                  type: "array",
+                  default: [],
+                  items: { type: "string" },
+                },
+              ],
+            },
+          },
+          required: ["type", "limitTo"],
+        },
       ],
     },
     FileRule: {
@@ -65,11 +101,7 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
           properties: {
             class: { type: "string", default: "" },
             variable: { type: "string", default: "" },
-            variableCallExpression: { type: "string", default: "" },
-            variableTaggedTemplateExpression: {
-              type: "string",
-              default: "",
-            },
+            variableExpression: { type: "string", default: "" },
             function: { type: "string", default: "" },
             arrowFunction: { type: "string", default: "" },
             type: { type: "string", default: "" },

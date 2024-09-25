@@ -17,6 +17,7 @@ import { FILE_COMPOSITION_SCHEMA } from "rules/fileComposition/helpers/validateF
 
 export interface ValidateFileProps {
   name: string;
+  expressionName?: string;
   context: Context;
   node: Node;
   nodeType: NodeType;
@@ -24,6 +25,7 @@ export interface ValidateFileProps {
 
 export const validateFile = ({
   name,
+  expressionName,
   context: { filename, report, options, cwd, settings },
   node,
   nodeType,
@@ -67,6 +69,7 @@ export const validateFile = ({
       filenamePath,
       errorMessageId: "prohibitedSelectorExport",
       regexParameters,
+      expressionName,
     });
   }
 
@@ -85,6 +88,7 @@ export const validateFile = ({
       filenamePath,
       errorMessageId: "prohibitedSelectorRoot",
       regexParameters,
+      expressionName,
     });
   }
 
@@ -98,6 +102,7 @@ export const validateFile = ({
       filenamePath,
       errorMessageId: "prohibitedSelector",
       regexParameters,
+      expressionName,
     });
   }
 };

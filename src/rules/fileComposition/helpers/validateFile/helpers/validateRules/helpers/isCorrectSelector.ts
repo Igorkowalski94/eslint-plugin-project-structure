@@ -1,13 +1,24 @@
-import { Selector } from "rules/fileComposition/fileComposition.types";
+import {
+  Selector,
+  SelectorType,
+} from "rules/fileComposition/fileComposition.types";
 
 interface IsCorrectSelectorProps {
-  ruleSelector: Selector | Selector[];
-  selector: Selector;
+  selector: Selector | Selector[];
+  selectorKey: SelectorType;
 }
 
 export const isCorrectSelector = ({
-  ruleSelector,
   selector,
+  selectorKey,
 }: IsCorrectSelectorProps): boolean =>
-  (Array.isArray(ruleSelector) && ruleSelector.includes(selector)) ||
-  (typeof ruleSelector === "string" && ruleSelector === selector);
+  selector === selectorKey ||
+  (!Array.isArray(selector) &&
+    typeof selector === "object" &&
+    selector.type === selectorKey) ||
+  (Array.isArray(selector) &&
+    selector.some(
+      (sel) =>
+        (typeof sel !== "string" && sel.type === selectorKey) ||
+        sel === selectorKey,
+    ));

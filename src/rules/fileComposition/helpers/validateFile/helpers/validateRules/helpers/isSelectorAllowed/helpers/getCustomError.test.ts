@@ -4,13 +4,13 @@ describe("getRules", () => {
   test("Should return error message when !!errors", () => {
     expect(
       getCustomError({
-        selector: "arrowFunction",
+        selectorKey: "arrowFunction",
         errors: { arrowFunction: "arrowFunction error" },
       }),
     ).toEqual("\n\narrowFunction error\n\n");
   });
 
   test("Should return undefined when !errors", () => {
-    expect(getCustomError({ selector: "arrowFunction" })).toEqual("");
+    expect(getCustomError({ selectorKey: "arrowFunction" })).toEqual("");
   });
 });

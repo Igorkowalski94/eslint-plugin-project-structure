@@ -8,14 +8,20 @@ export const handleCallExpression = (
   context: Context,
 ): void => {
   if (
-    node.callee.type !== AST_NODE_TYPES.Identifier ||
-    node.callee.name !== "require" ||
-    node.arguments[0].type !== AST_NODE_TYPES.Literal ||
-    typeof node.arguments[0].value !== "string"
-  )
-    return;
+    (node.callee.type === AST_NODE_TYPES.Identifier &&
+      node.callee.name === "require" &&
+      node.arguments[0].type === AST_NODE_TYPES.Literal &&
+      typeof node.arguments[0].value === "string") ||
+    (node.callee.type === AST_NODE_TYPES.MemberExpression &&
+      node.callee.object.type === AST_NODE_TYPES.Identifier &&
+      node.callee.object.name === "jest" &&
+      node.callee.property.type === AST_NODE_TYPES.Identifier &&
+      node.callee.property.name === "mock" &&
+      node.arguments[0].type === AST_NODE_TYPES.Literal &&
+      typeof node.arguments[0].value === "string")
+  ) {
+    const importPath = node.arguments[0].value;
 
-  const importPath = node.arguments[0].value;
-
-  validateImport({ importPath, context, node });
+    validateImport({ importPath, context, node });
+  }
 };

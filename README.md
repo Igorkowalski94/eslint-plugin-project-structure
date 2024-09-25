@@ -87,7 +87,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 <h4><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /></picture> Features:</h4>
 
 - File composition validation.
-- Supported selectors: `class`, `function`, `arrowFunction`, `type`, `interface`, `enum`, `variable`, `variableCallExpression`, `variableTaggedTemplateExpression`.
+- Supported selectors: `class`, `function`, `arrowFunction`, `type`, `interface`, `enum`, `variable`, `variableExpression`.
 - Rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.
 - Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.
 - Enforcing a maximum of one main function/class per file.
@@ -111,13 +111,14 @@ where removing or editing one feature triggers a chain reaction that impacts the
   project,
   structure,
   filename,
-  file,
+  path,
   validation,
   rules,
   clean,
   frontend,
   backend,
   import,
+  boundaries,
 
   naming-conventions,
   file-composition,

@@ -1,11 +1,16 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 import { Context } from "rules/fileComposition/fileComposition.types";
+import { getIdentifierFromExpression } from "rules/fileComposition/helpers/getIdentifierFromExpression";
 import { handleVariableDeclarator } from "rules/fileComposition/helpers/handleVariableDeclarator";
 import { validateFile } from "rules/fileComposition/helpers/validateFile/validateFile";
 
 jest.mock("rules/fileComposition/helpers/validateFile/validateFile", () => ({
   validateFile: jest.fn(),
+}));
+
+jest.mock("rules/fileComposition/helpers/getIdentifierFromExpression", () => ({
+  getIdentifierFromExpression: jest.fn(),
 }));
 
 describe("handleVariableDeclarator", () => {
@@ -44,39 +49,28 @@ describe("handleVariableDeclarator", () => {
         nodeType: "VariableDeclarator",
       },
     },
-    {
-      node: {
-        id: {
-          type: TSESTree.AST_NODE_TYPES.ObjectPattern,
-        },
-        init: {
-          type: TSESTree.AST_NODE_TYPES.CallExpression,
-          callee: { type: TSESTree.AST_NODE_TYPES.Identifier },
-        },
-      },
-      expected: {
-        node: {
-          id: {
-            type: TSESTree.AST_NODE_TYPES.ObjectPattern,
-          },
-          init: {
-            type: TSESTree.AST_NODE_TYPES.CallExpression,
-            callee: { type: TSESTree.AST_NODE_TYPES.Identifier },
-          },
-        },
-        context: {},
-        name: "*",
-        nodeType: "CallExpression",
-      },
+  ])(
+    "Should call validateFile with correct values variableDestructuring && !expressionName for %o",
+    ({ node, expected }) => {
+      const validateFileMock = jest.fn();
+
+      (validateFile as jest.Mock).mockImplementation(validateFileMock);
+      (getIdentifierFromExpression as jest.Mock).mockReturnValue(undefined);
+
+      handleVariableDeclarator({
+        node: node as TSESTree.VariableDeclarator,
+        context: {} as Context,
+      });
+
+      expect(validateFileMock).toHaveBeenCalledWith(expected);
     },
+  );
+
+  test.each([
     {
       node: {
         id: {
           type: TSESTree.AST_NODE_TYPES.ObjectPattern,
-        },
-        init: {
-          type: TSESTree.AST_NODE_TYPES.CallExpression,
-          callee: { type: TSESTree.AST_NODE_TYPES.MemberExpression },
         },
       },
       expected: {
@@ -84,14 +78,11 @@ describe("handleVariableDeclarator", () => {
           id: {
             type: TSESTree.AST_NODE_TYPES.ObjectPattern,
           },
-          init: {
-            type: TSESTree.AST_NODE_TYPES.CallExpression,
-            callee: { type: TSESTree.AST_NODE_TYPES.MemberExpression },
-          },
         },
         context: {},
         name: "*",
-        nodeType: "CallExpression",
+        nodeType: "Expression",
+        expressionName: "expressionName",
       },
     },
     {
@@ -99,30 +90,27 @@ describe("handleVariableDeclarator", () => {
         id: {
           type: TSESTree.AST_NODE_TYPES.ArrayPattern,
         },
-        init: {
-          type: TSESTree.AST_NODE_TYPES.MemberExpression,
-          object: { type: TSESTree.AST_NODE_TYPES.CallExpression },
-        },
       },
       expected: {
         node: {
           id: {
             type: TSESTree.AST_NODE_TYPES.ArrayPattern,
           },
-          init: {
-            type: TSESTree.AST_NODE_TYPES.MemberExpression,
-            object: { type: TSESTree.AST_NODE_TYPES.CallExpression },
-          },
         },
         context: {},
         name: "*",
-        nodeType: "CallExpression",
+        nodeType: "Expression",
+        expressionName: "expressionName",
       },
     },
   ])(
-    "Should call validateFile with correct values variableDestructuring for %o",
+    "Should call validateFile with correct values variableDestructuring && expressionName for %o",
     ({ node, expected }) => {
       const validateFileMock = jest.fn();
+
+      (getIdentifierFromExpression as jest.Mock).mockReturnValue(
+        "expressionName",
+      );
 
       (validateFile as jest.Mock).mockImplementation(validateFileMock);
 
@@ -134,6 +122,39 @@ describe("handleVariableDeclarator", () => {
       expect(validateFileMock).toHaveBeenCalledWith(expected);
     },
   );
+
+  test("Should call validateFile with expressionName %o", () => {
+    const validateFileMock = jest.fn();
+
+    (getIdentifierFromExpression as jest.Mock).mockReturnValue(
+      "expressionName",
+    );
+    (validateFile as jest.Mock).mockImplementation(validateFileMock);
+
+    handleVariableDeclarator({
+      node: {
+        id: {
+          type: TSESTree.AST_NODE_TYPES.Identifier,
+          name: "name",
+        },
+      } as TSESTree.VariableDeclarator,
+      context: {} as Context,
+    });
+
+    expect(validateFileMock).toHaveBeenCalledWith({
+      node: {
+        id: {
+          type: TSESTree.AST_NODE_TYPES.Identifier,
+          name: "name",
+        },
+      },
+      context: {},
+      name: "name",
+      nodeType: "Expression",
+      expressionName: "expressionName",
+    });
+  });
+
   test.each([
     {
       node: {
@@ -167,58 +188,6 @@ describe("handleVariableDeclarator", () => {
           name: "name",
         },
         init: {
-          type: "CallExpression",
-          callee: { type: "Identifier" },
-        },
-      },
-      expected: {
-        node: {
-          id: {
-            type: TSESTree.AST_NODE_TYPES.Identifier,
-            name: "name",
-          },
-          init: {
-            type: "CallExpression",
-            callee: { type: "Identifier" },
-          },
-        },
-        context: {},
-        name: "name",
-        nodeType: "CallExpression",
-      },
-    },
-    {
-      node: {
-        id: {
-          type: TSESTree.AST_NODE_TYPES.Identifier,
-          name: "name",
-        },
-        init: {
-          type: "TaggedTemplateExpression",
-        },
-      },
-      expected: {
-        node: {
-          id: {
-            type: TSESTree.AST_NODE_TYPES.Identifier,
-            name: "name",
-          },
-          init: {
-            type: "TaggedTemplateExpression",
-          },
-        },
-        context: {},
-        name: "name",
-        nodeType: "TaggedTemplateExpression",
-      },
-    },
-    {
-      node: {
-        id: {
-          type: TSESTree.AST_NODE_TYPES.Identifier,
-          name: "name",
-        },
-        init: {
           type: "Identifier",
         },
       },
@@ -242,6 +211,7 @@ describe("handleVariableDeclarator", () => {
     ({ node, expected }) => {
       const validateFileMock = jest.fn();
 
+      (getIdentifierFromExpression as jest.Mock).mockReturnValue(undefined);
       (validateFile as jest.Mock).mockImplementation(validateFileMock);
 
       handleVariableDeclarator({

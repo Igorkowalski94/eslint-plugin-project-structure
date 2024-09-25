@@ -1,18 +1,18 @@
 import {
   CustomErrors,
-  Selector,
+  SelectorType,
 } from "rules/fileComposition/fileComposition.types";
 
 interface GetCustomErrorProps {
-  selector: Selector;
+  selectorKey: SelectorType;
   errors?: CustomErrors;
 }
 
 export const getCustomError = ({
-  selector,
+  selectorKey,
   errors,
 }: GetCustomErrorProps): string => {
-  if (!errors?.[selector]) return "";
+  if (!errors?.[selectorKey]) return "";
 
-  return `\n\n${errors[selector]}\n\n`;
+  return `\n\n${errors[selectorKey]}\n\n`;
 };

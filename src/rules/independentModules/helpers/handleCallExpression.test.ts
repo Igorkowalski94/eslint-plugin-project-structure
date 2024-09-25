@@ -19,6 +19,15 @@ describe("handleCallExpression", () => {
         name: "wrong",
       },
     } as TSESTree.CallExpression,
+
+    {
+      callee: {
+        type: TSESTree.AST_NODE_TYPES.MemberExpression,
+        object: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "jest2" },
+        property: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "mock2" },
+      },
+      arguments: [{ type: TSESTree.AST_NODE_TYPES.Literal, value: "import" }],
+    } as TSESTree.CallExpression,
   ])("Should not call validateImport when node = %s", (node) => {
     const validateImportMock = jest.fn();
 
@@ -40,6 +49,15 @@ describe("handleCallExpression", () => {
       },
       arguments: [{ type: TSESTree.AST_NODE_TYPES.Literal, value: "import" }],
     } as TSESTree.CallExpression,
+
+    {
+      callee: {
+        type: TSESTree.AST_NODE_TYPES.MemberExpression,
+        object: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "jest" },
+        property: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "mock" },
+      },
+      arguments: [{ type: TSESTree.AST_NODE_TYPES.Literal, value: "import" }],
+    } as TSESTree.CallExpression,
   ])("Should call validateImport when node = %s", (node) => {
     const validateImportMock = jest.fn();
 
@@ -47,9 +65,14 @@ describe("handleCallExpression", () => {
 
     handleCallExpression(node, {
       settings: {},
-      report: jest.fn(),
     } as unknown as Context);
 
-    expect(validateImportMock).toHaveBeenCalled();
+    expect(validateImportMock).toHaveBeenCalledWith({
+      importPath: "import",
+      context: {
+        settings: {},
+      },
+      node,
+    });
   });
 });

@@ -20,6 +20,26 @@ describe("validateRules", () => {
     ).toEqual(undefined);
   });
 
+  test("Should return undefined if !isSelectorAllowed && !expressionName", () => {
+    expect(
+      validateRules({
+        fileRule: {
+          allowOnlySpecifiedSelectors: true,
+          rules: [
+            { selector: { type: "variableExpression", limitTo: "styled" } },
+          ],
+        },
+        filenamePath: "C:/somePath/src/features/Feature1/Feature1.tsx",
+        report: () => undefined,
+        name: "functionName",
+        node: {} as TSESTree.VariableDeclarator,
+        nodeType: "Expression",
+        errorMessageId: "prohibitedSelector",
+        expressionName: "expressionName",
+      }),
+    ).toEqual(undefined);
+  });
+
   test("Should return undefined if !isCorrectSelector", () => {
     expect(
       validateRules({
@@ -83,7 +103,7 @@ describe("validateRules", () => {
       },
       messageId: "invalidName",
       data: {
-        selector: "variable",
+        selectorKey: "variable",
         formatWithoutReferences: "{camelCase}",
       },
     });

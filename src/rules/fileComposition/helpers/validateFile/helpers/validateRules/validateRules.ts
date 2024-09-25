@@ -27,6 +27,7 @@ interface ValidateRulesProps {
   fileRule: FileRule[] | FileRuleObject;
   errorMessageId: keyof typeof ESLINT_ERRORS;
   regexParameters?: RegexParameters;
+  expressionName?: string;
 }
 
 export const validateRules = ({
@@ -38,16 +39,18 @@ export const validateRules = ({
   fileRule,
   errorMessageId,
   regexParameters,
+  expressionName,
 }: ValidateRulesProps): void => {
-  const selectorConverted = SELECTORS[nodeType];
+  const selectorKey = SELECTORS[nodeType];
 
   if (
     !isSelectorAllowed({
       fileRule,
       node,
-      nodeType,
+      selectorKey,
       report,
       errorMessageId,
+      expressionName,
     })
   )
     return;
@@ -55,8 +58,8 @@ export const validateRules = ({
   getRules(fileRule).forEach((rule) => {
     if (
       !isCorrectSelector({
-        selector: selectorConverted,
-        ruleSelector: rule.selector,
+        selectorKey,
+        selector: rule.selector,
       })
     )
       return;
@@ -89,7 +92,7 @@ export const validateRules = ({
       node,
       messageId: "invalidName",
       data: {
-        selector: selectorConverted,
+        selectorKey,
         formatWithoutReferences: formatWithFilenameReferences.join(", "),
       },
     });

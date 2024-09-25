@@ -1,41 +1,61 @@
 import {
-  Selector,
+  SelectorType,
   FileRule,
 } from "rules/fileComposition/fileComposition.types";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
 
 describe("isCorrectNameType", () => {
   test.each<{
-    ruleSelector: FileRule["selector"];
-    selector: Selector;
+    selector: FileRule["selector"];
+    selectorKey: SelectorType;
     expected: boolean;
   }>([
     {
-      ruleSelector: "arrowFunction",
       selector: "arrowFunction",
+      selectorKey: "arrowFunction",
       expected: true,
     },
     {
-      ruleSelector: ["arrowFunction"],
-      selector: "arrowFunction",
+      selector: ["arrowFunction"],
+      selectorKey: "arrowFunction",
       expected: true,
     },
     {
-      ruleSelector: "class",
-      selector: "arrowFunction",
+      selector: "class",
+      selectorKey: "arrowFunction",
       expected: false,
     },
     {
-      ruleSelector: ["class"],
-      selector: "arrowFunction",
+      selector: ["class"],
+      selectorKey: "arrowFunction",
+      expected: false,
+    },
+    {
+      selector: { type: "variableExpression", limitTo: "styled" },
+      selectorKey: "variableExpression",
+      expected: true,
+    },
+    {
+      selector: [{ type: "variableExpression", limitTo: "styled" }],
+      selectorKey: "variableExpression",
+      expected: true,
+    },
+    {
+      selector: { type: "variableExpression", limitTo: "styled" },
+      selectorKey: "variable",
+      expected: false,
+    },
+    {
+      selector: [{ type: "variableExpression", limitTo: "styled" }],
+      selectorKey: "variable",
       expected: false,
     },
   ])(
     "Should return correct values for %o",
-    ({ ruleSelector, selector, expected }) => {
+    ({ selectorKey, selector, expected }) => {
       expect(
         isCorrectSelector({
-          ruleSelector,
+          selectorKey,
           selector,
         }),
       ).toEqual(expected);
