@@ -1,3 +1,4 @@
+import { WILDCARD_REGEX } from "consts";
 import { RegexParameters } from "types";
 
 import { getInvalidRegexError } from "errors/getInvalidRegexError";
@@ -5,10 +6,7 @@ import { getInvalidRegexError } from "errors/getInvalidRegexError";
 import { isRegexInvalid } from "helpers/isRegexInvalid";
 
 import { applyRegexParameters } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/validateName/helpers/applyRegexParameters";
-import {
-  DOT_CHARACTER_REGEX,
-  WILDCARD_REGEX,
-} from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/validateName/validateName.consts";
+import { DOT_CHARACTER_REGEX } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/validateName/validateName.consts";
 
 export interface ValidateNameProps {
   nodeName: string;

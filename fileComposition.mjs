@@ -11,7 +11,7 @@ export const fileCompositionConfig = createFileComposition({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: "variable",
+            selector: ["variable", "variableExpression"],
             format: "{SNAKE_CASE}",
           },
         ],
@@ -41,7 +41,7 @@ export const fileCompositionConfig = createFileComposition({
         allowOnlySpecifiedSelectors: true,
         rules: [
           {
-            selector: "variable",
+            selector: { type: "variableExpression", limitTo: "ESLintUtils" },
             format: "{fileName}",
           },
         ],
@@ -75,7 +75,7 @@ export const fileCompositionConfig = createFileComposition({
               "arrowFunction",
               "function",
               "variable",
-              "variableCallExpression",
+              "variableExpression",
             ],
             format: "{camelCase}",
           },

@@ -1,3 +1,5 @@
+import { getInvalidRegexError } from "errors/getInvalidRegexError";
+
 import {
   SelectorType,
   FileRule,
@@ -7,74 +9,96 @@ import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/he
 describe("isCorrectNameType", () => {
   test.each<{
     selector: FileRule["selector"];
-    selectorKey: SelectorType;
+    selectorType: SelectorType;
     expected: boolean;
     expressionName?: string;
   }>([
     {
       selector: "arrowFunction",
-      selectorKey: "arrowFunction",
+      selectorType: "arrowFunction",
       expected: true,
     },
     {
       selector: ["arrowFunction"],
-      selectorKey: "arrowFunction",
+      selectorType: "arrowFunction",
       expected: true,
     },
     {
       selector: "class",
-      selectorKey: "arrowFunction",
+      selectorType: "arrowFunction",
       expected: false,
     },
     {
       selector: ["class"],
-      selectorKey: "arrowFunction",
+      selectorType: "arrowFunction",
       expected: false,
     },
     {
       selector: { type: "variableExpression", limitTo: "styled" },
-      selectorKey: "variableExpression",
+      selectorType: "variableExpression",
       expressionName: "styled",
       expected: true,
     },
     {
       selector: [{ type: "variableExpression", limitTo: "styled" }],
-      selectorKey: "variableExpression",
+      selectorType: "variableExpression",
       expressionName: "styled",
       expected: true,
     },
     {
       selector: { type: "variableExpression", limitTo: "styled" },
-      selectorKey: "variableExpression",
+      selectorType: "variableExpression",
+      expressionName: "css",
+      expected: false,
+    },
+    {
+      selector: { type: "variableExpression", limitTo: "*" },
+      selectorType: "variableExpression",
+      expressionName: "css",
+      expected: true,
+    },
+    {
+      selector: { type: "variableExpression", limitTo: "(?!css)*" },
+      selectorType: "variableExpression",
       expressionName: "css",
       expected: false,
     },
     {
       selector: [{ type: "variableExpression", limitTo: "styled" }],
-      selectorKey: "variableExpression",
+      selectorType: "variableExpression",
       expressionName: "css",
       expected: false,
     },
     {
       selector: { type: "variableExpression", limitTo: "styled" },
-      selectorKey: "variable",
+      selectorType: "variable",
       expected: false,
     },
     {
       selector: [{ type: "variableExpression", limitTo: "styled" }],
-      selectorKey: "variable",
+      selectorType: "variable",
       expected: false,
     },
   ])(
     "Should return correct values for %o",
-    ({ selectorKey, selector, expressionName, expected }) => {
+    ({ selectorType, selector, expressionName, expected }) => {
       expect(
         isCorrectSelector({
-          selectorKey,
+          selectorType,
           selector,
           expressionName,
         }),
       ).toEqual(expected);
     },
   );
+
+  test("Should throw when regex is invalid", () => {
+    expect(() =>
+      isCorrectSelector({
+        selector: { type: "variableExpression", limitTo: "^?" },
+        selectorType: "variableExpression",
+        expressionName: "expressionName",
+      }),
+    ).toThrow(getInvalidRegexError("^?"));
+  });
 });

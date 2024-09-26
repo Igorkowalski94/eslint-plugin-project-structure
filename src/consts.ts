@@ -1,4 +1,3 @@
-/* eslint-disable project-structure/file-composition */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 const SNAKE_CASE_LOWER_RE = /((([a-z]|\d)+_)*([a-z]|\d)+)/;
 const SNAKE_CASE_UPPER_RE = /((([A-Z]|\d)+_)*([A-Z]|\d)+)/;
@@ -18,6 +17,7 @@ export const STRICT_CAMEL_CASE = `${STRICT_CAMEL_CASE_RE}`.replace(/\//g, "");
 export const STRICT_PASCAL_CASE = `${STRICT_PASCAL_CASE_RE}`.replace(/\//g, "");
 
 export const RECURSION_LIMIT = 1000;
+export const WILDCARD_REGEX = "(([^/]*)+)";
 
 export const ESLINT_ERRORS = {
   error: `{{error}}`,

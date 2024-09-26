@@ -103,7 +103,7 @@ describe("validateRules", () => {
       },
       messageId: "invalidName",
       data: {
-        selectorKey: "variable",
+        selectorType: "variable",
         formatWithoutReferences: "{camelCase}",
       },
     });

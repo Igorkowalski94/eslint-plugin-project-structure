@@ -1,13 +1,12 @@
+import { WILDCARD_REGEX } from "consts";
+
 import { getInvalidRegexError } from "errors/getInvalidRegexError";
 
 import {
   validateName,
   ValidateNameProps,
 } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/validateName/validateName";
-import {
-  WILDCARD_REGEX,
-  DOT_CHARACTER_REGEX,
-} from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/validateName/validateName.consts";
+import { DOT_CHARACTER_REGEX } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/validateName/validateName.consts";
 
 describe("validateName", () => {
   it("should throw error when regex is invalid", () => {

@@ -41,13 +41,13 @@ export const validateRules = ({
   regexParameters,
   expressionName,
 }: ValidateRulesProps): void => {
-  const selectorKey = SELECTORS[nodeType];
+  const selectorType = SELECTORS[nodeType];
 
   if (
     !isSelectorAllowed({
       fileRule,
       node,
-      selectorKey,
+      selectorType,
       report,
       errorMessageId,
       expressionName,
@@ -58,7 +58,7 @@ export const validateRules = ({
   getRules(fileRule).forEach((rule) => {
     if (
       !isCorrectSelector({
-        selectorKey,
+        selectorType,
         selector: rule.selector,
         expressionName,
       })
@@ -93,7 +93,7 @@ export const validateRules = ({
       node,
       messageId: "invalidName",
       data: {
-        selectorKey,
+        selectorType,
         formatWithoutReferences: formatWithFilenameReferences.join(", "),
       },
     });

@@ -1,3 +1,4 @@
+import { WILDCARD_REGEX } from "consts";
 import { RegexParameters } from "types";
 
 import { getRegexWithoutReferences } from "helpers/getRegexWithoutReferences/getRegexWithoutReferences";
@@ -35,7 +36,9 @@ export const prepareFormat = ({
 
   const formatWithoutReferences = currentFormat.map((regex) =>
     getRegexWithoutReferences({
-      regex,
+      regex: regex
+        .replaceAll("*", WILDCARD_REGEX)
+        .replaceAll(`*${WILDCARD_REGEX}`, "*"),
       regexParameters: defaultRegexParameters,
       key: "format",
     }),
