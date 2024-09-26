@@ -91,6 +91,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.
 - Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.
 - Enforcing a maximum of one main function/class per file.
+- The ability to set a specific limit on the occurrence of certain selectors in the root of a given file.
 - Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.
 - Selector name regex validation.
 - Build in case validation.

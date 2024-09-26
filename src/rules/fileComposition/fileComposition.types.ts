@@ -66,7 +66,6 @@ export interface RootSelectorLimit {
 export interface FileRules {
   filePattern: Pattern;
   rootSelectorsLimits?: RootSelectorLimit[];
-  selectorsOrder?: number;
   fileRootRules?: FileRule[] | FileRuleObject;
   fileExportRules?: FileRule[] | FileRuleObject;
   fileRules?: FileRule[] | FileRuleObject;
