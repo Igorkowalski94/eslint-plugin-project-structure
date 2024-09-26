@@ -6,19 +6,25 @@ import {
 interface IsCorrectSelectorProps {
   selector: Selector | Selector[];
   selectorKey: SelectorType;
+  expressionName?: string;
 }
 
 export const isCorrectSelector = ({
   selector,
   selectorKey,
-}: IsCorrectSelectorProps): boolean =>
-  selector === selectorKey ||
-  (!Array.isArray(selector) &&
-    typeof selector === "object" &&
-    selector.type === selectorKey) ||
-  (Array.isArray(selector) &&
-    selector.some(
-      (sel) =>
-        (typeof sel !== "string" && sel.type === selectorKey) ||
-        sel === selectorKey,
-    ));
+  expressionName,
+}: IsCorrectSelectorProps): boolean => {
+  if (typeof selector === "string") return selector === selectorKey;
+
+  if (!Array.isArray(selector)) {
+    if (!expressionName) return false;
+
+    return (
+      selector.type === selectorKey && selector.limitTo.includes(expressionName)
+    );
+  }
+
+  return selector.some((sel) =>
+    isCorrectSelector({ selector: sel, selectorKey, expressionName }),
+  );
+};

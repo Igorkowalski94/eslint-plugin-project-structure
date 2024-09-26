@@ -9,6 +9,7 @@ describe("isCorrectNameType", () => {
     selector: FileRule["selector"];
     selectorKey: SelectorType;
     expected: boolean;
+    expressionName?: string;
   }>([
     {
       selector: "arrowFunction",
@@ -33,12 +34,26 @@ describe("isCorrectNameType", () => {
     {
       selector: { type: "variableExpression", limitTo: "styled" },
       selectorKey: "variableExpression",
+      expressionName: "styled",
       expected: true,
     },
     {
       selector: [{ type: "variableExpression", limitTo: "styled" }],
       selectorKey: "variableExpression",
+      expressionName: "styled",
       expected: true,
+    },
+    {
+      selector: { type: "variableExpression", limitTo: "styled" },
+      selectorKey: "variableExpression",
+      expressionName: "css",
+      expected: false,
+    },
+    {
+      selector: [{ type: "variableExpression", limitTo: "styled" }],
+      selectorKey: "variableExpression",
+      expressionName: "css",
+      expected: false,
     },
     {
       selector: { type: "variableExpression", limitTo: "styled" },
@@ -52,11 +67,12 @@ describe("isCorrectNameType", () => {
     },
   ])(
     "Should return correct values for %o",
-    ({ selectorKey, selector, expected }) => {
+    ({ selectorKey, selector, expressionName, expected }) => {
       expect(
         isCorrectSelector({
           selectorKey,
           selector,
+          expressionName,
         }),
       ).toEqual(expected);
     },

@@ -60,6 +60,7 @@ export const validateRules = ({
       !isCorrectSelector({
         selectorKey,
         selector: rule.selector,
+        expressionName,
       })
     )
       return;
