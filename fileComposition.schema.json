@@ -1,22 +1,23 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "SelectorType": {
+      "type": "string",
+      "default": "",
+      "enum": [
+        "class",
+        "variable",
+        "variableExpression",
+        "arrowFunction",
+        "function",
+        "type",
+        "interface",
+        "enum"
+      ]
+    },
     "Selector": {
       "oneOf": [
-        {
-          "type": "string",
-          "default": "",
-          "enum": [
-            "class",
-            "variable",
-            "variableExpression",
-            "arrowFunction",
-            "function",
-            "type",
-            "interface",
-            "enum"
-          ]
-        },
+        { "$ref": "#/definitions/SelectorType" },
         {
           "type": "object",
           "default": { "type": "variableExpression", "limitTo": "" },
@@ -51,6 +52,28 @@
           "required": ["type", "limitTo"]
         }
       ]
+    },
+    "RootSelectorsLimits": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "selector": {
+            "oneOf": [
+              { "$ref": "#/definitions/SelectorType" },
+              {
+                "type": "array",
+                "default": [],
+                "items": { "$ref": "#/definitions/SelectorType" }
+              }
+            ]
+          },
+          "limit": { "type": "number" }
+        },
+        "required": ["limit", "selector"]
+      }
     },
     "FileRule": {
       "type": "object",
@@ -139,6 +162,7 @@
             }
           ]
         },
+        "rootSelectorsLimits": { "$ref": "#/definitions/RootSelectorsLimits" },
         "fileRootRules": {
           "oneOf": [
             {

@@ -33,10 +33,14 @@ describe("handleCallExpression", () => {
 
     (validateImport as jest.Mock).mockImplementation(validateImportMock);
 
-    handleCallExpression(node, {
-      settings: {},
-      report: jest.fn(),
-    } as unknown as Context);
+    handleCallExpression({
+      node,
+      context: {
+        settings: {},
+        report: jest.fn(),
+      } as unknown as Context,
+      config: { modules: [] },
+    });
 
     expect(validateImportMock).not.toHaveBeenCalled();
   });
@@ -75,9 +79,13 @@ describe("handleCallExpression", () => {
 
     (validateImport as jest.Mock).mockImplementation(validateImportMock);
 
-    handleCallExpression(node, {
-      settings: {},
-    } as unknown as Context);
+    handleCallExpression({
+      node,
+      context: {
+        settings: {},
+      } as unknown as Context,
+      config: { modules: [] },
+    });
 
     expect(validateImportMock).toHaveBeenCalledWith({
       importPath: "import",
@@ -85,6 +93,7 @@ describe("handleCallExpression", () => {
         settings: {},
       },
       node,
+      config: { modules: [] },
     });
   });
 });

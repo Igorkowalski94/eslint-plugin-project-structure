@@ -19,6 +19,7 @@ describe("handleMethodDefinition", () => {
         key: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "methodName" },
       } as TSESTree.MethodDefinition,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).toHaveBeenCalled();
@@ -36,6 +37,7 @@ describe("handleMethodDefinition", () => {
         },
       } as TSESTree.MethodDefinition,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).not.toHaveBeenCalled();

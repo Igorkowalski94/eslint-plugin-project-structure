@@ -63,7 +63,7 @@
     "husky:prepare": "husky install"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.6.0",
+    "@typescript-eslint/utils": "^8.7.0",
     "comment-json": "^4.2.5",
     "js-yaml": "^4.1.0",
     "jsonschema": "^1.4.1",
@@ -71,17 +71,17 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
-    "@eslint/js": "^9.10.0",
+    "@eslint/js": "^9.11.1",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.13",
     "@types/js-yaml": "^4.0.9",
     "@types/micromatch": "^4.0.9",
-    "@types/node": "^22.5.5",
-    "eslint": "^9.10.0",
+    "@types/node": "^22.7.2",
+    "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-project-structure": "2.6.1",
+    "eslint-plugin-project-structure": "2.6.3",
     "husky": "^9.1.6",
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
@@ -90,7 +90,7 @@
     "ts-prune": "^0.10.3",
     "tsup": "^8.3.0",
     "typescript": "^5.6.2",
-    "typescript-eslint": "^8.6.0"
+    "typescript-eslint": "^8.7.0"
   },
   "resolutions": {
     "micromatch": "^4.0.8"

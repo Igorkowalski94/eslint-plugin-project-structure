@@ -1,7 +1,5 @@
 import { FinalError } from "errors/FinalError";
 
-import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
-
 import { validateAll } from "rules/independentModules/helpers/validateImport/helpers/validateAll/validateAll";
 import {
   validateImport,
@@ -15,15 +13,9 @@ jest.mock(
   }),
 );
 
-jest.mock("helpers/readConfigFile/readConfigFile", () => ({
-  readConfigFile: jest.fn(),
-}));
-
 describe("validateImport", () => {
   test("Should call report when error === FinalError ", () => {
     const reportMock = jest.fn();
-
-    (readConfigFile as jest.Mock).mockReturnValue({});
 
     (validateAll as jest.Mock).mockImplementation(() => {
       throw new FinalError("error");
@@ -33,6 +25,7 @@ describe("validateImport", () => {
       context: { report: reportMock, settings: {}, cwd: "", options: [] },
       importPath: "",
       node: {},
+      config: {},
     } as unknown as ValidateImportProps);
 
     expect(reportMock).toHaveBeenCalled();
@@ -40,8 +33,6 @@ describe("validateImport", () => {
 
   test("Should not call report when error !== FinalError ", () => {
     const reportMock = jest.fn();
-
-    (readConfigFile as jest.Mock).mockReturnValue({});
 
     (validateAll as jest.Mock).mockImplementation(() => {
       throw new Error("random error");
@@ -52,6 +43,7 @@ describe("validateImport", () => {
         context: { report: reportMock, settings: {}, cwd: "", options: [] },
         importPath: "",
         node: {},
+        config: {},
       } as unknown as ValidateImportProps),
     ).toThrow(new Error("random error"));
   });

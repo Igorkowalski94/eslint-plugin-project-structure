@@ -1,16 +1,25 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { Context, NodeType } from "rules/fileComposition/fileComposition.types";
+import {
+  Context,
+  FileCompositionConfig,
+  FileRules,
+  NodeType,
+} from "rules/fileComposition/fileComposition.types";
 import { validateFile } from "rules/fileComposition/helpers/validateFile/validateFile";
 
 interface HandlePropertyDefinitionProps {
   node: TSESTree.PropertyDefinition;
   context: Context;
+  config: FileCompositionConfig;
+  fileConfig?: FileRules;
 }
 
 export const handlePropertyDefinition = ({
   context,
   node,
+  config,
+  fileConfig,
 }: HandlePropertyDefinitionProps): void => {
   if (node.key.type !== TSESTree.AST_NODE_TYPES.Identifier) return;
 
@@ -24,5 +33,7 @@ export const handlePropertyDefinition = ({
     context,
     name: node.key.name,
     nodeType,
+    config,
+    fileConfig,
   });
 };

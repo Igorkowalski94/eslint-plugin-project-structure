@@ -1,16 +1,24 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { Context } from "rules/fileComposition/fileComposition.types";
+import {
+  Context,
+  FileCompositionConfig,
+  FileRules,
+} from "rules/fileComposition/fileComposition.types";
 import { validateFile } from "rules/fileComposition/helpers/validateFile/validateFile";
 
 interface HandleClassDeclarationProps {
   node: TSESTree.ClassDeclaration;
   context: Context;
+  config: FileCompositionConfig;
+  fileConfig?: FileRules;
 }
 
 export const handleClassDeclaration = ({
   node,
   context,
+  config,
+  fileConfig,
 }: HandleClassDeclarationProps): void => {
   if (!node.id?.name) return;
 
@@ -19,5 +27,7 @@ export const handleClassDeclaration = ({
     context,
     name: node.id.name,
     nodeType: "ClassDeclaration",
+    config,
+    fileConfig,
   });
 };

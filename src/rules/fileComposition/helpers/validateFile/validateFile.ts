@@ -1,19 +1,15 @@
 import path from "path";
 
-import { isCorrectPattern } from "helpers/isCorrectPattern";
-import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
-import { validateConfig } from "helpers/validateConfig";
-
 import {
   Context,
   FileCompositionConfig,
+  FileRules,
   Node,
   NodeType,
 } from "rules/fileComposition/fileComposition.types";
 import { isExportedName } from "rules/fileComposition/helpers/validateFile/helpers/isExportedName/isExportedName";
 import { isNameFromFileRoot } from "rules/fileComposition/helpers/validateFile/helpers/isNameFromFileRoot";
 import { validateRules } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules";
-import { FILE_COMPOSITION_SCHEMA } from "rules/fileComposition/helpers/validateFile/validateFile.consts";
 
 export interface ValidateFileProps {
   name: string;
@@ -21,43 +17,34 @@ export interface ValidateFileProps {
   context: Context;
   node: Node;
   nodeType: NodeType;
+  config: FileCompositionConfig;
+  fileConfig?: FileRules;
 }
 
 export const validateFile = ({
   name,
   expressionName,
-  context: { filename, report, options, cwd, settings },
+  context: { report, cwd, filename },
   node,
   nodeType,
+  fileConfig,
+  config,
 }: ValidateFileProps): void => {
-  const config = readConfigFile<FileCompositionConfig>({
-    cwd,
-    key: "project-structure/file-composition-config-path",
-    settings,
-    options: options[0],
-  });
-
-  validateConfig({ config, schema: FILE_COMPOSITION_SCHEMA });
-
-  const filenamePath = path.relative(cwd, filename);
-  const fileConfig = config.filesRules.find(({ filePattern }) =>
-    isCorrectPattern({ input: filenamePath, pattern: filePattern }),
-  );
-  const regexParameters = config.regexParameters;
-
   if (!fileConfig) return;
-
-  const {
-    fileExportRules: fileExportRules,
-    fileRootRules,
-    fileRules,
-  } = fileConfig;
 
   const { isExportName, currentName, currentNode } = isExportedName({
     nodeType,
     node,
     name,
   });
+
+  const filenamePath = path.relative(cwd, filename);
+  const regexParameters = config.regexParameters;
+  const {
+    fileExportRules: fileExportRules,
+    fileRootRules,
+    fileRules,
+  } = fileConfig;
 
   if (fileExportRules && isExportName) {
     return validateRules({

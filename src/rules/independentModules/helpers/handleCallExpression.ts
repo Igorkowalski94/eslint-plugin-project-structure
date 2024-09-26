@@ -1,12 +1,22 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 
 import { validateImport } from "rules/independentModules/helpers/validateImport/validateImport";
-import { Context } from "rules/independentModules/independentModules.types";
+import {
+  Context,
+  IndependentModulesConfig,
+} from "rules/independentModules/independentModules.types";
 
-export const handleCallExpression = (
-  node: TSESTree.CallExpression,
-  context: Context,
-): void => {
+interface HandleCallExpressionProps {
+  node: TSESTree.CallExpression;
+  context: Context;
+  config: IndependentModulesConfig;
+}
+
+export const handleCallExpression = ({
+  config,
+  context,
+  node,
+}: HandleCallExpressionProps): void => {
   if (
     (node.callee.type === AST_NODE_TYPES.Identifier &&
       node.callee.name === "require" &&
@@ -23,6 +33,6 @@ export const handleCallExpression = (
   ) {
     const importPath = node.arguments[0].value;
 
-    validateImport({ importPath, context, node });
+    validateImport({ importPath, context, node, config });
   }
 };

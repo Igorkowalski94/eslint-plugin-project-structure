@@ -32,7 +32,7 @@ export const getPathAliases = ({
       readFileSync(tsconfigPath, "utf-8"),
     ) as unknown as TsConfigJson;
   } catch (_e) {
-    return undefined;
+    return;
   }
 
   const {

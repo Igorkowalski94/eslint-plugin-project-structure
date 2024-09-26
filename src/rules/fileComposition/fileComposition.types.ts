@@ -58,9 +58,14 @@ export interface FileRuleObject {
   rules: FileRule[];
 }
 
-interface FilesRules {
+export interface RootSelectorLimit {
+  selector: SelectorType | SelectorType[];
+  limit: number;
+}
+
+export interface FileRules {
   filePattern: Pattern;
-  selectorsLimits?: number;
+  rootSelectorsLimits?: RootSelectorLimit[];
   selectorsOrder?: number;
   fileRootRules?: FileRule[] | FileRuleObject;
   fileExportRules?: FileRule[] | FileRuleObject;
@@ -69,7 +74,7 @@ interface FilesRules {
 
 export interface FileCompositionConfig {
   regexParameters?: RegexParameters;
-  filesRules: FilesRules[];
+  filesRules: FileRules[];
 }
 
 export type Context = Readonly<

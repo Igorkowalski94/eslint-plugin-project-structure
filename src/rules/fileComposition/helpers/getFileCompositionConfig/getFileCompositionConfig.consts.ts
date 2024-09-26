@@ -3,22 +3,23 @@ import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
   $schema: "http://json-schema.org/draft-07/schema#",
   definitions: {
+    SelectorType: {
+      type: "string",
+      default: "",
+      enum: [
+        "class",
+        "variable",
+        "variableExpression",
+        "arrowFunction",
+        "function",
+        "type",
+        "interface",
+        "enum",
+      ],
+    },
     Selector: {
       oneOf: [
-        {
-          type: "string",
-          default: "",
-          enum: [
-            "class",
-            "variable",
-            "variableExpression",
-            "arrowFunction",
-            "function",
-            "type",
-            "interface",
-            "enum",
-          ],
-        },
+        { $ref: "#/definitions/SelectorType" },
         {
           type: "object",
           default: { type: "variableExpression", limitTo: "" },
@@ -53,6 +54,28 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
           required: ["type", "limitTo"],
         },
       ],
+    },
+    RootSelectorsLimits: {
+      type: "array",
+      default: [],
+      items: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          selector: {
+            oneOf: [
+              { $ref: "#/definitions/SelectorType" },
+              {
+                type: "array",
+                default: [],
+                items: { $ref: "#/definitions/SelectorType" },
+              },
+            ],
+          },
+          limit: { type: "number" },
+        },
+        required: ["limit", "selector"],
+      },
     },
     FileRule: {
       type: "object",
@@ -141,6 +164,7 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
             },
           ],
         },
+        rootSelectorsLimits: { $ref: "#/definitions/RootSelectorsLimits" },
         fileRootRules: {
           oneOf: [
             {

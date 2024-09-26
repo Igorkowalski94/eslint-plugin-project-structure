@@ -19,6 +19,7 @@ describe("handleFunctionDeclaration", () => {
         id: { name: "className" },
       } as TSESTree.FunctionDeclaration,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).toHaveBeenCalled();
@@ -32,6 +33,7 @@ describe("handleFunctionDeclaration", () => {
     handleFunctionDeclaration({
       node: {} as TSESTree.FunctionDeclaration,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).not.toHaveBeenCalled();

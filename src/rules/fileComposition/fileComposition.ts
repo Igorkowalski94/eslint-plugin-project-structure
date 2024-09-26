@@ -2,12 +2,14 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 
 import { ESLINT_ERRORS } from "rules/fileComposition/fileComposition.consts";
 import { FileCompositionConfig } from "rules/fileComposition/fileComposition.types";
+import { getFileCompositionConfig } from "rules/fileComposition/helpers/getFileCompositionConfig/getFileCompositionConfig";
 import { handleClassDeclaration } from "rules/fileComposition/helpers/handleClassDeclaration";
 import { handleFunctionDeclaration } from "rules/fileComposition/helpers/handleFunctionDeclaration";
 import { handleMethodDefinition } from "rules/fileComposition/helpers/handleMethodDefinition";
 import { handlePropertyDefinition } from "rules/fileComposition/helpers/handlePropertyDefinition";
 import { handleVariableDeclarator } from "rules/fileComposition/helpers/handleVariableDeclarator";
 import { validateFile } from "rules/fileComposition/helpers/validateFile/validateFile";
+import { validateRootSelectorsLimits } from "rules/fileComposition/helpers/validateRootSelectorsLimits/validateRootSelectorsLimits";
 
 export const fileComposition = ESLintUtils.RuleCreator(
   () =>
@@ -26,21 +28,30 @@ export const fileComposition = ESLintUtils.RuleCreator(
   },
   defaultOptions: [],
   create(context) {
+    const { config, fileConfig } = getFileCompositionConfig(context);
+
     return {
+      Program(node): void {
+        validateRootSelectorsLimits({
+          node,
+          report: context.report,
+          rootSelectorsLimits: fileConfig?.rootSelectorsLimits,
+        });
+      },
       VariableDeclarator(node): void {
-        handleVariableDeclarator({ node, context });
+        handleVariableDeclarator({ node, context, config, fileConfig });
       },
       ClassDeclaration(node): void {
-        handleClassDeclaration({ node, context });
+        handleClassDeclaration({ node, context, config, fileConfig });
       },
       MethodDefinition(node): void {
-        handleMethodDefinition({ node, context });
+        handleMethodDefinition({ node, context, config, fileConfig });
       },
       PropertyDefinition(node): void {
-        handlePropertyDefinition({ node, context });
+        handlePropertyDefinition({ node, context, config, fileConfig });
       },
       FunctionDeclaration(node): void {
-        handleFunctionDeclaration({ node, context });
+        handleFunctionDeclaration({ node, context, config, fileConfig });
       },
       TSTypeAliasDeclaration(node): void {
         validateFile({
@@ -48,6 +59,8 @@ export const fileComposition = ESLintUtils.RuleCreator(
           context,
           name: node.id.name,
           nodeType: "TSTypeAliasDeclaration",
+          config,
+          fileConfig,
         });
       },
       TSInterfaceDeclaration(node): void {
@@ -56,6 +69,8 @@ export const fileComposition = ESLintUtils.RuleCreator(
           context,
           name: node.id.name,
           nodeType: "TSInterfaceDeclaration",
+          config,
+          fileConfig,
         });
       },
       TSEnumDeclaration(node): void {
@@ -64,6 +79,8 @@ export const fileComposition = ESLintUtils.RuleCreator(
           context,
           name: node.id.name,
           nodeType: "TSEnumDeclaration",
+          config,
+          fileConfig,
         });
       },
     };

@@ -17,15 +17,16 @@ describe("handleImportExpression", () => {
 
     (validateImport as jest.Mock).mockImplementation(validateImportMock);
 
-    handleImportExpression(
-      {
+    handleImportExpression({
+      node: {
         source: {
           value: "import",
           type: TSESTree.AST_NODE_TYPES.Literal,
         },
       } as TSESTree.ImportExpression,
-      { settings: {}, report: jest.fn() } as unknown as Context,
-    );
+      context: { settings: {}, report: jest.fn() } as unknown as Context,
+      config: { modules: [] },
+    });
 
     expect(validateImportMock).toHaveBeenCalled();
   });
@@ -35,15 +36,16 @@ describe("handleImportExpression", () => {
 
     (validateImport as jest.Mock).mockImplementation(validateImportMock);
 
-    handleImportExpression(
-      {
+    handleImportExpression({
+      node: {
         source: {
           value: 2,
           type: TSESTree.AST_NODE_TYPES.Literal,
         },
       } as unknown as TSESTree.ImportExpression,
-      { settings: {}, report: jest.fn() } as unknown as Context,
-    );
+      context: { settings: {}, report: jest.fn() } as unknown as Context,
+      config: { modules: [] },
+    });
 
     expect(validateImportMock).not.toHaveBeenCalled();
   });
@@ -53,15 +55,16 @@ describe("handleImportExpression", () => {
 
     (validateImport as jest.Mock).mockImplementation(validateImportMock);
 
-    handleImportExpression(
-      {
+    handleImportExpression({
+      node: {
         source: {
           value: ["import"],
           type: TSESTree.AST_NODE_TYPES.ArrayExpression,
         },
       } as unknown as TSESTree.ImportExpression,
-      { settings: {}, report: jest.fn() } as unknown as Context,
-    );
+      context: { settings: {}, report: jest.fn() } as unknown as Context,
+      config: { modules: [] },
+    });
 
     expect(validateImportMock).not.toHaveBeenCalled();
   });

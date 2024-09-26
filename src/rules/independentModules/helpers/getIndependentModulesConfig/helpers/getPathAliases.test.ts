@@ -1,6 +1,6 @@
 import { parse } from "comment-json";
 
-import { getPathAliases } from "rules/independentModules/helpers/validateImport/helpers/getPathAliases";
+import { getPathAliases } from "rules/independentModules/helpers/getIndependentModulesConfig/helpers/getPathAliases";
 import {
   IndependentModulesConfig,
   PathAliases,

@@ -1,6 +1,7 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { ESLINT_ERRORS } from "consts";
 
+import { getIndependentModulesConfig } from "rules/independentModules/helpers/getIndependentModulesConfig/getIndependentModulesConfig";
 import { handleCallExpression } from "rules/independentModules/helpers/handleCallExpression";
 import { handleExportNamedDeclaration } from "rules/independentModules/helpers/handleExportNamedDeclaration";
 import { handleImportExpression } from "rules/independentModules/helpers/handleImportExpression";
@@ -24,28 +25,32 @@ export const independentModules = ESLintUtils.RuleCreator(
   },
   defaultOptions: [],
   create(context) {
+    const config = getIndependentModulesConfig(context);
+
     return {
       ImportExpression(node): void {
-        handleImportExpression(node, context);
+        handleImportExpression({ config, context, node });
       },
       ImportDeclaration(node): void {
         validateImport({
           importPath: node.source.value,
           context,
           node,
+          config,
         });
       },
       ExportNamedDeclaration(node): void {
-        handleExportNamedDeclaration(node, context);
+        handleExportNamedDeclaration({ config, context, node });
       },
       CallExpression(node): void {
-        handleCallExpression(node, context);
+        handleCallExpression({ config, context, node });
       },
       ExportAllDeclaration(node): void {
         validateImport({
           importPath: node.source.value,
           context,
           node,
+          config,
         });
       },
     };

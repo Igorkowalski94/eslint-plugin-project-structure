@@ -19,6 +19,7 @@ describe("handlePropertyDefinition", () => {
         key: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "methodName" },
       } as TSESTree.PropertyDefinition,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).toHaveBeenCalled();
@@ -36,6 +37,7 @@ describe("handlePropertyDefinition", () => {
         },
       } as TSESTree.PropertyDefinition,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).not.toHaveBeenCalled();
@@ -52,6 +54,7 @@ describe("handlePropertyDefinition", () => {
         value: { type: TSESTree.AST_NODE_TYPES.ArrowFunctionExpression },
       } as TSESTree.PropertyDefinition,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).toHaveBeenCalledWith({
@@ -62,6 +65,8 @@ describe("handlePropertyDefinition", () => {
       context: {},
       name: "methodName1",
       nodeType: "ArrowFunctionExpression",
+      fileConfig: undefined,
+      config: { filesRules: [] },
     });
   });
 
@@ -75,6 +80,7 @@ describe("handlePropertyDefinition", () => {
         key: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "methodName2" },
       } as TSESTree.PropertyDefinition,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).toHaveBeenCalledWith({
@@ -84,6 +90,8 @@ describe("handlePropertyDefinition", () => {
       context: {},
       name: "methodName2",
       nodeType: "VariableDeclarator",
+      fileConfig: undefined,
+      config: { filesRules: [] },
     });
   });
 });

@@ -30,6 +30,8 @@ describe("handleVariableDeclarator", () => {
         context: {},
         name: "*",
         nodeType: "VariableDeclarator",
+        fileConfig: undefined,
+        config: { filesRules: [] },
       },
     },
     {
@@ -47,6 +49,8 @@ describe("handleVariableDeclarator", () => {
         context: {},
         name: "*",
         nodeType: "VariableDeclarator",
+        fileConfig: undefined,
+        config: { filesRules: [] },
       },
     },
   ])(
@@ -60,6 +64,7 @@ describe("handleVariableDeclarator", () => {
       handleVariableDeclarator({
         node: node as TSESTree.VariableDeclarator,
         context: {} as Context,
+        config: { filesRules: [] },
       });
 
       expect(validateFileMock).toHaveBeenCalledWith(expected);
@@ -83,6 +88,8 @@ describe("handleVariableDeclarator", () => {
         name: "*",
         nodeType: "Expression",
         expressionName: "expressionName",
+        fileConfig: undefined,
+        config: { filesRules: [] },
       },
     },
     {
@@ -101,6 +108,8 @@ describe("handleVariableDeclarator", () => {
         name: "*",
         nodeType: "Expression",
         expressionName: "expressionName",
+        fileConfig: undefined,
+        config: { filesRules: [] },
       },
     },
   ])(
@@ -117,6 +126,7 @@ describe("handleVariableDeclarator", () => {
       handleVariableDeclarator({
         node: node as TSESTree.VariableDeclarator,
         context: {} as Context,
+        config: { filesRules: [] },
       });
 
       expect(validateFileMock).toHaveBeenCalledWith(expected);
@@ -139,6 +149,7 @@ describe("handleVariableDeclarator", () => {
         },
       } as TSESTree.VariableDeclarator,
       context: {} as Context,
+      config: { filesRules: [] },
     });
 
     expect(validateFileMock).toHaveBeenCalledWith({
@@ -152,6 +163,8 @@ describe("handleVariableDeclarator", () => {
       name: "name",
       nodeType: "Expression",
       expressionName: "expressionName",
+      fileConfig: undefined,
+      config: { filesRules: [] },
     });
   });
 
@@ -179,6 +192,8 @@ describe("handleVariableDeclarator", () => {
         context: {},
         name: "name",
         nodeType: "ArrowFunctionExpression",
+        fileConfig: undefined,
+        config: { filesRules: [] },
       },
     },
     {
@@ -204,6 +219,8 @@ describe("handleVariableDeclarator", () => {
         context: {},
         name: "name",
         nodeType: "VariableDeclarator",
+        fileConfig: undefined,
+        config: { filesRules: [] },
       },
     },
   ])(
@@ -217,6 +234,7 @@ describe("handleVariableDeclarator", () => {
       handleVariableDeclarator({
         node: node as TSESTree.VariableDeclarator,
         context: {} as Context,
+        config: { filesRules: [] },
       });
 
       expect(validateFileMock).toHaveBeenCalledWith(expected);

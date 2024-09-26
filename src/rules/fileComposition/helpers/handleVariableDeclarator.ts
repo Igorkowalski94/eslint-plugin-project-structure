@@ -1,17 +1,26 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { Context, NodeType } from "rules/fileComposition/fileComposition.types";
+import {
+  Context,
+  FileCompositionConfig,
+  FileRules,
+  NodeType,
+} from "rules/fileComposition/fileComposition.types";
 import { getIdentifierFromExpression } from "rules/fileComposition/helpers/getIdentifierFromExpression";
 import { validateFile } from "rules/fileComposition/helpers/validateFile/validateFile";
 
 interface HandleVariableDeclaratorProps {
   node: TSESTree.VariableDeclarator;
   context: Context;
+  config: FileCompositionConfig;
+  fileConfig?: FileRules;
 }
 
 export const handleVariableDeclarator = ({
   node,
   context,
+  config,
+  fileConfig,
 }: HandleVariableDeclaratorProps): void => {
   const expressionName = getIdentifierFromExpression(node.init);
 
@@ -28,6 +37,8 @@ export const handleVariableDeclarator = ({
         name: "*",
         nodeType: "Expression",
         expressionName,
+        config,
+        fileConfig,
       });
 
     return validateFile({
@@ -35,6 +46,8 @@ export const handleVariableDeclarator = ({
       context,
       name: "*",
       nodeType: "VariableDeclarator",
+      config,
+      fileConfig,
     });
   }
 
@@ -45,6 +58,8 @@ export const handleVariableDeclarator = ({
       name: node.id.name,
       nodeType: "Expression",
       expressionName,
+      config,
+      fileConfig,
     });
   }
 
@@ -58,5 +73,7 @@ export const handleVariableDeclarator = ({
     context,
     name: node.id.name,
     nodeType: currentNodeType,
+    config,
+    fileConfig,
   });
 };

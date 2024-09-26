@@ -17,10 +17,11 @@ describe("handleExportNamedDeclaration", () => {
 
     (validateImport as jest.Mock).mockImplementation(validateImportMock);
 
-    handleExportNamedDeclaration(
-      { source: { value: "import" } } as TSESTree.ExportNamedDeclaration,
-      { settings: {}, report: jest.fn() } as unknown as Context,
-    );
+    handleExportNamedDeclaration({
+      node: { source: { value: "import" } } as TSESTree.ExportNamedDeclaration,
+      context: { settings: {}, report: jest.fn() } as unknown as Context,
+      config: { modules: [] },
+    });
 
     expect(validateImportMock).toHaveBeenCalled();
   });
@@ -30,10 +31,11 @@ describe("handleExportNamedDeclaration", () => {
 
     (validateImport as jest.Mock).mockImplementation(validateImportMock);
 
-    handleExportNamedDeclaration(
-      {} as TSESTree.ExportNamedDeclaration,
-      { settings: {}, report: jest.fn() } as unknown as Context,
-    );
+    handleExportNamedDeclaration({
+      node: {} as TSESTree.ExportNamedDeclaration,
+      context: { settings: {}, report: jest.fn() } as unknown as Context,
+      config: { modules: [] },
+    });
 
     expect(validateImportMock).not.toHaveBeenCalled();
   });
