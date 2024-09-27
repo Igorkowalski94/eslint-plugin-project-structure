@@ -28,7 +28,7 @@ export const validateLongPath = ({
 
   const pathMaxLength = longPathsInfo?.maxLength ?? 240;
 
-  if (currentPath.length < pathMaxLength) return;
+  if (currentPath.length <= pathMaxLength) return;
 
   if (longPathsInfo === undefined || longPathsInfo.mode === "warn")
     // eslint-disable-next-line no-console

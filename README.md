@@ -31,6 +31,8 @@
 
 🎮[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#root) for eslint-plugin-project-structure rules.
 
+Check the latest [releases](https://github.com/Igorkowalski94/eslint-plugin-project-structure/releases) and stay updated with new features and changes.
+
 Become part of the community!<br>
 Leave a ⭐ and share the link with your friends.<br>
 
@@ -73,6 +75,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 
 - Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
 - The ability to create very detailed rules, even for nested folder structures. Whether it's a large module, a sub-module, or a single file, there are no limitations.
+- Support for all types of imports, including `require()`, `import()`, `jest.mock()`, and `jest.requireActual()`, as well as `ExportAllDeclaration` and `ExportNamedDeclaration`.
 - Disabling external imports (node_modules) for a given module (Option to add exceptions).
 - Non-relative/relative imports support.
 - Support for imports without extension.
