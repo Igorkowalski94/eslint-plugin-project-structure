@@ -123,6 +123,8 @@ where removing or editing one feature triggers a chain reaction that impacts the
   backend,
   import,
   boundaries,
+  eslint,
+  eslint-plugin,
 
   naming-conventions,
   file-composition,

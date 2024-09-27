@@ -55,6 +55,8 @@ export const KEYWORDS = `
   backend,
   import,
   boundaries,
+  eslint,
+  eslint-plugin,
 
   naming-conventions,
   file-composition,
