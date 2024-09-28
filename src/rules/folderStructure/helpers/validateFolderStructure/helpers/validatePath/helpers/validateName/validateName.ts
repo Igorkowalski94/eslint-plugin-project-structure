@@ -25,7 +25,7 @@ export const validateName = ({
     .replaceAll(".", DOT_CHARACTER_REGEX)
     .replaceAll(`${DOT_CHARACTER_REGEX}${DOT_CHARACTER_REGEX}`, ".")
     .replaceAll("*", WILDCARD_REGEX)
-    .replaceAll(`*${WILDCARD_REGEX}`, "*");
+    .replaceAll(`${WILDCARD_REGEX}${WILDCARD_REGEX}`, "*");
 
   if (isRegexInvalid(regexImproved)) throw getInvalidRegexError(regexImproved);
 

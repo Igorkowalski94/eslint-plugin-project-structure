@@ -38,7 +38,7 @@ export const prepareFormat = ({
     getRegexWithoutReferences({
       regex: regex
         .replaceAll("*", WILDCARD_REGEX)
-        .replaceAll(`*${WILDCARD_REGEX}`, "*"),
+        .replaceAll(`${WILDCARD_REGEX}${WILDCARD_REGEX}`, "*"),
       regexParameters: defaultRegexParameters,
       key: "format",
     }),

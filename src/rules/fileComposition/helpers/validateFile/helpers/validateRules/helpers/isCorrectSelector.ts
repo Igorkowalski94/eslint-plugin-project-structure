@@ -28,7 +28,7 @@ export const isCorrectSelector = ({
     if (typeof selector.limitTo === "string") {
       const regexImproved = selector.limitTo
         .replaceAll("*", WILDCARD_REGEX)
-        .replaceAll(`*${WILDCARD_REGEX}`, "*");
+        .replaceAll(`${WILDCARD_REGEX}${WILDCARD_REGEX}`, "*");
 
       if (isRegexInvalid(regexImproved))
         throw getInvalidRegexError(regexImproved);
