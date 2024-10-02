@@ -13,8 +13,8 @@
 </p>
 <h1 align="center"><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/File%20Folder.png" alt="Folder" width="60" height="60" /></picture><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Owl.png" alt="Owl" width="60" height="60" /></picture><br>eslint&#8209;plugin-project&#8209;structure</h1>
 
-<p align="center">ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.</p>
-<p align="center">Create your own framework! Define your folder structure, advanced naming conventions, file composition, and create independent modules.</p>
+<p align="center">Powerful ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project.</p>
+<p align="center">Create your own framework! Define your folder structure, file composition, advanced naming conventions, and create independent modules.</p>
 <p align="center">Take your project to the next level and save time by automating the review of key principles of a healthy project!</p>
 
 <div align="center">
@@ -43,7 +43,6 @@ Leave a ⭐ and share the link with your friends.<br>
 
 ## 📚 Documentation
 
-- [Migration guide to 2.7.0](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/Migration-guide-to-2.7.0)
 - [project-structure/folder-structure](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfolder%E2%80%91structure#root)
 - [project-structure/independent-modules](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bindependent%E2%80%91modules#root)
 - [project-structure/file-composition](https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfile%E2%80%91composition#root)
@@ -84,18 +83,19 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - An option to create a separate configuration file with TypeScript support.
 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfile%E2%80%91composition#root">project&#8209;structure/&#8203;file&#8209;composition</a></h2>
-<p align="center">Enforce advanced naming rules and prohibit the use of given selectors in a given file.</p>
-<p align="center">Have full control over what your file can contain and the naming conventions it must follow.</p>
+<p align="center">Compose your ideal files!</p>
+<p align="center">Have full control over the order and quantity of selectors. Define advanced naming conventions and prohibit the use of specific selectors in given files.</p>
 
 <h4><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /></picture> Features:</h4>
 
 - File composition validation.
 - Supported selectors: `class`, `function`, `arrowFunction`, `type`, `interface`, `enum`, `variable`, `variableExpression`.
+- Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.
+- Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain interfaces and types.
+- Define the order in which your selectors should appear in a given file. Support for `--fix` to automatically correct the order.
 - Rules for exported selectors, selectors in the root of the file and nested/all selectors in the file. They can be used together in combination.
-- Prohibit the use of given selectors in a given file. For example, `**/*.consts.ts` files can only contain variables, `**/*.types.ts` files can only contain enums, interfaces and types.
 - Enforcing a maximum of one main function/class per file.
 - The ability to set a specific limit on the occurrence of certain selectors in the root of a given file.
-- Inheriting the filename as the selector name. Option to add your own prefixes/suffixes, change the case, or remove parts of the filename.
 - Selector name regex validation.
 - Build in case validation.
 - Different rules for different files.

@@ -44,31 +44,35 @@ interface VariableExpression {
 
 export type Selector = SelectorType | VariableExpression;
 
-export interface FileRule {
+export type Scope = "fileExport" | "fileRoot" | "file";
+
+export interface Rule {
   selector: Selector | Selector[];
+  scope?: Scope;
+  positionIndex?: number;
   filenamePartsToRemove?: string | string[];
   format?: string[] | string;
 }
 
-export type CustomErrors = Partial<Record<SelectorType, string>>;
-
-export interface FileRuleObject {
-  allowOnlySpecifiedSelectors?: boolean;
-  errors?: CustomErrors;
-  rules: FileRule[];
-}
+type CustomErrors = Partial<Record<SelectorType, string>>;
 
 export interface RootSelectorLimit {
   selector: SelectorType | SelectorType[];
   limit: number;
 }
 
+export interface AllowOnlySpecifiedSelectors {
+  error?: CustomErrors;
+  fileRoot?: boolean | CustomErrors;
+  fileExport?: boolean | CustomErrors;
+  file?: boolean | CustomErrors;
+}
+
 export interface FileRules {
   filePattern: Pattern;
+  allowOnlySpecifiedSelectors?: AllowOnlySpecifiedSelectors | boolean;
   rootSelectorsLimits?: RootSelectorLimit[];
-  fileRootRules?: FileRule[] | FileRuleObject;
-  fileExportRules?: FileRule[] | FileRuleObject;
-  fileRules?: FileRule[] | FileRuleObject;
+  rules?: Rule[];
 }
 
 export interface FileCompositionConfig {

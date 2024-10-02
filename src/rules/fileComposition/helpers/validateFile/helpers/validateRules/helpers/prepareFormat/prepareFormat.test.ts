@@ -6,7 +6,7 @@ import {
   STRICT_PASCAL_CASE,
 } from "consts";
 
-import { FileRule } from "rules/fileComposition/fileComposition.types";
+import { Rule } from "rules/fileComposition/fileComposition.types";
 import {
   prepareFormat,
   PrepareFormatReturn,
@@ -15,7 +15,7 @@ import {
 describe("prepareFormat", () => {
   test.each<{
     filenameWithoutParts: string;
-    format?: FileRule["format"];
+    format?: Rule["format"];
     expected: PrepareFormatReturn;
   }>([
     {

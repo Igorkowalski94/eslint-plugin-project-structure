@@ -3,13 +3,13 @@ import { RegexParameters } from "types";
 
 import { getRegexWithoutReferences } from "helpers/getRegexWithoutReferences/getRegexWithoutReferences";
 
-import { FileRule } from "rules/fileComposition/fileComposition.types";
+import { Rule } from "rules/fileComposition/fileComposition.types";
 import { getDefaultRegexParameters } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getDefaultRegexParameters";
 import { DEFAULT_FORMAT } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat.consts";
 
 interface PrepareFormatProps {
   filenameWithoutParts: string;
-  format: FileRule["format"];
+  format: Rule["format"];
   regexParameters?: RegexParameters;
 }
 

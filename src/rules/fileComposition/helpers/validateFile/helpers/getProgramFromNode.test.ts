@@ -1,6 +1,6 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { getProgramFromNode } from "rules/fileComposition/helpers/validateFile/helpers/isExportedName/helpers/getProgramFromNode";
+import { getProgramFromNode } from "rules/fileComposition/helpers/validateFile/helpers/getProgramFromNode";
 import { ValidateFileProps } from "rules/fileComposition/helpers/validateFile/validateFile";
 
 describe("IsExportName", () => {

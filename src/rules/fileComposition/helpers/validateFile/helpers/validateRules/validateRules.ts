@@ -3,18 +3,19 @@ import { RegexParameters } from "types";
 import { ESLINT_ERRORS } from "rules/fileComposition/fileComposition.consts";
 import {
   Context,
-  FileRule,
-  FileRuleObject,
+  Rule,
   NodeType,
+  Scope,
+  FileRules,
 } from "rules/fileComposition/fileComposition.types";
 import { getFileNameWithoutExtension } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFileNameWithoutExtension";
 import { getFormatWithFilenameReferences } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFormatWithFilenameReferences";
-import { getRules } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getRules";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
 import { isNameValid } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isNameValid";
 import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/isSelectorAllowed";
 import { prepareFormat } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat";
 import { removeFilenameParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/removeFilenameParts";
+import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/validatePositionIndex";
 import { SELECTORS } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules.consts";
 import { ValidateFileProps } from "rules/fileComposition/helpers/validateFile/validateFile";
 
@@ -23,79 +24,101 @@ interface ValidateRulesProps {
   filenamePath: string;
   node: ValidateFileProps["node"];
   nodeType: NodeType;
-  report: Context["report"];
-  fileRule: FileRule[] | FileRuleObject;
+  rules: Rule[];
   errorMessageId: keyof typeof ESLINT_ERRORS;
   regexParameters?: RegexParameters;
   expressionName?: string;
+  allowOnlySpecifiedSelectors?: FileRules["allowOnlySpecifiedSelectors"];
+  scope: Scope;
+  context: Context;
 }
 
 export const validateRules = ({
   nodeType,
   name,
   node,
-  report,
   filenamePath,
-  fileRule,
+  rules,
   errorMessageId,
   regexParameters,
   expressionName,
+  allowOnlySpecifiedSelectors,
+  scope,
+  context,
+  context: { report },
 }: ValidateRulesProps): void => {
   const selectorType = SELECTORS[nodeType];
 
   if (
     !isSelectorAllowed({
-      fileRule,
+      rules,
+      scope,
+      allowOnlySpecifiedSelectors,
       node,
       selectorType,
       report,
       errorMessageId,
       expressionName,
-    })
+    }) ||
+    name === "*"
   )
     return;
 
-  getRules(fileRule).forEach((rule) => {
-    if (
-      !isCorrectSelector({
-        selectorType,
-        selector: rule.selector,
-        expressionName,
-      })
-    )
-      return;
+  const selectorTypeRules = rules.filter(({ selector }) =>
+    isCorrectSelector({
+      selectorType,
+      selector,
+      expressionName,
+    }),
+  );
 
-    const { format, filenamePartsToRemove } = rule;
+  const formatWithoutReferences = selectorTypeRules
+    .map((rule) => {
+      const { format, filenamePartsToRemove, positionIndex } = rule;
 
-    const filenameWithoutExtension = getFileNameWithoutExtension(filenamePath);
-    const filenameWithoutParts = removeFilenameParts({
-      filenameWithoutExtension,
-      filenamePartsToRemove,
-    });
-    const { formatWithReferences, formatWithoutReferences } = prepareFormat({
-      format,
-      filenameWithoutParts,
-      regexParameters,
-    });
-    const isValidExport = isNameValid({
-      formatWithoutReferences,
-      name,
-    });
+      const filenameWithoutExtension =
+        getFileNameWithoutExtension(filenamePath);
+      const filenameWithoutParts = removeFilenameParts({
+        filenameWithoutExtension,
+        filenamePartsToRemove,
+      });
+      const { formatWithReferences, formatWithoutReferences } = prepareFormat({
+        format,
+        filenameWithoutParts,
+        regexParameters,
+      });
+      const isValid = isNameValid({
+        formatWithoutReferences,
+        name,
+      });
 
-    if (isValidExport || name === "*") return;
+      if (isValid)
+        return validatePositionIndex({
+          node,
+          positionIndex,
+          selectorType,
+          context,
+        });
 
-    const formatWithFilenameReferences = getFormatWithFilenameReferences({
-      formatWithReferences,
-      filename: filenameWithoutParts,
-    });
+      return getFormatWithFilenameReferences({
+        formatWithReferences,
+        filename: filenameWithoutParts,
+      });
+    })
+    .filter((v): v is string[] => v !== undefined);
 
-    report({
-      node,
-      messageId: "invalidName",
-      data: {
-        selectorType,
-        formatWithoutReferences: formatWithFilenameReferences.join(", "),
-      },
-    });
+  if (
+    !formatWithoutReferences.length ||
+    formatWithoutReferences.length !== selectorTypeRules.length
+  )
+    return;
+
+  report({
+    node,
+    messageId: "invalidName",
+    data: {
+      selectorType,
+      formatWithoutReferences: formatWithoutReferences.flat().join(", "),
+    },
   });
 };

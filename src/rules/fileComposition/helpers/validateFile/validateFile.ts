@@ -24,7 +24,8 @@ export interface ValidateFileProps {
 export const validateFile = ({
   name,
   expressionName,
-  context: { report, cwd, filename },
+  context,
+  context: { cwd, filename },
   node,
   nodeType,
   fileConfig,
@@ -32,31 +33,32 @@ export const validateFile = ({
 }: ValidateFileProps): void => {
   if (!fileConfig) return;
 
+  const { rules, allowOnlySpecifiedSelectors } = fileConfig;
+  const fileExportRules = rules?.filter(({ scope }) => scope === "fileExport");
+  const fileRootRules = rules?.filter(({ scope }) => scope === "fileRoot");
+  const fileRules = rules?.filter(({ scope }) => scope === "file" || !scope);
+  const filenamePath = path.relative(cwd, filename);
+  const regexParameters = config.regexParameters;
+
   const { isExportName, currentName, currentNode } = isExportedName({
     nodeType,
     node,
     name,
   });
 
-  const filenamePath = path.relative(cwd, filename);
-  const regexParameters = config.regexParameters;
-  const {
-    fileExportRules: fileExportRules,
-    fileRootRules,
-    fileRules,
-  } = fileConfig;
-
-  if (fileExportRules && isExportName) {
+  if (fileExportRules?.length && isExportName) {
     return validateRules({
-      fileRule: fileExportRules,
+      rules: fileExportRules,
       name: currentName,
       nodeType,
       node: currentNode,
-      report,
+      context,
       filenamePath,
       errorMessageId: "prohibitedSelectorExport",
       regexParameters,
       expressionName,
+      allowOnlySpecifiedSelectors,
+      scope: "fileExport",
     });
   }
 
@@ -65,31 +67,35 @@ export const validateFile = ({
     node,
   });
 
-  if (fileRootRules && isFileRootName) {
+  if (fileRootRules?.length && isFileRootName) {
     return validateRules({
-      fileRule: fileRootRules,
+      rules: fileRootRules,
       name,
       nodeType,
       node,
-      report,
+      context,
       filenamePath,
       errorMessageId: "prohibitedSelectorRoot",
       regexParameters,
       expressionName,
+      allowOnlySpecifiedSelectors,
+      scope: "fileRoot",
     });
   }
 
-  if (fileRules) {
+  if (fileRules?.length) {
     return validateRules({
-      fileRule: fileRules,
+      rules: fileRules,
       name,
       nodeType,
       node,
-      report,
       filenamePath,
       errorMessageId: "prohibitedSelector",
       regexParameters,
       expressionName,
+      allowOnlySpecifiedSelectors,
+      scope: "file",
+      context,
     });
   }
 };

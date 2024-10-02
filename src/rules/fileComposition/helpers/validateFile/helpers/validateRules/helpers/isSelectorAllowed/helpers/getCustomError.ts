@@ -1,18 +1,30 @@
 import {
-  CustomErrors,
+  AllowOnlySpecifiedSelectors,
+  Scope,
   SelectorType,
 } from "rules/fileComposition/fileComposition.types";
 
-interface GetCustomErrorProps {
+export interface GetCustomErrorProps {
   selectorType: SelectorType;
-  errors?: CustomErrors;
+  allowOnlySpecifiedSelectors: AllowOnlySpecifiedSelectors | true;
+  scope: Scope;
 }
 
 export const getCustomError = ({
   selectorType,
-  errors,
+  allowOnlySpecifiedSelectors,
+  scope,
 }: GetCustomErrorProps): string => {
-  if (!errors?.[selectorType]) return "";
+  if (allowOnlySpecifiedSelectors === true) return "";
 
-  return `\n\n${errors[selectorType]}\n\n`;
+  if (
+    typeof allowOnlySpecifiedSelectors[scope] === "object" &&
+    allowOnlySpecifiedSelectors[scope][selectorType]
+  )
+    return `\n\n${allowOnlySpecifiedSelectors[scope][selectorType]}\n\n`;
+
+  if (allowOnlySpecifiedSelectors.error?.[selectorType])
+    return `\n\n${allowOnlySpecifiedSelectors.error[selectorType]}\n\n`;
+
+  return "";
 };

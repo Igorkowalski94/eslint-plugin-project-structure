@@ -1,21 +1,20 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
+import { Context } from "rules/fileComposition/fileComposition.types";
 import { validateRules } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules";
 
 describe("validateRules", () => {
   test("Should return undefined if !isSelectorAllowed", () => {
     expect(
       validateRules({
-        fileRule: {
-          allowOnlySpecifiedSelectors: true,
-          rules: [{ selector: "arrowFunction" }],
-        },
+        rules: [{ selector: "arrowFunction" }],
         filenamePath: "C:/somePath/src/features/Feature1/Feature1.tsx",
-        report: () => undefined,
+        context: { report: jest.fn() } as unknown as Context,
         name: "functionName",
         node: {} as TSESTree.VariableDeclarator,
         nodeType: "VariableDeclarator",
         errorMessageId: "prohibitedSelector",
+        scope: "file",
       }),
     ).toEqual(undefined);
   });
@@ -23,19 +22,18 @@ describe("validateRules", () => {
   test("Should return undefined if !isSelectorAllowed && !expressionName", () => {
     expect(
       validateRules({
-        fileRule: {
-          allowOnlySpecifiedSelectors: true,
-          rules: [
-            { selector: { type: "variableExpression", limitTo: "styled" } },
-          ],
-        },
+        allowOnlySpecifiedSelectors: true,
+        rules: [
+          { selector: { type: "variableExpression", limitTo: "styled" } },
+        ],
         filenamePath: "C:/somePath/src/features/Feature1/Feature1.tsx",
-        report: () => undefined,
+        context: { report: jest.fn() } as unknown as Context,
         name: "functionName",
         node: {} as TSESTree.VariableDeclarator,
         nodeType: "Expression",
         errorMessageId: "prohibitedSelector",
         expressionName: "expressionName",
+        scope: "file",
       }),
     ).toEqual(undefined);
   });
@@ -43,13 +41,15 @@ describe("validateRules", () => {
   test("Should return undefined if !isCorrectSelector", () => {
     expect(
       validateRules({
-        fileRule: [{ selector: "arrowFunction" }],
+        rules: [{ selector: "arrowFunction" }],
         filenamePath: "C:/somePath/src/features/Feature1/Feature1.tsx",
-        report: () => undefined,
+        context: { report: jest.fn() } as unknown as Context,
         name: "functionName",
         node: {} as TSESTree.VariableDeclarator,
         nodeType: "VariableDeclarator",
         errorMessageId: "prohibitedSelector",
+        scope: "file",
+        allowOnlySpecifiedSelectors: true,
       }),
     ).toEqual(undefined);
   });
@@ -57,9 +57,9 @@ describe("validateRules", () => {
   test("Should return undefined if isValidExport", () => {
     expect(
       validateRules({
-        fileRule: [{ selector: "variable" }],
+        rules: [{ selector: "variable" }],
         filenamePath: "C:/somePath/src/features/Feature1/Feature1.tsx",
-        report: () => undefined,
+        context: { report: jest.fn() } as unknown as Context,
         name: "functionName",
         node: {
           parent: {
@@ -70,6 +70,7 @@ describe("validateRules", () => {
         } as unknown as TSESTree.VariableDeclarator,
         nodeType: "VariableDeclarator",
         errorMessageId: "prohibitedSelector",
+        scope: "file",
       }),
     ).toEqual(undefined);
   });
@@ -78,9 +79,9 @@ describe("validateRules", () => {
     const reportMock = jest.fn();
 
     validateRules({
-      fileRule: [{ selector: "variable" }],
+      rules: [{ selector: "variable" }],
       filenamePath: "C:/somePath/src/features/Feature1/Feature1.tsx",
-      report: reportMock,
+      context: { report: reportMock } as unknown as Context,
       name: "SOME_NAME",
       node: {
         parent: {
@@ -91,6 +92,7 @@ describe("validateRules", () => {
       } as unknown as TSESTree.VariableDeclarator,
       nodeType: "VariableDeclarator",
       errorMessageId: "prohibitedSelector",
+      scope: "file",
     });
 
     expect(reportMock).toHaveBeenCalledWith({

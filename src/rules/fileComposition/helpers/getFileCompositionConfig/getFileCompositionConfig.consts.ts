@@ -92,6 +92,12 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
             },
           ],
         },
+        scope: {
+          type: "string",
+          default: "file",
+          enum: ["file", "fileExport", "fileRoot"],
+        },
+        positionIndex: { type: "number", default: 0 },
         filenamePartsToRemove: {
           oneOf: [
             { type: "string", default: "" },
@@ -111,34 +117,20 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
       },
       required: ["selector"],
     },
-    FileRuleObject: {
+    CustomErrors: {
       type: "object",
       default: {},
       additionalProperties: false,
       properties: {
-        allowOnlySpecifiedSelectors: { type: "boolean", default: true },
-        errors: {
-          type: "object",
-          default: {},
-          additionalProperties: false,
-          properties: {
-            class: { type: "string", default: "" },
-            variable: { type: "string", default: "" },
-            variableExpression: { type: "string", default: "" },
-            function: { type: "string", default: "" },
-            arrowFunction: { type: "string", default: "" },
-            type: { type: "string", default: "" },
-            interface: { type: "string", default: "" },
-            enum: { type: "string", default: "" },
-          },
-        },
-        rules: {
-          type: "array",
-          default: [],
-          items: { $ref: "#/definitions/FileRule" },
-        },
+        class: { type: "string", default: "" },
+        variable: { type: "string", default: "" },
+        variableExpression: { type: "string", default: "" },
+        function: { type: "string", default: "" },
+        arrowFunction: { type: "string", default: "" },
+        type: { type: "string", default: "" },
+        interface: { type: "string", default: "" },
+        enum: { type: "string", default: "" },
       },
-      required: ["rules"],
     },
     FileRules: {
       type: "object",
@@ -164,36 +156,47 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
             },
           ],
         },
+        allowOnlySpecifiedSelectors: {
+          oneOf: [
+            { type: "boolean", default: true },
+            {
+              type: "object",
+              additionalProperties: false,
+              default: {
+                errors: {},
+                fileRoot: true,
+                fileExport: true,
+                file: true,
+              },
+              properties: {
+                error: { $ref: "#/definitions/CustomErrors" },
+                fileRoot: {
+                  oneOf: [
+                    { type: "boolean", default: true },
+                    { $ref: "#/definitions/CustomErrors" },
+                  ],
+                },
+                fileExport: {
+                  oneOf: [
+                    { type: "boolean", default: true },
+                    { $ref: "#/definitions/CustomErrors" },
+                  ],
+                },
+                file: {
+                  oneOf: [
+                    { type: "boolean", default: true },
+                    { $ref: "#/definitions/CustomErrors" },
+                  ],
+                },
+              },
+            },
+          ],
+        },
         rootSelectorsLimits: { $ref: "#/definitions/RootSelectorsLimits" },
-        fileRootRules: {
-          oneOf: [
-            {
-              type: "array",
-              default: [],
-              items: { $ref: "#/definitions/FileRule" },
-            },
-            { $ref: "#/definitions/FileRuleObject" },
-          ],
-        },
-        fileExportRules: {
-          oneOf: [
-            {
-              type: "array",
-              default: [],
-              items: { $ref: "#/definitions/FileRule" },
-            },
-            { $ref: "#/definitions/FileRuleObject" },
-          ],
-        },
-        fileRules: {
-          oneOf: [
-            {
-              type: "array",
-              default: [],
-              items: { $ref: "#/definitions/FileRule" },
-            },
-            { $ref: "#/definitions/FileRuleObject" },
-          ],
+        rules: {
+          type: "array",
+          default: [],
+          items: { $ref: "#/definitions/FileRule" },
         },
       },
       required: ["filePattern"],

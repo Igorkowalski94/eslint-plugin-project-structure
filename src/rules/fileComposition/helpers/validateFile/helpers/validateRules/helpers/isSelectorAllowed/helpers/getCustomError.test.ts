@@ -1,16 +1,48 @@
-import { getCustomError } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/helpers/getCustomError";
+import {
+  getCustomError,
+  GetCustomErrorProps,
+} from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/helpers/getCustomError";
 
-describe("getRules", () => {
-  test("Should return error message when !!errors", () => {
-    expect(
-      getCustomError({
-        selectorType: "arrowFunction",
-        errors: { arrowFunction: "arrowFunction error" },
-      }),
-    ).toEqual("\n\narrowFunction error\n\n");
-  });
-
-  test("Should return undefined when !errors", () => {
-    expect(getCustomError({ selectorType: "arrowFunction" })).toEqual("");
-  });
+describe("getCustomError", () => {
+  test.each<{
+    allowOnlySpecifiedSelectors: GetCustomErrorProps["allowOnlySpecifiedSelectors"];
+    expected: string;
+  }>([
+    {
+      allowOnlySpecifiedSelectors: true,
+      expected: "",
+    },
+    {
+      allowOnlySpecifiedSelectors: { error: { arrowFunction: "errorGlobal" } },
+      expected: "\n\nerrorGlobal\n\n",
+    },
+    {
+      allowOnlySpecifiedSelectors: {
+        error: { arrowFunction: "errorGlobal" },
+        file: { arrowFunction: "errorFile" },
+      },
+      expected: "\n\nerrorFile\n\n",
+    },
+    {
+      allowOnlySpecifiedSelectors: {
+        file: { arrowFunction: "errorFile" },
+      },
+      expected: "\n\nerrorFile\n\n",
+    },
+    {
+      allowOnlySpecifiedSelectors: {},
+      expected: "",
+    },
+  ])(
+    "Should return correct values for %o",
+    ({ allowOnlySpecifiedSelectors, expected }) => {
+      expect(
+        getCustomError({
+          allowOnlySpecifiedSelectors,
+          scope: "file",
+          selectorType: "arrowFunction",
+        }),
+      ).toEqual(expected);
+    },
+  );
 });

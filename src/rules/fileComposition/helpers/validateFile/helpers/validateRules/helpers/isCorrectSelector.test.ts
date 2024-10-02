@@ -2,13 +2,13 @@ import { getInvalidRegexError } from "errors/getInvalidRegexError";
 
 import {
   SelectorType,
-  FileRule,
+  Rule,
 } from "rules/fileComposition/fileComposition.types";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
 
 describe("isCorrectNameType", () => {
   test.each<{
-    selector: FileRule["selector"];
+    selector: Rule["selector"];
     selectorType: SelectorType;
     expected: boolean;
     expressionName?: string;

@@ -25,6 +25,7 @@ export const fileComposition = ESLintUtils.RuleCreator(
     type: "problem",
     schema: [{ type: "object", additionalProperties: true }],
     messages: ESLINT_ERRORS,
+    fixable: "code",
   },
   defaultOptions: [],
   create(context) {

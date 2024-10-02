@@ -44,14 +44,7 @@ describe("validateFile", () => {
         node: {} as TSESTree.VariableDeclarator,
         nodeType: "VariableDeclarator",
         config: {
-          filesRules: [
-            {
-              filePattern: "**/*.ts",
-              fileRootRules: [{ selector: "variable" }],
-              fileExportRules: [{ selector: "variable" }],
-              fileRules: [{ selector: "variable" }],
-            },
-          ],
+          filesRules: [{ filePattern: "**/*.ts" }],
         },
         fileConfig: undefined,
       }),
@@ -83,35 +76,40 @@ describe("validateFile", () => {
         filesRules: [
           {
             filePattern: "**/*.ts",
-            fileRootRules: [{ selector: "variable" }],
-            fileExportRules: [{ selector: "variable" }],
-            fileRules: [{ selector: "variable" }],
+            rules: [{ scope: "fileExport", selector: "variable" }],
           },
         ],
       },
       fileConfig: {
         filePattern: "**/*.ts",
-        fileRootRules: [{ selector: "variable" }],
-        fileExportRules: [{ selector: "variable" }],
-        fileRules: [{ selector: "variable" }],
+        rules: [{ scope: "fileExport", selector: "variable" }],
       },
     });
 
     expect(validateRulesMock).toHaveBeenCalledWith({
-      fileRule: [{ selector: "variable" }],
+      rules: [{ scope: "fileExport", selector: "variable" }],
       name: "componentNameExport",
       nodeType: "VariableDeclarator",
       node: {},
-      report: reportMock,
       filenamePath: path.relative(
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",
       ),
       errorMessageId: "prohibitedSelectorExport",
+      scope: "fileExport",
+      context: {
+        report: reportMock,
+        settings: {},
+        cwd: "C:/somePath",
+        filename: "C:/somePath/src/features/Feature1/Feature1.ts",
+      },
+      expressionName: undefined,
+      allowOnlySpecifiedSelectors: undefined,
+      regexParameters: undefined,
     });
   });
 
-  test("Should call fileExportRules for fileRootRules", () => {
+  test("Should call fileRootRules", () => {
     const validateRulesMock = jest.fn();
     const reportMock = jest.fn();
 
@@ -137,35 +135,40 @@ describe("validateFile", () => {
         filesRules: [
           {
             filePattern: "**/*.ts",
-            fileRootRules: [{ selector: "variable" }],
-            fileExportRules: [{ selector: "variable" }],
-            fileRules: [{ selector: "variable" }],
+            rules: [{ scope: "fileRoot", selector: "variable" }],
           },
         ],
       },
       fileConfig: {
         filePattern: "**/*.ts",
-        fileRootRules: [{ selector: "variable" }],
-        fileExportRules: [{ selector: "variable" }],
-        fileRules: [{ selector: "variable" }],
+        rules: [{ scope: "fileRoot", selector: "variable" }],
       },
     });
 
     expect(validateRulesMock).toHaveBeenCalledWith({
-      fileRule: [{ selector: "variable" }],
+      rules: [{ scope: "fileRoot", selector: "variable" }],
       name: "componentName",
       nodeType: "VariableDeclarator",
       node: {},
-      report: reportMock,
       filenamePath: path.relative(
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",
       ),
       errorMessageId: "prohibitedSelectorRoot",
+      scope: "fileRoot",
+      context: {
+        report: reportMock,
+        settings: {},
+        cwd: "C:/somePath",
+        filename: "C:/somePath/src/features/Feature1/Feature1.ts",
+      },
+      expressionName: undefined,
+      allowOnlySpecifiedSelectors: undefined,
+      regexParameters: undefined,
     });
   });
 
-  test("Should call fileExportRules for fileRules", () => {
+  test("Should call fileRules", () => {
     const validateRulesMock = jest.fn();
     const reportMock = jest.fn();
 
@@ -191,31 +194,45 @@ describe("validateFile", () => {
         filesRules: [
           {
             filePattern: "**/*.ts",
-            fileRootRules: [{ selector: "variable" }],
-            fileExportRules: [{ selector: "variable" }],
-            fileRules: [{ selector: "variable" }],
+            rules: [
+              { scope: "file", selector: "variable" },
+              { selector: "variable" },
+            ],
           },
         ],
       },
       fileConfig: {
         filePattern: "**/*.ts",
-        fileRootRules: [{ selector: "variable" }],
-        fileExportRules: [{ selector: "variable" }],
-        fileRules: [{ selector: "variable" }],
+        rules: [
+          { scope: "file", selector: "variable" },
+          { selector: "variable" },
+        ],
       },
     });
 
     expect(validateRulesMock).toHaveBeenCalledWith({
-      fileRule: [{ selector: "variable" }],
+      rules: [
+        { scope: "file", selector: "variable" },
+        { selector: "variable" },
+      ],
       name: "componentName",
       nodeType: "VariableDeclarator",
       node: {},
-      report: reportMock,
       filenamePath: path.relative(
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",
       ),
       errorMessageId: "prohibitedSelector",
+      scope: "file",
+      context: {
+        report: reportMock,
+        settings: {},
+        cwd: "C:/somePath",
+        filename: "C:/somePath/src/features/Feature1/Feature1.ts",
+      },
+      expressionName: undefined,
+      allowOnlySpecifiedSelectors: undefined,
+      regexParameters: undefined,
     });
   });
 });

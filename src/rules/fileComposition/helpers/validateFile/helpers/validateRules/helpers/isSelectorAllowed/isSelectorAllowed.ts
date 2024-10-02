@@ -1,16 +1,19 @@
 import { ESLINT_ERRORS } from "rules/fileComposition/fileComposition.consts";
 import {
   Context,
-  FileRule,
-  FileRuleObject,
+  Rule,
   Node,
   SelectorType,
+  Scope,
+  FileRules,
 } from "rules/fileComposition/fileComposition.types";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
 import { getCustomError } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/helpers/getCustomError";
 
 interface IsSelectorAllowedProps {
-  fileRule: FileRule[] | FileRuleObject;
+  rules: Rule[];
+  allowOnlySpecifiedSelectors?: FileRules["allowOnlySpecifiedSelectors"];
+  scope: Scope;
   report: Context["report"];
   node: Node;
   errorMessageId: keyof typeof ESLINT_ERRORS;
@@ -19,36 +22,42 @@ interface IsSelectorAllowedProps {
 }
 
 export const isSelectorAllowed = ({
-  fileRule,
+  rules,
   report,
   node,
   errorMessageId,
   selectorType,
   expressionName,
+  scope,
+  allowOnlySpecifiedSelectors,
 }: IsSelectorAllowedProps): boolean => {
-  if (
-    !Array.isArray(fileRule) &&
-    fileRule.allowOnlySpecifiedSelectors &&
-    !fileRule.rules
-      .map(({ selector }) => selector)
-      .flat()
-      .some((selector) =>
-        isCorrectSelector({ selector, selectorType, expressionName }),
-      )
-  ) {
-    report({
-      messageId: errorMessageId,
-      data: {
-        selectorType,
-        error: getCustomError({
-          selectorType,
-          errors: fileRule.errors,
-        }),
-      },
-      node,
-    });
-    return false;
-  }
+  const isAllowed = rules
+    .map(({ selector }) => selector)
+    .flat()
+    .some((selector) =>
+      isCorrectSelector({ selector, selectorType, expressionName }),
+    );
 
-  return true;
+  if (
+    isAllowed ||
+    !allowOnlySpecifiedSelectors ||
+    (typeof allowOnlySpecifiedSelectors === "object" &&
+      allowOnlySpecifiedSelectors[scope] === false)
+  )
+    return true;
+
+  report({
+    messageId: errorMessageId,
+    data: {
+      selectorType,
+      error: getCustomError({
+        selectorType,
+        scope,
+        allowOnlySpecifiedSelectors,
+      }),
+    },
+    node,
+  });
+
+  return false;
 };

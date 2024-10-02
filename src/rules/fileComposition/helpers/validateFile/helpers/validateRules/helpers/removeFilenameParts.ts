@@ -1,8 +1,8 @@
-import { FileRule } from "rules/fileComposition/fileComposition.types";
+import { Rule } from "rules/fileComposition/fileComposition.types";
 
 interface RemoveFilenamePartsProps {
   filenameWithoutExtension: string;
-  filenamePartsToRemove: FileRule["filenamePartsToRemove"];
+  filenamePartsToRemove: Rule["filenamePartsToRemove"];
 }
 
 export const removeFilenameParts = ({

@@ -1,9 +1,9 @@
-import { FileRule } from "rules/fileComposition/fileComposition.types";
+import { Rule } from "rules/fileComposition/fileComposition.types";
 import { removeFilenameParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/removeFilenameParts";
 
 describe("removeFilenameParts", () => {
   test.each<{
-    filenamePartsToRemove?: FileRule["filenamePartsToRemove"];
+    filenamePartsToRemove?: Rule["filenamePartsToRemove"];
     filenameWithoutExtension: string;
     expected: string;
   }>([
