@@ -91,6 +91,7 @@ describe("validateFile", () => {
       name: "componentNameExport",
       nodeType: "VariableDeclarator",
       node: {},
+      nodeNotExported: {},
       filenamePath: path.relative(
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",

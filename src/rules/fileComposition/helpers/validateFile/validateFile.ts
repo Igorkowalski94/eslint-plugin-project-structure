@@ -52,6 +52,7 @@ export const validateFile = ({
       name: currentName,
       nodeType,
       node: currentNode,
+      nodeNotExported: node,
       context,
       filenamePath,
       errorMessageId: "prohibitedSelectorExport",

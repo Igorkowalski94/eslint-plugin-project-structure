@@ -23,6 +23,7 @@ interface ValidateRulesProps {
   name: string;
   filenamePath: string;
   node: ValidateFileProps["node"];
+  nodeNotExported?: ValidateFileProps["node"];
   nodeType: NodeType;
   rules: Rule[];
   errorMessageId: keyof typeof ESLINT_ERRORS;
@@ -44,6 +45,7 @@ export const validateRules = ({
   expressionName,
   allowOnlySpecifiedSelectors,
   scope,
+  nodeNotExported,
   context,
   context: { report },
 }: ValidateRulesProps): void => {
@@ -94,7 +96,7 @@ export const validateRules = ({
 
       if (isValid)
         return validatePositionIndex({
-          node,
+          node: nodeNotExported ?? node,
           positionIndex,
           selectorType,
           context,
