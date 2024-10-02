@@ -84,7 +84,8 @@ where removing or editing one feature triggers a chain reaction that impacts the
 
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bfile%E2%80%91composition#root">project&#8209;structure/&#8203;file&#8209;composition</a></h2>
 <p align="center">Compose your ideal files!</p>
-<p align="center">Have full control over the order and quantity of selectors. Define advanced naming conventions and prohibit the use of specific selectors in given files.</p>
+<p align="center">Have full control over the order and quantity of selectors.</p>
+<p align="center">Define advanced naming conventions and prohibit the use of specific selectors in given files.</p>
 
 <h4><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /></picture> Features:</h4>
 
