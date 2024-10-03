@@ -17,11 +17,16 @@ export const getCustomError = ({
 }: GetCustomErrorProps): string => {
   if (allowOnlySpecifiedSelectors === true) return "";
 
-  if (
-    typeof allowOnlySpecifiedSelectors[scope] === "object" &&
-    allowOnlySpecifiedSelectors[scope][selectorType]
-  )
-    return `\n\n${allowOnlySpecifiedSelectors[scope][selectorType]}\n\n`;
+  if (typeof allowOnlySpecifiedSelectors[scope] === "object") {
+    const scopeErrors = {
+      ...allowOnlySpecifiedSelectors.error,
+      ...allowOnlySpecifiedSelectors[scope],
+    };
+
+    if (!scopeErrors[selectorType]) return "";
+
+    return `\n\n${scopeErrors[selectorType]}\n\n`;
+  }
 
   if (allowOnlySpecifiedSelectors.error?.[selectorType])
     return `\n\n${allowOnlySpecifiedSelectors.error[selectorType]}\n\n`;

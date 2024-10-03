@@ -25,6 +25,13 @@ describe("getCustomError", () => {
     },
     {
       allowOnlySpecifiedSelectors: {
+        error: { function: "errorGlobal" },
+        file: { function: "errorFile" },
+      },
+      expected: "",
+    },
+    {
+      allowOnlySpecifiedSelectors: {
         file: { arrowFunction: "errorFile" },
       },
       expected: "\n\nerrorFile\n\n",
