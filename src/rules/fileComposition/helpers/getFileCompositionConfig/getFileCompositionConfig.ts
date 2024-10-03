@@ -11,6 +11,7 @@ import {
 } from "rules/fileComposition/fileComposition.types";
 import { FILE_COMPOSITION_SCHEMA } from "rules/fileComposition/helpers/getFileCompositionConfig/getFileCompositionConfig.consts";
 
+// eslint-disable-next-line project-structure/file-composition
 interface GetFileCompositionConfigReturn {
   config: FileCompositionConfig;
   fileConfig?: FileRules;

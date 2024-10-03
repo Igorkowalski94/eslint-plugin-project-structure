@@ -1,5 +1,5 @@
 import { Rule } from "rules/fileComposition/fileComposition.types";
-import { removeFilenameParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/removeFilenameParts";
+import { removeFilenameParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFilenameWithoutParts/helpers/removeFilenameParts";
 
 describe("removeFilenameParts", () => {
   test.each<{

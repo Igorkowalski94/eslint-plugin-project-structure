@@ -4,6 +4,7 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { SelectorType } from "rules/fileComposition/fileComposition.types";
 import { getIdentifierFromExpression } from "rules/fileComposition/helpers/getIdentifierFromExpression";
 
+// eslint-disable-next-line project-structure/file-composition
 type GetSelectorsCountReturn = Partial<Record<SelectorType, number>>;
 
 export const getSelectorsCount = (

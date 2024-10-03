@@ -5,40 +5,28 @@ import {
   Node,
   SelectorType,
 } from "rules/fileComposition/fileComposition.types";
-import { getProgramFromNode } from "rules/fileComposition/helpers/validateFile/helpers/getProgramFromNode";
-import { getConvertedPositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/helpers/getConvertedPositionIndex";
 import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/helpers/getNodePosition";
 
 interface ValidatePositionIndexProps {
   node: Node;
-  positionIndex?: number;
+  positionIndex: number;
   selectorType: SelectorType;
   context: Context;
+  bodyWithoutImports: TSESTree.ProgramStatement[];
 }
 
 export const validatePositionIndex = ({
   node,
-  positionIndex,
   selectorType,
   context: { report, sourceCode },
+  positionIndex,
+  bodyWithoutImports,
 }: ValidatePositionIndexProps): void => {
-  if (positionIndex === undefined) return;
-
-  const program = getProgramFromNode(node);
-  const bodyWithoutImports = program.body.filter(
-    ({ type }) => type !== TSESTree.AST_NODE_TYPES.ImportDeclaration,
-  );
-
   const nodePosition = getNodePosition({ bodyWithoutImports, node });
 
-  const convertedPositionIndex = getConvertedPositionIndex({
-    positionIndex,
-    bodyWithoutImportsLength: bodyWithoutImports.length,
-  });
+  if (nodePosition === positionIndex) return;
 
-  if (nodePosition === convertedPositionIndex) return;
-
-  const nodeToReplace = bodyWithoutImports[convertedPositionIndex];
+  const nodeToReplace = bodyWithoutImports[positionIndex];
   const currentNodePosition = bodyWithoutImports[nodePosition];
 
   report({
@@ -47,7 +35,7 @@ export const validatePositionIndex = ({
     data: {
       selectorType,
       currentPosition: nodePosition,
-      positionIndex: convertedPositionIndex,
+      positionIndex,
     },
     fix: (fixer) => [
       fixer.replaceText(nodeToReplace, sourceCode.getText(currentNodePosition)),

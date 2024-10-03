@@ -4,7 +4,7 @@ import { RegexParameters } from "types";
 import { getRegexWithoutReferences } from "helpers/getRegexWithoutReferences/getRegexWithoutReferences";
 
 import { Rule } from "rules/fileComposition/fileComposition.types";
-import { getDefaultRegexParameters } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getDefaultRegexParameters";
+import { getDefaultRegexParameters } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/helpers/getDefaultRegexParameters";
 import { DEFAULT_FORMAT } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat.consts";
 
 interface PrepareFormatProps {

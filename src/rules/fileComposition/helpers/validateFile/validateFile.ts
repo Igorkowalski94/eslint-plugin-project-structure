@@ -33,10 +33,10 @@ export const validateFile = ({
 }: ValidateFileProps): void => {
   if (!fileConfig) return;
 
-  const { rules, allowOnlySpecifiedSelectors } = fileConfig;
-  const fileExportRules = rules?.filter(({ scope }) => scope === "fileExport");
-  const fileRootRules = rules?.filter(({ scope }) => scope === "fileRoot");
-  const fileRules = rules?.filter(({ scope }) => scope === "file" || !scope);
+  const { rules = [], allowOnlySpecifiedSelectors } = fileConfig;
+  const fileExportRules = rules.filter(({ scope }) => scope === "fileExport");
+  const fileRootRules = rules.filter(({ scope }) => scope === "fileRoot");
+  const fileRules = rules.filter(({ scope }) => scope === "file" || !scope);
   const filenamePath = path.relative(cwd, filename);
   const regexParameters = config.regexParameters;
 
@@ -46,7 +46,7 @@ export const validateFile = ({
     name,
   });
 
-  if (fileExportRules?.length && isExportName) {
+  if (fileExportRules.length && isExportName) {
     return validateRules({
       rules: fileExportRules,
       name: currentName,
@@ -60,6 +60,7 @@ export const validateFile = ({
       expressionName,
       allowOnlySpecifiedSelectors,
       scope: "fileExport",
+      allRules: rules,
     });
   }
 
@@ -68,7 +69,7 @@ export const validateFile = ({
     node,
   });
 
-  if (fileRootRules?.length && isFileRootName) {
+  if (fileRootRules.length && isFileRootName) {
     return validateRules({
       rules: fileRootRules,
       name,
@@ -81,10 +82,11 @@ export const validateFile = ({
       expressionName,
       allowOnlySpecifiedSelectors,
       scope: "fileRoot",
+      allRules: rules,
     });
   }
 
-  if (fileRules?.length) {
+  if (fileRules.length) {
     return validateRules({
       rules: fileRules,
       name,
@@ -97,6 +99,7 @@ export const validateFile = ({
       allowOnlySpecifiedSelectors,
       scope: "file",
       context,
+      allRules: rules,
     });
   }
 };

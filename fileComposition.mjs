@@ -34,7 +34,9 @@ export const fileCompositionConfig = createFileComposition({
 
     {
       filePattern: "src/rules/*/*.ts",
-      allowOnlySpecifiedSelectors: true,
+      allowOnlySpecifiedSelectors: {
+        file: false,
+      },
       rules: [
         {
           selector: { type: "variableExpression", limitTo: "ESLintUtils" },
@@ -49,13 +51,13 @@ export const fileCompositionConfig = createFileComposition({
       rootSelectorsLimits: [{ selector: ["arrowFunction", "class"], limit: 1 }],
       rules: [
         {
-          selector: "interface",
+          selector: ["interface", "type"],
           positionIndex: 0,
           scope: "fileRoot",
           format: "{FileName}Props",
         },
         {
-          selector: "interface",
+          selector: ["interface", "type"],
           positionIndex: 1,
           scope: "fileRoot",
           format: "{FileName}Return",

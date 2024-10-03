@@ -51,6 +51,34 @@ describe("validateFile", () => {
     ).toEqual(undefined);
   });
 
+  test("Should return undefined if !rules", () => {
+    const reportMock = jest.fn();
+
+    (isExportedName as jest.Mock).mockReturnValue({
+      isExportName: true,
+      currentName: "componentNameExport",
+      currentNode: {},
+    });
+
+    expect(
+      validateFile({
+        context: {
+          settings: {},
+          cwd: "C:/somePath",
+          filename: "C:/somePath/src/features/Feature1/Feature1.ts",
+          report: reportMock,
+        } as unknown as Context,
+        name: "componentName",
+        node: {} as TSESTree.VariableDeclarator,
+        nodeType: "VariableDeclarator",
+        config: {
+          filesRules: [{ filePattern: "**/*.ts" }],
+        },
+        fileConfig: { filePattern: "**/*.ts" },
+      }),
+    ).toEqual(undefined);
+  });
+
   test("Should call fileExportRules for fileExportRules", () => {
     const validateRulesMock = jest.fn();
     const reportMock = jest.fn();
@@ -76,13 +104,19 @@ describe("validateFile", () => {
         filesRules: [
           {
             filePattern: "**/*.ts",
-            rules: [{ scope: "fileExport", selector: "variable" }],
+            rules: [
+              { scope: "fileExport", selector: "variable" },
+              { selector: "arrowFunction" },
+            ],
           },
         ],
       },
       fileConfig: {
         filePattern: "**/*.ts",
-        rules: [{ scope: "fileExport", selector: "variable" }],
+        rules: [
+          { scope: "fileExport", selector: "variable" },
+          { selector: "arrowFunction" },
+        ],
       },
     });
 
@@ -107,6 +141,10 @@ describe("validateFile", () => {
       expressionName: undefined,
       allowOnlySpecifiedSelectors: undefined,
       regexParameters: undefined,
+      allRules: [
+        { scope: "fileExport", selector: "variable" },
+        { selector: "arrowFunction" },
+      ],
     });
   });
 
@@ -136,13 +174,19 @@ describe("validateFile", () => {
         filesRules: [
           {
             filePattern: "**/*.ts",
-            rules: [{ scope: "fileRoot", selector: "variable" }],
+            rules: [
+              { scope: "fileRoot", selector: "variable" },
+              { selector: "arrowFunction" },
+            ],
           },
         ],
       },
       fileConfig: {
         filePattern: "**/*.ts",
-        rules: [{ scope: "fileRoot", selector: "variable" }],
+        rules: [
+          { scope: "fileRoot", selector: "variable" },
+          { selector: "arrowFunction" },
+        ],
       },
     });
 
@@ -166,6 +210,10 @@ describe("validateFile", () => {
       expressionName: undefined,
       allowOnlySpecifiedSelectors: undefined,
       regexParameters: undefined,
+      allRules: [
+        { scope: "fileRoot", selector: "variable" },
+        { selector: "arrowFunction" },
+      ],
     });
   });
 
@@ -197,6 +245,7 @@ describe("validateFile", () => {
             filePattern: "**/*.ts",
             rules: [
               { scope: "file", selector: "variable" },
+              { scope: "fileRoot", selector: "variable" },
               { selector: "variable" },
             ],
           },
@@ -206,6 +255,7 @@ describe("validateFile", () => {
         filePattern: "**/*.ts",
         rules: [
           { scope: "file", selector: "variable" },
+          { scope: "fileRoot", selector: "variable" },
           { selector: "variable" },
         ],
       },
@@ -234,6 +284,11 @@ describe("validateFile", () => {
       expressionName: undefined,
       allowOnlySpecifiedSelectors: undefined,
       regexParameters: undefined,
+      allRules: [
+        { scope: "file", selector: "variable" },
+        { scope: "fileRoot", selector: "variable" },
+        { selector: "variable" },
+      ],
     });
   });
 });

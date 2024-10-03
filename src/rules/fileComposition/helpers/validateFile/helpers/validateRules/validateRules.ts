@@ -8,14 +8,13 @@ import {
   Scope,
   FileRules,
 } from "rules/fileComposition/fileComposition.types";
-import { getFileNameWithoutExtension } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFileNameWithoutExtension";
+import { getFilenameWithoutParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFilenameWithoutParts/getFilenameWithoutParts";
 import { getFormatWithFilenameReferences } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFormatWithFilenameReferences";
+import { handlePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/handlePositionIndex";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
 import { isNameValid } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isNameValid";
 import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/isSelectorAllowed";
 import { prepareFormat } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat";
-import { removeFilenameParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/removeFilenameParts";
-import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/validatePositionIndex";
 import { SELECTORS } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules.consts";
 import { ValidateFileProps } from "rules/fileComposition/helpers/validateFile/validateFile";
 
@@ -32,6 +31,7 @@ interface ValidateRulesProps {
   allowOnlySpecifiedSelectors?: FileRules["allowOnlySpecifiedSelectors"];
   scope: Scope;
   context: Context;
+  allRules: Rule[];
 }
 
 export const validateRules = ({
@@ -48,6 +48,7 @@ export const validateRules = ({
   nodeNotExported,
   context,
   context: { report },
+  allRules,
 }: ValidateRulesProps): void => {
   const selectorType = SELECTORS[nodeType];
 
@@ -75,14 +76,10 @@ export const validateRules = ({
   );
 
   const formatWithoutReferences = selectorTypeRules
-    .map((rule) => {
-      const { format, filenamePartsToRemove, positionIndex } = rule;
-
-      const filenameWithoutExtension =
-        getFileNameWithoutExtension(filenamePath);
-      const filenameWithoutParts = removeFilenameParts({
-        filenameWithoutExtension,
+    .map(({ format, filenamePartsToRemove, positionIndex }) => {
+      const filenameWithoutParts = getFilenameWithoutParts({
         filenamePartsToRemove,
+        filenamePath,
       });
       const { formatWithReferences, formatWithoutReferences } = prepareFormat({
         format,
@@ -94,13 +91,20 @@ export const validateRules = ({
         name,
       });
 
-      if (isValid)
-        return validatePositionIndex({
-          node: nodeNotExported ?? node,
-          positionIndex,
-          selectorType,
+      if (isValid) {
+        if (positionIndex === undefined) return;
+
+        return handlePositionIndex({
           context,
+          filenamePath,
+          name,
+          node: nodeNotExported ?? node,
+          rules: allRules,
+          selectorType,
+          positionIndex,
+          regexParameters,
         });
+      }
 
       return getFormatWithFilenameReferences({
         formatWithReferences,
