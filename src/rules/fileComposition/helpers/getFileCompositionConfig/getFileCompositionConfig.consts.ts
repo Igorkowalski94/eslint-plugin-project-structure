@@ -25,16 +25,6 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
           default: { type: "variableExpression", limitTo: "" },
           additionalProperties: false,
           properties: {
-            selector: {
-              oneOf: [
-                { $ref: "#/definitions/Selector" },
-                {
-                  type: "array",
-                  default: [],
-                  items: { $ref: "#/definitions/Selector" },
-                },
-              ],
-            },
             type: {
               type: "string",
               default: "variableExpression",
