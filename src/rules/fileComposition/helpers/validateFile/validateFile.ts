@@ -7,6 +7,7 @@ import {
   Node,
   NodeType,
 } from "rules/fileComposition/fileComposition.types";
+import { isCorrectScope } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectScope";
 import { isExportedName } from "rules/fileComposition/helpers/validateFile/helpers/isExportedName/isExportedName";
 import { isNameFromFileRoot } from "rules/fileComposition/helpers/validateFile/helpers/isNameFromFileRoot";
 import { validateRules } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules";
@@ -34,9 +35,15 @@ export const validateFile = ({
   if (!fileConfig) return;
 
   const { rules = [], allowOnlySpecifiedSelectors } = fileConfig;
-  const fileExportRules = rules.filter(({ scope }) => scope === "fileExport");
-  const fileRootRules = rules.filter(({ scope }) => scope === "fileRoot");
-  const fileRules = rules.filter(({ scope }) => scope === "file" || !scope);
+  const fileExportRules = rules.filter(({ scope }) =>
+    isCorrectScope({ expect: "fileExport", scope }),
+  );
+  const fileRootRules = rules.filter(({ scope }) =>
+    isCorrectScope({ expect: "fileRoot", scope }),
+  );
+  const fileRules = rules.filter(({ scope }) =>
+    isCorrectScope({ expect: "file", scope }),
+  );
   const filenamePath = path.relative(cwd, filename);
   const regexParameters = config.regexParameters;
 

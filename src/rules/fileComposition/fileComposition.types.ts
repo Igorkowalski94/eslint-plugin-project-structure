@@ -48,7 +48,7 @@ export type Scope = "fileExport" | "fileRoot" | "file";
 
 export interface Rule {
   selector: Selector | Selector[];
-  scope?: Scope;
+  scope?: Scope | Scope[];
   positionIndex?: number;
   filenamePartsToRemove?: string | string[];
   format?: string[] | string;

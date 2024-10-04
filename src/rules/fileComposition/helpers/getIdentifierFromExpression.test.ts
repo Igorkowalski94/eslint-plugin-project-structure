@@ -43,6 +43,17 @@ describe("getIdentifierFromExpression", () => {
       expression: {
         type: TSESTree.AST_NODE_TYPES.TaggedTemplateExpression,
         tag: {
+          type: TSESTree.AST_NODE_TYPES.Identifier,
+          name: "name",
+        },
+      } as TSESTree.Expression,
+      expected: "name",
+    },
+
+    {
+      expression: {
+        type: TSESTree.AST_NODE_TYPES.TaggedTemplateExpression,
+        tag: {
           type: TSESTree.AST_NODE_TYPES.MemberExpression,
           object: { type: TSESTree.AST_NODE_TYPES.Identifier, name: "name" },
         },

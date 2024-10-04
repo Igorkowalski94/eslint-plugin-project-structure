@@ -93,9 +93,22 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
           ],
         },
         scope: {
-          type: "string",
-          default: "file",
-          enum: ["file", "fileExport", "fileRoot"],
+          oneOf: [
+            {
+              type: "string",
+              default: "file",
+              enum: ["file", "fileExport", "fileRoot"],
+            },
+            {
+              type: "array",
+              default: [],
+              items: {
+                type: "string",
+                default: "file",
+                enum: ["file", "fileExport", "fileRoot"],
+              },
+            },
+          ],
         },
         positionIndex: { type: "number", default: 0 },
         filenamePartsToRemove: {

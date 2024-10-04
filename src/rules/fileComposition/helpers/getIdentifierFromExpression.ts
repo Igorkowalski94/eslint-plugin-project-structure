@@ -18,6 +18,13 @@ export const getIdentifierFromExpression = (
   )
     return expression.object.name;
 
+  // const variable = fn``
+  if (
+    expression.type === TSESTree.AST_NODE_TYPES.TaggedTemplateExpression &&
+    expression.tag.type === TSESTree.AST_NODE_TYPES.Identifier
+  )
+    return expression.tag.name;
+
   // const variable = fn()``
   // const variable = obj.key``
   if (
