@@ -7,8 +7,8 @@ import {
   Scope,
   FileRules,
 } from "rules/fileComposition/fileComposition.types";
-import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
-import { getCustomError } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/helpers/getCustomError";
+import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectSelector";
+import { getCustomError } from "rules/fileComposition/helpers/validateFile/helpers/isSelectorAllowed/helpers/getCustomError";
 
 interface IsSelectorAllowedProps {
   rules: Rule[];

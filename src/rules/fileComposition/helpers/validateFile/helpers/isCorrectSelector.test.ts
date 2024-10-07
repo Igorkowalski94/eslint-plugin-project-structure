@@ -4,7 +4,7 @@ import {
   SelectorType,
   Rule,
 } from "rules/fileComposition/fileComposition.types";
-import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
+import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectSelector";
 
 describe("isCorrectNameType", () => {
   test.each<{

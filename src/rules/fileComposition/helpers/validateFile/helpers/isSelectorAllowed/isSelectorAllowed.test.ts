@@ -3,7 +3,7 @@ import {
   Node,
   SelectorType,
 } from "rules/fileComposition/fileComposition.types";
-import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/isSelectorAllowed";
+import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/isSelectorAllowed/isSelectorAllowed";
 
 describe("isSelectorAllowed", () => {
   test.each<{

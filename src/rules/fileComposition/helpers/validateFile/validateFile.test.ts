@@ -123,7 +123,7 @@ describe("validateFile", () => {
     expect(validateRulesMock).toHaveBeenCalledWith({
       rules: [{ scope: "fileExport", selector: "variable" }],
       name: "componentNameExport",
-      nodeType: "VariableDeclarator",
+      selectorType: "variable",
       node: {},
       nodeNotExported: {},
       filenamePath: path.relative(
@@ -193,7 +193,7 @@ describe("validateFile", () => {
     expect(validateRulesMock).toHaveBeenCalledWith({
       rules: [{ scope: "fileRoot", selector: "variable" }],
       name: "componentName",
-      nodeType: "VariableDeclarator",
+      selectorType: "variable",
       node: {},
       filenamePath: path.relative(
         "C:/somePath",
@@ -267,7 +267,7 @@ describe("validateFile", () => {
         { selector: "variable" },
       ],
       name: "componentName",
-      nodeType: "VariableDeclarator",
+      selectorType: "variable",
       node: {},
       filenamePath: path.relative(
         "C:/somePath",

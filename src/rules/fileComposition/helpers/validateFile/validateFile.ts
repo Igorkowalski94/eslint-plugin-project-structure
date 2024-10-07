@@ -10,7 +10,9 @@ import {
 import { isCorrectScope } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectScope";
 import { isExportedName } from "rules/fileComposition/helpers/validateFile/helpers/isExportedName/isExportedName";
 import { isNameFromFileRoot } from "rules/fileComposition/helpers/validateFile/helpers/isNameFromFileRoot";
+import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/isSelectorAllowed/isSelectorAllowed";
 import { validateRules } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules";
+import { SELECTORS } from "rules/fileComposition/helpers/validateFile/validateFile.consts";
 
 export interface ValidateFileProps {
   name: string;
@@ -46,6 +48,7 @@ export const validateFile = ({
   );
   const filenamePath = path.relative(cwd, filename);
   const regexParameters = config.regexParameters;
+  const selectorType = SELECTORS[nodeType];
 
   const { isExportName, currentName, currentNode } = isExportedName({
     nodeType,
@@ -57,7 +60,7 @@ export const validateFile = ({
     return validateRules({
       rules: fileExportRules,
       name: currentName,
-      nodeType,
+      selectorType,
       node: currentNode,
       nodeNotExported: node,
       context,
@@ -80,7 +83,7 @@ export const validateFile = ({
     return validateRules({
       rules: fileRootRules,
       name,
-      nodeType,
+      selectorType,
       node,
       context,
       filenamePath,
@@ -97,7 +100,6 @@ export const validateFile = ({
     return validateRules({
       rules: fileRules,
       name,
-      nodeType,
       node,
       filenamePath,
       errorMessageId: "prohibitedSelector",
@@ -107,6 +109,18 @@ export const validateFile = ({
       scope: "file",
       context,
       allRules: rules,
+      selectorType,
     });
   }
+
+  isSelectorAllowed({
+    rules,
+    scope: "file",
+    allowOnlySpecifiedSelectors,
+    node,
+    selectorType,
+    report: context.report,
+    errorMessageId: "prohibitedSelector",
+    expressionName,
+  });
 };

@@ -1,7 +1,7 @@
 import {
   getCustomError,
   GetCustomErrorProps,
-} from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/helpers/getCustomError";
+} from "rules/fileComposition/helpers/validateFile/helpers/isSelectorAllowed/helpers/getCustomError";
 
 describe("getCustomError", () => {
   test.each<{

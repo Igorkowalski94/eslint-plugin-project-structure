@@ -4,18 +4,17 @@ import { ESLINT_ERRORS } from "rules/fileComposition/fileComposition.consts";
 import {
   Context,
   Rule,
-  NodeType,
   Scope,
   FileRules,
+  SelectorType,
 } from "rules/fileComposition/fileComposition.types";
+import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectSelector";
+import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/isSelectorAllowed/isSelectorAllowed";
 import { getFilenameWithoutParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFilenameWithoutParts/getFilenameWithoutParts";
 import { getFormatWithFilenameReferences } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFormatWithFilenameReferences";
 import { handlePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/handlePositionIndex";
-import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isCorrectSelector";
 import { isNameValid } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isNameValid";
-import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isSelectorAllowed/isSelectorAllowed";
 import { prepareFormat } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat";
-import { SELECTORS } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules.consts";
 import { ValidateFileProps } from "rules/fileComposition/helpers/validateFile/validateFile";
 
 interface ValidateRulesProps {
@@ -23,7 +22,6 @@ interface ValidateRulesProps {
   filenamePath: string;
   node: ValidateFileProps["node"];
   nodeNotExported?: ValidateFileProps["node"];
-  nodeType: NodeType;
   rules: Rule[];
   errorMessageId: keyof typeof ESLINT_ERRORS;
   regexParameters?: RegexParameters;
@@ -32,10 +30,10 @@ interface ValidateRulesProps {
   scope: Scope;
   context: Context;
   allRules: Rule[];
+  selectorType: SelectorType;
 }
 
 export const validateRules = ({
-  nodeType,
   name,
   node,
   filenamePath,
@@ -49,9 +47,8 @@ export const validateRules = ({
   context,
   context: { report },
   allRules,
+  selectorType,
 }: ValidateRulesProps): void => {
-  const selectorType = SELECTORS[nodeType];
-
   if (
     !isSelectorAllowed({
       rules,
