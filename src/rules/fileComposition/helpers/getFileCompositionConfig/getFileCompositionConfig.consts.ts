@@ -1,7 +1,6 @@
 import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 
 export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
-  $schema: "http://json-schema.org/draft-07/schema#",
   definitions: {
     SelectorType: {
       type: "string",
@@ -87,7 +86,7 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
             {
               type: "string",
               default: "file",
-              enum: ["file", "fileExport", "fileRoot"],
+              enum: ["file", "fileExport", "fileRoot", "nestedSelectors"],
             },
             {
               type: "array",
@@ -185,7 +184,7 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
                     { $ref: "#/definitions/CustomErrors" },
                   ],
                 },
-                file: {
+                nestedSelectors: {
                   oneOf: [
                     { type: "boolean", default: true },
                     { $ref: "#/definitions/CustomErrors" },

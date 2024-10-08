@@ -7,6 +7,7 @@ import {
   Node,
   NodeType,
 } from "rules/fileComposition/fileComposition.types";
+import { getCurrentScopeData } from "rules/fileComposition/helpers/validateFile/helpers/getCurrentScopeData";
 import { isCorrectScope } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectScope";
 import { isExportedName } from "rules/fileComposition/helpers/validateFile/helpers/isExportedName/isExportedName";
 import { isNameFromFileRoot } from "rules/fileComposition/helpers/validateFile/helpers/isNameFromFileRoot";
@@ -43,8 +44,8 @@ export const validateFile = ({
   const fileRootRules = rules.filter(({ scope }) =>
     isCorrectScope({ expect: "fileRoot", scope }),
   );
-  const fileRules = rules.filter(({ scope }) =>
-    isCorrectScope({ expect: "file", scope }),
+  const nestedSelectorsRules = rules.filter(({ scope }) =>
+    isCorrectScope({ expect: "nestedSelectors", scope }),
   );
   const filenamePath = path.relative(cwd, filename);
   const regexParameters = config.regexParameters;
@@ -79,7 +80,7 @@ export const validateFile = ({
     node,
   });
 
-  if (fileRootRules.length && isFileRootName) {
+  if (fileRootRules.length && isFileRootName && !isExportName) {
     return validateRules({
       rules: fileRootRules,
       name,
@@ -96,31 +97,36 @@ export const validateFile = ({
     });
   }
 
-  if (fileRules.length) {
+  if (nestedSelectorsRules.length && !isExportName && !isFileRootName) {
     return validateRules({
-      rules: fileRules,
+      rules: nestedSelectorsRules,
       name,
       node,
       filenamePath,
-      errorMessageId: "prohibitedSelector",
+      errorMessageId: "prohibitedSelectorNested",
       regexParameters,
       expressionName,
       allowOnlySpecifiedSelectors,
-      scope: "file",
+      scope: "nestedSelectors",
       context,
       allRules: rules,
       selectorType,
     });
   }
 
+  const { scope, errorMessageId } = getCurrentScopeData({
+    isFileExport: isExportName,
+    isFileRoot: isFileRootName,
+  });
+
   isSelectorAllowed({
-    rules,
-    scope: "file",
+    rules: [],
+    scope,
     allowOnlySpecifiedSelectors,
     node,
     selectorType,
     report: context.report,
-    errorMessageId: "prohibitedSelector",
+    errorMessageId,
     expressionName,
   });
 };

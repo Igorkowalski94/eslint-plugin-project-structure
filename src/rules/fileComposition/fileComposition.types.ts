@@ -44,11 +44,12 @@ interface VariableExpression {
 
 export type Selector = SelectorType | VariableExpression;
 
-export type Scope = "fileExport" | "fileRoot" | "file";
+export type ScopeAll = "fileExport" | "fileRoot" | "nestedSelectors" | "file";
+export type Scope = "fileExport" | "fileRoot" | "nestedSelectors";
 
 export interface Rule {
   selector: Selector | Selector[];
-  scope?: Scope | Scope[];
+  scope?: ScopeAll | ScopeAll[];
   positionIndex?: number;
   filenamePartsToRemove?: string | string[];
   format?: string[] | string;
@@ -65,7 +66,7 @@ export interface AllowOnlySpecifiedSelectors {
   error?: CustomErrors;
   fileRoot?: boolean | CustomErrors;
   fileExport?: boolean | CustomErrors;
-  file?: boolean | CustomErrors;
+  nestedSelectors?: boolean | CustomErrors;
 }
 
 export interface FileRules {

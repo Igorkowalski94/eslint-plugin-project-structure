@@ -4,8 +4,8 @@ import {
   Rule,
   Node,
   SelectorType,
-  Scope,
   FileRules,
+  Scope,
 } from "rules/fileComposition/fileComposition.types";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectSelector";
 import { getCustomError } from "rules/fileComposition/helpers/validateFile/helpers/isSelectorAllowed/helpers/getCustomError";

@@ -79,7 +79,7 @@ describe("validateFile", () => {
     ).toEqual(undefined);
   });
 
-  test("Should call fileExportRules for fileExportRules", () => {
+  test("Should call fileExportRules", () => {
     const validateRulesMock = jest.fn();
     const reportMock = jest.fn();
 
@@ -105,8 +105,12 @@ describe("validateFile", () => {
           {
             filePattern: "**/*.ts",
             rules: [
-              { scope: "fileExport", selector: "variable" },
+              { selector: "variable", scope: "fileExport" },
+              { selector: "class", scope: "file" },
               { selector: "arrowFunction" },
+              { selector: "enum", scope: "fileRoot" },
+              { selector: "interface", scope: "nestedSelectors" },
+              { selector: "type", scope: ["file", "nestedSelectors"] },
             ],
           },
         ],
@@ -114,14 +118,23 @@ describe("validateFile", () => {
       fileConfig: {
         filePattern: "**/*.ts",
         rules: [
-          { scope: "fileExport", selector: "variable" },
+          { selector: "variable", scope: "fileExport" },
+          { selector: "class", scope: "file" },
           { selector: "arrowFunction" },
+          { selector: "enum", scope: "fileRoot" },
+          { selector: "interface", scope: "nestedSelectors" },
+          { selector: "type", scope: ["file", "nestedSelectors"] },
         ],
       },
     });
 
     expect(validateRulesMock).toHaveBeenCalledWith({
-      rules: [{ scope: "fileExport", selector: "variable" }],
+      rules: [
+        { selector: "variable", scope: "fileExport" },
+        { selector: "class", scope: "file" },
+        { selector: "arrowFunction" },
+        { selector: "type", scope: ["file", "nestedSelectors"] },
+      ],
       name: "componentNameExport",
       selectorType: "variable",
       node: {},
@@ -142,8 +155,12 @@ describe("validateFile", () => {
       allowOnlySpecifiedSelectors: undefined,
       regexParameters: undefined,
       allRules: [
-        { scope: "fileExport", selector: "variable" },
+        { selector: "variable", scope: "fileExport" },
+        { selector: "class", scope: "file" },
         { selector: "arrowFunction" },
+        { selector: "enum", scope: "fileRoot" },
+        { selector: "interface", scope: "nestedSelectors" },
+        { selector: "type", scope: ["file", "nestedSelectors"] },
       ],
     });
   });
@@ -175,8 +192,12 @@ describe("validateFile", () => {
           {
             filePattern: "**/*.ts",
             rules: [
-              { scope: "fileRoot", selector: "variable" },
+              { selector: "variable", scope: "fileExport" },
+              { selector: "class", scope: "file" },
               { selector: "arrowFunction" },
+              { selector: "enum", scope: "fileRoot" },
+              { selector: "interface", scope: "nestedSelectors" },
+              { selector: "type", scope: ["file", "nestedSelectors"] },
             ],
           },
         ],
@@ -184,14 +205,23 @@ describe("validateFile", () => {
       fileConfig: {
         filePattern: "**/*.ts",
         rules: [
-          { scope: "fileRoot", selector: "variable" },
+          { selector: "variable", scope: "fileExport" },
+          { selector: "class", scope: "file" },
           { selector: "arrowFunction" },
+          { selector: "enum", scope: "fileRoot" },
+          { selector: "interface", scope: "nestedSelectors" },
+          { selector: "type", scope: ["file", "nestedSelectors"] },
         ],
       },
     });
 
     expect(validateRulesMock).toHaveBeenCalledWith({
-      rules: [{ scope: "fileRoot", selector: "variable" }],
+      rules: [
+        { selector: "class", scope: "file" },
+        { selector: "arrowFunction" },
+        { selector: "enum", scope: "fileRoot" },
+        { selector: "type", scope: ["file", "nestedSelectors"] },
+      ],
       name: "componentName",
       selectorType: "variable",
       node: {},
@@ -211,13 +241,17 @@ describe("validateFile", () => {
       allowOnlySpecifiedSelectors: undefined,
       regexParameters: undefined,
       allRules: [
-        { scope: "fileRoot", selector: "variable" },
+        { selector: "variable", scope: "fileExport" },
+        { selector: "class", scope: "file" },
         { selector: "arrowFunction" },
+        { selector: "enum", scope: "fileRoot" },
+        { selector: "interface", scope: "nestedSelectors" },
+        { selector: "type", scope: ["file", "nestedSelectors"] },
       ],
     });
   });
 
-  test("Should call fileRules", () => {
+  test("Should call nestedSelectors", () => {
     const validateRulesMock = jest.fn();
     const reportMock = jest.fn();
 
@@ -244,9 +278,12 @@ describe("validateFile", () => {
           {
             filePattern: "**/*.ts",
             rules: [
-              { scope: "file", selector: "variable" },
-              { scope: "fileRoot", selector: "variable" },
-              { selector: "variable" },
+              { selector: "variable", scope: "fileExport" },
+              { selector: "class", scope: "file" },
+              { selector: "arrowFunction" },
+              { selector: "enum", scope: "fileRoot" },
+              { selector: "interface", scope: "nestedSelectors" },
+              { selector: "type", scope: ["file", "nestedSelectors"] },
             ],
           },
         ],
@@ -254,17 +291,22 @@ describe("validateFile", () => {
       fileConfig: {
         filePattern: "**/*.ts",
         rules: [
-          { scope: "file", selector: "variable" },
-          { scope: "fileRoot", selector: "variable" },
-          { selector: "variable" },
+          { selector: "variable", scope: "fileExport" },
+          { selector: "class", scope: "file" },
+          { selector: "arrowFunction" },
+          { selector: "enum", scope: "fileRoot" },
+          { selector: "interface", scope: "nestedSelectors" },
+          { selector: "type", scope: ["file", "nestedSelectors"] },
         ],
       },
     });
 
     expect(validateRulesMock).toHaveBeenCalledWith({
       rules: [
-        { scope: "file", selector: "variable" },
-        { selector: "variable" },
+        { selector: "class", scope: "file" },
+        { selector: "arrowFunction" },
+        { selector: "interface", scope: "nestedSelectors" },
+        { selector: "type", scope: ["file", "nestedSelectors"] },
       ],
       name: "componentName",
       selectorType: "variable",
@@ -273,8 +315,8 @@ describe("validateFile", () => {
         "C:/somePath",
         "C:/somePath/src/features/Feature1/Feature1.ts",
       ),
-      errorMessageId: "prohibitedSelector",
-      scope: "file",
+      errorMessageId: "prohibitedSelectorNested",
+      scope: "nestedSelectors",
       context: {
         report: reportMock,
         settings: {},
@@ -285,9 +327,12 @@ describe("validateFile", () => {
       allowOnlySpecifiedSelectors: undefined,
       regexParameters: undefined,
       allRules: [
-        { scope: "file", selector: "variable" },
-        { scope: "fileRoot", selector: "variable" },
-        { selector: "variable" },
+        { selector: "variable", scope: "fileExport" },
+        { selector: "class", scope: "file" },
+        { selector: "arrowFunction" },
+        { selector: "enum", scope: "fileRoot" },
+        { selector: "interface", scope: "nestedSelectors" },
+        { selector: "type", scope: ["file", "nestedSelectors"] },
       ],
     });
   });

@@ -21,8 +21,8 @@ describe("validateRules", () => {
         name: "functionName",
         node: {} as TSESTree.VariableDeclarator,
         selectorType: "variable",
-        errorMessageId: "prohibitedSelector",
-        scope: "file",
+        errorMessageId: "prohibitedSelectorExport",
+        scope: "fileExport",
         allRules: [],
       }),
     ).toEqual(undefined);
@@ -40,9 +40,9 @@ describe("validateRules", () => {
         name: "functionName",
         node: {} as TSESTree.VariableDeclarator,
         selectorType: "variableExpression",
-        errorMessageId: "prohibitedSelector",
+        errorMessageId: "prohibitedSelectorExport",
         expressionName: "expressionName",
-        scope: "file",
+        scope: "fileExport",
         allRules: [],
       }),
     ).toEqual(undefined);
@@ -57,8 +57,8 @@ describe("validateRules", () => {
         name: "functionName",
         node: {} as TSESTree.VariableDeclarator,
         selectorType: "variable",
-        errorMessageId: "prohibitedSelector",
-        scope: "file",
+        errorMessageId: "prohibitedSelectorExport",
+        scope: "fileExport",
         allowOnlySpecifiedSelectors: true,
         allRules: [],
       }),
@@ -80,8 +80,8 @@ describe("validateRules", () => {
           type: TSESTree.AST_NODE_TYPES.VariableDeclarator,
         } as unknown as TSESTree.VariableDeclarator,
         selectorType: "variable",
-        errorMessageId: "prohibitedSelector",
-        scope: "file",
+        errorMessageId: "prohibitedSelectorExport",
+        scope: "fileExport",
         allRules: [],
       }),
     ).toEqual(undefined);
@@ -107,8 +107,8 @@ describe("validateRules", () => {
         type: TSESTree.AST_NODE_TYPES.VariableDeclarator,
       } as unknown as TSESTree.VariableDeclarator,
       selectorType: "variable",
-      errorMessageId: "prohibitedSelector",
-      scope: "file",
+      errorMessageId: "prohibitedSelectorExport",
+      scope: "fileExport",
       allRules: [],
     });
 
@@ -131,8 +131,8 @@ describe("validateRules", () => {
         type: TSESTree.AST_NODE_TYPES.VariableDeclarator,
       } as unknown as TSESTree.VariableDeclarator,
       selectorType: "variable",
-      errorMessageId: "prohibitedSelector",
-      scope: "file",
+      errorMessageId: "prohibitedSelectorExport",
+      scope: "fileExport",
       allRules: [],
     });
 

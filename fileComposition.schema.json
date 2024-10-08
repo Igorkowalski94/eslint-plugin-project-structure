@@ -85,7 +85,7 @@
             {
               "type": "string",
               "default": "file",
-              "enum": ["file", "fileExport", "fileRoot"]
+              "enum": ["file", "fileExport", "fileRoot", "nestedSelectors"]
             },
             {
               "type": "array",
@@ -183,7 +183,7 @@
                     { "$ref": "#/definitions/CustomErrors" }
                   ]
                 },
-                "file": {
+                "nestedSelectors": {
                   "oneOf": [
                     { "type": "boolean", "default": true },
                     { "$ref": "#/definitions/CustomErrors" }

@@ -23,14 +23,14 @@ describe("isSelectorAllowed", () => {
     },
     {
       allowOnlySpecifiedSelectors: {
-        file: false,
+        nestedSelectors: true,
       },
       selectorType: "variable",
-      expected: true,
+      expected: false,
     },
     {
       allowOnlySpecifiedSelectors: {
-        file: false,
+        nestedSelectors: false,
       },
       selectorType: "variable",
       expected: true,
@@ -40,10 +40,10 @@ describe("isSelectorAllowed", () => {
     ({ allowOnlySpecifiedSelectors, selectorType, expected }) => {
       expect(
         isSelectorAllowed({
-          errorMessageId: "prohibitedSelector",
+          errorMessageId: "prohibitedSelectorNested",
           node: {} as Node,
           rules: [{ selector: "arrowFunction" }],
-          scope: "file",
+          scope: "nestedSelectors",
           allowOnlySpecifiedSelectors,
           report: jest.fn(),
           selectorType,

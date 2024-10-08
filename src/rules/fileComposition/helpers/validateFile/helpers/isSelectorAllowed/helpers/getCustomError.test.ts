@@ -19,22 +19,22 @@ describe("getCustomError", () => {
     {
       allowOnlySpecifiedSelectors: {
         error: { arrowFunction: "errorGlobal" },
-        file: { arrowFunction: "errorFile" },
+        nestedSelectors: { arrowFunction: "errorNested" },
       },
-      expected: "\n\nerrorFile\n\n",
+      expected: "\n\nerrorNested\n\n",
     },
     {
       allowOnlySpecifiedSelectors: {
         error: { function: "errorGlobal" },
-        file: { function: "errorFile" },
+        nestedSelectors: { function: "errorNested" },
       },
       expected: "",
     },
     {
       allowOnlySpecifiedSelectors: {
-        file: { arrowFunction: "errorFile" },
+        nestedSelectors: { arrowFunction: "errorNested" },
       },
-      expected: "\n\nerrorFile\n\n",
+      expected: "\n\nerrorNested\n\n",
     },
     {
       allowOnlySpecifiedSelectors: {},
@@ -46,7 +46,7 @@ describe("getCustomError", () => {
       expect(
         getCustomError({
           allowOnlySpecifiedSelectors,
-          scope: "file",
+          scope: "nestedSelectors",
           selectorType: "arrowFunction",
         }),
       ).toEqual(expected);
