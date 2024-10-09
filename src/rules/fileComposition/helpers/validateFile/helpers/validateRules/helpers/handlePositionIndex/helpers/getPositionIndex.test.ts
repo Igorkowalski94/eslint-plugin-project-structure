@@ -1,4 +1,4 @@
-import { PositionIndexRule } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/handlePositionIndex.types";
+import { SelectorType } from "rules/fileComposition/fileComposition.types";
 import { getPositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getPositionIndex";
 import { getSelectorNamesFromBody } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getSelectorNamesFromBody";
 
@@ -12,39 +12,51 @@ jest.mock(
 describe("getPositionIndex", () => {
   test.each<{
     name: string;
-    positionIndexRules: PositionIndexRule[];
+    selectorType: SelectorType;
     expected: number;
   }>([
     {
-      name: "Return",
-      positionIndexRules: [
-        { format: ["Props"], positionIndex: 0 },
-        { format: ["Return"], positionIndex: 1 },
-        { format: ["Name"], positionIndex: 2 },
-      ],
+      name: "Props",
+      selectorType: "interface",
       expected: 0,
     },
     {
-      name: "Name",
-      positionIndexRules: [
-        { format: ["variable"], positionIndex: 0 },
-        { format: ["Return"], positionIndex: 1 },
-        { format: ["Name"], positionIndex: 2 },
-      ],
-      expected: 2,
+      name: "Return",
+      selectorType: "interface",
+      expected: 1,
     },
     {
       name: "Name",
-      positionIndexRules: [],
+      selectorType: "arrowFunction",
+      expected: 2,
+    },
+    {
+      name: "Last2",
+      selectorType: "variable",
+      expected: 6,
+    },
+    {
+      name: "Last1",
+      selectorType: "variable",
+      expected: 7,
+    },
+    {
+      name: "Random",
+      selectorType: "variable",
       expected: 1,
     },
   ])(
     "Should return correct value for = %o",
-    ({ name, positionIndexRules, expected }) => {
+    ({ name, selectorType, expected }) => {
       (getSelectorNamesFromBody as jest.Mock).mockReturnValue([
-        "variable",
-        "Return",
-        "Name",
+        { selector: "interface", name: "Return" },
+        { selector: "variable", name: "Last2" },
+        { selector: "variable", name: "variable3" },
+        { selector: "arrowFunction", name: "Name" },
+        { selector: "interface", name: "Props" },
+        { selector: "variable", name: "variable1" },
+        { selector: "variable", name: "Last1" },
+        { selector: "variable", name: "variable2" },
       ]);
 
       expect(
@@ -52,7 +64,14 @@ describe("getPositionIndex", () => {
           bodyWithoutImports: [],
           name,
           positionIndex: 1,
-          positionIndexRules,
+          positionIndexRules: [
+            { format: ["Props"], selector: "interface", positionIndex: 0 },
+            { format: ["Return"], selector: "interface", positionIndex: 1 },
+            { format: ["Name"], selector: "arrowFunction", positionIndex: 2 },
+            { format: ["Last2"], selector: "variable", positionIndex: -2 },
+            { format: ["Last1"], selector: "variable", positionIndex: -100 },
+          ],
+          selectorType,
         }),
       ).toEqual(expected);
     },

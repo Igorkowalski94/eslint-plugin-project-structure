@@ -10,6 +10,8 @@ describe("validateRules", () => {
           { selector: "variable" },
         ],
       }),
-    ).toEqual([{ format: ["Props"], positionIndex: 1 }]);
+    ).toEqual([
+      { format: ["Props"], selector: "arrowFunction", positionIndex: 1 },
+    ]);
   });
 });

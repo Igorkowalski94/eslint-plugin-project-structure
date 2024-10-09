@@ -382,25 +382,108 @@ describe("getSelectorNamesFromBody", () => {
           range: [397, 434],
           exportKind: "value",
         },
+        {
+          type: "VariableDeclaration",
+          declarations: [
+            {
+              type: "VariableDeclarator",
+              id: {
+                type: "Identifier",
+                name: "VariableExpression",
+                range: [9, 27],
+              },
+              init: {
+                type: "CallExpression",
+                callee: {
+                  type: "Identifier",
+                  name: "fn",
+                  range: [30, 32],
+                },
+                arguments: [],
+                optional: false,
+                range: [30, 34],
+              },
+              range: [9, 34],
+            },
+          ],
+          kind: "const",
+          range: [3, 34],
+        },
       ] as unknown as TSESTree.ProgramStatement[]),
     ).toEqual([
-      "variable",
-      "arrowFunction",
-      "Function",
-      "Class",
-      "Type",
-      "Interface",
-      "Enum",
-      "variable",
-      "arrowFunction",
-      "Function",
-      "Class",
-      "Type",
-      "Interface",
-      "Enum",
-      "Function",
-      "Class",
-      "Interface",
+      {
+        name: "variable",
+        selector: "variable",
+      },
+      {
+        name: "arrowFunction",
+        selector: "variable",
+      },
+      {
+        name: "Function",
+        selector: "function",
+      },
+      {
+        name: "Class",
+        selector: "class",
+      },
+      {
+        name: "Type",
+        selector: "type",
+      },
+      {
+        name: "Interface",
+        selector: "interface",
+      },
+      {
+        name: "Enum",
+        selector: "enum",
+      },
+      {
+        name: "variable",
+        selector: "variable",
+      },
+      {
+        name: "arrowFunction",
+        selector: "variable",
+      },
+      {
+        name: "Function",
+        selector: "function",
+      },
+      {
+        name: "Class",
+        selector: "class",
+      },
+      {
+        name: "Type",
+        selector: "type",
+      },
+      {
+        name: "Interface",
+        selector: "interface",
+      },
+      {
+        name: "Enum",
+        selector: "enum",
+      },
+      {
+        name: "Function",
+        selector: "function",
+      },
+      {
+        name: "Class",
+        selector: "class",
+      },
+      {
+        name: "Interface",
+        selector: "interface",
+      },
+      {
+        expressionName: "fn",
+        name: "VariableExpression",
+        selector: "variableExpression",
+      },
     ]);
   });
 });

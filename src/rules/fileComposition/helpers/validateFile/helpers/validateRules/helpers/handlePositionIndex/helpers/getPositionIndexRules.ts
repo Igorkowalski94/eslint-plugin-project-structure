@@ -17,7 +17,7 @@ export const getPositionIndexRules = ({
   filenamePath,
 }: GetPositionIndexRulesProps): PositionIndexRule[] =>
   rules
-    .map(({ format, filenamePartsToRemove, positionIndex }) => {
+    .map(({ format, selector, filenamePartsToRemove, positionIndex }) => {
       if (positionIndex === undefined) return;
 
       const filenameWithoutParts = getFilenameWithoutParts({
@@ -27,6 +27,7 @@ export const getPositionIndexRules = ({
 
       return {
         positionIndex,
+        selector,
         format: prepareFormat({
           format,
           filenameWithoutParts,

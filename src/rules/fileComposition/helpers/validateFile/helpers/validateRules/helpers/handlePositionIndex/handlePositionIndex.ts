@@ -43,6 +43,7 @@ export const handlePositionIndex = ({
     name,
     positionIndex,
     positionIndexRules,
+    selectorType,
   });
 
   validatePositionIndex({
