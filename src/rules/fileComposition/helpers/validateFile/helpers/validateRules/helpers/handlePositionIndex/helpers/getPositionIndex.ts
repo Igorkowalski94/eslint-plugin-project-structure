@@ -33,37 +33,30 @@ export const getPositionIndex = ({
           }) && format.includes(body.name),
       ),
     )
-    .map((rule) => {
-      if (!rule) return;
+    .filter((v): v is PositionIndexRule => v !== undefined)
+    .sort((a, b) => {
+      if (a.positionIndex < 0 && b.positionIndex >= 0) return 1;
+      if (a.positionIndex >= 0 && b.positionIndex < 0) return -1;
+      return a.positionIndex - b.positionIndex;
+    });
 
+  const positionIndexRulesNewOrder = positionIndexRulesBody.map(
+    ({ format, selector, expressionName, positionIndex }, index) => {
       const positionIndexNegativeDefault = selectorNamesFromBody.length - 1;
       const positionIndexNegative =
-        selectorNamesFromBody.length + rule.positionIndex;
+        selectorNamesFromBody.length + positionIndex;
       const currentPositionIndexNegative =
         positionIndexNegative < 0
           ? positionIndexNegativeDefault
           : positionIndexNegative;
 
       return {
-        ...rule,
-        positionIndex:
-          rule.positionIndex < 0
-            ? currentPositionIndexNegative
-            : rule.positionIndex,
+        format,
+        selector,
+        expressionName,
+        positionIndex: positionIndex < 0 ? currentPositionIndexNegative : index,
       };
-    })
-    .filter((v): v is PositionIndexRule => v !== undefined)
-    .sort((a, b) => a.positionIndex - b.positionIndex);
-
-  let sortedIndex = 0;
-
-  const positionIndexRulesNewOrder = positionIndexRulesBody.map(
-    ({ format, selector, expressionName }) => ({
-      format,
-      selector,
-      expressionName,
-      positionIndex: positionIndexRulesBody[sortedIndex++],
-    }),
+    },
   );
 
   const newPositionIndex = positionIndexRulesNewOrder.find(
@@ -74,7 +67,7 @@ export const getPositionIndex = ({
         selectorType,
         expressionName,
       }),
-  )?.positionIndex.positionIndex;
+  )?.positionIndex;
 
   return newPositionIndex ?? positionIndex;
 };

@@ -76,4 +76,39 @@ describe("getPositionIndex", () => {
       ).toEqual(expected);
     },
   );
+
+  test.each<{
+    name: string;
+    selectorType: SelectorType;
+    expected: number;
+  }>([
+    {
+      name: "Name",
+      selectorType: "arrowFunction",
+      expected: 0,
+    },
+  ])(
+    "Should return correct value for = %o 2",
+    ({ name, selectorType, expected }) => {
+      (getSelectorNamesFromBody as jest.Mock).mockReturnValue([
+        { selector: "arrowFunction", name: "Name" },
+      ]);
+
+      expect(
+        getPositionIndex({
+          bodyWithoutImports: [],
+          name,
+          positionIndex: 1,
+          positionIndexRules: [
+            { format: ["Props"], selector: "interface", positionIndex: 0 },
+            { format: ["Return"], selector: "interface", positionIndex: 1 },
+            { format: ["Name"], selector: "arrowFunction", positionIndex: 2 },
+            { format: ["Last2"], selector: "variable", positionIndex: -2 },
+            { format: ["Last1"], selector: "variable", positionIndex: -100 },
+          ],
+          selectorType,
+        }),
+      ).toEqual(expected);
+    },
+  );
 });

@@ -417,7 +417,7 @@ describe("getSelectorNamesFromBody", () => {
       },
       {
         name: "arrowFunction",
-        selector: "variable",
+        selector: "arrowFunction",
       },
       {
         name: "Function",
@@ -445,7 +445,7 @@ describe("getSelectorNamesFromBody", () => {
       },
       {
         name: "arrowFunction",
-        selector: "variable",
+        selector: "arrowFunction",
       },
       {
         name: "Function",

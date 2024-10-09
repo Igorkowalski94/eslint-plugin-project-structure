@@ -40,7 +40,11 @@ export const getSelectorNamesFromBody = (
         }
 
         return {
-          selector: "variable",
+          selector:
+            currentNode.declarations[0].init?.type ===
+            TSESTree.AST_NODE_TYPES.ArrowFunctionExpression
+              ? "arrowFunction"
+              : "variable",
           name: currentNode.declarations[0].id.name,
         };
       }
