@@ -40,24 +40,29 @@ export const getPositionIndex = ({
       return a.positionIndex - b.positionIndex;
     });
 
-  const positionIndexRulesNewOrder = positionIndexRulesBody.map(
-    ({ format, selector, expressionName, positionIndex }, index) => {
-      const positionIndexNegativeDefault = selectorNamesFromBody.length - 1;
-      const positionIndexNegative =
-        selectorNamesFromBody.length + positionIndex;
-      const currentPositionIndexNegative =
-        positionIndexNegative < 0
-          ? positionIndexNegativeDefault
-          : positionIndexNegative;
+  const positionIndexRulesNewOrderPositive = positionIndexRulesBody
+    .filter(({ positionIndex }) => positionIndex >= 0)
+    .map(({ format, selector, expressionName }, index) => ({
+      format,
+      selector,
+      expressionName,
+      positionIndex: index,
+    }));
 
-      return {
-        format,
-        selector,
-        expressionName,
-        positionIndex: positionIndex < 0 ? currentPositionIndexNegative : index,
-      };
-    },
-  );
+  const positionIndexRulesNewOrderNegative = positionIndexRulesBody
+    .filter(({ positionIndex }) => positionIndex < 0)
+    .reverse()
+    .map(({ format, selector, expressionName }, index) => ({
+      format,
+      selector,
+      expressionName,
+      positionIndex: selectorNamesFromBody.length - 1 - index,
+    }));
+
+  const positionIndexRulesNewOrder = [
+    ...positionIndexRulesNewOrderPositive,
+    ...positionIndexRulesNewOrderNegative,
+  ];
 
   const newPositionIndex = positionIndexRulesNewOrder.find(
     ({ format, expressionName, selector }) =>
