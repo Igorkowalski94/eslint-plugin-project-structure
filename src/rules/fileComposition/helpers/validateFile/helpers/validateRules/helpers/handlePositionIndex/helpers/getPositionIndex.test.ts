@@ -60,6 +60,7 @@ describe("getPositionIndex", () => {
           { format: ["Last2"], selector: "variable", positionIndex: -100 },
         ],
         nodeRange,
+        positionIndex: 1,
       }),
     ).toEqual(expected);
   });
@@ -95,6 +96,7 @@ describe("getPositionIndex", () => {
             { format: ["Last1"], selector: "variable", positionIndex: -100 },
           ],
           nodeRange,
+          positionIndex: { index: 1, sorting: "none" },
         }),
       ).toEqual(expected);
     },

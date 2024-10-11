@@ -47,10 +47,15 @@ export type Selector = SelectorType | VariableExpression;
 export type ScopeAll = "fileExport" | "fileRoot" | "nestedSelectors" | "file";
 export type Scope = "fileExport" | "fileRoot" | "nestedSelectors";
 
+export interface PositionIndex {
+  index: number;
+  sorting?: "az" | "none";
+}
+
 export interface Rule {
   selector: Selector | Selector[];
   scope?: ScopeAll | ScopeAll[];
-  positionIndex?: number;
+  positionIndex?: number | PositionIndex;
   filenamePartsToRemove?: string | string[];
   format?: string[] | string;
 }

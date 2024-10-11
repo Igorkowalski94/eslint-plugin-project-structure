@@ -26,7 +26,10 @@ export const getPositionIndexRules = ({
       });
 
       return {
-        positionIndex,
+        positionIndex:
+          typeof positionIndex === "number"
+            ? positionIndex
+            : positionIndex.index,
         selector,
         format: prepareFormat({
           format,

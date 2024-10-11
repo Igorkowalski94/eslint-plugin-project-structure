@@ -7,11 +7,21 @@ describe("validateRules", () => {
         filenamePath: "",
         rules: [
           { selector: "arrowFunction", positionIndex: 1, format: "Props" },
+          {
+            selector: "class",
+            positionIndex: { sorting: "az", index: 2 },
+            format: "someClass",
+          },
           { selector: "variable" },
         ],
       }),
     ).toEqual([
       { format: ["Props"], selector: "arrowFunction", positionIndex: 1 },
+      {
+        selector: "class",
+        positionIndex: 2,
+        format: ["someClass"],
+      },
     ]);
   });
 });

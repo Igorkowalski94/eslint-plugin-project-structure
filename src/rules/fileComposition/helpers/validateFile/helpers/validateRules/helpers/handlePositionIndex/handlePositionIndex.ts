@@ -3,6 +3,7 @@ import { RegexParameters } from "types";
 import {
   Context,
   Node,
+  PositionIndex,
   Rule,
   SelectorType,
 } from "rules/fileComposition/fileComposition.types";
@@ -18,6 +19,7 @@ interface HandlePositionIndexProps {
   regexParameters?: RegexParameters;
   context: Context;
   selectorType: SelectorType;
+  positionIndex: PositionIndex | number;
 }
 
 export const handlePositionIndex = ({
@@ -27,6 +29,7 @@ export const handlePositionIndex = ({
   regexParameters,
   context,
   selectorType,
+  positionIndex,
 }: HandlePositionIndexProps): void => {
   const positionIndexRules = getPositionIndexRules({
     filenamePath,
@@ -38,6 +41,7 @@ export const handlePositionIndex = ({
     bodyWithoutImports,
     positionIndexRules,
     nodeRange: JSON.stringify(node.range),
+    positionIndex,
   });
 
   validatePositionIndex({

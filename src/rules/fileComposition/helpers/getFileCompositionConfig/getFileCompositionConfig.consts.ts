@@ -99,7 +99,24 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
             },
           ],
         },
-        positionIndex: { type: "number", default: 0 },
+        positionIndex: {
+          oneOf: [
+            { type: "number", default: 0 },
+            {
+              type: "object",
+              default: { index: 0, sorting: "az" },
+              properties: {
+                index: { type: "number", default: 0 },
+                sorting: {
+                  type: "string",
+                  default: "az",
+                  enum: ["az", "none"],
+                },
+              },
+              required: ["index"],
+            },
+          ],
+        },
         filenamePartsToRemove: {
           oneOf: [
             { type: "string", default: "" },

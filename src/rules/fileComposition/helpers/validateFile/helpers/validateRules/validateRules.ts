@@ -98,6 +98,7 @@ export const validateRules = ({
           rules: allRules,
           selectorType,
           regexParameters,
+          positionIndex,
         });
       }
 
