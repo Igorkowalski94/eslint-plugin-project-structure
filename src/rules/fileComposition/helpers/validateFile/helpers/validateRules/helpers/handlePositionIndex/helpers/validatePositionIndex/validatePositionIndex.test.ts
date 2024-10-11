@@ -1,9 +1,9 @@
 import { Context, Node } from "rules/fileComposition/fileComposition.types";
-import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/helpers/getNodePosition";
-import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/validatePositionIndex";
+import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/helpers/getNodePosition";
+import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/validatePositionIndex";
 
 jest.mock(
-  "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/helpers/getNodePosition",
+  "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/helpers/getNodePosition",
   () => ({
     getNodePosition: jest.fn(),
   }),

@@ -1,26 +1,30 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
-import { SelectorType } from "rules/fileComposition/fileComposition.types";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectSelector";
 import { PositionIndexRule } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/handlePositionIndex.types";
 import { getSelectorNamesFromBody } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getSelectorNamesFromBody";
+import { isNameValid } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isNameValid";
 
 interface GetPositionIndexProps {
   positionIndexRules: PositionIndexRule[];
   bodyWithoutImports: TSESTree.ProgramStatement[];
-  name: string;
-  selectorType: SelectorType;
+  nodeRange: string;
 }
 
 export const getPositionIndex = ({
   positionIndexRules,
   bodyWithoutImports,
-  name,
-  selectorType,
+  nodeRange,
 }: GetPositionIndexProps): number => {
   const selectorNamesFromBody = getSelectorNamesFromBody(bodyWithoutImports);
 
   const positionIndexRulesBody = selectorNamesFromBody
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    )
     .map((body) => {
       const rule = positionIndexRules.find(
         ({ format, selector }) =>
@@ -28,13 +32,15 @@ export const getPositionIndex = ({
             selector,
             selectorType: body.selector,
             expressionName: body.expressionName,
-          }) && format.includes(body.name),
+          }) &&
+          isNameValid({ formatWithoutReferences: format, name: body.name }),
       );
 
       if (!rule) return;
 
       return {
         ...rule,
+        range: body.range,
         expressionName: body.expressionName,
       };
     })
@@ -47,20 +53,16 @@ export const getPositionIndex = ({
 
   const positionIndexRulesNewOrderPositive = positionIndexRulesBody
     .filter(({ positionIndex }) => positionIndex >= 0)
-    .map(({ format, selector, expressionName }, index) => ({
-      format,
-      selector,
-      expressionName,
+    .map((rule, index) => ({
+      ...rule,
       positionIndex: index,
     }));
 
   const positionIndexRulesNewOrderNegative = positionIndexRulesBody
     .filter(({ positionIndex }) => positionIndex < 0)
     .reverse()
-    .map(({ format, selector, expressionName }, index) => ({
-      format,
-      selector,
-      expressionName,
+    .map((rule, index) => ({
+      ...rule,
       positionIndex: selectorNamesFromBody.length - 1 - index,
     }));
 
@@ -70,13 +72,7 @@ export const getPositionIndex = ({
   ];
 
   const newPositionIndex = positionIndexRulesNewOrder.find(
-    ({ format, expressionName, selector }) =>
-      format.includes(name) &&
-      isCorrectSelector({
-        selector,
-        selectorType,
-        expressionName,
-      }),
+    ({ range }) => range === nodeRange,
   )?.positionIndex;
 
   return newPositionIndex ?? 0;

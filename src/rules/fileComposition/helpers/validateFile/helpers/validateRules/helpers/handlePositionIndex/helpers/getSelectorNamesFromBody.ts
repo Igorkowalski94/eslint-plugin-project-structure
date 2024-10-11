@@ -9,6 +9,7 @@ interface GetSelectorNamesFromBodyReturn {
   name: string;
   selector: SelectorType;
   expressionName?: string;
+  range: string;
 }
 
 export const getSelectorNamesFromBody = (
@@ -36,6 +37,7 @@ export const getSelectorNamesFromBody = (
             selector: "variableExpression",
             name: currentNode.declarations[0].id.name,
             expressionName,
+            range: JSON.stringify(currentNode.declarations[0].range),
           };
         }
 
@@ -46,6 +48,7 @@ export const getSelectorNamesFromBody = (
               ? "arrowFunction"
               : "variable",
           name: currentNode.declarations[0].id.name,
+          range: JSON.stringify(currentNode.declarations[0].range),
         };
       }
 
@@ -61,7 +64,11 @@ export const getSelectorNamesFromBody = (
       ) {
         const selector = SELECTORS[currentNode.type];
 
-        return { selector, name: currentNode.id.name };
+        return {
+          selector,
+          name: currentNode.id.name,
+          range: JSON.stringify(currentNode.range),
+        };
       }
 
       return undefined;

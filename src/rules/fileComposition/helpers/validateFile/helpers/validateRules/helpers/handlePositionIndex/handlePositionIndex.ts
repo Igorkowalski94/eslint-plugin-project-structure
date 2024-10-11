@@ -9,7 +9,7 @@ import {
 import { getBodyWithoutImports } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getBodyWithoutImports";
 import { getPositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getPositionIndex";
 import { getPositionIndexRules } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getPositionIndexRules";
-import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/validatePositionIndex";
+import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/validatePositionIndex";
 
 interface HandlePositionIndexProps {
   node: Node;
@@ -17,7 +17,6 @@ interface HandlePositionIndexProps {
   rules: Rule[];
   regexParameters?: RegexParameters;
   context: Context;
-  name: string;
   selectorType: SelectorType;
 }
 
@@ -27,7 +26,6 @@ export const handlePositionIndex = ({
   rules,
   regexParameters,
   context,
-  name,
   selectorType,
 }: HandlePositionIndexProps): void => {
   const positionIndexRules = getPositionIndexRules({
@@ -38,9 +36,8 @@ export const handlePositionIndex = ({
   const bodyWithoutImports = getBodyWithoutImports(node);
   const newPositionIndex = getPositionIndex({
     bodyWithoutImports,
-    name,
     positionIndexRules,
-    selectorType,
+    nodeRange: JSON.stringify(node.range),
   });
 
   validatePositionIndex({

@@ -5,7 +5,7 @@ import {
   Node,
   SelectorType,
 } from "rules/fileComposition/fileComposition.types";
-import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/helpers/getNodePosition";
+import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/helpers/getNodePosition";
 
 interface ValidatePositionIndexProps {
   node: Node;
@@ -34,8 +34,8 @@ export const validatePositionIndex = ({
     node,
     data: {
       selectorType,
-      currentPosition: nodePosition,
-      positionIndex,
+      currentLine: currentNodePosition.loc.start.line,
+      correctLine: nodeToReplace.loc.start.line,
     },
     fix: (fixer) => [
       fixer.replaceText(nodeToReplace, sourceCode.getText(currentNodePosition)),

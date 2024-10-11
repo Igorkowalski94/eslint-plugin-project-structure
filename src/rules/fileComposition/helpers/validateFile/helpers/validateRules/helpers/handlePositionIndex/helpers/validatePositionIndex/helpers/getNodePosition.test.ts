@@ -1,7 +1,7 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 import { Node } from "rules/fileComposition/fileComposition.types";
-import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/helpers/getNodePosition";
+import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/helpers/getNodePosition";
 
 describe("getConvertedPositionIndex", () => {
   test.each<{

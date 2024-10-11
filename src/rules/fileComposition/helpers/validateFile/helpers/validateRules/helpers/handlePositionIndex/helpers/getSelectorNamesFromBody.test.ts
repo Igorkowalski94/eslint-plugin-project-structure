@@ -413,75 +413,93 @@ describe("getSelectorNamesFromBody", () => {
     ).toEqual([
       {
         name: "variable",
+        range: "[6,19]",
         selector: "variable",
       },
       {
         name: "arrowFunction",
+        range: "[26,50]",
         selector: "arrowFunction",
       },
       {
         name: "Function",
+        range: "[51,72]",
         selector: "function",
       },
       {
         name: "Class",
+        range: "[73,87]",
         selector: "class",
       },
       {
         name: "Type",
+        range: "[88,102]",
         selector: "type",
       },
       {
         name: "Interface",
+        range: "[103,125]",
         selector: "interface",
       },
       {
         name: "Enum",
+        range: "[126,138]",
         selector: "enum",
       },
       {
         name: "variable",
+        range: "[154,167]",
         selector: "variable",
       },
       {
         name: "arrowFunction",
+        range: "[181,205]",
         selector: "arrowFunction",
       },
       {
         name: "Function",
+        range: "[213,234]",
         selector: "function",
       },
       {
         name: "Class",
+        range: "[242,256]",
         selector: "class",
       },
       {
         name: "Type",
+        range: "[264,278]",
         selector: "type",
       },
       {
         name: "Interface",
+        range: "[286,308]",
         selector: "interface",
       },
       {
         name: "Enum",
+        range: "[316,328]",
         selector: "enum",
       },
       {
         name: "Function",
+        range: "[345,366]",
         selector: "function",
       },
       {
         name: "Class",
+        range: "[382,396]",
         selector: "class",
       },
       {
         name: "Interface",
+        range: "[412,434]",
         selector: "interface",
       },
       {
         expressionName: "fn",
         name: "VariableExpression",
+        range: "[9,34]",
         selector: "variableExpression",
       },
     ]);

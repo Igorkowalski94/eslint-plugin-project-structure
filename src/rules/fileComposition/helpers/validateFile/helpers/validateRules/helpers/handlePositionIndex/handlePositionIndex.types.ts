@@ -5,4 +5,5 @@ export interface PositionIndexRule {
   format: string[];
   selector: Selector | Selector[];
   expressionName?: string;
+  range?: string;
 }

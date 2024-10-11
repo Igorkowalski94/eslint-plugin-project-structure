@@ -94,7 +94,6 @@ export const validateRules = ({
         return handlePositionIndex({
           context,
           filenamePath,
-          name,
           node: nodeNotExported ?? node,
           rules: allRules,
           selectorType,
