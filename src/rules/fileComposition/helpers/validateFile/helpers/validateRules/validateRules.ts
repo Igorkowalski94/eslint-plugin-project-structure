@@ -98,7 +98,6 @@ export const validateRules = ({
           node: nodeNotExported ?? node,
           rules: allRules,
           selectorType,
-          positionIndex,
           regexParameters,
         });
       }

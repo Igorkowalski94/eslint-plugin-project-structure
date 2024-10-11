@@ -12,7 +12,6 @@ import { getPositionIndexRules } from "rules/fileComposition/helpers/validateFil
 import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/validatePositionIndex/validatePositionIndex";
 
 interface HandlePositionIndexProps {
-  positionIndex: number;
   node: Node;
   filenamePath: string;
   rules: Rule[];
@@ -24,7 +23,6 @@ interface HandlePositionIndexProps {
 
 export const handlePositionIndex = ({
   filenamePath,
-  positionIndex,
   node,
   rules,
   regexParameters,
@@ -41,7 +39,6 @@ export const handlePositionIndex = ({
   const newPositionIndex = getPositionIndex({
     bodyWithoutImports,
     name,
-    positionIndex,
     positionIndexRules,
     selectorType,
   });

@@ -43,7 +43,7 @@ describe("getPositionIndex", () => {
     {
       name: "Random",
       selectorType: "variable",
-      expected: 1,
+      expected: 0,
     },
   ])(
     "Should return correct value for = %o",
@@ -63,7 +63,6 @@ describe("getPositionIndex", () => {
         getPositionIndex({
           bodyWithoutImports: [],
           name,
-          positionIndex: 1,
           positionIndexRules: [
             { format: ["Props"], selector: "interface", positionIndex: 0 },
             { format: ["Return"], selector: "interface", positionIndex: 1 },
@@ -87,18 +86,23 @@ describe("getPositionIndex", () => {
       selectorType: "arrowFunction",
       expected: 0,
     },
+    {
+      name: "Last2",
+      selectorType: "variable",
+      expected: 1,
+    },
   ])(
     "Should return correct value for = %o 2",
     ({ name, selectorType, expected }) => {
       (getSelectorNamesFromBody as jest.Mock).mockReturnValue([
         { selector: "arrowFunction", name: "Name" },
+        { selector: "variable", name: "Last2" },
       ]);
 
       expect(
         getPositionIndex({
           bodyWithoutImports: [],
           name,
-          positionIndex: 1,
           positionIndexRules: [
             { format: ["Props"], selector: "interface", positionIndex: 0 },
             { format: ["Return"], selector: "interface", positionIndex: 1 },

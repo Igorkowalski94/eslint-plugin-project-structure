@@ -6,7 +6,6 @@ import { PositionIndexRule } from "rules/fileComposition/helpers/validateFile/he
 import { getSelectorNamesFromBody } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getSelectorNamesFromBody";
 
 interface GetPositionIndexProps {
-  positionIndex: number;
   positionIndexRules: PositionIndexRule[];
   bodyWithoutImports: TSESTree.ProgramStatement[];
   name: string;
@@ -15,7 +14,6 @@ interface GetPositionIndexProps {
 
 export const getPositionIndex = ({
   positionIndexRules,
-  positionIndex,
   bodyWithoutImports,
   name,
   selectorType,
@@ -23,17 +21,24 @@ export const getPositionIndex = ({
   const selectorNamesFromBody = getSelectorNamesFromBody(bodyWithoutImports);
 
   const positionIndexRulesBody = selectorNamesFromBody
-    .map((body) =>
-      positionIndexRules.find(
+    .map((body) => {
+      const rule = positionIndexRules.find(
         ({ format, selector }) =>
           isCorrectSelector({
             selector,
             selectorType: body.selector,
             expressionName: body.expressionName,
           }) && format.includes(body.name),
-      ),
-    )
-    .filter((v): v is PositionIndexRule => v !== undefined)
+      );
+
+      if (!rule) return;
+
+      return {
+        ...rule,
+        expressionName: body.expressionName,
+      };
+    })
+    .filter((v) => v !== undefined)
     .sort((a, b) => {
       if (a.positionIndex < 0 && b.positionIndex >= 0) return 1;
       if (a.positionIndex >= 0 && b.positionIndex < 0) return -1;
@@ -74,5 +79,5 @@ export const getPositionIndex = ({
       }),
   )?.positionIndex;
 
-  return newPositionIndex ?? positionIndex;
+  return newPositionIndex ?? 0;
 };
