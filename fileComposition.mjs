@@ -35,11 +35,12 @@ export const fileCompositionConfig = createFileComposition({
     {
       filePattern: "src/rules/*/*.ts",
       allowOnlySpecifiedSelectors: {
-        file: false,
+        nestedSelectors: false,
       },
       rules: [
         {
           selector: { type: "variableExpression", limitTo: "ESLintUtils" },
+          scope: "fileExport",
           format: "{fileName}",
         },
       ],
@@ -53,25 +54,25 @@ export const fileCompositionConfig = createFileComposition({
         {
           selector: ["interface", "type"],
           positionIndex: 0,
-          scope: "fileRoot",
+          scope: ["fileExport", "fileRoot"],
           format: "{FileName}Props",
         },
         {
           selector: ["interface", "type"],
           positionIndex: 1,
-          scope: "fileRoot",
+          scope: ["fileExport", "fileRoot"],
           format: "{FileName}Return",
         },
         {
           selector: "class",
           positionIndex: 2,
-          scope: "fileRoot",
+          scope: "fileExport",
           format: "{FileName}",
         },
         {
           selector: "arrowFunction",
           positionIndex: 2,
-          scope: "fileRoot",
+          scope: "fileExport",
           format: "{fileName}",
         },
         {
@@ -81,6 +82,7 @@ export const fileCompositionConfig = createFileComposition({
             "variable",
             "variableExpression",
           ],
+          scope: "nestedSelectors",
           format: "{camelCase}",
         },
       ],

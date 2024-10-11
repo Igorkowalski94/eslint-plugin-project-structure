@@ -89,7 +89,7 @@ export const validateRules = ({
       });
 
       if (isValid) {
-        if (positionIndex === undefined) return;
+        if (positionIndex === undefined || scope === "nestedSelectors") return;
 
         return handlePositionIndex({
           context,
