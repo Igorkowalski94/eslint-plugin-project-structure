@@ -15,12 +15,16 @@ export const getImportPaths = ({
 
   return pathsKays
     .map((key) => {
-      const keyCleared = key.replace("/*", "");
+      const keyCleared = key.replace("*", "");
       const importPaths = paths[key];
 
-      return importPaths.map((importPathReplace) =>
-        importPath.replace(keyCleared, importPathReplace.replace("/*", "")),
-      );
+      return importPaths
+        .map((importPath) =>
+          importPath.replaceAll("../", "").replaceAll("./", ""),
+        )
+        .map((importPathReplace) =>
+          importPath.replace(keyCleared, importPathReplace.replace("*", "")),
+        );
     })
     .flat();
 };

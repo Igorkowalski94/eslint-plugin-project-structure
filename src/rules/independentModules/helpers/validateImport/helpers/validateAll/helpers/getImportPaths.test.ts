@@ -37,8 +37,24 @@ describe("getImportPaths", () => {
       },
       expected: ["src/rules/independentModules/independentModules"],
     },
+
+    {
+      importPath: "@clerk/nextjs",
+      paths: {
+        "@/*": ["./src/*"],
+      },
+      expected: ["@clerk/nextjs"],
+    },
+
+    {
+      importPath: "@/components/hello",
+      paths: {
+        "@/*": ["./src/*", "../../test/*"],
+      },
+      expected: ["src/components/hello", "test/components/hello"],
+    },
   ])(
-    "Should return correct value for %s",
+    "Should return correct value for %o",
     ({ importPath, paths, expected }) => {
       expect(getImportPaths({ importPath, paths })).toEqual(expected);
     },
