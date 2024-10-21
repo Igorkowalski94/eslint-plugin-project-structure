@@ -31,7 +31,7 @@ export const readConfigFile = <T>({
 
   let config = undefined;
 
-  if (configPath.endsWith("json")) {
+  if (configPath.endsWith("json") || configPath.endsWith("jsonc")) {
     config = parse(readFileSync(configPath, "utf-8")) as T;
   } else {
     config = load(readFileSync(configPath, "utf8")) as T;

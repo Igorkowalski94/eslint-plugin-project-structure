@@ -59,6 +59,22 @@ describe("readConfigFile", () => {
     });
   });
 
+  it("should return config from jsonc", () => {
+    (getConfigPath as jest.Mock).mockReturnValue("config.jsonc");
+    (readFileSync as jest.Mock).mockReturnValue('{"name":"jsonc"}');
+
+    expect(
+      readConfigFile({
+        cwd: "",
+        key: "",
+        options: undefined,
+        settings: {},
+      }),
+    ).toEqual({
+      name: "jsonc",
+    });
+  });
+
   it("should return config from yaml", () => {
     (getConfigPath as jest.Mock).mockReturnValue("config.yaml");
     (load as jest.Mock).mockReturnValue({ name: "yaml" });
