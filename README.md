@@ -68,11 +68,11 @@ Leave a ⭐ and share the link with your friends.<br>
 <h2 align="center"><a href="https://github.com/Igorkowalski94/eslint-plugin-project-structure/wiki/project%E2%80%91structure-%E2%80%8Bindependent%E2%80%91modules#root">project&#8209;structure/&#8203;independent&#8209;modules</a></h2>
 <p align="center">A key principle of a healthy project is to prevent the creation of a massive dependency tree,
 where removing or editing one feature triggers a chain reaction that impacts the entire project.</p>
-<p align="center">Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.</p>
+<p align="center">Create modules where you control what can be imported into them. Eliminate unnecessary dependencies between folders or files to build truly independent functionalities.<p>
 
 <h4><picture><img src="https://raw.githubusercontent.com/Igorkowalski94/eslint-plugin-project-structure/main/images/Rocket.png" alt="Rocket" width="35" height="35" /></picture> Features:</h4>
 
-- Creating independent modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
+- Creating modules in which you control what can be imported (e.g. types, functions, components of one functionality cannot be imported into another functionality).
 - The ability to create very detailed rules, even for nested folder structures. Whether it's a large module, a sub-module, or a single file, there are no limitations.
 - Support for all types of imports, including `require()`, `import()`, `jest.mock()`, and `jest.requireActual()`, as well as `ExportAllDeclaration` and `ExportNamedDeclaration`.
 - Disabling external imports (node_modules) for a given module (Option to add exceptions).
