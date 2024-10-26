@@ -30,8 +30,9 @@ export const handleProgram = ({
     settings,
     options: options[0],
   });
-  const structureRoot = path.resolve(cwd, config.structureRoot ?? ".");
+
   const projectRoot = path.resolve(cwd, config.projectRoot ?? ".");
+  const structureRoot = path.resolve(projectRoot, config.structureRoot ?? ".");
 
   if (
     !filename.includes(structureRoot) ||
