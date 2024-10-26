@@ -70,7 +70,7 @@ describe("handlePropertyDefinition", () => {
     });
   });
 
-  test("Should call validateFile with VariableDeclarator", () => {
+  test("Should call validateFile with PropertyDefinition", () => {
     const validateFileMock = jest.fn();
 
     (validateFile as jest.Mock).mockImplementation(validateFileMock);
@@ -89,7 +89,7 @@ describe("handlePropertyDefinition", () => {
       },
       context: {},
       name: "methodName2",
-      nodeType: "VariableDeclarator",
+      nodeType: "PropertyDefinition",
       fileConfig: undefined,
       config: { filesRules: [] },
     });

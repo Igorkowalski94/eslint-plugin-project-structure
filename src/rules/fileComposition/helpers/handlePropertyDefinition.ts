@@ -26,7 +26,7 @@ export const handlePropertyDefinition = ({
   const nodeType: NodeType =
     node.value?.type === TSESTree.AST_NODE_TYPES.ArrowFunctionExpression
       ? "ArrowFunctionExpression"
-      : "VariableDeclarator";
+      : "PropertyDefinition";
 
   validateFile({
     node,

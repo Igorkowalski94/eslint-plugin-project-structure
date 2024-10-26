@@ -27,13 +27,14 @@ export const validateName = ({
     .replaceAll("*", WILDCARD_REGEX)
     .replaceAll(`${WILDCARD_REGEX}${WILDCARD_REGEX}`, "*");
 
-  if (isRegexInvalid(regexImproved)) throw getInvalidRegexError(regexImproved);
-
   const regexWithRegexParameters = applyRegexParameters({
     regex: regexImproved,
     folderName,
     regexParameters,
   });
+
+  if (isRegexInvalid(regexWithRegexParameters))
+    throw getInvalidRegexError(regexWithRegexParameters);
 
   const finalRegex = new RegExp(`^${regexWithRegexParameters}$`, "g");
 

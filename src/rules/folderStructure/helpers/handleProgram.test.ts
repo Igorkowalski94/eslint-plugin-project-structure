@@ -1,3 +1,7 @@
+import path from "path";
+
+import { PROJECT_STRUCTURE_CACHE_FILE_NAME } from "consts";
+
 import { FinalError } from "errors/FinalError";
 
 import { isErrorInCache } from "helpers/isErrorInCache";
@@ -35,7 +39,15 @@ describe("validateImport", () => {
     });
 
     handleProgram({
-      context: { report: reportMock, settings: {}, options: [] },
+      context: {
+        report: reportMock,
+        settings: {},
+        options: [],
+        cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
+        filename: path.resolve(
+          "C:/Users/eslint-plugin-project-structure/file.ts",
+        ),
+      },
       importPath: "",
       node: {},
     } as unknown as HandleProgramProps);
@@ -55,12 +67,74 @@ describe("validateImport", () => {
     (isErrorInCache as jest.Mock).mockReturnValue(true);
 
     handleProgram({
-      context: { report: reportMock, settings: {}, options: [] },
+      context: {
+        report: reportMock,
+        settings: {},
+        options: [],
+        cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
+        filename: path.resolve(
+          "C:/Users/eslint-plugin-project-structure/file.ts",
+        ),
+      },
       importPath: "",
       node: {},
     } as unknown as HandleProgramProps);
 
     expect(reportMock).not.toHaveBeenCalled();
+  });
+
+  test("Should not call validateFolderStructure when !filename.includes(structureRoot)", () => {
+    const reportMock = jest.fn();
+    const validateFolderStructureMock = jest.fn();
+
+    (readConfigFile as jest.Mock).mockReturnValue({});
+
+    (validateFolderStructure as jest.Mock).mockImplementation(
+      validateFolderStructureMock,
+    );
+
+    handleProgram({
+      context: {
+        report: reportMock,
+        settings: {},
+        options: [],
+        cwd: path.resolve("C:/Users/eslint-plugin-project-structure/src"),
+        filename: path.resolve(
+          "C:/Users/eslint-plugin-project-structure/file.ts",
+        ),
+      },
+      importPath: "",
+      node: {},
+    } as unknown as HandleProgramProps);
+
+    expect(validateFolderStructureMock).not.toHaveBeenCalled();
+  });
+
+  test("Should not call validateFolderStructure when filename.includes(PROJECT_STRUCTURE_CACHE_FILE_NAME)", () => {
+    const reportMock = jest.fn();
+    const validateFolderStructureMock = jest.fn();
+
+    (readConfigFile as jest.Mock).mockReturnValue({});
+
+    (validateFolderStructure as jest.Mock).mockImplementation(
+      validateFolderStructureMock,
+    );
+
+    handleProgram({
+      context: {
+        report: reportMock,
+        settings: {},
+        options: [],
+        cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
+        filename: path.resolve(
+          `C:/Users/eslint-plugin-project-structure/${PROJECT_STRUCTURE_CACHE_FILE_NAME}`,
+        ),
+      },
+      importPath: "",
+      node: {},
+    } as unknown as HandleProgramProps);
+
+    expect(validateFolderStructureMock).not.toHaveBeenCalled();
   });
 
   test("Should throw random error when error !== FinalError ", () => {
@@ -74,7 +148,15 @@ describe("validateImport", () => {
 
     expect(() =>
       handleProgram({
-        context: { report: reportMock, settings: {}, options: [] },
+        context: {
+          report: reportMock,
+          settings: {},
+          options: [],
+          cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
+          filename: path.resolve(
+            "C:/Users/eslint-plugin-project-structure/file.ts",
+          ),
+        },
         importPath: "",
         node: {},
       } as unknown as HandleProgramProps),

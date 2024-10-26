@@ -9,4 +9,5 @@ export const SELECTORS: Selectors = {
   TSEnumDeclaration: "enum",
   TSInterfaceDeclaration: "interface",
   TSTypeAliasDeclaration: "type",
+  PropertyDefinition: "propertyDefinition",
 };

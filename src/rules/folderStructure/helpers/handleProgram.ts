@@ -1,4 +1,7 @@
+import path from "path";
+
 import { TSESTree } from "@typescript-eslint/utils";
+import { PROJECT_STRUCTURE_CACHE_FILE_NAME } from "consts";
 
 import { finalErrorGuard } from "errors/finalErrorGuard";
 
@@ -27,16 +30,24 @@ export const handleProgram = ({
     settings,
     options: options[0],
   });
+  const structureRoot = path.resolve(cwd, config.structureRoot ?? ".");
+  const projectRoot = path.resolve(cwd, config.projectRoot ?? ".");
+
+  if (
+    !filename.includes(structureRoot) ||
+    filename.includes(PROJECT_STRUCTURE_CACHE_FILE_NAME)
+  )
+    return;
 
   try {
-    validateFolderStructure({ filename, cwd, config });
-    cleanUpErrorFromCache({ cwd, filename });
+    validateFolderStructure({ filename, cwd: structureRoot, config });
+    cleanUpErrorFromCache({ cwd: projectRoot, filename });
   } catch (error) {
     if (!finalErrorGuard(error)) throw error;
 
     if (
       isErrorInCache({
-        cwd,
+        cwd: projectRoot,
         errorCache: {
           filename,
           errorMessage: error.message,

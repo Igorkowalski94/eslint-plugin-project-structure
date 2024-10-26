@@ -111,6 +111,14 @@
         }
       ]
     },
+    "projectRoot": {
+      "type": "string",
+      "default": "."
+    },
+    "structureRoot": {
+      "type": "string",
+      "default": "."
+    },
     "longPathsInfo": {
       "oneOf": [
         {

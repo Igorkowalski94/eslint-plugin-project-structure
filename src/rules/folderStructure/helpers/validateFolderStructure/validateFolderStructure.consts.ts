@@ -113,6 +113,14 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
         },
       ],
     },
+    projectRoot: {
+      type: "string",
+      default: ".",
+    },
+    structureRoot: {
+      type: "string",
+      default: ".",
+    },
     longPathsInfo: {
       oneOf: [
         {

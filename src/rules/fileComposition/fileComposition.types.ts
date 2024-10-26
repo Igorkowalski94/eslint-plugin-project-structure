@@ -5,6 +5,7 @@ import { Pattern, RegexParameters } from "types";
 import { ESLINT_ERRORS } from "rules/fileComposition/fileComposition.consts";
 
 export type NodeType =
+  | "PropertyDefinition"
   | "ClassDeclaration"
   | "VariableDeclarator"
   | "Expression"
@@ -18,6 +19,7 @@ export type SelectorType =
   | "class"
   | "variable"
   | "variableExpression"
+  | "propertyDefinition"
   | "function"
   | "arrowFunction"
   | "type"

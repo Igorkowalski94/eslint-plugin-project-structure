@@ -26,6 +26,8 @@ export interface LongPathsInfo {
 export interface FolderStructureConfig<T extends string = string> {
   ignorePatterns?: Pattern;
   longPathsInfo?: LongPathsInfo | false;
+  structureRoot?: string;
+  projectRoot?: string;
   structure: Rule<T> | Rule<T>[];
   rules?: Record<T, FolderRecursionRule<T>>;
   regexParameters?: RegexParameters;
