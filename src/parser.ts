@@ -25,10 +25,12 @@ interface ParserReturn {
 }
 
 interface ParserProps {
+  meta: { name: string };
   parseForESLint: () => ParserReturn;
 }
 
 export const parser: ParserProps = {
+  meta: { name: "projectStructureParser" },
   parseForESLint: () => ({
     ast: {
       type: "Program",
