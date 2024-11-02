@@ -2,68 +2,49 @@ import path from "path";
 
 import { convertImportPathToNonRelative } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/convertImportPathToNonRelative";
 
+jest.mock("path", () => ({
+  ...jest.requireActual<typeof path>("path"),
+  sep: "\\",
+}));
+
 describe("convertImportPathToNonRelative", () => {
   test.each([
     {
-      filename: path.resolve(
+      filename:
         "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1\\feature1.types.ts",
-      ),
-      dirname: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
-      ),
-      resolve: path.resolve(
+      dirname: "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
+      resolve:
         "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1\\Feature1.tsx",
-      ),
       importPath: "./Feature1.tsx",
-      projectRootWithBaseUrl: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src",
-      ),
+      projectRootWithBaseUrl: "C:\\Users\\user\\Desktop\\repo\\src",
       expected: "features/Feature1/Feature1.tsx",
     },
     {
-      filename: path.resolve(
+      filename:
         "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1\\feature1.types.ts",
-      ),
-      dirname: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
-      ),
-      resolve: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature2.tsx",
-      ),
+      dirname: "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
+      resolve: "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature2.tsx",
       importPath: "../Feature2.tsx",
-      projectRootWithBaseUrl: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src",
-      ),
+      projectRootWithBaseUrl: "C:\\Users\\user\\Desktop\\repo\\src",
       expected: "features/Feature2.tsx",
     },
     {
-      filename: path.resolve(
+      filename:
         "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1\\feature1.types.ts",
-      ),
-      dirname: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
-      ),
-      resolve: path.resolve("C:\\Users\\user\\Desktop\\repo\\src\\index.tsx"),
+      dirname: "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
+      resolve: "C:\\Users\\user\\Desktop\\repo\\src\\index.tsx",
       importPath: "../../index.tsx",
-      projectRootWithBaseUrl: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src",
-      ),
+      projectRootWithBaseUrl: "C:\\Users\\user\\Desktop\\repo\\src",
       expected: "index.tsx",
     },
     {
-      filename: path.resolve(
+      filename:
         "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1\\feature1.types.ts",
-      ),
-      dirname: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
-      ),
-      resolve: path.resolve(
+      dirname: "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1",
+      resolve:
         "C:\\Users\\user\\Desktop\\repo\\src\\features\\Feature1\\Feature1.tsx",
-      ),
       importPath: "features/Feature1/Feature1.tsx",
-      projectRootWithBaseUrl: path.resolve(
-        "C:\\Users\\user\\Desktop\\repo\\src",
-      ),
+      projectRootWithBaseUrl: "C:\\Users\\user\\Desktop\\repo\\src",
       expected: "features/Feature1/Feature1.tsx",
     },
   ])(
