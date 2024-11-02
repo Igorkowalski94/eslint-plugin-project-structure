@@ -1,4 +1,4 @@
-import path, { sep } from "path";
+import path from "path";
 
 import { validateConfig } from "helpers/validateConfig";
 
@@ -14,13 +14,15 @@ import { FOLDER_STRUCTURE_SCHEMA } from "rules/folderStructure/helpers/validateF
 
 interface ValidateFolderStructureProps {
   filename: string;
-  cwd: string;
+  structureRoot: string;
+  projectRoot: string;
   config: FolderStructureConfig;
 }
 
 export const validateFolderStructure = ({
   filename,
-  cwd,
+  structureRoot,
+  projectRoot,
   config,
 }: ValidateFolderStructureProps): void => {
   const { structure, ignorePatterns, longPathsInfo, rules } = config;
@@ -28,37 +30,40 @@ export const validateFolderStructure = ({
   validateConfig({ config, schema: FOLDER_STRUCTURE_SCHEMA });
 
   const rulesWithFolderRecursion = extractFolderRecursionFromRules(rules);
-  const rootFolderName = path.basename(cwd);
+  const rootFolderName = path.basename(structureRoot);
   const rootRule = getRootRule({
     structure,
     rootFolderName,
     rules: rulesWithFolderRecursion,
   });
   const pathname = getPathname({
-    cwd,
+    root: structureRoot,
     filename,
   });
 
   if (isIgnoredPathname({ pathname, ignorePatterns })) return;
 
-  validateLongPath({ filename, cwd, longPathsInfo });
+  validateLongPath({ filename, projectRoot, longPathsInfo });
 
   if (rootRule.enforceExistence) {
     checkNodeExistence({
       enforceExistence: rootRule.enforceExistence,
       nodeName: rootFolderName,
       nodeType: "Folder",
-      cwd,
-      nodePath: cwd.replaceAll(sep, "/"),
+      structureRoot,
+      nodePath: "",
+      structureRootConfig: config.structureRoot,
+      projectRoot,
     });
   }
 
   validatePath({
     pathname,
-    filenameWithoutCwd: pathname,
-    cwd,
+    filenameWithoutProjectRoot: pathname,
+    structureRoot,
     folderName: rootFolderName,
     rule: rootRule,
     config: { ...config, rules: rulesWithFolderRecursion },
+    projectRoot,
   });
 };

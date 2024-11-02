@@ -22,7 +22,7 @@ export interface ValidateImportProps {
 
 export const validateImport = ({
   importPath,
-  context: { cwd, filename, report },
+  context: { filename, report },
   node,
   config,
 }: ValidateImportProps): void => {
@@ -30,7 +30,6 @@ export const validateImport = ({
     validateAll({
       filename,
       importPath,
-      cwd,
       config,
     });
   } catch (error) {

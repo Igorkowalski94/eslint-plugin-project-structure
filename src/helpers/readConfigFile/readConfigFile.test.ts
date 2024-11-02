@@ -31,7 +31,6 @@ describe("readConfigFile", () => {
   it("should return config from options", () => {
     expect(
       readConfigFile({
-        cwd: "",
         key: "",
         options: [{ name: "options" }],
         settings: {},
@@ -49,7 +48,6 @@ describe("readConfigFile", () => {
 
     expect(
       readConfigFile({
-        cwd: "",
         key: "",
         options: undefined,
         settings: {},
@@ -65,7 +63,6 @@ describe("readConfigFile", () => {
 
     expect(
       readConfigFile({
-        cwd: "",
         key: "",
         options: undefined,
         settings: {},
@@ -81,7 +78,6 @@ describe("readConfigFile", () => {
 
     expect(
       readConfigFile({
-        cwd: "",
         key: "",
         options: undefined,
         settings: {},
@@ -96,7 +92,6 @@ describe("readConfigFile", () => {
 
     expect(() =>
       readConfigFile({
-        cwd: "",
         key: "",
         options: undefined,
         settings: {},

@@ -2,13 +2,20 @@ import fs from "fs";
 
 import { getFullImportPathVariants } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getFullImportPathVariants";
 
-export const isExternalImport = (importPath: string, cwd: string): boolean => {
+export const isExternalImport = (
+  importPath: string,
+  projectRoot: string,
+): boolean => {
   const {
     fullImportPathExternal,
     fullImportPathExternalTypes,
     fullImportPathExternalTypesNode,
     fullImportPathExternalNode,
-  } = getFullImportPathVariants({ importPath, cwd, cwdWithRoot: "" });
+  } = getFullImportPathVariants({
+    importPath,
+    projectRoot,
+    projectRootWithBaseUrl: "",
+  });
 
   return (
     fs.existsSync(fullImportPathExternal) ||

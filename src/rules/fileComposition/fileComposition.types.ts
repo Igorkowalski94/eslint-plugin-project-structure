@@ -84,6 +84,7 @@ export interface FileRules {
 }
 
 export interface FileCompositionConfig {
+  projectRoot?: string;
   regexParameters?: RegexParameters;
   filesRules: FileRules[];
 }

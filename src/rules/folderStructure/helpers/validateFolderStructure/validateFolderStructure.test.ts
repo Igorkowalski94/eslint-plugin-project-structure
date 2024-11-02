@@ -1,4 +1,4 @@
-import path, { sep } from "path";
+import path from "path";
 
 import { validateConfig } from "helpers/validateConfig";
 
@@ -38,7 +38,8 @@ describe("validateFolderStructure", () => {
 
     expect(
       validateFolderStructure({
-        cwd: path.join("C:", "rootFolderName"),
+        structureRoot: path.join("C:", "rootFolderName"),
+        projectRoot: path.join("C:", "rootFolderName"),
         config: { structure: [{ name: "camelCase.tsx" }] },
         filename: path.join(
           "C:",
@@ -61,7 +62,8 @@ describe("validateFolderStructure", () => {
     (validateConfig as jest.Mock).mockImplementation();
 
     validateFolderStructure({
-      cwd: path.join("C:", "rootFolderName"),
+      structureRoot: path.join("C:", "rootFolderName"),
+      projectRoot: path.join("C:", "rootFolderName"),
       config: {
         structure: {
           enforceExistence: ["./src/test.ts"],
@@ -81,8 +83,9 @@ describe("validateFolderStructure", () => {
       enforceExistence: ["./src/test.ts"],
       nodeName: "rootFolderName",
       nodeType: "Folder",
-      cwd: path.join("C:", "rootFolderName"),
-      nodePath: path.join("C:", "rootFolderName").replaceAll(sep, "/"),
+      structureRoot: path.join("C:", "rootFolderName"),
+      projectRoot: path.join("C:", "rootFolderName"),
+      nodePath: "",
     });
   });
 
@@ -94,7 +97,8 @@ describe("validateFolderStructure", () => {
     (validateConfig as jest.Mock).mockImplementation();
 
     validateFolderStructure({
-      cwd: path.join("C:", "rootFolderName"),
+      structureRoot: path.join("C:", "rootFolderName"),
+      projectRoot: path.join("C:", "rootFolderName"),
       config: {
         structure: { name: "name", children: [{ name: "camelCase.tsx" }] },
       },
@@ -109,8 +113,9 @@ describe("validateFolderStructure", () => {
 
     expect(validatePathMock).toHaveBeenCalledWith({
       pathname: "src/features/ComponentName.tsx",
-      filenameWithoutCwd: "src/features/ComponentName.tsx",
-      cwd: path.join("C:", "rootFolderName"),
+      filenameWithoutProjectRoot: "src/features/ComponentName.tsx",
+      structureRoot: path.join("C:", "rootFolderName"),
+      projectRoot: path.join("C:", "rootFolderName"),
       folderName: "rootFolderName",
       rule: { name: "rootFolderName", children: [{ name: "camelCase.tsx" }] },
       config: {

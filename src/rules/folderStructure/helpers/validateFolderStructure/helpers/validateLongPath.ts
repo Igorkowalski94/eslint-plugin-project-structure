@@ -8,13 +8,13 @@ import { getPathname } from "rules/folderStructure/helpers/validateFolderStructu
 
 interface ValidateLongPathProps {
   filename: string;
-  cwd: string;
+  projectRoot: string;
   longPathsInfo?: LongPathsInfo | false;
 }
 
 export const validateLongPath = ({
   filename,
-  cwd,
+  projectRoot,
   longPathsInfo,
 }: ValidateLongPathProps): void => {
   if (longPathsInfo === false) return;
@@ -22,7 +22,7 @@ export const validateLongPath = ({
   const currentPath = longPathsInfo?.countFromSystemRoot
     ? filename
     : getPathname({
-        cwd: path.resolve(cwd, longPathsInfo?.root ?? ".."),
+        root: path.resolve(projectRoot, longPathsInfo?.root ?? ".."),
         filename,
       });
 

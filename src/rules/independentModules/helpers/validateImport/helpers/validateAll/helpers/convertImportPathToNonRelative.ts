@@ -1,15 +1,15 @@
 import path from "path";
 
-import { removeCwdWithRootAndUnifySep } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/removeCwdWithRootAndUnifySep";
+import { removeProjectRootFromPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/removeProjectRootFromPath";
 
 interface ConvertImportPathToNonRelativeProps {
   importPath: string;
   filename: string;
-  cwdWithRoot: string;
+  projectRootWithBaseUrl: string;
 }
 
 export const convertImportPathToNonRelative = ({
-  cwdWithRoot,
+  projectRootWithBaseUrl,
   filename,
   importPath,
 }: ConvertImportPathToNonRelativeProps): string => {
@@ -19,5 +19,5 @@ export const convertImportPathToNonRelative = ({
 
   const fullImportPath = path.resolve(dirname, path.join(importPath));
 
-  return removeCwdWithRootAndUnifySep(fullImportPath, cwdWithRoot);
+  return removeProjectRootFromPath(fullImportPath, projectRootWithBaseUrl);
 };

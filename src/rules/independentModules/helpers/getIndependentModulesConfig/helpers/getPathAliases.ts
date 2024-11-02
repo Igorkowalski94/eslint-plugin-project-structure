@@ -3,6 +3,8 @@ import path from "path";
 
 import { parse } from "comment-json";
 
+import { getProjectRoot } from "helpers/getProjectRoot";
+
 import { DEFAULT_BASE_URL } from "rules/independentModules/independentModules.consts";
 import {
   IndependentModulesConfig,
@@ -11,19 +13,21 @@ import {
 } from "rules/independentModules/independentModules.types";
 
 interface GetPathAliasesProps {
-  cwd: string;
   config: IndependentModulesConfig;
 }
 
 export const getPathAliases = ({
-  cwd,
   config,
 }: GetPathAliasesProps): PathAliases | undefined => {
   const { pathAliases } = config;
 
   if (pathAliases) return pathAliases;
 
-  const tsconfigPath = config.tsconfigPath ?? path.join(cwd, "tsconfig.json");
+  const projectRoot = getProjectRoot();
+
+  const tsconfigPath = config.tsconfigPath
+    ? path.resolve(projectRoot, config.tsconfigPath)
+    : path.join(projectRoot, "tsconfig.json");
 
   let tsconfig: TsConfigJson | undefined;
 

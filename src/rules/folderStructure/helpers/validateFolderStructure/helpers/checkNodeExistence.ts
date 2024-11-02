@@ -6,21 +6,26 @@ import { transformStringToCase } from "helpers/transformStringToCase";
 
 import { getNodeExistenceError } from "rules/folderStructure/errors/getNodeExistenceError";
 import { NodeType } from "rules/folderStructure/folderStructure.types";
+import { getNodePathWithStructureRoot } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getNodePathWithStructureRoot";
 
 interface CheckNodeExistenceProps {
-  cwd: string;
+  structureRoot: string;
   nodeName: string;
   enforceExistence: string[] | string;
   nodeType: NodeType;
   nodePath: string;
+  structureRootConfig?: string;
+  projectRoot: string;
 }
 
 export const checkNodeExistence = ({
   enforceExistence,
   nodeName,
   nodeType,
-  cwd,
+  structureRoot,
   nodePath,
+  structureRootConfig,
+  projectRoot,
 }: CheckNodeExistenceProps): void => {
   const nodeDirname = path.dirname(nodePath);
   const currentNodeName =
@@ -62,7 +67,7 @@ export const checkNodeExistence = ({
       });
 
       const enforcedNodeFullPath = path.join(
-        cwd,
+        structureRoot,
         currentDirname,
         enforcedNodeNameWithoutRef,
       );
@@ -71,9 +76,7 @@ export const checkNodeExistence = ({
 
       return (
         "./" +
-        path
-          .join(currentDirname, enforcedNodeNameWithoutRef)
-          .replaceAll(sep, "/")
+        path.relative(projectRoot, enforcedNodeFullPath).replaceAll(sep, "/")
       );
     })
     .filter((v): v is string => v !== undefined);
@@ -84,6 +87,9 @@ export const checkNodeExistence = ({
     enforcedNodeNames,
     nodeName,
     nodeType,
-    nodePath,
+    nodePath: getNodePathWithStructureRoot({
+      nodePath,
+      structureRoot: structureRootConfig,
+    }),
   });
 };

@@ -6,16 +6,16 @@ import { IndependentModulesConfig } from "rules/independentModules/independentMo
 
 interface AddExtensionToImportPathProps {
   importPath: string;
-  cwdWithRoot: string;
   extensions: IndependentModulesConfig["extensions"];
-  cwd: string;
+  projectRoot: string;
+  projectRootWithBaseUrl: string;
 }
 
 export const addExtensionToImportPath = ({
   importPath,
-  cwdWithRoot,
   extensions = [],
-  cwd,
+  projectRoot,
+  projectRootWithBaseUrl,
 }: AddExtensionToImportPathProps): string => {
   const allExtensions = [...FILE_EXTENSIONS, ...extensions];
 
@@ -36,7 +36,11 @@ export const addExtensionToImportPath = ({
     fullImportPathExternalTypesNodeIndex,
     fullImportPathExternalNode,
     fullImportPathExternalNodeIndex,
-  } = getFullImportPathVariants({ importPath, cwdWithRoot, cwd });
+  } = getFullImportPathVariants({
+    importPath,
+    projectRoot,
+    projectRootWithBaseUrl,
+  });
 
   const fullImportPathsWithIndex = [
     fullImportPathIndex,

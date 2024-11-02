@@ -4,14 +4,14 @@ import { SharedConfigurationSettings } from "@typescript-eslint/utils/dist/ts-es
 
 import { getMissingConfigFileError } from "errors/getMissingConfigFileError";
 
+import { getProjectRoot } from "helpers/getProjectRoot";
+
 interface GetConfigPathProps {
-  cwd: string;
   settings: SharedConfigurationSettings;
   key: string;
 }
 
 export const getConfigPath = ({
-  cwd,
   settings,
   key,
 }: GetConfigPathProps): string => {
@@ -19,5 +19,5 @@ export const getConfigPath = ({
 
   if (!configPath) throw getMissingConfigFileError(key);
 
-  return path.resolve(cwd, configPath as string);
+  return path.resolve(getProjectRoot(), configPath as string);
 };

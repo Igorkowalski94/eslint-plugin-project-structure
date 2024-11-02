@@ -8,14 +8,14 @@ import { readProjectStructureCacheFile } from "helpers/readProjectStructureCache
 
 interface CleanUpErrorFromCacheProps {
   filename: string;
-  cwd: string;
+  projectRoot: string;
 }
 
 export const cleanUpErrorFromCache = ({
-  cwd,
+  projectRoot,
   filename,
 }: CleanUpErrorFromCacheProps): void => {
-  const projectStructureCache = readProjectStructureCacheFile(cwd);
+  const projectStructureCache = readProjectStructureCacheFile(projectRoot);
 
   if (!projectStructureCache) return;
 
@@ -24,10 +24,12 @@ export const cleanUpErrorFromCache = ({
   );
 
   if (!projectStructureCacheClean.length)
-    return unlinkSync(path.join(cwd, PROJECT_STRUCTURE_CACHE_FILE_NAME));
+    return unlinkSync(
+      path.join(projectRoot, PROJECT_STRUCTURE_CACHE_FILE_NAME),
+    );
 
   createProjectStructureCacheFile({
-    cwd,
+    projectRoot,
     projectStructureCache: projectStructureCacheClean,
   });
 };

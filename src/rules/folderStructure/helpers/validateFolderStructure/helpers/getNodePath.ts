@@ -1,12 +1,12 @@
 interface GetNodePathProps {
-  filenameWithoutCwd: string;
+  filenameWithoutProjectRoot: string;
   nodeName: string;
   pathname: string;
 }
 
 export const getNodePath = ({
-  filenameWithoutCwd,
+  filenameWithoutProjectRoot,
   nodeName,
   pathname,
 }: GetNodePathProps): string =>
-  filenameWithoutCwd.replace(pathname, "") + nodeName;
+  filenameWithoutProjectRoot.replace(pathname, "") + nodeName;

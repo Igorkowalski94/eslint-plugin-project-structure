@@ -1,9 +1,9 @@
 import path, { sep } from "path";
 
 interface GetPathnameProps {
-  cwd: string;
+  root: string;
   filename: string;
 }
 
-export const getPathname = ({ cwd, filename }: GetPathnameProps): string =>
-  path.relative(cwd, filename).replaceAll(sep, "/");
+export const getPathname = ({ root, filename }: GetPathnameProps): string =>
+  path.relative(root, filename).replaceAll(sep, "/");

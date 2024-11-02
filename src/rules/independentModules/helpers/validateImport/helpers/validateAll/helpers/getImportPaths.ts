@@ -13,9 +13,12 @@ export const getImportPaths = ({
 
   if (!paths || !pathsKays.length) return [importPath];
 
-  return pathsKays
+  const imports = pathsKays
     .map((key) => {
       const keyCleared = key.replace("*", "");
+
+      if (!importPath.includes(keyCleared)) return;
+
       const importPaths = paths[key];
 
       return importPaths
@@ -26,5 +29,10 @@ export const getImportPaths = ({
           importPath.replace(keyCleared, importPathReplace.replace("*", "")),
         );
     })
-    .flat();
+    .flat()
+    .filter((v): v is string => !!v);
+
+  if (!imports.length) return [importPath];
+
+  return imports;
 };

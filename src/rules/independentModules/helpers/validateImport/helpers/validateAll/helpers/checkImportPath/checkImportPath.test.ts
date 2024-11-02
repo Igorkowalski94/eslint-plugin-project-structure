@@ -1,9 +1,11 @@
 import { getExternalImportError } from "rules/independentModules/errors/getExternalImportError";
 import { getImportError } from "rules/independentModules/errors/getImportError";
+import { getImportPathNotExistsError } from "rules/independentModules/errors/getImportPathNotExistsError";
 import { checkImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/checkImportPath";
 import { extractReferencesFromPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/extractReferencesFromPatterns";
 import { findModuleConfig } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/findModuleConfig";
 import { isExternalImport } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isExternalImport";
+import { isImportPathExists } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isImportPathExists";
 import { validateImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/validateImportPath";
 
 jest.mock(
@@ -28,6 +30,13 @@ jest.mock(
 );
 
 jest.mock(
+  "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isImportPathExists",
+  () => ({
+    isImportPathExists: jest.fn(),
+  }),
+);
+
+jest.mock(
   "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/validateImportPath",
   () => ({
     validateImportPath: jest.fn(),
@@ -45,7 +54,7 @@ describe("checkImportPath", () => {
 
     checkImportPath({
       config: { modules: [] },
-      cwd: "",
+      projectRoot: "",
       filename: "",
       importPath: "",
     });
@@ -64,7 +73,7 @@ describe("checkImportPath", () => {
     expect(() =>
       checkImportPath({
         config: { modules: [] },
-        cwd: "",
+        projectRoot: "",
         filename: "",
         importPath: "react",
       }),
@@ -90,7 +99,7 @@ describe("checkImportPath", () => {
     expect(() =>
       checkImportPath({
         config: { modules: [] },
-        cwd: "",
+        projectRoot: "",
         filename: "",
         importPath: "react",
       }),
@@ -116,7 +125,7 @@ describe("checkImportPath", () => {
     expect(() =>
       checkImportPath({
         config: { modules: [] },
-        cwd: "",
+        projectRoot: "",
         filename: "",
         importPath: "react",
       }),
@@ -131,6 +140,26 @@ describe("checkImportPath", () => {
     );
   });
 
+  test("Should throw when !importPathExists", () => {
+    (findModuleConfig as jest.Mock).mockReturnValue({
+      name: "module",
+      errorMessage: "error",
+    });
+    (extractReferencesFromPatterns as jest.Mock).mockReturnValue([]);
+    (isExternalImport as jest.Mock).mockReturnValue(false);
+    (validateImportPath as jest.Mock).mockReturnValue(true);
+    (isImportPathExists as jest.Mock).mockReturnValue(false);
+
+    expect(() =>
+      checkImportPath({
+        config: { modules: [] },
+        projectRoot: "",
+        filename: "",
+        importPath: "",
+      }),
+    ).toThrow(getImportPathNotExistsError());
+  });
+
   test("Should not throw when isValidImportPath", () => {
     (findModuleConfig as jest.Mock).mockReturnValue({
       name: "module",
@@ -139,11 +168,12 @@ describe("checkImportPath", () => {
     (extractReferencesFromPatterns as jest.Mock).mockReturnValue([]);
     (isExternalImport as jest.Mock).mockReturnValue(false);
     (validateImportPath as jest.Mock).mockReturnValue(true);
+    (isImportPathExists as jest.Mock).mockReturnValue(true);
 
     expect(() =>
       checkImportPath({
         config: { modules: [] },
-        cwd: "",
+        projectRoot: "",
         filename: "",
         importPath: "",
       }),
@@ -165,11 +195,12 @@ describe("checkImportPath", () => {
     (extractReferencesFromPatterns as jest.Mock).mockReturnValue([]);
     (isExternalImport as jest.Mock).mockReturnValue(false);
     (validateImportPath as jest.Mock).mockReturnValue(false);
+    (isImportPathExists as jest.Mock).mockReturnValue(true);
 
     expect(() =>
       checkImportPath({
         config: { modules: [] },
-        cwd: "",
+        projectRoot: "",
         filename: "",
         importPath: "",
       }),

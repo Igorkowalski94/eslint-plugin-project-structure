@@ -233,6 +233,10 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "projectRoot": {
+      "type": "string",
+      "default": "."
+    },
     "filesRules": {
       "type": "array",
       "default": [],

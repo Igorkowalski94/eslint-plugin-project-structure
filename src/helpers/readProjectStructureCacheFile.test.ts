@@ -10,7 +10,7 @@ describe("readProjectStructureCacheFile", () => {
   it("should return config", () => {
     (readFileSync as jest.Mock).mockReturnValue('{"name":"json"}');
 
-    expect(readProjectStructureCacheFile("cwd")).toEqual({
+    expect(readProjectStructureCacheFile("projectRoot")).toEqual({
       name: "json",
     });
   });
@@ -18,6 +18,6 @@ describe("readProjectStructureCacheFile", () => {
   it("should return undefined", () => {
     (readFileSync as jest.Mock).mockReturnValue(undefined);
 
-    expect(readProjectStructureCacheFile("cwd")).toEqual(undefined);
+    expect(readProjectStructureCacheFile("projectRoot")).toEqual(undefined);
   });
 });

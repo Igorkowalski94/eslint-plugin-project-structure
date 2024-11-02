@@ -7,15 +7,18 @@ import { readProjectStructureCacheFile } from "helpers/readProjectStructureCache
 
 interface HandleCacheProps {
   errorCache: ErrorCache;
-  cwd: string;
+  projectRoot: string;
 }
 
-export const handleCache = ({ cwd, errorCache }: HandleCacheProps): void => {
-  const projectStructureCache = readProjectStructureCacheFile(cwd);
+export const handleCache = ({
+  projectRoot,
+  errorCache,
+}: HandleCacheProps): void => {
+  const projectStructureCache = readProjectStructureCacheFile(projectRoot);
 
   if (!projectStructureCache)
     return createProjectStructureCacheFile({
-      cwd,
+      projectRoot,
       projectStructureCache: [errorCache],
     });
 
@@ -30,7 +33,7 @@ export const handleCache = ({ cwd, errorCache }: HandleCacheProps): void => {
   if (isErrorInCache) return;
 
   createProjectStructureCacheFile({
-    cwd,
+    projectRoot,
     projectStructureCache: [errorCache, ...projectStructureCacheClean],
   });
 };

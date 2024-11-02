@@ -15,7 +15,7 @@ describe("isErrorInCache", () => {
 
     expect(
       isErrorInCache({
-        cwd: "cwd",
+        projectRoot: "projectRoot",
         errorCache: { errorMessage: "error", filename: "" },
       }),
     ).toEqual(false);
@@ -28,7 +28,7 @@ describe("isErrorInCache", () => {
 
     expect(
       isErrorInCache({
-        cwd: "cwd",
+        projectRoot: "projectRoot",
         errorCache: { errorMessage: "error", filename: "filename1" },
       }),
     ).toEqual(true);
@@ -41,7 +41,7 @@ describe("isErrorInCache", () => {
 
     expect(
       isErrorInCache({
-        cwd: "cwd",
+        projectRoot: "projectRoot",
         errorCache: { errorMessage: "error", filename: "filename1" },
       }),
     ).toEqual(false);

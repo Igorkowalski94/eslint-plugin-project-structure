@@ -23,7 +23,7 @@ describe("cleanUpErrorFromCache", () => {
 
     expect(
       cleanUpErrorFromCache({
-        cwd: "cwd",
+        projectRoot: "projectRoot",
         filename: "",
       }),
     ).toEqual(undefined);
@@ -37,7 +37,7 @@ describe("cleanUpErrorFromCache", () => {
     (unlinkSync as jest.Mock).mockImplementation(unlinkSyncMock);
 
     cleanUpErrorFromCache({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       filename: "filename1",
     });
 
@@ -57,12 +57,12 @@ describe("cleanUpErrorFromCache", () => {
     );
 
     cleanUpErrorFromCache({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       filename: "filename1",
     });
 
     expect(createProjectStructureCacheFileMock).toHaveBeenCalledWith({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       projectStructureCache: [
         { errorMessage: "error2", filename: "filename2" },
       ],

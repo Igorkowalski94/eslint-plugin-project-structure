@@ -29,13 +29,16 @@ jest.mock(
   }),
 );
 
+jest.mock("helpers/getProjectRoot", () => ({
+  getProjectRoot: jest.fn().mockReturnValue("C:/somePath"),
+}));
+
 describe("validateFile", () => {
   test("Should return undefined if !fileConfig", () => {
     expect(
       validateFile({
         context: {
           settings: {},
-          cwd: "C:/somePath",
           filename: "C:/somePath/src/features/Feature1/Feature1.tsx",
           options: [],
           report: () => undefined,
@@ -64,7 +67,6 @@ describe("validateFile", () => {
       validateFile({
         context: {
           settings: {},
-          cwd: "C:/somePath",
           filename: "C:/somePath/src/features/Feature1/Feature1.ts",
           report: reportMock,
         } as unknown as Context,
@@ -93,7 +95,6 @@ describe("validateFile", () => {
     validateFile({
       context: {
         settings: {},
-        cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
         report: reportMock,
       } as unknown as Context,
@@ -148,7 +149,6 @@ describe("validateFile", () => {
       context: {
         report: reportMock,
         settings: {},
-        cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
       },
       expressionName: undefined,
@@ -180,7 +180,6 @@ describe("validateFile", () => {
     validateFile({
       context: {
         settings: {},
-        cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
         report: reportMock,
       } as unknown as Context,
@@ -234,7 +233,6 @@ describe("validateFile", () => {
       context: {
         report: reportMock,
         settings: {},
-        cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
       },
       expressionName: undefined,
@@ -266,7 +264,6 @@ describe("validateFile", () => {
     validateFile({
       context: {
         settings: {},
-        cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
         report: reportMock,
       } as unknown as Context,
@@ -320,7 +317,6 @@ describe("validateFile", () => {
       context: {
         report: reportMock,
         settings: {},
-        cwd: "C:/somePath",
         filename: "C:/somePath/src/features/Feature1/Feature1.ts",
       },
       expressionName: undefined,

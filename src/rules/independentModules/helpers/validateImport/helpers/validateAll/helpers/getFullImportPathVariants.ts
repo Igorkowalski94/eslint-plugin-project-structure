@@ -2,8 +2,8 @@ import path from "path";
 
 interface GetFullImportPathVariantsProps {
   importPath: string;
-  cwdWithRoot: string;
-  cwd: string;
+  projectRoot: string;
+  projectRootWithBaseUrl: string;
 }
 
 interface GetFullImportPathVariantsReturn {
@@ -25,20 +25,24 @@ interface GetFullImportPathVariantsReturn {
 
 export const getFullImportPathVariants = ({
   importPath,
-  cwdWithRoot,
-  cwd,
+  projectRoot,
+  projectRootWithBaseUrl,
 }: GetFullImportPathVariantsProps): GetFullImportPathVariantsReturn => {
-  const fullImportPath = path.join(cwdWithRoot, importPath);
+  const fullImportPath = path.join(projectRootWithBaseUrl, importPath);
   const fullImportPathIndex = path.join(fullImportPath, "index");
 
-  const fullImportPathExternal = path.join(cwd, "node_modules", importPath);
+  const fullImportPathExternal = path.join(
+    projectRoot,
+    "node_modules",
+    importPath,
+  );
   const fullImportPathExternalIndex = path.join(
     fullImportPathExternal,
     "index",
   );
 
   const fullImportPathExternalTypes = path.join(
-    cwd,
+    projectRoot,
     "node_modules",
     "@types",
     importPath,
@@ -49,7 +53,7 @@ export const getFullImportPathVariants = ({
   );
 
   const fullImportPathExternalNode = path.join(
-    cwd,
+    projectRoot,
     "node_modules",
     "node",
     importPath,
@@ -60,7 +64,7 @@ export const getFullImportPathVariants = ({
   );
 
   const fullImportPathExternalTypesNode = path.join(
-    cwd,
+    projectRoot,
     "node_modules",
     "@types",
     "node",

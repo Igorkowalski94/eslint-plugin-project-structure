@@ -4,6 +4,7 @@ import { PROJECT_STRUCTURE_CACHE_FILE_NAME } from "consts";
 
 import { FinalError } from "errors/FinalError";
 
+import { getProjectRoot } from "helpers/getProjectRoot";
 import { isErrorInCache } from "helpers/isErrorInCache";
 import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 
@@ -24,6 +25,10 @@ jest.mock("helpers/readConfigFile/readConfigFile", () => ({
   readConfigFile: jest.fn(),
 }));
 
+jest.mock("helpers/getProjectRoot", () => ({
+  getProjectRoot: jest.fn(),
+}));
+
 jest.mock("helpers/isErrorInCache", () => ({
   isErrorInCache: jest.fn(),
 }));
@@ -38,12 +43,15 @@ describe("validateImport", () => {
       throw new FinalError("error");
     });
 
+    (getProjectRoot as jest.Mock).mockReturnValue(
+      path.resolve("C:/Users/eslint-plugin-project-structure"),
+    );
+
     handleProgram({
       context: {
         report: reportMock,
         settings: {},
         options: [],
-        cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
         filename: path.resolve(
           "C:/Users/eslint-plugin-project-structure/file.ts",
         ),
@@ -66,12 +74,15 @@ describe("validateImport", () => {
 
     (isErrorInCache as jest.Mock).mockReturnValue(true);
 
+    (getProjectRoot as jest.Mock).mockReturnValue(
+      path.resolve("C:/Users/eslint-plugin-project-structure"),
+    );
+
     handleProgram({
       context: {
         report: reportMock,
         settings: {},
         options: [],
-        cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
         filename: path.resolve(
           "C:/Users/eslint-plugin-project-structure/file.ts",
         ),
@@ -93,12 +104,15 @@ describe("validateImport", () => {
       validateFolderStructureMock,
     );
 
+    (getProjectRoot as jest.Mock).mockReturnValue(
+      path.resolve("C:/Users/eslint-plugin-project-structure/src"),
+    );
+
     handleProgram({
       context: {
         report: reportMock,
         settings: {},
         options: [],
-        cwd: path.resolve("C:/Users/eslint-plugin-project-structure/src"),
         filename: path.resolve(
           "C:/Users/eslint-plugin-project-structure/file.ts",
         ),
@@ -120,12 +134,15 @@ describe("validateImport", () => {
       validateFolderStructureMock,
     );
 
+    (getProjectRoot as jest.Mock).mockReturnValue(
+      path.resolve("C:/Users/eslint-plugin-project-structure"),
+    );
+
     handleProgram({
       context: {
         report: reportMock,
         settings: {},
         options: [],
-        cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
         filename: path.resolve(
           `C:/Users/eslint-plugin-project-structure/${PROJECT_STRUCTURE_CACHE_FILE_NAME}`,
         ),
@@ -146,13 +163,16 @@ describe("validateImport", () => {
       throw new Error("random error");
     });
 
+    (getProjectRoot as jest.Mock).mockReturnValue(
+      path.resolve("C:/Users/eslint-plugin-project-structure"),
+    );
+
     expect(() =>
       handleProgram({
         context: {
           report: reportMock,
           settings: {},
           options: [],
-          cwd: path.resolve("C:/Users/eslint-plugin-project-structure"),
           filename: path.resolve(
             "C:/Users/eslint-plugin-project-structure/file.ts",
           ),

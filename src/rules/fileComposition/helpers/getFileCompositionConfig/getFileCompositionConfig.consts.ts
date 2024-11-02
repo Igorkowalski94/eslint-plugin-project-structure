@@ -1,6 +1,7 @@
 import { JSONSchema4 } from "@typescript-eslint/utils/dist/json-schema";
 
 export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
+  $schema: "http://json-schema.org/draft-07/schema#",
   definitions: {
     SelectorType: {
       type: "string",
@@ -234,6 +235,10 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
   type: "object",
   additionalProperties: false,
   properties: {
+    projectRoot: {
+      type: "string",
+      default: ".",
+    },
     filesRules: {
       type: "array",
       default: [],

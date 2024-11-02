@@ -9,12 +9,10 @@ import {
 } from "rules/independentModules/independentModules.types";
 
 export const getIndependentModulesConfig = ({
-  cwd,
   options,
   settings,
 }: Context): IndependentModulesConfig => {
   const config = readConfigFile<IndependentModulesConfig>({
-    cwd,
     key: "project-structure/independent-modules-config-path",
     settings,
     options: options[0],
@@ -22,7 +20,7 @@ export const getIndependentModulesConfig = ({
 
   validateConfig({ config, schema: INDEPENDENT_MODULES_SCHEMA });
 
-  const pathAliases = getPathAliases({ cwd, config });
+  const pathAliases = getPathAliases({ config });
 
   return { ...config, pathAliases };
 };

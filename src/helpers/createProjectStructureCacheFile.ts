@@ -6,14 +6,14 @@ import { ProjectStructureCache } from "types";
 
 interface CreateProjectStructureCacheFileProps {
   projectStructureCache: ProjectStructureCache;
-  cwd: string;
+  projectRoot: string;
 }
 
 export const createProjectStructureCacheFile = ({
-  cwd,
+  projectRoot,
   projectStructureCache,
 }: CreateProjectStructureCacheFileProps): void => {
-  const filePath = path.join(cwd, PROJECT_STRUCTURE_CACHE_FILE_NAME);
+  const filePath = path.join(projectRoot, PROJECT_STRUCTURE_CACHE_FILE_NAME);
   const jsonData = JSON.stringify(projectStructureCache, null, 2);
 
   writeFileSync(filePath, jsonData, "utf8");

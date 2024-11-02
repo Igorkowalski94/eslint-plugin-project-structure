@@ -15,8 +15,8 @@ describe("validatePath", () => {
     expect(
       validatePath({
         pathname: "src/componentName/componentName.tsx",
-        filenameWithoutCwd: "src/componentName/componentName.tsx",
-        cwd: "projectName",
+        filenameWithoutProjectRoot: "src/componentName/componentName.tsx",
+        structureRoot: "projectName",
         folderName: "projectName",
         rule: {
           name: "*",
@@ -25,6 +25,7 @@ describe("validatePath", () => {
         config: {
           structure: [],
         },
+        projectRoot: "...",
       }),
     ).toEqual(undefined);
   });
@@ -33,8 +34,8 @@ describe("validatePath", () => {
     expect(() =>
       validatePath({
         pathname: "src/componentName/componentName.tsx",
-        filenameWithoutCwd: "src/componentName/componentName.tsx",
-        cwd: "projectName",
+        filenameWithoutProjectRoot: "src/componentName/componentName.tsx",
+        structureRoot: "projectName",
         folderName: "projectName",
         rule: {
           name: "*",
@@ -61,6 +62,7 @@ describe("validatePath", () => {
             },
           ],
         },
+        projectRoot: "...",
       }),
     ).toThrow(
       getNodeTypeError({
@@ -76,8 +78,8 @@ describe("validatePath", () => {
     expect(() =>
       validatePath({
         pathname: "src/componentName.tsx",
-        filenameWithoutCwd: "src/componentName.tsx",
-        cwd: "projectName",
+        filenameWithoutProjectRoot: "src/componentName.tsx",
+        structureRoot: "projectName",
         folderName: "projectName",
         rule: {
           name: "*",
@@ -104,6 +106,7 @@ describe("validatePath", () => {
             },
           ],
         },
+        projectRoot: "...",
       }),
     ).toThrow(
       getNameError({
@@ -124,8 +127,8 @@ describe("validatePath", () => {
 
     validatePath({
       pathname: "src/ComponentName.tsx",
-      filenameWithoutCwd: "src/ComponentName.tsx",
-      cwd: "projectName",
+      filenameWithoutProjectRoot: "src/ComponentName.tsx",
+      structureRoot: "projectName",
       folderName: "projectName",
       rule: {
         name: "*",
@@ -154,6 +157,7 @@ describe("validatePath", () => {
           },
         ],
       },
+      projectRoot: "...",
     });
 
     expect(checkNodeExistence).toHaveBeenCalled();

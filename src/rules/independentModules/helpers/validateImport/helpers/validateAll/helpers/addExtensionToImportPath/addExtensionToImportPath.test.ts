@@ -118,9 +118,9 @@ describe("addExtensionToImportPath", () => {
       expect(
         addExtensionToImportPath({
           importPath,
-          cwdWithRoot: "C:\\Users\\user\\Desktop\\repo\\src\\",
+          projectRootWithBaseUrl: "C:\\Users\\user\\Desktop\\repo\\src\\",
           extensions,
-          cwd: "C:\\Users\\user\\Desktop\\repo",
+          projectRoot: "C:\\Users\\user\\Desktop\\repo",
         }),
       ).toEqual(expected);
 

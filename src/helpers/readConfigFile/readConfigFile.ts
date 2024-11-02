@@ -10,13 +10,11 @@ import { getConfigPath } from "helpers/readConfigFile/helpers/getConfigPath";
 
 interface ReadConfigFileProps<T> {
   key: string;
-  cwd: string;
   settings: SharedConfigurationSettings;
   options: T | undefined;
 }
 
 export const readConfigFile = <T>({
-  cwd,
   key,
   settings,
   options,
@@ -24,7 +22,6 @@ export const readConfigFile = <T>({
   if (options) return options;
 
   const configPath = getConfigPath({
-    cwd,
     key,
     settings,
   });

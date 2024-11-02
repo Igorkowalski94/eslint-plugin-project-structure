@@ -35,11 +35,13 @@ describe("checkNodeExistence", () => {
 
     expect(() =>
       checkNodeExistence({
-        cwd: "...",
+        structureRoot: "...",
         enforceExistence: ["{nodeName}.stories.tsx", "test.ts"],
         nodeName: "Feature1.tsx",
         nodePath: "src/features/Feature1/Feature1.tsx",
         nodeType: "File",
+        projectRoot: "...",
+        structureRootConfig: "...",
       }),
     ).not.toThrow();
   });
@@ -63,11 +65,13 @@ describe("checkNodeExistence", () => {
 
     expect(() =>
       checkNodeExistence({
-        cwd: "...",
+        structureRoot: "...",
         enforceExistence: ["{nodeName2}.{PascalCase}.stories.tsx", "test.ts"],
         nodeName: "Feature1.tsx",
         nodePath: "src/features/Feature1/Feature1.tsx",
         nodeType: "File",
+        projectRoot: "...",
+        structureRootConfig: "...",
       }),
     ).toThrow(
       getInvalidReferenceError({
@@ -89,11 +93,13 @@ describe("checkNodeExistence", () => {
 
     expect(() =>
       checkNodeExistence({
-        cwd: "...",
+        structureRoot: "...",
         enforceExistence: ["test.ts"],
         nodeName: "Feature1",
         nodePath: "src/features/Feature1",
         nodeType: "Folder",
+        projectRoot: "...",
+        structureRootConfig: "...",
       }),
     ).not.toThrow();
   });
@@ -109,11 +115,13 @@ describe("checkNodeExistence", () => {
 
     expect(() =>
       checkNodeExistence({
-        cwd: "...",
+        structureRoot: "...",
         enforceExistence: "test.ts",
         nodeName: "Feature1",
         nodePath: "src/features/Feature1",
         nodeType: "Folder",
+        projectRoot: "...",
+        structureRootConfig: "...",
       }),
     ).not.toThrow();
   });
@@ -121,11 +129,13 @@ describe("checkNodeExistence", () => {
   it("should throw when node do not exist folder", () => {
     expect(() =>
       checkNodeExistence({
-        cwd: "...",
+        structureRoot: "...",
         enforceExistence: ["test.ts", "tests/test.ts"],
         nodeName: "features",
         nodePath: "src/features",
         nodeType: "Folder",
+        projectRoot: "...",
+        structureRootConfig: "...",
       }),
     ).toThrow(
       getNodeExistenceError({
@@ -134,7 +144,7 @@ describe("checkNodeExistence", () => {
           "./src/features/tests/test.ts",
         ],
         nodeName: "features",
-        nodePath: "src/features",
+        nodePath: ".../src/features",
         nodeType: "Folder",
       }),
     );
@@ -143,11 +153,13 @@ describe("checkNodeExistence", () => {
   it("should throw when node do not exist folder file", () => {
     expect(() =>
       checkNodeExistence({
-        cwd: "...",
+        structureRoot: "...",
         enforceExistence: ["test.ts", "tests/test.ts"],
         nodeName: "Feature1.tsx",
         nodePath: "src/features/Feature1/Feature1.tsx",
         nodeType: "File",
+        projectRoot: "...",
+        structureRootConfig: "...",
       }),
     ).toThrow(
       getNodeExistenceError({
@@ -156,7 +168,7 @@ describe("checkNodeExistence", () => {
           "./src/features/Feature1/tests/test.ts",
         ],
         nodeName: "Feature1.tsx",
-        nodePath: "src/features/Feature1/Feature1.tsx",
+        nodePath: ".../src/features/Feature1/Feature1.tsx",
         nodeType: "File",
       }),
     );

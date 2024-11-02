@@ -22,7 +22,7 @@ describe("validateImport", () => {
     });
 
     validateImport({
-      context: { report: reportMock, settings: {}, cwd: "", options: [] },
+      context: { report: reportMock, settings: {}, options: [] },
       importPath: "",
       node: {},
       config: {},
@@ -40,7 +40,7 @@ describe("validateImport", () => {
 
     expect(() =>
       validateImport({
-        context: { report: reportMock, settings: {}, cwd: "", options: [] },
+        context: { report: reportMock, settings: {}, options: [] },
         importPath: "",
         node: {},
         config: {},

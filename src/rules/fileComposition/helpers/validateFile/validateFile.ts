@@ -1,5 +1,7 @@
 import path from "path";
 
+import { getProjectRoot } from "helpers/getProjectRoot";
+
 import {
   Context,
   FileCompositionConfig,
@@ -29,7 +31,7 @@ export const validateFile = ({
   name,
   expressionName,
   context,
-  context: { cwd, filename },
+  context: { filename },
   node,
   nodeType,
   fileConfig,
@@ -47,7 +49,10 @@ export const validateFile = ({
   const nestedSelectorsRules = rules.filter(({ scope }) =>
     isCorrectScope({ expect: "nestedSelectors", scope }),
   );
-  const filenamePath = path.relative(cwd, filename);
+  const filenamePath = path.relative(
+    getProjectRoot(config.projectRoot),
+    filename,
+  );
   const regexParameters = config.regexParameters;
   const selectorType = SELECTORS[nodeType];
 

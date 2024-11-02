@@ -6,6 +6,7 @@ import { PROJECT_STRUCTURE_CACHE_FILE_NAME } from "consts";
 import { finalErrorGuard } from "errors/finalErrorGuard";
 
 import { cleanUpErrorFromCache } from "helpers/cleanUpErrorFromCache";
+import { getProjectRoot } from "helpers/getProjectRoot";
 import { isErrorInCache } from "helpers/isErrorInCache";
 import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 
@@ -21,17 +22,16 @@ export interface HandleProgramProps {
 }
 
 export const handleProgram = ({
-  context: { cwd, settings, filename, options, report },
+  context: { settings, filename, options, report },
   node,
 }: HandleProgramProps): void => {
   const config = readConfigFile<FolderStructureConfig>({
-    cwd,
     key: "project-structure/folder-structure-config-path",
     settings,
     options: options[0],
   });
 
-  const projectRoot = path.resolve(cwd, config.projectRoot ?? ".");
+  const projectRoot = getProjectRoot(config.projectRoot);
   const structureRoot = path.resolve(projectRoot, config.structureRoot ?? ".");
 
   if (
@@ -41,14 +41,19 @@ export const handleProgram = ({
     return;
 
   try {
-    validateFolderStructure({ filename, cwd: structureRoot, config });
-    cleanUpErrorFromCache({ cwd: projectRoot, filename });
+    validateFolderStructure({
+      filename,
+      structureRoot,
+      projectRoot,
+      config,
+    });
+    cleanUpErrorFromCache({ projectRoot, filename });
   } catch (error) {
     if (!finalErrorGuard(error)) throw error;
 
     if (
       isErrorInCache({
-        cwd: projectRoot,
+        projectRoot,
         errorCache: {
           filename,
           errorMessage: error.message,

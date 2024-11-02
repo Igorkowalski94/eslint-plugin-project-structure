@@ -11,7 +11,7 @@ describe("validateFolderStructure", () => {
       validateLongPath({
         filename: "",
         longPathsInfo: false,
-        cwd: "C:/Users/eslint-plugin-project-structure",
+        projectRoot: "C:/Users/eslint-plugin-project-structure",
       }),
     ).toEqual(undefined);
   });
@@ -21,7 +21,7 @@ describe("validateFolderStructure", () => {
       validateLongPath({
         filename:
           "C:/Users/eslint-plugin-project-structure/features/Feature.tsx",
-        cwd: "C:/Users/eslint-plugin-project-structure",
+        projectRoot: "C:/Users/eslint-plugin-project-structure",
       }),
     ).toEqual(undefined);
   });
@@ -33,7 +33,7 @@ describe("validateFolderStructure", () => {
 
     validateLongPath({
       filename: `C:/Users/eslint-plugin-project-structure/${new Array(240).fill("0").join("")}`,
-      cwd: "C:/Users/eslint-plugin-project-structure",
+      projectRoot: "C:/Users/eslint-plugin-project-structure",
     });
 
     expect(getLongPathErrorMock).toHaveBeenCalledWith({
@@ -50,7 +50,7 @@ describe("validateFolderStructure", () => {
 
     validateLongPath({
       longPathsInfo: { mode: "warn", root: "../../", maxLength: 3 },
-      cwd: "C:/hello/Users/eslint-plugin-project-structure",
+      projectRoot: "C:/hello/Users/eslint-plugin-project-structure",
       filename:
         "C:/hello/Users/eslint-plugin-project-structure/src/features/Feature1.tsx",
     });
@@ -69,7 +69,7 @@ describe("validateFolderStructure", () => {
 
     validateLongPath({
       longPathsInfo: { mode: "warn", countFromSystemRoot: true, maxLength: 3 },
-      cwd: "C:/hello/Users/eslint-plugin-project-structure",
+      projectRoot: "C:/hello/Users/eslint-plugin-project-structure",
       filename:
         "C:/hello/Users/eslint-plugin-project-structure/src/features/Feature1.tsx",
     });
@@ -87,7 +87,7 @@ describe("validateFolderStructure", () => {
         longPathsInfo: { mode: "error", maxLength: 3 },
         filename:
           "C:/Users/eslint-plugin-project-structure/features/Feature.tsx",
-        cwd: "C:/Users/eslint-plugin-project-structure",
+        projectRoot: "C:/Users/eslint-plugin-project-structure",
       }),
     ).toThrow();
   });

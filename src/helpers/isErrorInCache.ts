@@ -5,19 +5,19 @@ import { readProjectStructureCacheFile } from "helpers/readProjectStructureCache
 
 interface IsErrorInCacheProps {
   errorCache: ErrorCache;
-  cwd: string;
+  projectRoot: string;
 }
 
 export const isErrorInCache = ({
-  cwd,
+  projectRoot,
   errorCache,
 }: IsErrorInCacheProps): boolean => {
   handleCache({
-    cwd,
+    projectRoot,
     errorCache,
   });
 
-  const projectStructureCache = readProjectStructureCacheFile(cwd);
+  const projectStructureCache = readProjectStructureCacheFile(projectRoot);
 
   const cacheData = projectStructureCache?.find(
     (cache) => cache.errorMessage === errorCache.errorMessage,

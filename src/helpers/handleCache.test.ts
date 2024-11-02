@@ -25,12 +25,12 @@ describe("handleCache", () => {
     );
 
     handleCache({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       errorCache: { errorMessage: "error", filename: "" },
     });
 
     expect(createProjectStructureCacheFileMock).toHaveBeenCalledWith({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       projectStructureCache: [{ errorMessage: "error", filename: "" }],
     });
   });
@@ -54,12 +54,12 @@ describe("handleCache", () => {
     );
 
     handleCache({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       errorCache: { errorMessage: "error1", filename: "" },
     });
 
     expect(createProjectStructureCacheFileMock).not.toHaveBeenCalledWith({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       projectStructureCache: [
         { errorMessage: "error1", filename: "1" },
         { errorMessage: "error2", filename: "2" },
@@ -86,12 +86,12 @@ describe("handleCache", () => {
     );
 
     handleCache({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       errorCache: { errorMessage: "error3", filename: "3" },
     });
 
     expect(createProjectStructureCacheFileMock).not.toHaveBeenCalledWith({
-      cwd: "cwd",
+      projectRoot: "projectRoot",
       projectStructureCache: [
         { errorMessage: "error1", filename: "1" },
         { errorMessage: "error2", filename: "2" },

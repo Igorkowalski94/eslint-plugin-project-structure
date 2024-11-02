@@ -1,5 +1,6 @@
 import path from "path";
 
+import { getProjectRoot } from "helpers/getProjectRoot";
 import { isCorrectPattern } from "helpers/isCorrectPattern";
 import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
 import { validateConfig } from "helpers/validateConfig";
@@ -17,13 +18,11 @@ interface GetFileCompositionConfigReturn {
 }
 
 export const getFileCompositionConfig = ({
-  cwd,
   filename,
   settings,
   options,
 }: Context): GetFileCompositionConfigReturn => {
   const config = readConfigFile<FileCompositionConfig>({
-    cwd,
     key: "project-structure/file-composition-config-path",
     settings,
     options: options[0],
@@ -31,7 +30,10 @@ export const getFileCompositionConfig = ({
 
   validateConfig({ config, schema: FILE_COMPOSITION_SCHEMA });
 
-  const filenamePath = path.relative(cwd, filename);
+  const filenamePath = path.relative(
+    getProjectRoot(config.projectRoot),
+    filename,
+  );
   const fileConfig = config.filesRules.find(({ filePattern }) =>
     isCorrectPattern({ input: filenamePath, pattern: filePattern }),
   );

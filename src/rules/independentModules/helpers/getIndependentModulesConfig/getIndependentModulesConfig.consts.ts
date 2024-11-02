@@ -87,6 +87,10 @@ export const INDEPENDENT_MODULES_SCHEMA: JSONSchema4 = {
           type: "boolean",
           default: true,
         },
+        tsconfigPath: {
+          type: "string",
+          default: "./tsconfig.json",
+        },
         pathAliases: {
           type: "object",
           default: {},

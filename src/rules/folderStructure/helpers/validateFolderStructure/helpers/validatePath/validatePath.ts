@@ -6,6 +6,7 @@ import {
 } from "rules/folderStructure/folderStructure.types";
 import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
 import { getNodePath } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getNodePath";
+import { getNodePathWithStructureRoot } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getNodePathWithStructureRoot";
 import { getRule } from "rules/folderStructure/helpers/validateFolderStructure/helpers/getRule";
 import { getChildren } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getChildren/getChildren";
 import { getNextPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/validatePath/helpers/getNextPathname";
@@ -16,20 +17,22 @@ import { getNodeType } from "rules/folderStructure/helpers/validateFolderStructu
 
 interface ValidatePathProps {
   pathname: string;
-  filenameWithoutCwd: string;
+  filenameWithoutProjectRoot: string;
   folderName: string;
   rule: Rule;
   config: FolderStructureConfig;
-  cwd: string;
+  structureRoot: string;
+  projectRoot: string;
 }
 
 export const validatePath = ({
   pathname,
-  filenameWithoutCwd,
+  filenameWithoutProjectRoot,
   folderName,
   rule,
   config,
-  cwd,
+  structureRoot,
+  projectRoot,
 }: ValidatePathProps): void => {
   const { rules, regexParameters } = config;
 
@@ -50,7 +53,11 @@ export const validatePath = ({
     regexParameters,
   });
 
-  const nodePath = getNodePath({ filenameWithoutCwd, nodeName, pathname });
+  const nodePath = getNodePath({
+    filenameWithoutProjectRoot,
+    nodeName,
+    pathname,
+  });
 
   if (!nodeRule) {
     const allowedNames = getNodeAllowedNames({
@@ -59,10 +66,25 @@ export const validatePath = ({
       folderName,
     });
 
-    if (!allowedNames.length)
-      throw getNodeTypeError({ nodePath, nodeType, nodeName, folderName });
+    const nodePathWithStructureRoot = getNodePathWithStructureRoot({
+      nodePath,
+      structureRoot: config.structureRoot,
+    });
 
-    throw getNameError({ allowedNames, nodeName, nodePath, nodeType });
+    if (!allowedNames.length)
+      throw getNodeTypeError({
+        nodePath: nodePathWithStructureRoot,
+        nodeType,
+        nodeName,
+        folderName,
+      });
+
+    throw getNameError({
+      allowedNames,
+      nodeName,
+      nodePath: nodePathWithStructureRoot,
+      nodeType,
+    });
   }
 
   const { children, enforceExistence, name } = getRule({
@@ -74,9 +96,11 @@ export const validatePath = ({
     checkNodeExistence({
       enforceExistence,
       nodeName,
-      cwd,
+      structureRoot,
       nodePath,
       nodeType,
+      structureRootConfig: config.structureRoot,
+      projectRoot,
     });
 
   if (children) {
@@ -84,11 +108,12 @@ export const validatePath = ({
 
     validatePath({
       pathname: nextPathname,
-      filenameWithoutCwd,
+      filenameWithoutProjectRoot,
       folderName: nodeName,
       rule: { name, enforceExistence, children },
       config,
-      cwd,
+      structureRoot,
+      projectRoot,
     });
   }
 };

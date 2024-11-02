@@ -2,10 +2,12 @@ import micromatch from "micromatch";
 
 import { getExternalImportError } from "rules/independentModules/errors/getExternalImportError";
 import { getImportError } from "rules/independentModules/errors/getImportError";
+import { getImportPathNotExistsError } from "rules/independentModules/errors/getImportPathNotExistsError";
 import { extractReferencesFromPatterns } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/extractReferencesFromPatterns/extractReferencesFromPatterns";
 import { findModuleConfig } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/findModuleConfig";
 import { getReusableImportPatternsWithoutRef } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/getReusableImportPatternsWithoutRef";
 import { isExternalImport } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isExternalImport";
+import { isImportPathExists } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/isImportPathExists";
 import { validateImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/helpers/validateImportPath";
 import { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
 
@@ -13,14 +15,14 @@ interface CheckImportPathProps {
   importPath: string;
   filename: string;
   config: IndependentModulesConfig;
-  cwd: string;
+  projectRoot: string;
 }
 
 export const checkImportPath = ({
   importPath,
   filename,
-  config: { reusableImportPatterns, modules, debugMode },
-  cwd,
+  config: { reusableImportPatterns, modules, debugMode, pathAliases },
+  projectRoot,
 }: CheckImportPathProps): void => {
   const moduleConfig = findModuleConfig(filename, modules);
 
@@ -42,7 +44,7 @@ export const checkImportPath = ({
     reusableImportPatterns: reusableImportPatternsExtracted,
   });
 
-  const isExternal = isExternalImport(importPath, cwd);
+  const isExternal = isExternalImport(importPath, projectRoot);
 
   if (isExternal) {
     const isValidExternalImportPattern = allowImportsFromExtracted.some((p) =>
@@ -60,6 +62,14 @@ export const checkImportPath = ({
       allowImportsFromExtracted,
     });
   }
+
+  const importPathExists = isImportPathExists({
+    importPath,
+    projectRoot,
+    baseUrl: pathAliases?.baseUrl ?? ".",
+  });
+
+  if (!importPathExists) throw getImportPathNotExistsError();
 
   const isValidImportPath = validateImportPath({
     allowImportsFrom: allowImportsFromExtracted,
