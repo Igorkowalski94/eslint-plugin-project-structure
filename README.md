@@ -77,7 +77,7 @@ where removing or editing one feature triggers a chain reaction that impacts the
 - Support for all types of imports, including `require()`, `import()`, `jest.mock()`, and `jest.requireActual()`, as well as `ExportAllDeclaration` and `ExportNamedDeclaration`.
 - Disabling external imports (node_modules) for a given module (Option to add exceptions).
 - Non-relative/relative imports support.
-- Support for imports without extension.
+- Built-in import resolver, so you don’t need to install any additional plugins. It also includes built-in configuration for the most popular file extensions, so you don’t have to configure anything manually.
 - Reusable import patterns.
 - Support for path aliases. The plugin will automatically detect your tsconfig.json and use your settings. There is also an option to enter them manually.
 - An option to create a separate configuration file with TypeScript support.
