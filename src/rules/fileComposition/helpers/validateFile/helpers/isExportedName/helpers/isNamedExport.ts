@@ -26,6 +26,12 @@ export const isNamedExport = ({
     if (node.type !== TSESTree.AST_NODE_TYPES.ExportNamedDeclaration) return;
 
     node.specifiers.forEach((specifier) => {
+      if (
+        specifier.local.type !== TSESTree.AST_NODE_TYPES.Identifier ||
+        specifier.exported.type !== TSESTree.AST_NODE_TYPES.Identifier
+      )
+        return;
+
       // export { variable as variable2 }
       if (specifier.local.name === name && specifier.exported.name !== name) {
         isNamedExport = true;

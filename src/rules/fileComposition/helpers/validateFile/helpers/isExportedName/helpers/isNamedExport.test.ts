@@ -44,8 +44,14 @@ describe("isNamedExport", () => {
                 type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
                 specifiers: [
                   {
-                    local: { name: "className" },
-                    exported: { name: "className" },
+                    local: {
+                      name: "className",
+                      type: TSESTree.AST_NODE_TYPES.Identifier,
+                    },
+                    exported: {
+                      name: "className",
+                      type: TSESTree.AST_NODE_TYPES.Identifier,
+                    },
                   },
                 ],
               },
@@ -57,6 +63,7 @@ describe("isNamedExport", () => {
         currentName: "className",
         currentNode: {
           name: "className",
+          type: TSESTree.AST_NODE_TYPES.Identifier,
         } as unknown as IsNamedExportReturn["currentNode"],
         isNamedExport: true,
       },
@@ -74,8 +81,70 @@ describe("isNamedExport", () => {
                 type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
                 specifiers: [
                   {
-                    local: { name: "className" },
-                    exported: { name: "className2" },
+                    local: {
+                      name: "className",
+                      type: TSESTree.AST_NODE_TYPES.Literal,
+                    },
+                    exported: {
+                      name: "className",
+                      type: TSESTree.AST_NODE_TYPES.Literal,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        } as unknown as IsNamedExportProps["node"],
+      },
+      expected: {
+        currentName: "className",
+        currentNode: {
+          type: TSESTree.AST_NODE_TYPES.ClassDeclaration,
+          parent: {
+            type: TSESTree.AST_NODE_TYPES.Program,
+            body: [
+              {
+                type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
+                specifiers: [
+                  {
+                    local: {
+                      name: "className",
+                      type: TSESTree.AST_NODE_TYPES.Literal,
+                    },
+                    exported: {
+                      name: "className",
+                      type: TSESTree.AST_NODE_TYPES.Literal,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        } as unknown as IsNamedExportProps["node"],
+        isNamedExport: false,
+      },
+    },
+
+    {
+      props: {
+        name: "className",
+        node: {
+          type: TSESTree.AST_NODE_TYPES.ClassDeclaration,
+          parent: {
+            type: TSESTree.AST_NODE_TYPES.Program,
+            body: [
+              {
+                type: TSESTree.AST_NODE_TYPES.ExportNamedDeclaration,
+                specifiers: [
+                  {
+                    local: {
+                      name: "className",
+                      type: TSESTree.AST_NODE_TYPES.Identifier,
+                    },
+                    exported: {
+                      name: "className2",
+                      type: TSESTree.AST_NODE_TYPES.Identifier,
+                    },
                   },
                 ],
               },
@@ -87,6 +156,7 @@ describe("isNamedExport", () => {
         currentName: "className2",
         currentNode: {
           name: "className2",
+          type: TSESTree.AST_NODE_TYPES.Identifier,
         } as unknown as IsNamedExportReturn["currentNode"],
         isNamedExport: true,
       },

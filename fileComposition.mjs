@@ -81,6 +81,7 @@ export const fileCompositionConfig = createFileComposition({
             "function",
             "variable",
             "variableExpression",
+            "propertyDefinition",
           ],
           scope: "nestedSelectors",
           format: "{camelCase}",
