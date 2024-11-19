@@ -87,6 +87,7 @@
   },
   "resolutions": {
     "micromatch": "^4.0.8",
+    "cross-spawn": "^7.0.5",
     "rollup": "^4.22.4"
   }
 }
