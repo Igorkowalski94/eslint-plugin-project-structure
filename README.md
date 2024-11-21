@@ -29,7 +29,7 @@
 
 ## 📋 General information
 
-🎮[Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#root) for eslint-plugin-project-structure rules.
+🎮 [Playground](https://github.com/Igorkowalski94/eslint-plugin-project-structure-playground#root) for eslint-plugin-project-structure rules.
 
 Check the latest [releases](https://github.com/Igorkowalski94/eslint-plugin-project-structure/releases) and stay updated with new features and changes.
 
