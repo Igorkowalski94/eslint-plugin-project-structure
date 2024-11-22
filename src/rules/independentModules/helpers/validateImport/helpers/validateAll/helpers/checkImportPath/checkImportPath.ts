@@ -44,32 +44,35 @@ export const checkImportPath = ({
     reusableImportPatterns: reusableImportPatternsExtracted,
   });
 
-  const isExternal = isExternalImport(importPath, projectRoot);
-
-  if (isExternal) {
-    const isValidExternalImportPattern = allowImportsFromExtracted.some((p) =>
-      micromatch.every(importPath, p),
-    );
-
-    if (isValidExternalImportPattern || allowExternalImports !== false) return;
-
-    throw getExternalImportError({
-      moduleName,
-      errorMessage,
-      debugMode,
-      filename,
-      importPath,
-      allowImportsFromExtracted,
-    });
-  }
-
   const importPathExists = isImportPathExists({
     importPath,
     projectRoot,
     baseUrl: pathAliases?.baseUrl ?? ".",
   });
 
-  if (!importPathExists) throw getImportPathNotExistsError();
+  if (!importPathExists) {
+    const isExternal = isExternalImport(importPath, projectRoot);
+
+    if (isExternal) {
+      const isValidExternalImportPattern = allowImportsFromExtracted.some((p) =>
+        micromatch.every(importPath, p),
+      );
+
+      if (isValidExternalImportPattern || allowExternalImports !== false)
+        return;
+
+      throw getExternalImportError({
+        moduleName,
+        errorMessage,
+        debugMode,
+        filename,
+        importPath,
+        allowImportsFromExtracted,
+      });
+    }
+
+    throw getImportPathNotExistsError();
+  }
 
   const isValidImportPath = validateImportPath({
     allowImportsFrom: allowImportsFromExtracted,

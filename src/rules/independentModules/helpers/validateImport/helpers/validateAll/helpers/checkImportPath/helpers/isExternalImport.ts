@@ -6,13 +6,17 @@ export const isExternalImport = (
   importPath: string,
   projectRoot: string,
 ): boolean => {
+  if (importPath.startsWith(".")) return false;
+
+  const importPathFirstElement = /^[^:/]+/.exec(importPath)?.[0] ?? importPath;
+
   const {
     fullImportPathExternal,
     fullImportPathExternalTypes,
     fullImportPathExternalTypesNode,
     fullImportPathExternalNode,
   } = getFullImportPathVariants({
-    importPath,
+    importPath: importPathFirstElement,
     projectRoot,
     projectRootWithBaseUrl: "",
   });

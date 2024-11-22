@@ -8,21 +8,27 @@ describe("isExternalImport", () => {
     jest.restoreAllMocks();
   });
 
+  it("should return false when importPath startsWith .", () => {
+    expect(
+      isExternalImport("./react", "C:\\Users\\user\\Desktop\\repo"),
+    ).toEqual(false);
+  });
+
   it("should return true if import is external", () => {
     jest
       .spyOn(path, "join")
       .mockImplementation(
-        () => "C:\\Users\\user\\Desktop\\repo\\node_modules\\react",
+        () => "C:\\Users\\user\\Desktop\\repo\\node_modules\\:react",
       );
     jest
       .spyOn(fs, "existsSync")
       .mockImplementation(
         (path) =>
-          path === "C:\\Users\\user\\Desktop\\repo\\node_modules\\react",
+          path === "C:\\Users\\user\\Desktop\\repo\\node_modules\\:react",
       );
-    expect(isExternalImport("react", "C:\\Users\\user\\Desktop\\repo")).toEqual(
-      true,
-    );
+    expect(
+      isExternalImport(":react", "C:\\Users\\user\\Desktop\\repo"),
+    ).toEqual(true);
   });
 
   it("should return true if import is external from @types", () => {
