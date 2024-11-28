@@ -8,7 +8,7 @@ export const isExternalImport = (
 ): boolean => {
   if (importPath.startsWith(".")) return false;
 
-  const importPathFirstElement = /^[^:/]+/.exec(importPath)?.[0] ?? importPath;
+  const importPathFirstElement = importPath.split(/[.:/]/)[0];
 
   const {
     fullImportPathExternal,
