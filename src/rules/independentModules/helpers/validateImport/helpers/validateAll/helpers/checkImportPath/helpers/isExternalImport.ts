@@ -10,21 +10,25 @@ export const isExternalImport = (
 
   const importPathFirstElement = importPath.split(/[.:/]/)[0];
 
-  const {
-    fullImportPathExternal,
-    fullImportPathExternalTypes,
-    fullImportPathExternalTypesNode,
-    fullImportPathExternalNode,
-  } = getFullImportPathVariants({
-    importPath: importPathFirstElement,
-    projectRoot,
-    projectRootWithBaseUrl: "",
-  });
+  const importPaths = [importPath, importPathFirstElement];
 
-  return (
-    fs.existsSync(fullImportPathExternal) ||
-    fs.existsSync(fullImportPathExternalTypes) ||
-    fs.existsSync(fullImportPathExternalNode) ||
-    fs.existsSync(fullImportPathExternalTypesNode)
-  );
+  return importPaths.some((iPath) => {
+    const {
+      fullImportPathExternal,
+      fullImportPathExternalTypes,
+      fullImportPathExternalTypesNode,
+      fullImportPathExternalNode,
+    } = getFullImportPathVariants({
+      importPath: iPath,
+      projectRoot,
+      projectRootWithBaseUrl: "",
+    });
+
+    return (
+      fs.existsSync(fullImportPathExternal) ||
+      fs.existsSync(fullImportPathExternalTypes) ||
+      fs.existsSync(fullImportPathExternalNode) ||
+      fs.existsSync(fullImportPathExternalTypesNode)
+    );
+  });
 };
