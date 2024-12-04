@@ -1,21 +1,44 @@
 import { getImportPaths } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getImportPaths";
 import { Paths } from "rules/independentModules/independentModules.types";
 
+jest.mock("fs", () => ({
+  existsSync: jest.fn((path) => {
+    if (
+      path ===
+      "C:/Users/project/src/rules2/independentModules/independentModules.html"
+    ) {
+      return false;
+    }
+
+    return true;
+  }),
+}));
+
 describe("getImportPaths", () => {
   test.each<{
     importPath: string;
     paths?: Paths;
-    expected: string[];
+    expected: { importPath: string; pathAlias: boolean }[];
   }>([
     {
       importPath: "src/rules/independentModules/independentModules",
       paths: undefined,
-      expected: ["src/rules/independentModules/independentModules"],
+      expected: [
+        {
+          importPath: "src/rules/independentModules/independentModules",
+          pathAlias: false,
+        },
+      ],
     },
     {
       importPath: "src/rules/independentModules/independentModules",
       paths: {},
-      expected: ["src/rules/independentModules/independentModules"],
+      expected: [
+        {
+          importPath: "src/rules/independentModules/independentModules",
+          pathAlias: false,
+        },
+      ],
     },
     {
       importPath: "@independentModules/independentModules",
@@ -26,8 +49,15 @@ describe("getImportPaths", () => {
         ],
       },
       expected: [
-        "src/rules/independentModules/independentModules",
-        "src/rules2/independentModules/independentModules",
+        {
+          importPath: "src/rules/independentModules/independentModules.html",
+          pathAlias: true,
+        },
+        {
+          importPath:
+            "src/rules2/independentModules/independentModules/index.html",
+          pathAlias: true,
+        },
       ],
     },
     {
@@ -35,7 +65,12 @@ describe("getImportPaths", () => {
       paths: {
         "independentModules/*": ["src/rules/independentModules/*"],
       },
-      expected: ["src/rules/independentModules/independentModules"],
+      expected: [
+        {
+          importPath: "src/rules/independentModules/independentModules.html",
+          pathAlias: true,
+        },
+      ],
     },
 
     {
@@ -43,7 +78,15 @@ describe("getImportPaths", () => {
       paths: {
         "@/*": ["./src/*"],
       },
-      expected: ["@clerk/nextjs"],
+      expected: [{ importPath: "@clerk/nextjs", pathAlias: false }],
+    },
+
+    {
+      importPath: "@datasrc/file",
+      paths: {
+        "@datasrc/*": ["../../datasrc/*"],
+      },
+      expected: [{ importPath: "C:/datasrc/file.html", pathAlias: true }],
     },
 
     {
@@ -51,12 +94,21 @@ describe("getImportPaths", () => {
       paths: {
         "@/*": ["./src/*", "../../test/*"],
       },
-      expected: ["src/components/hello", "test/components/hello"],
+      expected: [
+        { importPath: "src/components/hello.html", pathAlias: true },
+        { importPath: "C:/test/components/hello.html", pathAlias: true },
+      ],
     },
   ])(
     "Should return correct value for %o",
     ({ importPath, paths, expected }) => {
-      expect(getImportPaths({ importPath, paths })).toEqual(expected);
+      expect(
+        getImportPaths({
+          importPath,
+          paths,
+          projectRootWithBaseUrl: "C:/Users/project",
+        }),
+      ).toEqual(expected);
     },
   );
 });

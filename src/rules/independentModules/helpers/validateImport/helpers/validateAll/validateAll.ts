@@ -1,6 +1,6 @@
 import { getProjectRoot } from "helpers/getProjectRoot";
 
-import { addExtensionToImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/addExtensionToImportPath/addExtensionToImportPath";
+import { addExtensionToImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/addExtensionToImportPath";
 import { checkImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/checkImportPath/checkImportPath";
 import { convertImportPathToNonRelative } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/convertImportPathToNonRelative";
 import { getImportPaths } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getImportPaths";
@@ -26,6 +26,7 @@ export const validateAll = ({
   const importPaths = getImportPaths({
     importPath,
     paths: pathAliases?.paths,
+    projectRootWithBaseUrl,
   });
 
   const filenameWithoutProjectRootWithBaseUrl = removeProjectRootFromPath(
@@ -35,7 +36,7 @@ export const validateAll = ({
 
   importPaths.forEach((currentImportPath) => {
     const importPathNonRelative = convertImportPathToNonRelative({
-      importPath: currentImportPath,
+      importPath: currentImportPath.importPath,
       filename,
       projectRootWithBaseUrl,
     });
@@ -52,6 +53,7 @@ export const validateAll = ({
       filename: filenameWithoutProjectRootWithBaseUrl,
       config,
       projectRoot,
+      pathAlias: currentImportPath.pathAlias,
     });
   });
 };

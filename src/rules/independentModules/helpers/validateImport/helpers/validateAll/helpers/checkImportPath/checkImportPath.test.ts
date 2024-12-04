@@ -57,6 +57,7 @@ describe("checkImportPath", () => {
       projectRoot: "",
       filename: "",
       importPath: "",
+      pathAlias: false,
     });
 
     expect(extractReusableImportPatternsMock).not.toHaveBeenCalled();
@@ -76,6 +77,7 @@ describe("checkImportPath", () => {
         projectRoot: "",
         filename: "",
         importPath: "react",
+        pathAlias: false,
       }),
     ).not.toThrow(
       getExternalImportError({
@@ -102,6 +104,7 @@ describe("checkImportPath", () => {
         projectRoot: "",
         filename: "",
         importPath: "react",
+        pathAlias: false,
       }),
     ).not.toThrow(
       getExternalImportError({
@@ -128,6 +131,7 @@ describe("checkImportPath", () => {
         projectRoot: "",
         filename: "",
         importPath: "react",
+        pathAlias: false,
       }),
     ).toThrow(
       getExternalImportError({
@@ -156,6 +160,7 @@ describe("checkImportPath", () => {
         projectRoot: "",
         filename: "",
         importPath: "",
+        pathAlias: false,
       }),
     ).toThrow(getImportPathNotExistsError());
   });
@@ -176,6 +181,7 @@ describe("checkImportPath", () => {
         projectRoot: "",
         filename: "",
         importPath: "",
+        pathAlias: false,
       }),
     ).not.toThrow(
       getImportError({
@@ -203,6 +209,7 @@ describe("checkImportPath", () => {
         projectRoot: "",
         filename: "",
         importPath: "",
+        pathAlias: false,
       }),
     ).toThrow(
       getImportError({

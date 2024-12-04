@@ -1,6 +1,6 @@
 import path from "path";
 
-import { addExtensionToImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/addExtensionToImportPath/addExtensionToImportPath";
+import { addExtensionToImportPath } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/addExtensionToImportPath";
 
 jest.mock("fs", () => ({
   existsSync: jest.fn((path) => {
