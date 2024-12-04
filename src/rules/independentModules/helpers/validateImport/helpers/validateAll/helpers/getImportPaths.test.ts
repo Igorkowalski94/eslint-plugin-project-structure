@@ -1,3 +1,5 @@
+import path from "path";
+
 import { getImportPaths } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getImportPaths";
 import { Paths } from "rules/independentModules/independentModules.types";
 
@@ -18,10 +20,12 @@ describe("getImportPaths", () => {
   test.each<{
     importPath: string;
     paths?: Paths;
+    resolve: string;
     expected: { importPath: string; pathAlias: boolean }[];
   }>([
     {
       importPath: "src/rules/independentModules/independentModules",
+      resolve: "",
       paths: undefined,
       expected: [
         {
@@ -32,6 +36,7 @@ describe("getImportPaths", () => {
     },
     {
       importPath: "src/rules/independentModules/independentModules",
+      resolve: "",
       paths: {},
       expected: [
         {
@@ -42,17 +47,11 @@ describe("getImportPaths", () => {
     },
     {
       importPath: "@independentModules/independentModules",
+      resolve: "C:/Users/project/src/rules2/independentModules",
       paths: {
-        "@independentModules/*": [
-          "src/rules/independentModules/*",
-          "src/rules2/independentModules/*",
-        ],
+        "@independentModules/*": ["src/rules2/independentModules/*"],
       },
       expected: [
-        {
-          importPath: "src/rules/independentModules/independentModules.html",
-          pathAlias: true,
-        },
         {
           importPath:
             "src/rules2/independentModules/independentModules/index.html",
@@ -62,6 +61,7 @@ describe("getImportPaths", () => {
     },
     {
       importPath: "independentModules/independentModules",
+      resolve: "C:/Users/project/src/rules/independentModules",
       paths: {
         "independentModules/*": ["src/rules/independentModules/*"],
       },
@@ -75,6 +75,7 @@ describe("getImportPaths", () => {
 
     {
       importPath: "@clerk/nextjs",
+      resolve: "",
       paths: {
         "@/*": ["./src/*"],
       },
@@ -83,6 +84,7 @@ describe("getImportPaths", () => {
 
     {
       importPath: "@datasrc/file",
+      resolve: "C:/datasrc",
       paths: {
         "@datasrc/*": ["../../datasrc/*"],
       },
@@ -91,18 +93,16 @@ describe("getImportPaths", () => {
 
     {
       importPath: "@/components/hello",
+      resolve: "C:/Users/project/src",
       paths: {
-        "@/*": ["./src/*", "../../test/*"],
+        "@/*": ["./src/*"],
       },
-      expected: [
-        { importPath: "src/components/hello.html", pathAlias: true },
-        { importPath: "C:/test/components/hello.html", pathAlias: true },
-      ],
+      expected: [{ importPath: "src/components/hello.html", pathAlias: true }],
     },
   ])(
     "Should return correct value for %o",
-    ({ importPath, paths, expected }) => {
-      jest.spyOn(process, "cwd").mockReturnValue("C:/Users/project");
+    ({ importPath, paths, resolve, expected }) => {
+      jest.spyOn(path, "resolve").mockImplementationOnce(() => resolve);
 
       expect(
         getImportPaths({
