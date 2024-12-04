@@ -111,6 +111,8 @@ describe("getImportPaths", () => {
           projectRootWithBaseUrl: "C:/Users/project",
         }),
       ).toEqual(expected);
+
+      jest.clearAllMocks();
     },
   );
 });
