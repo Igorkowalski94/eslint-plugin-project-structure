@@ -102,6 +102,8 @@ describe("getImportPaths", () => {
   ])(
     "Should return correct value for %o",
     ({ importPath, paths, expected }) => {
+      jest.spyOn(process, "cwd").mockReturnValue("C:/Users/project");
+
       expect(
         getImportPaths({
           importPath,
