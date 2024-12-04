@@ -39,9 +39,8 @@ export const getPathAliases = ({
     return;
   }
 
-  const {
-    compilerOptions: { baseUrl = DEFAULT_BASE_URL, paths = {} },
-  } = tsconfig;
+  const { compilerOptions: { baseUrl = DEFAULT_BASE_URL, paths = {} } = {} } =
+    tsconfig;
 
   return {
     baseUrl,

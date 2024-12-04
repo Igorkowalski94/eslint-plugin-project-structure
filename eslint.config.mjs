@@ -39,9 +39,10 @@ export default tseslint.config(
    */
   {
     extends: [
-      ...tseslint.configs.recommendedTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
-      ...tseslint.configs.strictTypeChecked,
+      eslint.configs.recommended,
+      tseslint.configs.recommendedTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
+      tseslint.configs.strictTypeChecked,
     ],
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mjs", "**/*.jsx"],
     languageOptions: {
@@ -62,8 +63,6 @@ export default tseslint.config(
       import: fixupPluginRules(importPlugin),
     },
     rules: {
-      ...eslint.configs.recommended.rules,
-
       "no-console": "error",
       "object-shorthand": ["error", "always"],
       "no-extra-boolean-cast": "error",

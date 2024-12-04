@@ -41,6 +41,16 @@ describe("getPathAliases", () => {
       config: {
         tsconfigPath: "./tsconfig.json",
       },
+      tsconfig: {},
+      expected: {
+        baseUrl: ".",
+        paths: {},
+      },
+    },
+    {
+      config: {
+        tsconfigPath: "./tsconfig.json",
+      },
       tsconfig: {
         compilerOptions: {
           baseUrl: "tsconfigPath",

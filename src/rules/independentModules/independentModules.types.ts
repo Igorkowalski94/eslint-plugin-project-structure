@@ -24,7 +24,7 @@ export interface PathAliases {
 }
 
 export interface TsConfigJson {
-  compilerOptions: Partial<PathAliases>;
+  compilerOptions?: Partial<PathAliases>;
 }
 
 export interface IndependentModulesConfig {
