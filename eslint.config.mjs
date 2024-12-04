@@ -8,7 +8,10 @@ import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
 import pluginPrettier from "eslint-plugin-prettier";
-import { projectStructurePlugin } from "eslint-plugin-project-structure";
+import {
+  projectStructurePlugin,
+  projectStructureParser,
+} from "eslint-plugin-project-structure";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -32,6 +35,18 @@ export default tseslint.config(
       ".yarn",
       "./parser.js",
     ],
+  },
+
+  {
+    files: ["**"],
+    ignores: ["projectStructure.cache.json"],
+    languageOptions: { parser: projectStructureParser },
+    plugins: {
+      "project-structure": projectStructurePlugin,
+    },
+    rules: {
+      "project-structure/folder-structure": ["error", folderStructureConfig],
+    },
   },
 
   /**
@@ -102,7 +117,6 @@ export default tseslint.config(
         },
       ],
 
-      "project-structure/folder-structure": ["error", folderStructureConfig],
       "project-structure/independent-modules": [
         "error",
         independentModulesConfig,

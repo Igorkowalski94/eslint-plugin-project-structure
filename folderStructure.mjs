@@ -4,6 +4,8 @@ import { createFolderStructure } from "eslint-plugin-project-structure";
 
 export const folderStructureConfig = createFolderStructure({
   structure: [
+    { name: ".(husky|github)", children: [] },
+    { name: "images", children: [{ name: "*.png" }] },
     {
       name: "src",
       children: [

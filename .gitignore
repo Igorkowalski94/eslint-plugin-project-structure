@@ -11,3 +11,4 @@ jestCache/**
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+projectStructure.cache.json
