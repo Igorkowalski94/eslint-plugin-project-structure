@@ -12,6 +12,7 @@ describe("sortChildrenByNameType", () => {
     { name: "FixedName1.ts" },
     { name: "*_{camelCase}.ts" },
     { name: "use*", children: [] },
+    { name: "{snake_case}", children: [] },
     { name: "*", children: [] },
     { name: "use*.ts" },
     { name: "{FolderName}.ts" },
@@ -20,32 +21,39 @@ describe("sortChildrenByNameType", () => {
     { name: "use*", children: [] },
     { name: "{camelCase}.ts" },
     { name: "FixedName3.ts" },
-    { name: "custom-name1", children: [] },
-    { name: "custom_name2", children: [] },
+    { name: "custom-name-1", children: [] },
+    { name: "custom_name-2", children: [] },
     { name: "{kebab-case}", children: [] },
-    { name: "{snake_case}", children: [] },
   ];
 
   const childrenSorted: Rule[] = [
-    { name: "FixedName3.ts" },
-    { name: "FixedName2.ts" },
     { name: "FixedName1.ts" },
-    { name: "{camelCase}.ts" },
+    { name: "FixedName2.ts" },
+    { name: "FixedName3.ts" },
+
     { name: "{FolderName}.ts" },
+    { name: "{camelCase}.ts" },
+
+    { name: "*_{FolderName}.ts" },
     { name: "use*.ts" },
     { name: "*_{camelCase}.ts" },
     { name: "use*.ts" },
-    { name: "*_{FolderName}.ts" },
+
     { name: "*" },
     { name: "*" },
-    { name: "custom_name2", children: [] },
-    { name: "custom-name1", children: [] },
+
+    { name: "custom-name-1", children: [] },
+    { name: "custom_name-2", children: [] },
+
     { name: "{snake_case}", children: [] },
     { name: "{kebab-case}", children: [] },
+
     { name: "use*", children: [] },
     { name: "use*", children: [] },
+
     { name: "*", children: [] },
     { name: "*", children: [] },
+
     { ruleId: "ruleId" },
     { ruleId: "ruleId" },
   ];

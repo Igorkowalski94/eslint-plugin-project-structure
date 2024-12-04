@@ -37,6 +37,6 @@ export const sortChildrenByNameType = (children: Rule[]): Rule[] =>
       if (isRegex(nameA) && !isRegex(nameB)) return 1;
       if (!isRegex(nameA) && isRegex(nameB)) return -1;
 
-      return -1;
+      return 0;
     },
   );
