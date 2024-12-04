@@ -17,6 +17,14 @@ jest.mock("fs", () => ({
 }));
 
 describe("getImportPaths", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test.each<{
     importPath: string;
     paths?: Paths;
@@ -102,7 +110,7 @@ describe("getImportPaths", () => {
   ])(
     "Should return correct value for %o",
     ({ importPath, paths, resolve, expected }) => {
-      jest.spyOn(path, "resolve").mockImplementationOnce(() => resolve);
+      jest.spyOn(path, "resolve").mockImplementation(() => resolve);
 
       expect(
         getImportPaths({
