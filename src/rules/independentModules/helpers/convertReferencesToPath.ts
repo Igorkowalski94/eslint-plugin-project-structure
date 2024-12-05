@@ -20,15 +20,16 @@ export const convertReferencesToPath = ({
   Array.isArray(pattern)
     ? pattern
         .map((p) => p.replace(DIRNAME_REGEX, getDirnamePath(filename, p)))
-        .map((p) =>
-          p.replace(
-            FAMILY_REGEX,
-            getFamilyPath({ importPath, filename, pattern: p }),
-          ),
+        .map(
+          (p) =>
+            p
+              .replace(
+                FAMILY_REGEX,
+                getFamilyPath({ importPath, filename, pattern: p }),
+              )
+              .replace(/[()]/g, (match) => `\\${match}`), // Treat brackets as a character, not a special micromatch character.
         )
     : pattern
         .replace(DIRNAME_REGEX, getDirnamePath(filename, pattern))
-        .replace(
-          FAMILY_REGEX,
-          getFamilyPath({ importPath, filename, pattern }),
-        );
+        .replace(FAMILY_REGEX, getFamilyPath({ importPath, filename, pattern }))
+        .replace(/[()]/g, (match) => `\\${match}`);
