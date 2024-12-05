@@ -11,5 +11,5 @@ export const getDirnamePath = (fileName: string, pattern: string): string => {
     dirnamePath = path.dirname(dirnamePath);
   }
 
-  return dirnamePath;
+  return dirnamePath.replace(/[()]/g, (match) => `\\${match}`);
 };
