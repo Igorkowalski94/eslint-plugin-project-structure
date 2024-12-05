@@ -30,5 +30,5 @@ export const getFamilyPath = ({
 
   if (familyParts.length < lvl) return NO_FAMILY;
 
-  return familyParts.join("/");
+  return familyParts.join("/").replace(/[()]/g, (match) => `\\${match}`);
 };
