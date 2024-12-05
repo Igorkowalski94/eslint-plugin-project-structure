@@ -8,9 +8,34 @@ describe("getDirnamePath", () => {
       expected: "C:/Users/user/Desktop/repo",
     },
     {
-      filename: "C:/Users/user/Desktop/(components)/src/",
+      filename: "C:/Users/user/Desktop/(components)/src",
       pattern: "{dirname}/*.ts",
       expected: "C:/Users/user/Desktop/\\(components\\)",
+    },
+    {
+      filename: "C:/Users/user/Desktop/{components}/src",
+      pattern: "{dirname}/*.ts",
+      expected: "C:/Users/user/Desktop/\\{components\\}",
+    },
+    {
+      filename: "C:/Users/user/Desktop/[[...slug]]/src",
+      pattern: "{dirname}/*.ts",
+      expected: "C:/Users/user/Desktop/\\[\\[\\.\\.\\.slug\\]\\]",
+    },
+    {
+      filename: "C:/Users/user/Desktop/components!/src",
+      pattern: "{dirname}/*.ts",
+      expected: "C:/Users/user/Desktop/components\\!",
+    },
+    {
+      filename: "C:/Users/user/Desktop/components+/src",
+      pattern: "{dirname}/*.ts",
+      expected: "C:/Users/user/Desktop/components\\+",
+    },
+    {
+      filename: "C:/Users/user/Desktop/components,/src",
+      pattern: "{dirname}/*.ts",
+      expected: "C:/Users/user/Desktop/components\\,",
     },
     {
       filename: "C:/Users/user/Desktop/repo/src/",

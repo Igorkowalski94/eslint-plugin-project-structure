@@ -10,10 +10,13 @@ describe("getFamilyPath", () => {
       expected: "features/Feature1",
     },
     {
-      filename: "features/Feature1/(components)/Feature.tsx",
-      importPath: "features/Feature1/(components)/feature1.types.ts",
+      filename:
+        "[[...slug]]/[Feature1]/(components)/name!/name+/name!/{name}/Feature.tsx",
+      importPath:
+        "[[...slug]]/[Feature1]/(components)/name!/name+/name!/{name}/feature1.types.ts",
       pattern: "{family}/*.ts",
-      expected: "features/Feature1/\\(components\\)",
+      expected:
+        "\\[\\[\\.\\.\\.slug\\]\\]/\\[Feature1\\]/\\(components\\)/name\\!/name\\+/name\\!/\\{name\\}",
     },
     {
       filename: "features/Feature1/components/Child1.tsx",

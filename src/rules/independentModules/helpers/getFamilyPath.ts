@@ -1,4 +1,5 @@
 import { getLvlFromPattern } from "rules/independentModules/helpers/getLvlFromPattern";
+import { removeMicromatchSpecialCharacters } from "rules/independentModules/helpers/removeMicromatchSpecialCharacters";
 import { NO_FAMILY } from "rules/independentModules/independentModules.consts";
 
 interface GetFamilyPathProps {
@@ -30,5 +31,5 @@ export const getFamilyPath = ({
 
   if (familyParts.length < lvl) return NO_FAMILY;
 
-  return familyParts.join("/").replace(/[()]/g, (match) => `\\${match}`);
+  return removeMicromatchSpecialCharacters(familyParts.join("/"));
 };
