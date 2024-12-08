@@ -31,7 +31,7 @@ export const validateFile = ({
   name,
   expressionName,
   context,
-  context: { filename },
+  context: { filename, cwd },
   node,
   nodeType,
   fileConfig,
@@ -50,7 +50,7 @@ export const validateFile = ({
     isCorrectScope({ expect: "nestedSelectors", scope }),
   );
   const filenamePath = path.relative(
-    getProjectRoot(config.projectRoot),
+    getProjectRoot({ cwd, projectRootConfig: config.projectRoot }),
     filename,
   );
   const regexParameters = config.regexParameters;

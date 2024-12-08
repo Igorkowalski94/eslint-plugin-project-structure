@@ -12,18 +12,21 @@ interface ReadConfigFileProps<T> {
   key: string;
   settings: SharedConfigurationSettings;
   options: T | undefined;
+  cwd: string;
 }
 
 export const readConfigFile = <T>({
   key,
   settings,
   options,
+  cwd,
 }: ReadConfigFileProps<T>): T => {
   if (options) return options;
 
   const configPath = getConfigPath({
     key,
     settings,
+    cwd,
   });
 
   let config = undefined;

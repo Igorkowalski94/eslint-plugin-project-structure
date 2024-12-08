@@ -14,6 +14,15 @@ describe("isExternalImport", () => {
     ).toEqual(false);
   });
 
+  it("should return true when importPath startsWith https://", () => {
+    expect(
+      isExternalImport(
+        "https://esm.sh/react@18",
+        "C:\\Users\\user\\Desktop\\repo",
+      ),
+    ).toEqual(true);
+  });
+
   it("should return true if import is external", () => {
     jest
       .spyOn(path, "join")

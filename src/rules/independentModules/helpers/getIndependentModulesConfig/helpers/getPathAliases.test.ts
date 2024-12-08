@@ -95,6 +95,7 @@ describe("getPathAliases", () => {
     expect(
       getPathAliases({
         config: config as IndependentModulesConfig,
+        cwd: "cwd",
       }),
     ).toEqual(expected);
   });
@@ -107,6 +108,7 @@ describe("getPathAliases", () => {
     expect(
       getPathAliases({
         config: { modules: [] },
+        cwd: "cwd",
       }),
     ).toEqual(undefined);
   });

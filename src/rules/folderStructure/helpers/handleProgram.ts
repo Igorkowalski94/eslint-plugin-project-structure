@@ -22,16 +22,20 @@ export interface HandleProgramProps {
 }
 
 export const handleProgram = ({
-  context: { settings, filename, options, report },
+  context: { settings, filename, options, report, cwd },
   node,
 }: HandleProgramProps): void => {
   const config = readConfigFile<FolderStructureConfig>({
     key: "project-structure/folder-structure-config-path",
     settings,
     options: options[0],
+    cwd,
   });
 
-  const projectRoot = getProjectRoot(config.projectRoot);
+  const projectRoot = getProjectRoot({
+    cwd,
+    projectRootConfig: config.projectRoot,
+  });
   const structureRoot = path.resolve(projectRoot, config.structureRoot ?? ".");
 
   if (

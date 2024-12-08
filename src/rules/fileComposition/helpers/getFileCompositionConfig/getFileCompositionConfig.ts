@@ -21,17 +21,19 @@ export const getFileCompositionConfig = ({
   filename,
   settings,
   options,
+  cwd,
 }: Context): GetFileCompositionConfigReturn => {
   const config = readConfigFile<FileCompositionConfig>({
     key: "project-structure/file-composition-config-path",
     settings,
     options: options[0],
+    cwd,
   });
 
   validateConfig({ config, schema: FILE_COMPOSITION_SCHEMA });
 
   const filenamePath = path.relative(
-    getProjectRoot(config.projectRoot),
+    getProjectRoot({ cwd, projectRootConfig: config.projectRoot }),
     filename,
   );
   const fileConfig = config.filesRules.find(({ filePattern }) =>

@@ -11,17 +11,22 @@ interface ValidateAllProps {
   filename: string;
   importPath: string;
   config: IndependentModulesConfig;
+  cwd: string;
 }
 
 export const validateAll = ({
   filename,
   importPath,
   config,
+  cwd,
 }: ValidateAllProps): void => {
   const { extensions, pathAliases } = config;
 
-  const projectRoot = getProjectRoot();
-  const projectRootWithBaseUrl = getProjectRoot(pathAliases?.baseUrl);
+  const projectRoot = getProjectRoot({ cwd });
+  const projectRootWithBaseUrl = getProjectRoot({
+    projectRootConfig: pathAliases?.baseUrl,
+    cwd,
+  });
 
   const importPaths = getImportPaths({
     importPath,

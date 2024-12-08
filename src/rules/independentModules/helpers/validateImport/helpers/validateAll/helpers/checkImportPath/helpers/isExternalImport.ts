@@ -7,6 +7,7 @@ export const isExternalImport = (
   projectRoot: string,
 ): boolean => {
   if (importPath.startsWith(".")) return false;
+  if (importPath.startsWith("https://")) return true;
 
   const importPathFirstElement = importPath.split(/[.:/]/)[0];
 

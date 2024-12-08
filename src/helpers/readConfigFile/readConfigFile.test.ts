@@ -34,6 +34,7 @@ describe("readConfigFile", () => {
         key: "",
         options: [{ name: "options" }],
         settings: {},
+        cwd: "cwd",
       }),
     ).toEqual([
       {
@@ -51,6 +52,7 @@ describe("readConfigFile", () => {
         key: "",
         options: undefined,
         settings: {},
+        cwd: "cwd",
       }),
     ).toEqual({
       name: "json",
@@ -66,6 +68,7 @@ describe("readConfigFile", () => {
         key: "",
         options: undefined,
         settings: {},
+        cwd: "cwd",
       }),
     ).toEqual({
       name: "jsonc",
@@ -81,6 +84,7 @@ describe("readConfigFile", () => {
         key: "",
         options: undefined,
         settings: {},
+        cwd: "cwd",
       }),
     ).toEqual({
       name: "yaml",
@@ -95,6 +99,7 @@ describe("readConfigFile", () => {
         key: "",
         options: undefined,
         settings: {},
+        cwd: "cwd",
       }),
     ).toThrow(getInvalidConfigFileError("config.error"));
   });

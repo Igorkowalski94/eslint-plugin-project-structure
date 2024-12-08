@@ -14,16 +14,18 @@ import {
 
 interface GetPathAliasesProps {
   config: IndependentModulesConfig;
+  cwd: string;
 }
 
 export const getPathAliases = ({
   config,
+  cwd,
 }: GetPathAliasesProps): PathAliases | undefined => {
   const { pathAliases } = config;
 
   if (pathAliases) return pathAliases;
 
-  const projectRoot = getProjectRoot();
+  const projectRoot = getProjectRoot({ cwd });
 
   const tsconfigPath = config.tsconfigPath
     ? path.resolve(projectRoot, config.tsconfigPath)

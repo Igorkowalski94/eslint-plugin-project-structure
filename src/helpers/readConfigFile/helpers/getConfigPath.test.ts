@@ -15,9 +15,9 @@ describe("getConfigPath", () => {
   it("should throw getMissingConfigFileError when config path is missing", () => {
     (getProjectRoot as jest.Mock).mockReturnValue("src");
 
-    expect(() => getConfigPath({ key: "ruleKey", settings: {} })).toThrow(
-      getMissingConfigFileError("ruleKey"),
-    );
+    expect(() =>
+      getConfigPath({ key: "ruleKey", settings: {}, cwd: "cwd" }),
+    ).toThrow(getMissingConfigFileError("ruleKey"));
   });
 
   it("should return config path when settings contain config path - relative", () => {
@@ -31,6 +31,7 @@ describe("getConfigPath", () => {
       getConfigPath({
         key: "ruleKey",
         settings: { ruleKey: "config.json" },
+        cwd: "cwd",
       }),
     ).toEqual("C:\\relative\\src\\config.json");
   });
@@ -48,6 +49,7 @@ describe("getConfigPath", () => {
         settings: {
           ruleKey: "D:\\relative\\src\\config.json",
         },
+        cwd: "cwd",
       }),
     ).toEqual("D:\\relative\\src\\config.json");
   });
