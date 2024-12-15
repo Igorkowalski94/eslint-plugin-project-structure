@@ -32,11 +32,15 @@ export const handleProgram = ({
     cwd,
   });
 
+  const cacheFileLocation = settings["project-structure/cache-location"] as
+    | string
+    | undefined;
   const projectRoot = getProjectRoot({
     cwd,
     projectRootConfig: config.projectRoot,
   });
   const structureRoot = path.resolve(projectRoot, config.structureRoot ?? ".");
+  const cacheLocationOrProjectRoot = cacheFileLocation ?? projectRoot;
 
   if (
     !filename.includes(structureRoot) ||
@@ -51,13 +55,16 @@ export const handleProgram = ({
       projectRoot,
       config,
     });
-    cleanUpErrorFromCache({ projectRoot, filename });
+    cleanUpErrorFromCache({
+      projectRoot: cacheLocationOrProjectRoot,
+      filename,
+    });
   } catch (error) {
     if (!finalErrorGuard(error)) throw error;
 
     if (
       isErrorInCache({
-        projectRoot,
+        projectRoot: cacheLocationOrProjectRoot,
         errorCache: {
           filename,
           errorMessage: error.message,
