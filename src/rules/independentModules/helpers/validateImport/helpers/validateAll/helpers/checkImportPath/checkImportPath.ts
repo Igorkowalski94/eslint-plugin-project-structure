@@ -55,25 +55,22 @@ export const checkImportPath = ({
   if (!importPathExists && !pathAlias) {
     const isExternal = isExternalImport(importPath, projectRoot);
 
-    if (isExternal) {
-      const isValidExternalImportPattern = allowImportsFromExtracted.some((p) =>
-        micromatch.every(importPath, p),
-      );
+    if (!isExternal) throw getImportPathNotExistsError();
 
-      if (isValidExternalImportPattern || allowExternalImports !== false)
-        return;
+    const isValidExternalImportPattern = allowImportsFromExtracted.some((p) =>
+      micromatch.every(importPath, p),
+    );
 
-      throw getExternalImportError({
-        moduleName,
-        errorMessage,
-        debugMode,
-        filename,
-        importPath,
-        allowImportsFromExtracted,
-      });
-    }
+    if (isValidExternalImportPattern || allowExternalImports !== false) return;
 
-    throw getImportPathNotExistsError();
+    throw getExternalImportError({
+      moduleName,
+      errorMessage,
+      debugMode,
+      filename,
+      importPath,
+      allowImportsFromExtracted,
+    });
   }
 
   const isValidImportPath = validateImportPath({
