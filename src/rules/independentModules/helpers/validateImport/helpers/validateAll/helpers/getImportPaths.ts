@@ -19,45 +19,61 @@ export const getImportPaths = ({
 
   if (!paths || !pathsKays.length) return [{ importPath, pathAlias: false }];
 
-  const imports = pathsKays
+  const importsForFixedKeys = pathsKays
+    .filter((key) => !key.endsWith("/*"))
+    .flatMap((key) => {
+      if (importPath !== key) return;
+
+      return paths[key]
+        .map((alias) =>
+          path.resolve(projectRootWithBaseUrl, alias).replaceAll(sep, "/"),
+        )
+        .map((aliasWithProjectRoot) =>
+          importPath.replace(key, aliasWithProjectRoot),
+        );
+    });
+
+  const importsForDynamicKeys = pathsKays
+    .filter((key) => key.endsWith("/*"))
     .flatMap((key) => {
       const keyCleared = key.replace("*", "");
 
       if (!importPath.includes(keyCleared)) return;
 
-      const importPaths = paths[key];
-
-      return importPaths
-        .map((importPath) => {
-          const importPathCleared = importPath.replaceAll("/*", "");
+      return paths[key]
+        .map((alias) => {
+          const aliasCleared = alias.replace("/*", "");
 
           return path
-            .resolve(projectRootWithBaseUrl, importPathCleared)
+            .resolve(projectRootWithBaseUrl, aliasCleared)
             .replaceAll(sep, "/");
         })
-        .flatMap((importPathReplace) =>
-          importPath.replace(keyCleared, `${importPathReplace}/`),
-        )
-        .map((importPath) => {
-          let importPathWithExtension = importPath;
+        .map((aliasWithProjectRoot) =>
+          importPath.replace(keyCleared, `${aliasWithProjectRoot}/`),
+        );
+    });
 
-          FILE_EXTENSIONS.forEach((ext) => {
-            if (fs.existsSync(importPath + ext))
-              return (importPathWithExtension = importPath + ext);
-
-            if (fs.existsSync(importPath + "/index" + ext))
-              return (importPathWithExtension = importPath + "/index" + ext);
-
-            return;
-          });
-
-          return importPathWithExtension.replaceAll(
-            projectRootWithBaseUrl.replaceAll(sep, "/") + "/",
-            "",
-          );
-        });
-    })
+  const imports = [...importsForFixedKeys, ...importsForDynamicKeys]
     .filter((v): v is string => !!v)
+    .map((fullImportPathWithAlias) => {
+      let importPathWithExtension = fullImportPathWithAlias;
+
+      FILE_EXTENSIONS.forEach((ext) => {
+        if (fs.existsSync(fullImportPathWithAlias + ext))
+          return (importPathWithExtension = fullImportPathWithAlias + ext);
+
+        if (fs.existsSync(fullImportPathWithAlias + "/index" + ext))
+          return (importPathWithExtension =
+            fullImportPathWithAlias + "/index" + ext);
+
+        return;
+      });
+
+      return importPathWithExtension.replaceAll(
+        projectRootWithBaseUrl.replaceAll(sep, "/") + "/",
+        "",
+      );
+    })
     .map((importPath) => ({ importPath, pathAlias: true }));
 
   if (!imports.length) return [{ importPath, pathAlias: false }];

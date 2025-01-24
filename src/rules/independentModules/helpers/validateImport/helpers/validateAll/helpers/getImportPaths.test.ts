@@ -32,6 +32,20 @@ describe("getImportPaths", () => {
     expected: { importPath: string; pathAlias: boolean }[];
   }>([
     {
+      importPath: "@hg/bob-store",
+      resolve: "C:/Users/project/libs/shared/util/hg-bob-store/src/index.ts",
+      paths: {
+        "@hg/bob": ["libs/shared/ui/hg-bob/src/index.ts"],
+        "@hg/bob-store": ["libs/shared/util/hg-bob-store/src/index.ts"],
+      },
+      expected: [
+        {
+          importPath: "libs/shared/util/hg-bob-store/src/index.ts.html",
+          pathAlias: true,
+        },
+      ],
+    },
+    {
       importPath: "src/rules/independentModules/independentModules",
       resolve: "",
       paths: undefined,
