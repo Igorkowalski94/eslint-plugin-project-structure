@@ -34,4 +34,5 @@ export interface IndependentModulesConfig {
   reusableImportPatterns?: Record<string, ImportPattern[]>;
   modules: Module[];
   debugMode?: boolean;
+  packageRoot?: string;
 }

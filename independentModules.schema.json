@@ -85,6 +85,10 @@
           "type": "boolean",
           "default": true
         },
+        "packageRoot": {
+          "type": "string",
+          "default": ""
+        },
         "tsconfigPath": {
           "type": "string",
           "default": "./tsconfig.json"

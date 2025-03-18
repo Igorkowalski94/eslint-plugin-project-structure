@@ -1,11 +1,19 @@
 import fs from "fs";
+import { resolve } from "path";
 
 import { getFullImportPathVariants } from "rules/independentModules/helpers/validateImport/helpers/validateAll/helpers/getFullImportPathVariants";
 
-export const isExternalImport = (
-  importPath: string,
-  projectRoot: string,
-): boolean => {
+interface IsExternalImportProps {
+  importPath: string;
+  projectRoot: string;
+  packageRoot?: string;
+}
+
+export const isExternalImport = ({
+  importPath,
+  packageRoot,
+  projectRoot,
+}: IsExternalImportProps): boolean => {
   if (importPath.startsWith(".")) return false;
   if (importPath.startsWith("https://")) return true;
 
@@ -13,23 +21,29 @@ export const isExternalImport = (
 
   const importPaths = [importPath, importPathFirstElement];
 
-  return importPaths.some((iPath) => {
-    const {
-      fullImportPathExternal,
-      fullImportPathExternalTypes,
-      fullImportPathExternalTypesNode,
-      fullImportPathExternalNode,
-    } = getFullImportPathVariants({
-      importPath: iPath,
-      projectRoot,
-      projectRootWithBaseUrl: "",
-    });
+  const packageRootResolved = resolve(projectRoot, packageRoot ?? ".");
 
-    return (
-      fs.existsSync(fullImportPathExternal) ||
-      fs.existsSync(fullImportPathExternalTypes) ||
-      fs.existsSync(fullImportPathExternalNode) ||
-      fs.existsSync(fullImportPathExternalTypesNode)
-    );
-  });
+  const monorepoRoots = [projectRoot, packageRootResolved];
+
+  return importPaths.some((iPath) =>
+    monorepoRoots.some((root) => {
+      const {
+        fullImportPathExternal,
+        fullImportPathExternalTypes,
+        fullImportPathExternalTypesNode,
+        fullImportPathExternalNode,
+      } = getFullImportPathVariants({
+        importPath: iPath,
+        projectRoot: root,
+        projectRootWithBaseUrl: "",
+      });
+
+      return (
+        fs.existsSync(fullImportPathExternal) ||
+        fs.existsSync(fullImportPathExternalTypes) ||
+        fs.existsSync(fullImportPathExternalNode) ||
+        fs.existsSync(fullImportPathExternalTypesNode)
+      );
+    }),
+  );
 };

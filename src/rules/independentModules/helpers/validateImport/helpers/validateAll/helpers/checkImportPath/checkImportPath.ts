@@ -22,7 +22,13 @@ interface CheckImportPathProps {
 export const checkImportPath = ({
   importPath,
   filename,
-  config: { reusableImportPatterns, modules, debugMode, pathAliases },
+  config: {
+    reusableImportPatterns,
+    modules,
+    debugMode,
+    pathAliases,
+    packageRoot,
+  },
   projectRoot,
   pathAlias,
 }: CheckImportPathProps): void => {
@@ -53,7 +59,11 @@ export const checkImportPath = ({
   });
 
   if (!importPathExists && !pathAlias) {
-    const isExternal = isExternalImport(importPath, projectRoot);
+    const isExternal = isExternalImport({
+      importPath,
+      projectRoot,
+      packageRoot,
+    });
 
     if (!isExternal) throw getImportPathNotExistsError();
 

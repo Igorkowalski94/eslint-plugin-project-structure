@@ -10,16 +10,19 @@ describe("isExternalImport", () => {
 
   it("should return false when importPath startsWith .", () => {
     expect(
-      isExternalImport("./react", "C:\\Users\\user\\Desktop\\repo"),
+      isExternalImport({
+        importPath: "./react",
+        projectRoot: "C:\\Users\\user\\Desktop\\repo",
+      }),
     ).toEqual(false);
   });
 
   it("should return true when importPath startsWith https://", () => {
     expect(
-      isExternalImport(
-        "https://esm.sh/react@18",
-        "C:\\Users\\user\\Desktop\\repo",
-      ),
+      isExternalImport({
+        importPath: "https://esm.sh/react@18",
+        projectRoot: "C:\\Users\\user\\Desktop\\repo",
+      }),
     ).toEqual(true);
   });
 
@@ -36,7 +39,10 @@ describe("isExternalImport", () => {
           path === "C:\\Users\\user\\Desktop\\repo\\node_modules\\:react",
       );
     expect(
-      isExternalImport(":react", "C:\\Users\\user\\Desktop\\repo"),
+      isExternalImport({
+        importPath: ":react",
+        projectRoot: "C:\\Users\\user\\Desktop\\repo",
+      }),
     ).toEqual(true);
   });
 
@@ -53,15 +59,21 @@ describe("isExternalImport", () => {
           path ===
           "C:\\Users\\user\\Desktop\\repo\\node_modules\\@types\\react",
       );
-    expect(isExternalImport("react", "C:\\Users\\user\\Desktop\\repo")).toEqual(
-      true,
-    );
+    expect(
+      isExternalImport({
+        importPath: "react",
+        projectRoot: "C:\\Users\\user\\Desktop\\repo",
+      }),
+    ).toEqual(true);
   });
 
   it("should return false if import is not external", () => {
     jest.spyOn(fs, "existsSync").mockImplementation(() => false);
     expect(
-      isExternalImport("features/feature1", "C:\\Users\\user\\Desktop\\repo"),
+      isExternalImport({
+        importPath: "features/feature1",
+        projectRoot: "C:\\Users\\user\\Desktop\\repo",
+      }),
     ).toEqual(false);
   });
 });
