@@ -12,9 +12,9 @@ Before you start writing an issue:
 
 - Make sure you have the latest version before reporting a bug.
 - Create a repository where your issue can be easily investigated, that way, I’ll be able to help you faster.
-- If you have any questions or need help creating a configuration that meets your requirements, [help](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=help).
-- If you have an idea for a new feature or an improvement to an existing one, [ideas](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=ideas).
-- If you're interested in discussing project structures across different frameworks or want to vote on a proposed idea, [discussions](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions?discussions_q=).
+- If you have any questions or need help creating a configuration that meets your requirements, https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=help
+- If you have an idea for a new feature or an improvement to an existing one, https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=ideas
+- If you're interested in discussing project structures across different frameworks or want to vote on a proposed idea, https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions?discussions_q=
 
 Make sure your issue includes:
 
