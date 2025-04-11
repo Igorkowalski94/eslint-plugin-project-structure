@@ -6,13 +6,17 @@ labels: bug
 assignees: Igorkowalski94
 ---
 
-1. Make sure you have the latest version before reporting a bug.
+If you have found a bug or an error in the documentation, you're in the right place.
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+Before you start writing an issue:
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+- Make sure you have the latest version before reporting a bug.
+- Create a repository where your issue can be easily investigated, that way, I’ll be able to help you faster.
+- If you have any questions or need help creating a configuration that meets your requirements, [help](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=help).
+- If you have an idea for a new feature or an improvement to an existing one, [ideas](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions/new?category=ideas).
+- If you're interested in discussing project structures across different frameworks or want to vote on a proposed idea, [discussions](https://github.com/Igorkowalski94/eslint-plugin-project-structure/discussions?discussions_q=).
 
-**Additional context**
-Add any other context about the problem here.
+Make sure your issue includes:
+
+- A clear and concise description of what the bug is.
+- A clear and concise description of what you expected to happen.

@@ -1,2 +1,2 @@
-export const hasNestedArray = <T>(arr: T[]): boolean =>
+export const hasNestedArray = (arr: unknown[]): boolean =>
   arr.some((item) => Array.isArray(item));

@@ -5,12 +5,7 @@ const jestConfig: JestConfigWithTsJest = {
   maxWorkers: "90%",
   testEnvironment: "node",
   transform: {
-    "^.+\\.tsx?$": [
-      "ts-jest",
-      {
-        isolatedModules: true,
-      },
-    ],
+    "^.+\\.tsx?$": ["ts-jest", {}],
   },
   moduleDirectories: ["node_modules", "src"],
   cacheDirectory: "<rootDir>/jestCache",

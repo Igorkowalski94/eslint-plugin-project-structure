@@ -8,6 +8,7 @@
     "removeComments": true,
     "strict": true,
     "alwaysStrict": true,
+    "isolatedModules": true,
     "noImplicitReturns": true,
     "noEmit": true,
     "skipLibCheck": true,
