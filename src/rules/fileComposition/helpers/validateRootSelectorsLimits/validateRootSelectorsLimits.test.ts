@@ -105,4 +105,83 @@ describe("validateRootSelectorsLimits", () => {
       },
     });
   });
+
+  describe("Limit objects", () => {
+    test("Should throw error when !!error", () => {
+      (getSelectorsCount as jest.Mock).mockReturnValue({
+        variable: 2,
+        variableExpression: 2,
+        arrowFunction: 2,
+        function: 3,
+        class: 3,
+        type: 2,
+        interface: 3,
+      });
+
+      const reportMock = jest.fn();
+
+      validateRootSelectorsLimits({
+        node: { body: {} } as TSESTree.Program,
+        report: reportMock,
+        rootSelectorsLimits: [
+          {
+            selector: ["interface", "type"],
+            limit: { min: 2, max: 3 },
+          },
+          {
+            selector: "variable",
+            limit: { max: 1 },
+          },
+          {
+            selector: "enum",
+            limit: { min: 3 },
+          },
+        ],
+      });
+
+      expect(reportMock).toHaveBeenCalledWith({
+        node: { body: {} },
+        messageId: "rootSelectorsLimits",
+        data: {
+          error:
+            "\nSelector: 'interface', 'type', min = 2, max = 3, occurrences = 5." +
+            "\nSelector: 'variable', max = 1, occurrences = 2." +
+            "\nSelector: 'enum', min = 3, occurrences = 0.",
+        },
+      });
+    });
+
+    test("Should return undefined when !error", () => {
+      (getSelectorsCount as jest.Mock).mockReturnValue({
+        variable: 2,
+        variableExpression: 2,
+        arrowFunction: 2,
+        function: 3,
+        class: 3,
+        type: 2,
+        interface: 3,
+      });
+
+      expect(
+        validateRootSelectorsLimits({
+          node: { body: {} } as TSESTree.Program,
+          report: jest.fn(),
+          rootSelectorsLimits: [
+            {
+              selector: ["interface", "type"],
+              limit: { min: 2, max: 5 },
+            },
+            {
+              selector: "variable",
+              limit: { max: 2 },
+            },
+            {
+              selector: "class",
+              limit: { min: 3 },
+            },
+          ],
+        }),
+      ).toEqual(undefined);
+    });
+  });
 });
