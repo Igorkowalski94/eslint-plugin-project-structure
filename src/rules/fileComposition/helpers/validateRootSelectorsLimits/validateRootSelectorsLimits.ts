@@ -31,20 +31,25 @@ export const validateRootSelectorsLimits = ({
     if (typeof limit === "number") {
       if (occurrences > limit)
         return (acc += `\nSelector: ${selectorArray.map((s) => `'${s}'`).join(", ")}, limit = ${String(limit)}, occurrences = ${String(occurrences)}.`);
-    } else if (typeof limit === "object") {
+    }
+
+    if (typeof limit === "object") {
       const { min, max } = limit;
+
       if (
         typeof min === "number" &&
         typeof max === "number" &&
         (occurrences < min || occurrences > max)
-      ) {
+      )
         return (acc += `\nSelector: ${selectorArray.map((s) => `'${s}'`).join(", ")}, min = ${String(min)}, max = ${String(max)}, occurrences = ${String(occurrences)}.`);
-      } else if (typeof max === "number" && occurrences > max) {
+
+      if (typeof max === "number" && occurrences > max)
         return (acc += `\nSelector: ${selectorArray.map((s) => `'${s}'`).join(", ")}, max = ${String(max)}, occurrences = ${String(occurrences)}.`);
-      } else if (typeof min === "number" && occurrences < min) {
+
+      if (typeof min === "number" && occurrences < min)
         return (acc += `\nSelector: ${selectorArray.map((s) => `'${s}'`).join(", ")}, min = ${String(min)}, occurrences = ${String(occurrences)}.`);
-      }
     }
+
     return acc;
   }, "");
 
