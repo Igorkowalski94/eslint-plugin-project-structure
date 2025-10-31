@@ -1,7 +1,7 @@
 {
   "author": "Igor Kowalski (Igorkowalski94)",
   "name": "eslint-plugin-project-structure",
-  "version": "3.13.3",
+  "version": "3.14.0",
   "license": "MIT",
   "description": "Powerful ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project. Create your own framework! Define your folder structure, file composition, advanced naming conventions, and create independent modules. Take your project to the next level and save time by automating the review of key principles of a healthy project! react folder structure react file structure react project structure react conventions architecture react next.js angular node solid vue svelte",
   "keywords": [
