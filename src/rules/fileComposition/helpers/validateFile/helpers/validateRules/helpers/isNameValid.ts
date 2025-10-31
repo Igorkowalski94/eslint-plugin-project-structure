@@ -11,12 +11,10 @@ export const isNameValid = ({
   formatWithoutReferences,
   name,
 }: IsNameValidProps): boolean =>
-  Boolean(
-    formatWithoutReferences.some((pattern) => {
-      if (isRegexInvalid(pattern)) throw getInvalidRegexError(pattern);
+  formatWithoutReferences.some((pattern) => {
+    if (isRegexInvalid(pattern)) throw getInvalidRegexError(pattern);
 
-      const regexp = new RegExp(`^${pattern}$`, "g");
+    const regexp = new RegExp(`^${pattern}$`, "g");
 
-      return regexp.test(name);
-    }),
-  );
+    return regexp.test(name);
+  });
