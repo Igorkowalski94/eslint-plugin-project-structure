@@ -63,7 +63,23 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
               },
             ],
           },
-          limit: { type: "number" },
+          limit: {
+            oneOf: [
+              { type: "number" },
+              {
+                type: "object",
+                additionalProperties: false,
+                properties: {
+                  min: {
+                    type: "number",
+                  },
+                  max: {
+                    type: "number",
+                  },
+                },
+              },
+            ],
+          },
         },
         required: ["limit", "selector"],
       },
