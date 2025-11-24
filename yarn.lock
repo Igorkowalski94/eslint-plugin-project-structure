@@ -597,15 +597,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/compat@npm:^1.2.8":
-  version: 1.2.8
-  resolution: "@eslint/compat@npm:1.2.8"
+"@eslint/compat@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@eslint/compat@npm:2.0.0"
+  dependencies:
+    "@eslint/core": ^1.0.0
   peerDependencies:
-    eslint: ^9.10.0
+    eslint: ^8.40 || 9
   peerDependenciesMeta:
     eslint:
       optional: true
-  checksum: 521c9c401a6248c14d71ff37f45e93685d42d0e9a537074bc295a6c38ff29e0f004f35a925fa50db425f3f45da9c5e135c739e804d4925a3f4e0e9e1bddba33c
+  checksum: b13e61d2f376744cfa4d2698f50ab12c13f92dbadc853211a8f293b282ab31940c0e7090db33b9be95887b7ebafc8c4f8c497ab39bb830ed5559cf21d079b39e
   languageName: node
   linkType: hard
 
@@ -642,6 +644,15 @@ __metadata:
   dependencies:
     "@types/json-schema": ^7.0.15
   checksum: 4d1a4163ba7f667297ba6e60de82f41d139b01951e2870b1bb609072c3c5df68b0288cc911ce3af0564dfa19bfda23cbf04eebd243ccb4960e0b5f927aa9a723
+  languageName: node
+  linkType: hard
+
+"@eslint/core@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@eslint/core@npm:1.0.0"
+  dependencies:
+    "@types/json-schema": ^7.0.15
+  checksum: 9f32f5c813d4336f94de3ed2f95140d89a842d0b3978254b6f5ddacaa1db5a05cf59d65055040242f91fb5a340638cd3b2bcca875c1b82279a6e63700c80c3cc
   languageName: node
   linkType: hard
 
@@ -1455,12 +1466,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.14.0":
-  version: 22.14.0
-  resolution: "@types/node@npm:22.14.0"
+"@types/node@npm:^24.10.1":
+  version: 24.10.1
+  resolution: "@types/node@npm:24.10.1"
   dependencies:
-    undici-types: ~6.21.0
-  checksum: 8bfae1d3c428b122d23750690bdc5b8295a53949823563ec60654a24ece98bde4fc0d2b5f06ddc6def6f01a08dfe62cece7c93e60964b74f736145dad5ee1302
+    undici-types: ~7.16.0
+  checksum: c2f370ae7a97c04991e0eee6b57e588a2abef0814a5f6e41fda5a9200cf02ae6654fad51c8372ee203ae4134bab80f5bf441c586f7f50e0fda3ba422f35eb3c0
   languageName: node
   linkType: hard
 
@@ -2938,12 +2949,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "eslint-plugin-project-structure@workspace:."
   dependencies:
-    "@eslint/compat": ^1.2.8
+    "@eslint/compat": ^2.0.0
     "@eslint/js": ^9.24.0
     "@types/jest": ^29.5.14
     "@types/js-yaml": ^4.0.9
     "@types/micromatch": ^4.0.9
-    "@types/node": ^22.14.0
+    "@types/node": ^24.10.1
     "@typescript-eslint/utils": ^8.47.0
     comment-json: ^4.4.1
     eslint: ^9.24.0
@@ -6543,10 +6554,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.21.0":
-  version: 6.21.0
-  resolution: "undici-types@npm:6.21.0"
-  checksum: 46331c7d6016bf85b3e8f20c159d62f5ae471aba1eb3dc52fff35a0259d58dcc7d592d4cc4f00c5f9243fa738a11cfa48bd20203040d4a9e6bc25e807fab7ab3
+"undici-types@npm:~7.16.0":
+  version: 7.16.0
+  resolution: "undici-types@npm:7.16.0"
+  checksum: 1ef68fc6c5bad200c8b6f17de8e5bc5cfdcadc164ba8d7208cd087cfa8583d922d8316a7fd76c9a658c22b4123d3ff847429185094484fbc65377d695c905857
   languageName: node
   linkType: hard
 
