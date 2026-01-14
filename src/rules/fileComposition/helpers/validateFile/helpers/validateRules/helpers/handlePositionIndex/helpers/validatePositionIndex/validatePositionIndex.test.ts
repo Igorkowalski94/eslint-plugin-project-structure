@@ -1,3 +1,5 @@
+import { TSESTree } from "@typescript-eslint/utils";
+
 import { Context, Node } from "rules/fileComposition/fileComposition.types";
 import { getNodePosition } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/helpers/getNodePosition";
 import { validatePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/validatePositionIndex/validatePositionIndex";
@@ -22,5 +24,24 @@ describe("validatePositionIndex", () => {
         bodyWithoutImports: [],
       }),
     ).toEqual(undefined);
+  });
+
+  test("Should call report if nodePosition !== positionIndex", () => {
+    (getNodePosition as jest.Mock).mockReturnValue(0);
+
+    const reportMock = jest.fn();
+
+    validatePositionIndex({
+      context: { report: reportMock } as unknown as Context,
+      node: {} as Node,
+      selectorType: "arrowFunction",
+      positionIndex: 1,
+      bodyWithoutImports: [
+        { loc: { start: { line: 1 } } },
+        { loc: { start: { line: 1 } } },
+      ] as TSESTree.ProgramStatement[],
+    });
+
+    expect(reportMock).toHaveBeenCalled();
   });
 });

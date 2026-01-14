@@ -2,8 +2,8 @@
 const SNAKE_CASE_LOWER_RE = /((([a-z]|\d)+_)*([a-z]|\d)+)/;
 const SNAKE_CASE_UPPER_RE = /((([A-Z]|\d)+_)*([A-Z]|\d)+)/;
 const KEBAB_CASE_RE = /((([a-z]|\d)+-)*([a-z]|\d)+)/;
-const CAMEL_CASE_RE = /([a-z]+[A-Z0-9]*[A-Z0-9]*)*/;
-const PASCAL_CASE_RE = /([A-Z]+[a-z0-9]*[A-Z0-9]*)*/;
+const CAMEL_CASE_RE = /([a-z][a-zA-Z0-9]*)/;
+const PASCAL_CASE_RE = /([A-Z][a-zA-Z0-9]*)/;
 const STRICT_CAMEL_CASE_RE =
   /[a-z][a-z0-9]*(([A-Z][a-z0-9]+)*[A-Z]?|([a-z0-9]+[A-Z])*|[A-Z])/;
 const STRICT_PASCAL_CASE_RE = /[A-Z](([a-z0-9]+[A-Z]?)*)/;
