@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-arguments */
 import { Pattern, RegexParameters } from "types";
 
 import {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 /* eslint-disable no-restricted-exports */
 // @ts-check
 
