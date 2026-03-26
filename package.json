@@ -1,7 +1,7 @@
 {
   "author": "Igor Kowalski (Igorkowalski94)",
   "name": "eslint-plugin-project-structure",
-  "version": "3.14.2",
+  "version": "3.14.3",
   "license": "MIT",
   "description": "Powerful ESLint plugin with rules to help you achieve a scalable, consistent, and well-structured project. Create your own framework! Define your folder structure, file composition, advanced naming conventions, and create independent modules. Take your project to the next level and save time by automating the review of key principles of a healthy project! react folder structure react file structure react project structure react conventions architecture react next.js angular node solid vue svelte",
   "keywords": [
@@ -42,7 +42,7 @@
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "scripts": {
-    "clean": "del /f ./parser.js ./parser.mjs ./parser.d.ts ./parser.d.mts",
+    "clean": "del /f parser.js parser.mjs parser.d.ts parser.d.mts",
     "build": "tsup",
     "format": "prettier --write --config .prettierrc.json .",
     "format:check": "prettier --check --config .prettierrc.json .",
@@ -56,7 +56,7 @@
     "husky:prepare": "husky install"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.47.0",
+    "@typescript-eslint/utils": "^8.57.2",
     "comment-json": "^4.4.1",
     "js-yaml": "^4.1.1",
     "jsonschema": "^1.5.0",

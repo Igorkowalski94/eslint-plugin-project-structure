@@ -8,6 +8,13 @@ import { createIndependentModules } from "rules/independentModules/helpers/creat
 import { independentModules } from "rules/independentModules/independentModules";
 
 // ts-prune-ignore-next
+export type { IndependentModulesConfig } from "rules/independentModules/independentModules.types";
+// ts-prune-ignore-next
+export type { FileCompositionConfig } from "rules/fileComposition/fileComposition.types";
+// ts-prune-ignore-next
+export type { FolderStructureConfig } from "rules/folderStructure/folderStructure.types";
+
+// ts-prune-ignore-next
 export const projectStructurePlugin = {
   rules: {
     "folder-structure": folderStructure,
