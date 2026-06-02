@@ -4,7 +4,10 @@ import path from "path";
 import { getInvalidReferenceError } from "errors/getInvalidReferenceError";
 
 import { getNodeExistenceError } from "rules/folderStructure/errors/getNodeExistenceError";
-import { NODE_NAME_REFERENCES } from "rules/folderStructure/folderStructure.consts";
+import {
+  NODE_NAME_REFERENCES,
+  NODE_PREFIX_REFERENCES,
+} from "rules/folderStructure/folderStructure.consts";
 import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
 
 describe("checkNodeExistence", () => {
@@ -27,8 +30,10 @@ describe("checkNodeExistence", () => {
               "src",
               "features",
               "Feature1",
-              "feature1.stories.tsx",
+              "feature1.Sub1.stories.tsx",
             ) ||
+          filepath ===
+            path.join("...", "src", "features", "Feature1", "feature1.json") ||
           filepath ===
             path.join("...", "src", "features", "Feature1", "test.ts"),
       );
@@ -36,8 +41,12 @@ describe("checkNodeExistence", () => {
     expect(() =>
       checkNodeExistence({
         structureRoot: "...",
-        enforceExistence: ["{nodeName}.stories.tsx", "test.ts"],
-        nodeName: "Feature1.tsx",
+        enforceExistence: [
+          "{nodeName}.stories.tsx",
+          "{nodePrefix}.json",
+          "test.ts",
+        ],
+        nodeName: "Feature1.Sub1.tsx",
         nodePath: "src/features/Feature1/Feature1.tsx",
         nodeType: "File",
         projectRoot: "...",
@@ -75,7 +84,10 @@ describe("checkNodeExistence", () => {
       }),
     ).toThrow(
       getInvalidReferenceError({
-        allowedReferences: Object.keys(NODE_NAME_REFERENCES),
+        allowedReferences: Object.keys({
+          ...NODE_NAME_REFERENCES,
+          ...NODE_PREFIX_REFERENCES,
+        }),
         invalidReferences: ["{nodeName2}", "{PascalCase}"],
         key: "enforceExistence",
       }),
