@@ -32,4 +32,20 @@ describe("getNodeTypeError", () => {
       }),
     ).toEqual(expected);
   });
+
+  it("Should append the custom message when provided", () => {
+    expect(
+      getNodeTypeError({
+        nodeName: "nodeName",
+        nodePath: "nodePath",
+        nodeType: "File",
+        folderName: "FolderName",
+        message: "Custom guidance.",
+      }),
+    ).toEqual(
+      new FinalError(
+        `${getBaseError({ nodeName: "nodeName", nodeType: "File" })}According to the structure, the 'FolderName' folder can only contain folders.${getLocationError({ nodePath: "nodePath" })}Custom guidance.`,
+      ),
+    );
+  });
 });

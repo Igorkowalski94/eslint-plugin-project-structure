@@ -40,6 +40,9 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
           type: "string",
           default: "",
         },
+        message: {
+          type: "string",
+        },
         children: {
           type: "array",
           default: [],
@@ -70,6 +73,9 @@ export const FOLDER_STRUCTURE_SCHEMA: JSONSchema4 = {
         name: {
           type: "string",
           default: "",
+        },
+        message: {
+          type: "string",
         },
         children: {
           type: "array",

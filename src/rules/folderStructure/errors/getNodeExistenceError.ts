@@ -8,6 +8,7 @@ interface GetNodeExistenceErrorProps {
   nodeName: string;
   nodePath: string;
   nodeType: NodeType;
+  message?: string;
 }
 
 export const getNodeExistenceError = ({
@@ -15,7 +16,8 @@ export const getNodeExistenceError = ({
   nodeName,
   nodePath,
   nodeType,
+  message,
 }: GetNodeExistenceErrorProps): FinalError =>
   new FinalError(
-    `🔥 ${nodeType} '${nodeName}' enforces the existence of other folders/files. 🔥\n\nEnforce existence = ${enforcedNodeNames.join(", ")}${getLocationError({ nodePath })}`,
+    `🔥 ${nodeType} '${nodeName}' enforces the existence of other folders/files. 🔥\n\nEnforce existence = ${enforcedNodeNames.join(", ")}${getLocationError({ nodePath })}${message ?? ""}`,
   );

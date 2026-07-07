@@ -16,6 +16,7 @@ interface CheckNodeExistenceProps {
   nodePath: string;
   structureRootConfig?: string;
   projectRoot: string;
+  message?: string;
 }
 
 export const checkNodeExistence = ({
@@ -26,6 +27,7 @@ export const checkNodeExistence = ({
   nodePath,
   structureRootConfig,
   projectRoot,
+  message,
 }: CheckNodeExistenceProps): void => {
   const nodeDirname = path.dirname(nodePath);
   const currentNodeName =
@@ -87,6 +89,7 @@ export const checkNodeExistence = ({
     enforcedNodeNames,
     nodeName,
     nodeType,
+    message,
     nodePath: getNodePathWithStructureRoot({
       nodePath,
       structureRoot: structureRootConfig,

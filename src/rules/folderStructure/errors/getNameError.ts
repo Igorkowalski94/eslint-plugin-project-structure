@@ -9,6 +9,7 @@ interface GetNameErrorProps {
   nodeName: string;
   nodePath: string;
   allowedNames: string[];
+  message?: string;
 }
 
 export const getNameError = ({
@@ -16,7 +17,8 @@ export const getNameError = ({
   nodePath,
   nodeType,
   allowedNames,
+  message,
 }: GetNameErrorProps): FinalError =>
   new FinalError(
-    `${getBaseError({ nodeName, nodeType })}Allowed names  = ${allowedNames.join(", ")}${getLocationError({ nodePath })}`,
+    `${getBaseError({ nodeName, nodeType })}Allowed names  = ${allowedNames.join(", ")}${getLocationError({ nodePath })}${message ?? ""}`,
   );

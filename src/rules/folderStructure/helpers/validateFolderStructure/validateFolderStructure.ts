@@ -54,6 +54,7 @@ export const validateFolderStructure = ({
       nodePath: "",
       structureRootConfig: config.structureRoot,
       projectRoot,
+      message: rootRule.message,
     });
   }
 

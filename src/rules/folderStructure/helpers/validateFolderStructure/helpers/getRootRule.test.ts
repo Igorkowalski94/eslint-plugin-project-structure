@@ -23,6 +23,20 @@ describe("getRootRule", () => {
       rootFolderName: "rootFolderName",
       expected: { name: "rootFolderName", enforceExistence: [], children: [] },
     },
+    {
+      structure: {
+        message: "Custom guidance.",
+        enforceExistence: [],
+        children: [],
+      },
+      rootFolderName: "rootFolderName",
+      expected: {
+        name: "rootFolderName",
+        message: "Custom guidance.",
+        enforceExistence: [],
+        children: [],
+      },
+    },
   ])(
     "Should return correct value for %o",
     ({ structure, rootFolderName, expected }) => {

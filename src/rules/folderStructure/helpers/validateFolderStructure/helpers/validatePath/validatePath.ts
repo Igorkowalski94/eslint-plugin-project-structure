@@ -77,6 +77,7 @@ export const validatePath = ({
         nodeType,
         nodeName,
         folderName,
+        message: rule.message,
       });
 
     throw getNameError({
@@ -84,10 +85,11 @@ export const validatePath = ({
       nodeName,
       nodePath: nodePathWithStructureRoot,
       nodeType,
+      message: rule.message,
     });
   }
 
-  const { children, enforceExistence, name } = getRule({
+  const { children, enforceExistence, name, message } = getRule({
     rule: nodeRule,
     rules,
   });
@@ -101,6 +103,7 @@ export const validatePath = ({
       nodeType,
       structureRootConfig: config.structureRoot,
       projectRoot,
+      message,
     });
 
   if (children) {
@@ -110,7 +113,7 @@ export const validatePath = ({
       pathname: nextPathname,
       filenameWithoutProjectRoot,
       folderName: nodeName,
-      rule: { name, enforceExistence, children },
+      rule: { name, enforceExistence, children, message },
       config,
       structureRoot,
       projectRoot,

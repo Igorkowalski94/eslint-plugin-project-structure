@@ -38,6 +38,9 @@
           "type": "string",
           "default": ""
         },
+        "message": {
+          "type": "string"
+        },
         "children": {
           "type": "array",
           "default": [],
@@ -68,6 +71,9 @@
         "name": {
           "type": "string",
           "default": ""
+        },
+        "message": {
+          "type": "string"
         },
         "children": {
           "type": "array",

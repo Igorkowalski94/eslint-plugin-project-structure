@@ -162,4 +162,100 @@ describe("validatePath", () => {
 
     expect(checkNodeExistence).toHaveBeenCalled();
   });
+
+  it("Should throw getNameError with the folder's custom message", () => {
+    expect(() =>
+      validatePath({
+        pathname: "src/componentName.tsx",
+        filenameWithoutProjectRoot: "src/componentName.tsx",
+        structureRoot: "projectName",
+        folderName: "projectName",
+        rule: {
+          name: "*",
+          children: [
+            {
+              name: "src",
+              message: "Custom guidance.",
+              children: [
+                {
+                  name: "{PascalCase}.tsx",
+                },
+              ],
+            },
+          ],
+        },
+        config: {
+          structure: [
+            {
+              name: "src",
+              message: "Custom guidance.",
+              children: [
+                {
+                  name: "{PascalCase}.tsx",
+                },
+              ],
+            },
+          ],
+        },
+        projectRoot: "...",
+      }),
+    ).toThrow(
+      getNameError({
+        allowedNames: ["{PascalCase}.tsx"],
+        nodeName: "componentName.tsx",
+        nodePath: "src/componentName.tsx",
+        nodeType: "File",
+        message: "Custom guidance.",
+      }),
+    );
+  });
+
+  it("Should call checkNodeExistence with the matched rule's custom message", () => {
+    const checkNodeExistenceMock = jest.fn();
+
+    (checkNodeExistence as jest.Mock).mockImplementation(
+      checkNodeExistenceMock,
+    );
+
+    validatePath({
+      pathname: "src/ComponentName.tsx",
+      filenameWithoutProjectRoot: "src/ComponentName.tsx",
+      structureRoot: "projectName",
+      folderName: "projectName",
+      rule: {
+        name: "*",
+        children: [
+          {
+            name: "src",
+            children: [
+              {
+                name: "{PascalCase}.tsx",
+                message: "Custom guidance.",
+                enforceExistence: ["{NodeName}.test.tsx"],
+              },
+            ],
+          },
+        ],
+      },
+      config: {
+        structure: [
+          {
+            name: "src",
+            children: [
+              {
+                name: "{PascalCase}.tsx",
+                message: "Custom guidance.",
+                enforceExistence: ["{NodeName}.test.tsx"],
+              },
+            ],
+          },
+        ],
+      },
+      projectRoot: "...",
+    });
+
+    expect(checkNodeExistence).toHaveBeenCalledWith(
+      expect.objectContaining({ message: "Custom guidance." }),
+    );
+  });
 });

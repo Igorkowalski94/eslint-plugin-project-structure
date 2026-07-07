@@ -173,4 +173,27 @@ describe("checkNodeExistence", () => {
       }),
     );
   });
+
+  it("should forward the custom message to the error when node do not exist", () => {
+    expect(() =>
+      checkNodeExistence({
+        structureRoot: "...",
+        enforceExistence: ["test.ts"],
+        nodeName: "features",
+        nodePath: "src/features",
+        nodeType: "Folder",
+        projectRoot: "...",
+        structureRootConfig: "...",
+        message: "Custom guidance.",
+      }),
+    ).toThrow(
+      getNodeExistenceError({
+        enforcedNodeNames: ["./src/features/test.ts"],
+        nodeName: "features",
+        nodePath: ".../src/features",
+        nodeType: "Folder",
+        message: "Custom guidance.",
+      }),
+    );
+  });
 });

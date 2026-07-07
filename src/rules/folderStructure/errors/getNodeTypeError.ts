@@ -9,6 +9,7 @@ interface GetNodeTypeErrorProps {
   nodeName: string;
   nodePath: string;
   folderName: string;
+  message?: string;
 }
 
 export const getNodeTypeError = ({
@@ -16,7 +17,8 @@ export const getNodeTypeError = ({
   nodePath,
   nodeType,
   folderName,
+  message,
 }: GetNodeTypeErrorProps): FinalError =>
   new FinalError(
-    `${getBaseError({ nodeName, nodeType })}According to the structure, the '${folderName}' folder can only contain ${nodeType === "File" ? "folders" : "files"}.${getLocationError({ nodePath })}`,
+    `${getBaseError({ nodeName, nodeType })}According to the structure, the '${folderName}' folder can only contain ${nodeType === "File" ? "folders" : "files"}.${getLocationError({ nodePath })}${message ?? ""}`,
   );
