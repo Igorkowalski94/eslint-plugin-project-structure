@@ -4,6 +4,7 @@ parser.*
 node_modules/**
 coverage/**
 jestCache/**
+.idea/**
 
 .yarn/*
 !.yarn/patches
