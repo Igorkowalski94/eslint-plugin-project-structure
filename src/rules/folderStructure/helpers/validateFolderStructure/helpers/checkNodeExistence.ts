@@ -30,6 +30,8 @@ export const checkNodeExistence = ({
   const nodeDirname = path.dirname(nodePath);
   const currentNodeName =
     nodeName.substring(0, nodeName.lastIndexOf(".")) || nodeName;
+  const currentNodePrefix =
+    nodeName.substring(0, nodeName.indexOf(".")) || nodeName;
   const currentDirname = nodeType === "File" ? nodeDirname : nodePath;
 
   const currentEnforceExistence =
@@ -59,6 +61,27 @@ export const checkNodeExistence = ({
           }),
           NODE_NAME: transformStringToCase({
             str: currentNodeName,
+            transformTo: "SNAKE_CASE",
+          }),
+
+          nodePrefix: transformStringToCase({
+            str: currentNodePrefix,
+            transformTo: "camelCase",
+          }),
+          NodePrefix: transformStringToCase({
+            str: currentNodePrefix,
+            transformTo: "PascalCase",
+          }),
+          "node-prefix": transformStringToCase({
+            str: currentNodePrefix,
+            transformTo: "kebab-case",
+          }),
+          node_prefix: transformStringToCase({
+            str: currentNodePrefix,
+            transformTo: "snake_case",
+          }),
+          NODE_PREFIX: transformStringToCase({
+            str: currentNodePrefix,
             transformTo: "SNAKE_CASE",
           }),
         },
