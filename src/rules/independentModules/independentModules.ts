@@ -20,10 +20,16 @@ export const independentModules = ESLintUtils.RuleCreator(
         "A key principle of a healthy project is to prevent the creation of a massive dependency tree, where removing or editing one feature triggers a chain reaction that impacts the entire project. Create independent modules to keep your project scalable and easy to maintain. Get rid of dependencies between modules and create truly independent functionalities.",
     },
     type: "problem",
-    schema: [{ type: "object", additionalProperties: true }],
+    schema: [
+      {
+        type: "object",
+        description:
+          "Independent modules configuration, or a path to a config file/settings key containing it.",
+        additionalProperties: true,
+      },
+    ],
     messages: ESLINT_ERRORS,
   },
-  defaultOptions: [],
   create(context) {
     const config = getIndependentModulesConfig(context);
 

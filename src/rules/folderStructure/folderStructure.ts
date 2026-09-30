@@ -16,10 +16,16 @@ export const folderStructure = ESLintUtils.RuleCreator(
         "Enforce rules on folder structure to keep your repository consistent, orderly and well thought out.",
     },
     type: "problem",
-    schema: [{ type: "object", additionalProperties: true }],
+    schema: [
+      {
+        type: "object",
+        description:
+          "Folder structure configuration, or a path to a config file/settings key containing it.",
+        additionalProperties: true,
+      },
+    ],
     messages: ESLINT_ERRORS,
   },
-  defaultOptions: [],
   create(context) {
     return {
       Program(node): void {

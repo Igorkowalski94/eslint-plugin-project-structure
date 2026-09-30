@@ -23,11 +23,17 @@ export const fileComposition = ESLintUtils.RuleCreator(
         "Enforce advanced naming rules and prohibit the use of given selectors in a given file. Have full control over what your file can contain and the naming conventions it must follow.",
     },
     type: "problem",
-    schema: [{ type: "object", additionalProperties: true }],
+    schema: [
+      {
+        type: "object",
+        description:
+          "File composition configuration, or a path to a config file/settings key containing it.",
+        additionalProperties: true,
+      },
+    ],
     messages: ESLINT_ERRORS,
     fixable: "code",
   },
-  defaultOptions: [],
   create(context) {
     const { config, fileConfig } = getFileCompositionConfig(context);
 

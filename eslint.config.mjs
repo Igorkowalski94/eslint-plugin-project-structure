@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 
 import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
+import eslintPlugin from "eslint-plugin-eslint-plugin";
 import importPlugin from "eslint-plugin-import";
 import pluginPrettier from "eslint-plugin-prettier";
 import {
@@ -165,6 +166,17 @@ export default tseslint.config(
           ],
         },
       ],
+    },
+  },
+
+  {
+    files: ["src/rules/**/*.ts"],
+    extends: [eslintPlugin.configs.recommended],
+    rules: {
+      // Rule options are always fully sourced from a config file/settings
+      // key when omitted, so there is no single meaningful default value
+      // to declare for the object schema entry.
+      "eslint-plugin/require-meta-default-options": "off",
     },
   },
 );

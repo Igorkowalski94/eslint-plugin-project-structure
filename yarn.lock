@@ -572,6 +572,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint-community/eslint-utils@npm:^4.4.0":
+  version: 4.10.1
+  resolution: "@eslint-community/eslint-utils@npm:4.10.1"
+  dependencies:
+    eslint-visitor-keys: ^3.4.3
+  peerDependencies:
+    eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
+  checksum: ac9da8475207591237f79462fef7f201611b22481df1972e6b81bd2a05dc546e0b69b0094771d23b7a3075d7d69d413c955989473abc0e227f9473108124ded4
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.8.0, @eslint-community/eslint-utils@npm:^4.9.1":
   version: 4.9.1
   resolution: "@eslint-community/eslint-utils@npm:4.9.1"
@@ -2803,6 +2814,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-eslint-plugin@npm:^7.6.2":
+  version: 7.6.2
+  resolution: "eslint-plugin-eslint-plugin@npm:7.6.2"
+  dependencies:
+    "@eslint-community/eslint-utils": ^4.4.0
+    estraverse: ^5.3.0
+  peerDependencies:
+    eslint: ">=9.0.0"
+  checksum: 4fc5c7ef784fe1755819912a40a7ef3a3316f53cf8af031eff82643df3b80db09a7492a32e98a718fbf17efdfe0e3d33e69fee82cb19a238eeb9b6e3df1be593
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-import@npm:^2.32.0":
   version: 2.32.0
   resolution: "eslint-plugin-import@npm:2.32.0"
@@ -2879,6 +2902,7 @@ __metadata:
     comment-json: ^5.0.0
     eslint: ^9.24.0
     eslint-config-prettier: ^10.1.8
+    eslint-plugin-eslint-plugin: ^7.6.2
     eslint-plugin-import: ^2.32.0
     eslint-plugin-prettier: ^5.5.6
     eslint-plugin-project-structure: 3.14.3
@@ -3016,7 +3040,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estraverse@npm:^5.1.0, estraverse@npm:^5.2.0":
+"estraverse@npm:^5.1.0, estraverse@npm:^5.2.0, estraverse@npm:^5.3.0":
   version: 5.3.0
   resolution: "estraverse@npm:5.3.0"
   checksum: 072780882dc8416ad144f8fe199628d2b3e7bbc9989d9ed43795d2c90309a2047e6bc5979d7e2322a341163d22cfad9e21f4110597fe487519697389497e4e2b
