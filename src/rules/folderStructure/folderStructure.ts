@@ -27,10 +27,7 @@ export const folderStructure = ESLintUtils.RuleCreator(
     messages: ESLINT_ERRORS,
   },
   create(context) {
-    return {
-      Program(node): void {
-        handleProgram({ context, node });
-      },
-    };
+    handleProgram({ context });
+    return {};
   },
 });

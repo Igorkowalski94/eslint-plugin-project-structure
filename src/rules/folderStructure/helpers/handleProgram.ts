@@ -1,6 +1,5 @@
 import path from "path";
 
-import { TSESTree } from "@typescript-eslint/utils";
 import { PROJECT_STRUCTURE_CACHE_FILE_NAME } from "consts";
 
 import { finalErrorGuard } from "errors/finalErrorGuard";
@@ -18,12 +17,10 @@ import { validateFolderStructure } from "rules/folderStructure/helpers/validateF
 
 export interface HandleProgramProps {
   context: Context;
-  node: TSESTree.Program;
 }
 
 export const handleProgram = ({
   context: { settings, filename, options, report, cwd },
-  node,
 }: HandleProgramProps): void => {
   const config = readConfigFile<FolderStructureConfig>({
     key: "project-structure/folder-structure-config-path",
@@ -73,7 +70,7 @@ export const handleProgram = ({
       return;
 
     report({
-      node,
+      loc: { line: 1, column: 0 },
       messageId: "error",
       data: { error: error.message },
     });
