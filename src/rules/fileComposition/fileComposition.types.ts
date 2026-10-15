@@ -67,6 +67,7 @@ type CustomErrors = Partial<Record<SelectorType, string>>;
 export interface RootSelectorLimit {
   selector: SelectorType | SelectorType[];
   limit: number | { max?: number; min?: number };
+  format?: string[] | string;
 }
 
 export interface AllowOnlySpecifiedSelectors {

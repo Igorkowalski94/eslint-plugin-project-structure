@@ -1,4 +1,5 @@
 import { TSESTree } from "@typescript-eslint/utils";
+import { parser } from "typescript-eslint";
 
 import { getSelectorsCount } from "rules/fileComposition/helpers/validateRootSelectorsLimits/helpers/getSelectorsCount";
 
@@ -463,5 +464,78 @@ describe("getSelectorsCount", () => {
       interface: 3,
       enum: 2,
     });
+  });
+});
+
+describe("getSelectorsCount with isNameIncluded", () => {
+  const getBody = (code: string): TSESTree.ProgramStatement[] =>
+    (parser.parseForESLint(code).ast as TSESTree.Program).body;
+  const isHookName = (name: string): boolean => /^use[A-Z0-9]/.test(name);
+
+  test("Should count only selectors whose name is included", () => {
+    expect(
+      getSelectorsCount(
+        getBody(`
+          export const useFirst = () => {};
+          const helper = () => {};
+          function useSecond() {}
+          function helperFunction() {}
+          export default function useThird() {}
+          export default function () {}
+          const useFactory = createHook();
+          const factory = createHook();
+          const useAlias = useFirst;
+          class Component {}
+          type Props = {};
+          interface State {}
+          enum Status {}
+        `),
+        isHookName,
+      ),
+    ).toEqual({
+      arrowFunction: 1,
+      function: 2,
+      variableExpression: 1,
+      variable: 1,
+    });
+  });
+
+  test("Should count each included name bound by destructuring", () => {
+    expect(
+      getSelectorsCount(
+        getBody(`
+          const { useFirst, second: useSecond = fallback, helper, ...useRest } = createHooks();
+          const [useThird, , [useFourth]] = createHooks();
+          const { nested: { useFifth } } = hooks;
+        `),
+        isHookName,
+      ),
+    ).toEqual({ variableExpression: 5, variable: 1 });
+  });
+
+  test("Should count each destructuring declarator once without isNameIncluded", () => {
+    expect(
+      getSelectorsCount(
+        getBody(`
+          const { useFirst, useSecond } = createHooks();
+          const [useThird] = hooks;
+        `),
+      ),
+    ).toEqual({ variableExpression: 1, variable: 1 });
+  });
+
+  test("Should ignore overload signatures and re-exports", () => {
+    expect(
+      getSelectorsCount(
+        getBody(`
+          export function useOverload(value: string): string;
+          export function useOverload(value: number): number;
+          export function useOverload(value: unknown) { return value; }
+          export { useOther } from "./useOther";
+          export { useOverload as useRenamed };
+        `),
+        isHookName,
+      ),
+    ).toEqual({ function: 1 });
   });
 });

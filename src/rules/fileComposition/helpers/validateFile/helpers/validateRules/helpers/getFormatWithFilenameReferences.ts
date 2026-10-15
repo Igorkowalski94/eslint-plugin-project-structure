@@ -1,6 +1,6 @@
 import { transformStringToCase } from "helpers/transformStringToCase";
 
-import { REFERENCES } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/validateRules.consts";
+import { REFERENCES } from "rules/fileComposition/fileComposition.consts";
 
 interface GetFormatWithFilenameReferencesProps {
   formatWithReferences: string[];

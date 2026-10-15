@@ -1,10 +1,10 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 import { PositionIndex } from "rules/fileComposition/fileComposition.types";
+import { isNameValid } from "rules/fileComposition/helpers/isNameValid";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectSelector";
 import { PositionIndexRule } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/handlePositionIndex.types";
 import { getSelectorNamesFromBody } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/helpers/getSelectorNamesFromBody";
-import { isNameValid } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isNameValid";
 
 interface GetPositionIndexProps {
   positionIndexRules: PositionIndexRule[];

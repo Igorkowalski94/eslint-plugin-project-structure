@@ -10,7 +10,7 @@ import { Rule } from "rules/fileComposition/fileComposition.types";
 import {
   prepareFormat,
   PrepareFormatReturn,
-} from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat";
+} from "rules/fileComposition/helpers/prepareFormat/prepareFormat";
 
 describe("prepareFormat", () => {
   test.each<{

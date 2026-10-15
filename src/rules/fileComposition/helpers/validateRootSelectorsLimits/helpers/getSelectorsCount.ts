@@ -3,55 +3,73 @@ import { TSESTree } from "@typescript-eslint/utils";
 
 import { SelectorType } from "rules/fileComposition/fileComposition.types";
 import { getIdentifierFromExpression } from "rules/fileComposition/helpers/getIdentifierFromExpression";
+import { getBindingNames } from "rules/fileComposition/helpers/validateRootSelectorsLimits/helpers/getBindingNames";
 
 type GetSelectorsCountReturn = Partial<Record<SelectorType, number>>;
 
+/**
+ * Without `isNameIncluded` every root selector is counted once.
+ * With it only selectors whose name passes are counted, and each name bound by
+ * a destructuring pattern is counted separately.
+ */
 export const getSelectorsCount = (
   bodyNode: TSESTree.ProgramStatement[],
+  isNameIncluded?: (name: string) => boolean,
 ): GetSelectorsCountReturn => {
   const selectorsCount: GetSelectorsCountReturn = {};
 
-  const incrementSelectorCount = (nodeType: SelectorType): void => {
-    if (selectorsCount[nodeType]) {
-      selectorsCount[nodeType] = selectorsCount[nodeType] + 1;
-      return;
-    }
+  const incrementSelectorCount = (
+    nodeType: SelectorType,
+    names: string[],
+  ): void => {
+    const occurrences = isNameIncluded
+      ? names.filter(isNameIncluded).length
+      : 1;
 
-    selectorsCount[nodeType] = 1;
+    if (!occurrences) return;
+
+    selectorsCount[nodeType] = (selectorsCount[nodeType] ?? 0) + occurrences;
   };
 
   const checkNode = (node: TSESTree.ProgramStatement): void => {
+    const names =
+      "id" in node && node.id?.type === TSESTree.AST_NODE_TYPES.Identifier
+        ? [node.id.name]
+        : [];
+
     if (node.type === TSESTree.AST_NODE_TYPES.ClassDeclaration)
-      incrementSelectorCount("class");
+      incrementSelectorCount("class", names);
 
     if (node.type === TSESTree.AST_NODE_TYPES.FunctionDeclaration)
-      incrementSelectorCount("function");
+      incrementSelectorCount("function", names);
 
     if (node.type === TSESTree.AST_NODE_TYPES.TSTypeAliasDeclaration)
-      incrementSelectorCount("type");
+      incrementSelectorCount("type", names);
 
     if (node.type === TSESTree.AST_NODE_TYPES.TSInterfaceDeclaration)
-      incrementSelectorCount("interface");
+      incrementSelectorCount("interface", names);
 
     if (node.type === TSESTree.AST_NODE_TYPES.TSEnumDeclaration)
-      incrementSelectorCount("enum");
+      incrementSelectorCount("enum", names);
 
     if (node.type === TSESTree.AST_NODE_TYPES.VariableDeclaration)
       node.declarations.forEach((variableNode) => {
+        const variableNames = getBindingNames(variableNode.id);
+
         if (
           variableNode.init?.type ===
           TSESTree.AST_NODE_TYPES.ArrowFunctionExpression
         )
-          return incrementSelectorCount("arrowFunction");
+          return incrementSelectorCount("arrowFunction", variableNames);
 
         const isVariableExpression = getIdentifierFromExpression(
           variableNode.init,
         );
 
         if (isVariableExpression)
-          return incrementSelectorCount("variableExpression");
+          return incrementSelectorCount("variableExpression", variableNames);
 
-        incrementSelectorCount("variable");
+        incrementSelectorCount("variable", variableNames);
       });
   };
 
