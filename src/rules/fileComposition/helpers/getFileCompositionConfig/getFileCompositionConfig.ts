@@ -3,7 +3,7 @@ import path from "path";
 import { getProjectRoot } from "helpers/getProjectRoot";
 import { isCorrectPattern } from "helpers/isCorrectPattern";
 import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
-import { validateConfig } from "helpers/validateConfig";
+import { validateConfig } from "helpers/validateConfig/validateConfig";
 
 import {
   Context,

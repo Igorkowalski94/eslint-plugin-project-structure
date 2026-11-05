@@ -1,6 +1,6 @@
 import path from "path";
 
-import { validateConfig } from "helpers/validateConfig";
+import { validateConfig } from "helpers/validateConfig/validateConfig";
 
 import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";
 import { isIgnoredPathname } from "rules/folderStructure/helpers/validateFolderStructure/helpers/isIgnoredPathname";
@@ -14,7 +14,7 @@ jest.mock(
   }),
 );
 
-jest.mock("helpers/validateConfig", () => ({
+jest.mock("helpers/validateConfig/validateConfig", () => ({
   validateConfig: jest.fn(),
 }));
 
