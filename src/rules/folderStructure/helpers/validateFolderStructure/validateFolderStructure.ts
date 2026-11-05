@@ -1,6 +1,6 @@
 import path from "path";
 
-import { validateConfig } from "helpers/validateConfig";
+import { validateConfig } from "helpers/validateConfig/validateConfig";
 
 import { FolderStructureConfig } from "rules/folderStructure/folderStructure.types";
 import { checkNodeExistence } from "rules/folderStructure/helpers/validateFolderStructure/helpers/checkNodeExistence";

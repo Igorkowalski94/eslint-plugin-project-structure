@@ -1,5 +1,5 @@
 import { readConfigFile } from "helpers/readConfigFile/readConfigFile";
-import { validateConfig } from "helpers/validateConfig";
+import { validateConfig } from "helpers/validateConfig/validateConfig";
 
 import { INDEPENDENT_MODULES_SCHEMA } from "rules/independentModules/helpers/getIndependentModulesConfig/getIndependentModulesConfig.consts";
 import { getPathAliases } from "rules/independentModules/helpers/getIndependentModulesConfig/helpers/getPathAliases";
