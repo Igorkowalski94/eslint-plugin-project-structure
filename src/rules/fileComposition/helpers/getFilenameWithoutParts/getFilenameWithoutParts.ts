@@ -1,6 +1,6 @@
 import { Rule } from "rules/fileComposition/fileComposition.types";
-import { getFileNameWithoutExtension } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFilenameWithoutParts/helpers/getFileNameWithoutExtension";
-import { removeFilenameParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFilenameWithoutParts/helpers/removeFilenameParts";
+import { getFileNameWithoutExtension } from "rules/fileComposition/helpers/getFilenameWithoutParts/helpers/getFileNameWithoutExtension";
+import { removeFilenameParts } from "rules/fileComposition/helpers/getFilenameWithoutParts/helpers/removeFilenameParts";
 
 interface GetFilenameWithoutPartsProps {
   filenamePartsToRemove: Rule["filenamePartsToRemove"];

@@ -8,13 +8,13 @@ import {
   FileRules,
   SelectorType,
 } from "rules/fileComposition/fileComposition.types";
+import { getFilenameWithoutParts } from "rules/fileComposition/helpers/getFilenameWithoutParts/getFilenameWithoutParts";
+import { isNameValid } from "rules/fileComposition/helpers/isNameValid";
+import { prepareFormat } from "rules/fileComposition/helpers/prepareFormat/prepareFormat";
 import { isCorrectSelector } from "rules/fileComposition/helpers/validateFile/helpers/isCorrectSelector";
 import { isSelectorAllowed } from "rules/fileComposition/helpers/validateFile/helpers/isSelectorAllowed/isSelectorAllowed";
-import { getFilenameWithoutParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFilenameWithoutParts/getFilenameWithoutParts";
 import { getFormatWithFilenameReferences } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFormatWithFilenameReferences";
 import { handlePositionIndex } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/handlePositionIndex";
-import { isNameValid } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isNameValid";
-import { prepareFormat } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat";
 import { ValidateFileProps } from "rules/fileComposition/helpers/validateFile/validateFile";
 
 interface ValidateRulesProps {

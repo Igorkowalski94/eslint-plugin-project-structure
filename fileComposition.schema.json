@@ -77,6 +77,16 @@
                 }
               }
             ]
+          },
+          "format": {
+            "oneOf": [
+              { "type": "string", "default": "" },
+              {
+                "type": "array",
+                "default": [],
+                "items": { "type": "string" }
+              }
+            ]
           }
         },
         "required": ["limit", "selector"]

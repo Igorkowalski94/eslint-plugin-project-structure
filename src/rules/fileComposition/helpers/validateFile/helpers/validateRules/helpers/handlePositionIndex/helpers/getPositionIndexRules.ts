@@ -1,9 +1,9 @@
 import { RegexParameters } from "types";
 
 import { Rule } from "rules/fileComposition/fileComposition.types";
-import { getFilenameWithoutParts } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/getFilenameWithoutParts/getFilenameWithoutParts";
+import { getFilenameWithoutParts } from "rules/fileComposition/helpers/getFilenameWithoutParts/getFilenameWithoutParts";
+import { prepareFormat } from "rules/fileComposition/helpers/prepareFormat/prepareFormat";
 import { PositionIndexRule } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/handlePositionIndex/handlePositionIndex.types";
-import { prepareFormat } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/prepareFormat/prepareFormat";
 
 interface GetPositionIndexRulesProps {
   rules: Rule[];

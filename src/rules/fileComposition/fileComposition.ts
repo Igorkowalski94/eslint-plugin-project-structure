@@ -1,4 +1,8 @@
+import path from "path";
+
 import { ESLintUtils } from "@typescript-eslint/utils";
+
+import { getProjectRoot } from "helpers/getProjectRoot";
 
 import { ESLINT_ERRORS } from "rules/fileComposition/fileComposition.consts";
 import { FileCompositionConfig } from "rules/fileComposition/fileComposition.types";
@@ -43,6 +47,14 @@ export const fileComposition = ESLintUtils.RuleCreator(
           node,
           report: context.report,
           rootSelectorsLimits: fileConfig?.rootSelectorsLimits,
+          filenamePath: path.relative(
+            getProjectRoot({
+              cwd: context.cwd,
+              projectRootConfig: config.projectRoot,
+            }),
+            context.filename,
+          ),
+          regexParameters: config.regexParameters,
         });
       },
       VariableDeclarator(node): void {

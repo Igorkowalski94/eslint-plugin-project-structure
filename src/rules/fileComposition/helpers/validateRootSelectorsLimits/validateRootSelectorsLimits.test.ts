@@ -1,4 +1,5 @@
 import { TSESTree } from "@typescript-eslint/utils";
+import { parser } from "typescript-eslint";
 
 import { getSelectorsCount } from "rules/fileComposition/helpers/validateRootSelectorsLimits/helpers/getSelectorsCount";
 import { validateRootSelectorsLimits } from "rules/fileComposition/helpers/validateRootSelectorsLimits/validateRootSelectorsLimits";
@@ -182,6 +183,83 @@ describe("validateRootSelectorsLimits", () => {
           ],
         }),
       ).toEqual(undefined);
+    });
+  });
+});
+
+describe("validateRootSelectorsLimits with format", () => {
+  const { getSelectorsCount: actualGetSelectorsCount } = jest.requireActual<{
+    getSelectorsCount: typeof getSelectorsCount;
+  }>(
+    "rules/fileComposition/helpers/validateRootSelectorsLimits/helpers/getSelectorsCount",
+  );
+
+  beforeEach(() => {
+    (getSelectorsCount as jest.Mock).mockImplementation(
+      actualGetSelectorsCount,
+    );
+  });
+
+  const program = parser.parseForESLint(`
+    export const useHomeData = () => {};
+    const useHiddenHook = createHook();
+    const helper = () => {};
+  `).ast as TSESTree.Program;
+
+  test("Should count only names matching the format", () => {
+    const reportMock = jest.fn();
+
+    validateRootSelectorsLimits({
+      node: program,
+      report: reportMock,
+      filenamePath: "features/home/hooks/useHomeData.ts",
+      rootSelectorsLimits: [
+        {
+          selector: ["arrowFunction", "variableExpression"],
+          format: "use{PascalCase}",
+          limit: 1,
+        },
+        {
+          selector: "arrowFunction",
+          format: ["{fileName}", "helper"],
+          limit: { min: 2, max: 2 },
+        },
+      ],
+    });
+
+    expect(reportMock).toHaveBeenCalledWith({
+      node: program,
+      messageId: "rootSelectorsLimits",
+      data: {
+        error:
+          "\nSelector: 'arrowFunction', 'variableExpression', format = 'use{PascalCase}', limit = 1, occurrences = 2.",
+      },
+    });
+  });
+
+  test("Should apply regexParameters and default the filename", () => {
+    const reportMock = jest.fn();
+
+    validateRootSelectorsLimits({
+      node: program,
+      report: reportMock,
+      regexParameters: { hook: "use[A-Z0-9](\\w+)?" },
+      rootSelectorsLimits: [
+        {
+          selector: ["arrowFunction", "variableExpression"],
+          format: "{hook}",
+          limit: { max: 0 },
+        },
+      ],
+    });
+
+    expect(reportMock).toHaveBeenCalledWith({
+      node: program,
+      messageId: "rootSelectorsLimits",
+      data: {
+        error:
+          "\nSelector: 'arrowFunction', 'variableExpression', format = '{hook}', max = 0, occurrences = 2.",
+      },
     });
   });
 });

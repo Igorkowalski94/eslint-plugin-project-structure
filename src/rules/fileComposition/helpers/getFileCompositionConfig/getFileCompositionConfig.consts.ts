@@ -80,6 +80,16 @@ export const FILE_COMPOSITION_SCHEMA: JSONSchema4 = {
               },
             ],
           },
+          format: {
+            oneOf: [
+              { type: "string", default: "" },
+              {
+                type: "array",
+                default: [],
+                items: { type: "string" },
+              },
+            ],
+          },
         },
         required: ["limit", "selector"],
       },

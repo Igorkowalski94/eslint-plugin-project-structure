@@ -1,6 +1,6 @@
 import { getInvalidRegexError } from "errors/getInvalidRegexError";
 
-import { isNameValid } from "rules/fileComposition/helpers/validateFile/helpers/validateRules/helpers/isNameValid";
+import { isNameValid } from "rules/fileComposition/helpers/isNameValid";
 
 describe("isNameValid", () => {
   test("Should throw getInvalidRegexError when regex is invalid", () => {
